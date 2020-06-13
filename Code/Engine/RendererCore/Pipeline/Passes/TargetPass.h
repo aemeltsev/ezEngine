@@ -12,13 +12,12 @@ public:
 
   ezGALTextureHandle GetTextureHandle(const ezView& view, const ezNodePin* pPin);
 
-  virtual bool GetRenderTargetDescriptions(const ezView& view, const ezArrayPtr<ezGALTextureCreationDescription* const> inputs,
-    ezArrayPtr<ezGALTextureCreationDescription> outputs) override;
-  virtual void Execute(const ezRenderViewContext& renderViewContext, const ezArrayPtr<ezRenderPipelinePassConnection* const> inputs,
-    const ezArrayPtr<ezRenderPipelinePassConnection* const> outputs) override;
+  virtual bool GetRenderTargetDescriptions(const ezView& view, const ezArrayPtr<ezGALTextureCreationDescription* const> inputs, ezArrayPtr<ezGALTextureCreationDescription> outputs) override;
+  virtual void Execute(
+    const ezRenderViewContext& renderViewContext, const ezArrayPtr<ezRenderPipelinePassConnection* const> inputs, const ezArrayPtr<ezRenderPipelinePassConnection* const> outputs) override;
 
 private:
-  bool VerifyInput(const ezView& view, const ezArrayPtr<ezGALTextureCreationDescription*const> inputs, const char* szPinName);
+  bool VerifyInput(const ezView& view, const ezArrayPtr<ezGALTextureCreationDescription* const> inputs, const char* szPinName);
 
 protected:
   ezInputNodePin m_PinColor0;
@@ -31,4 +30,3 @@ protected:
   ezInputNodePin m_PinColor7;
   ezInputNodePin m_PinDepthStencil;
 };
-

@@ -51,15 +51,9 @@ namespace ezSimdConversion
     return ezSimdQuat(tmp);
   }
 
-  EZ_ALWAYS_INLINE ezTransform ToTransform(const ezSimdTransform& t)
-  {
-    return ezTransform(ToVec3(t.m_Position), ToQuat(t.m_Rotation), ToVec3(t.m_Scale));
-  }
+  EZ_ALWAYS_INLINE ezTransform ToTransform(const ezSimdTransform& t) { return ezTransform(ToVec3(t.m_Position), ToQuat(t.m_Rotation), ToVec3(t.m_Scale)); }
 
-  inline ezSimdTransform ToTransform(const ezTransform& t)
-  {
-    return ezSimdTransform(ToVec3(t.m_vPosition), ToQuat(t.m_qRotation), ToVec3(t.m_vScale));
-  }
+  inline ezSimdTransform ToTransform(const ezTransform& t) { return ezSimdTransform(ToVec3(t.m_vPosition), ToQuat(t.m_qRotation), ToVec3(t.m_vScale)); }
 
   EZ_ALWAYS_INLINE ezMat4 ToMat4(const ezSimdMat4f& m)
   {
@@ -81,10 +75,7 @@ namespace ezSimdConversion
     return ezBoundingBoxSphere(centerAndRadius.GetAsVec3(), ToVec3(b.m_BoxHalfExtents), centerAndRadius.w);
   }
 
-  EZ_ALWAYS_INLINE ezSimdBBoxSphere ToBBoxSphere(const ezBoundingBoxSphere& b)
-  {
-    return ezSimdBBoxSphere(ToVec3(b.m_vCenter), ToVec3(b.m_vBoxHalfExtends), b.m_fSphereRadius);
-  }
+  EZ_ALWAYS_INLINE ezSimdBBoxSphere ToBBoxSphere(const ezBoundingBoxSphere& b) { return ezSimdBBoxSphere(ToVec3(b.m_vCenter), ToVec3(b.m_vBoxHalfExtends), b.m_fSphereRadius); }
 
   EZ_ALWAYS_INLINE ezBoundingSphere ToBSphere(const ezSimdBSphere& s)
   {
@@ -92,19 +83,10 @@ namespace ezSimdConversion
     return ezBoundingSphere(centerAndRadius.GetAsVec3(), centerAndRadius.w);
   }
 
-  EZ_ALWAYS_INLINE ezSimdBSphere ToBSphere(const ezBoundingSphere& s)
-  {
-    return ezSimdBSphere(ToVec3(s.m_vCenter), s.m_fRadius);
-  }
+  EZ_ALWAYS_INLINE ezSimdBSphere ToBSphere(const ezBoundingSphere& s) { return ezSimdBSphere(ToVec3(s.m_vCenter), s.m_fRadius); }
 
-  EZ_ALWAYS_INLINE ezSimdBBox ToBBox(const ezBoundingBox& b)
-  {
-    return ezSimdBBox(ToVec3(b.m_vMin), ToVec3(b.m_vMax));
-  }
+  EZ_ALWAYS_INLINE ezSimdBBox ToBBox(const ezBoundingBox& b) { return ezSimdBBox(ToVec3(b.m_vMin), ToVec3(b.m_vMax)); }
 
-  EZ_ALWAYS_INLINE ezBoundingBox ToBBox(const ezSimdBBox& b)
-  {
-    return ezBoundingBox(ToVec3(b.m_Min), ToVec3(b.m_Max));
-  }
+  EZ_ALWAYS_INLINE ezBoundingBox ToBBox(const ezSimdBBox& b) { return ezBoundingBox(ToVec3(b.m_Min), ToVec3(b.m_Max)); }
 
 }; // namespace ezSimdConversion

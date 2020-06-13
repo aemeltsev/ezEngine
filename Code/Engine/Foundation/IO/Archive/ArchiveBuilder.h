@@ -36,8 +36,7 @@ public:
   ///
   /// The callback can be used to exclude certain files or to deactivate compression on them.
   /// \note If no callback is given, the default is to store all files uncompressed!
-  void AddFolder(const char* szAbsFolderPath, ezArchiveCompressionMode defaultMode = ezArchiveCompressionMode::Uncompressed,
-    InclusionCallback callback = InclusionCallback());
+  void AddFolder(const char* szAbsFolderPath, ezArchiveCompressionMode defaultMode = ezArchiveCompressionMode::Uncompressed, InclusionCallback callback = InclusionCallback());
 
   /// \brief Overwrites the given file with the archive
   ezResult WriteArchive(const char* szFile) const;
@@ -51,4 +50,3 @@ protected:
   /// Override this to get a progress report for writing a single file to the output
   virtual bool WriteFileProgressCallback(ezUInt64 bytesWritten, ezUInt64 bytesTotal) const;
 };
-

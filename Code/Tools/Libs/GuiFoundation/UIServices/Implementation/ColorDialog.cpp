@@ -6,16 +6,14 @@
 
 QByteArray ezQtColorDialog::s_LastDialogGeometry;
 
-void ezQtUiServices::ShowColorDialog(const ezColor& color, bool bAlpha, bool bHDR, QWidget* pParent, const char* slotCurColChanged,
-                                     const char* slotAccept, const char* slotReject)
+void ezQtUiServices::ShowColorDialog(const ezColor& color, bool bAlpha, bool bHDR, QWidget* pParent, const char* slotCurColChanged, const char* slotAccept, const char* slotReject)
 {
   m_pColorDlg = new ezQtColorDialog(color, pParent);
   m_pColorDlg->restoreGeometry(m_ColorDlgGeometry);
   m_pColorDlg->ShowAlpha(bAlpha);
   m_pColorDlg->ShowHDR(bHDR);
 
-  EZ_VERIFY(QWidget::connect(m_pColorDlg, SIGNAL(CurrentColorChanged(const ezColor&)), pParent, slotCurColChanged) != nullptr,
-            "signal/slot connection failed");
+  EZ_VERIFY(QWidget::connect(m_pColorDlg, SIGNAL(CurrentColorChanged(const ezColor&)), pParent, slotCurColChanged) != nullptr, "signal/slot connection failed");
   EZ_VERIFY(QWidget::connect(m_pColorDlg, SIGNAL(accepted()), pParent, slotAccept) != nullptr, "signal/slot connection failed");
   EZ_VERIFY(QWidget::connect(m_pColorDlg, SIGNAL(rejected()), pParent, slotReject) != nullptr, "signal/slot connection failed");
 
@@ -27,7 +25,7 @@ void ezQtUiServices::ShowColorDialog(const ezColor& color, bool bAlpha, bool bHD
 }
 
 ezQtColorDialog::ezQtColorDialog(const ezColor& initial, QWidget* parent)
-    : QDialog(parent)
+  : QDialog(parent)
 {
   setupUi(this);
 
@@ -143,13 +141,11 @@ void ezQtColorDialog::ApplyColor()
 
   if (m_bAlpha)
   {
-    s.Format("{0}{1}{2}{3}", ezArgU(m_GammaRed, 2, true, 16, true), ezArgU(m_GammaGreen, 2, true, 16, true),
-             ezArgU(m_GammaBlue, 2, true, 16, true), ezArgU(m_Alpha, 2, true, 16, true));
+    s.Format("{0}{1}{2}{3}", ezArgU(m_GammaRed, 2, true, 16, true), ezArgU(m_GammaGreen, 2, true, 16, true), ezArgU(m_GammaBlue, 2, true, 16, true), ezArgU(m_Alpha, 2, true, 16, true));
   }
   else
   {
-    s.Format("{0}{1}{2}", ezArgU(m_GammaRed, 2, true, 16, true), ezArgU(m_GammaGreen, 2, true, 16, true),
-             ezArgU(m_GammaBlue, 2, true, 16, true));
+    s.Format("{0}{1}{2}", ezArgU(m_GammaRed, 2, true, 16, true), ezArgU(m_GammaGreen, 2, true, 16, true), ezArgU(m_GammaBlue, 2, true, 16, true));
   }
 
   LineHEX->setText(s.GetData());

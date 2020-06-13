@@ -130,7 +130,7 @@ public:
   EZ_ALWAYS_INLINE ezStringView GetView() const { return GetString().GetView(); }
 
   /// \brief Returns a pointer to the internal Utf8 string.
-  EZ_ALWAYS_INLINE operator const char*() const { return GetData(); }
+  EZ_ALWAYS_INLINE operator const char *() const { return GetData(); }
 
 private:
   static void InitHashedString();
@@ -215,4 +215,3 @@ private:
 EZ_FOUNDATION_DLL ezStringView BuildString(char* tmp, ezUInt32 uiLength, const ezHashedString& arg);
 
 #include <Foundation/Strings/Implementation/HashedString_inl.h>
-

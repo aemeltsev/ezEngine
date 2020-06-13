@@ -32,7 +32,7 @@ public:
   ~ezParticleTypeEffect();
 
   ezParticleEffectResourceHandle m_hEffect;
-  //ezString m_sSharedInstanceName;
+  // ezString m_sSharedInstanceName;
 
   virtual void CreateRequiredStreams() override;
   virtual void ExtractTypeRenderData(const ezView& view, ezExtractedRenderData& extractedRenderData, const ezTransform& instanceTransform, ezUInt64 uiExtractedFrame) const override {}
@@ -51,5 +51,3 @@ protected:
   ezProcessingStream* m_pStreamPosition = nullptr;
   ezProcessingStream* m_pStreamEffectID = nullptr;
 };
-
-

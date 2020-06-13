@@ -138,7 +138,7 @@ void ezRemoteInterface::Send(ezRemoteTransmitMode tm, ezUInt32 uiSystemID, ezUIn
   if (m_RemoteMode == ezRemoteMode::None)
     return;
 
-  //if (!IsConnectedToOther())
+  // if (!IsConnectedToOther())
   //  return;
 
   m_TempSendBuffer.SetCountUninitialized(12 + data.GetCount());
@@ -361,7 +361,7 @@ ezResult ezRemoteInterface::DetermineTargetAddress(const char* szConnectTo, ezUI
 //////////////////////////////////////////////////////////////////////////
 
 ezRemoteThread::ezRemoteThread()
-    : ezThread("ezRemoteThread")
+  : ezThread("ezRemoteThread")
 {
 }
 
@@ -393,4 +393,3 @@ ezUInt32 ezRemoteThread::Run()
 }
 
 EZ_STATICLINK_FILE(Foundation, Foundation_Communication_Implementation_RemoteInterface);
-

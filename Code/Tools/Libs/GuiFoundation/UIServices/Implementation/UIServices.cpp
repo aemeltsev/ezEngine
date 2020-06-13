@@ -229,7 +229,7 @@ ezStatus ezQtUiServices::OpenInVsCode(const QStringList& arguments)
 
     if (sVsCodeExeKey.length() > 5)
     {
-      //Remove shell parameter and normalize QT Compatible path, QFile expects the file separator to be '/' regardless of operating system
+      // Remove shell parameter and normalize QT Compatible path, QFile expects the file separator to be '/' regardless of operating system
       sVsCodeExe = sVsCodeExeKey.left(sVsCodeExeKey.length() - 5).replace("\\", "/").replace("\"", "");
     }
   }

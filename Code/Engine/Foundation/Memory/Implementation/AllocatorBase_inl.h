@@ -98,8 +98,7 @@ namespace ezInternal
   template <typename T>
   EZ_FORCE_INLINE T* ExtendRawBuffer(T* ptr, ezAllocatorBase* pAllocator, size_t uiCurrentCount, size_t uiNewCount, ezTypeIsClass)
   {
-    EZ_CHECK_AT_COMPILETIME_MSG(!std::is_trivial<T>::value,
-      "POD type is treated as class. Use EZ_DECLARE_POD_TYPE(YourClass) or EZ_DEFINE_AS_POD_TYPE(ExternalClass) to mark it as POD.");
+    EZ_CHECK_AT_COMPILETIME_MSG(!std::is_trivial<T>::value, "POD type is treated as class. Use EZ_DECLARE_POD_TYPE(YourClass) or EZ_DEFINE_AS_POD_TYPE(ExternalClass) to mark it as POD.");
 
     T* pNewMem = CreateRawBuffer<T>(pAllocator, uiNewCount);
     ezMemoryUtils::RelocateConstruct(pNewMem, ptr, uiCurrentCount);

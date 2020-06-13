@@ -3,8 +3,8 @@
 
 #include <UltralightPlugin/Integration/UltralightFileSystem.h>
 
-#include <Foundation/IO/FileSystem/FileSystem.h>
 #include <Foundation/IO/FileSystem/FileReader.h>
+#include <Foundation/IO/FileSystem/FileSystem.h>
 #include <Foundation/IO/OSFile.h>
 
 ezUltralightFileSystem::ezUltralightFileSystem() = default;

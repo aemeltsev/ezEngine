@@ -64,8 +64,7 @@ void ezPx6DOFJointComponent::DeserializeComponent(ezWorldReader& stream)
   s >> m_fAngularDamping;
 }
 
-PxJoint* ezPx6DOFJointComponent::CreateJointType(PxRigidActor* actor0, const PxTransform& localFrame0, PxRigidActor* actor1,
-  const PxTransform& localFrame1)
+PxJoint* ezPx6DOFJointComponent::CreateJointType(PxRigidActor* actor0, const PxTransform& localFrame0, PxRigidActor* actor1, const PxTransform& localFrame1)
 {
   PxD6Joint* pJoint = PxD6JointCreate(*(ezPhysX::GetSingleton()->GetPhysXAPI()), actor0, localFrame0, actor1, localFrame1);
 

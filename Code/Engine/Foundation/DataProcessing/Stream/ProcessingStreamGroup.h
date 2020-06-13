@@ -65,22 +65,13 @@ public:
   void Process();
 
   /// \brief Returns the number of elements the streams store.
-  inline ezUInt64 GetNumElements() const
-  {
-    return m_uiNumElements;
-  }
+  inline ezUInt64 GetNumElements() const { return m_uiNumElements; }
 
   /// \brief Returns the number of currently active elements.
-  inline ezUInt64 GetNumActiveElements() const
-  {
-    return m_uiNumActiveElements;
-  }
+  inline ezUInt64 GetNumActiveElements() const { return m_uiNumActiveElements; }
 
   /// \brief Returns the highest number of active elements since the last SetSize() call.
-  inline ezUInt64 GetHighestNumActiveElements() const
-  {
-    return m_uiHighestNumActiveElements;
-  }
+  inline ezUInt64 GetHighestNumActiveElements() const { return m_uiHighestNumActiveElements; }
 
   /// \brief Subscribe to this event to be informed when (shortly before) items are deleted.
   ezEvent<const ezStreamGroupElementRemovedEvent&> m_ElementRemovedEvent;
@@ -111,4 +102,3 @@ private:
 
   bool m_bStreamAssignmentDirty;
 };
-

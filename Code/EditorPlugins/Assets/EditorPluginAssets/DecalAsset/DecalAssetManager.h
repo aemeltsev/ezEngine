@@ -11,8 +11,7 @@ public:
   ezDecalAssetDocumentManager();
   ~ezDecalAssetDocumentManager();
 
-  virtual void AddEntriesToAssetTable(const char* szDataDirectory, const ezPlatformProfile* pAssetProfile,
-                                      ezMap<ezString, ezString>& inout_GuidToPath) const override;
+  virtual void AddEntriesToAssetTable(const char* szDataDirectory, const ezPlatformProfile* pAssetProfile, ezMap<ezString, ezString>& inout_GuidToPath) const override;
   virtual ezString GetAssetTableEntry(const ezSubAsset* pSubAsset, const char* szDataDirectory, const ezPlatformProfile* pAssetProfile) const override;
 
   /// \brief There is only a single decal texture per project. This function creates it, in case any decal asset was modified.
@@ -33,4 +32,3 @@ private:
 
   ezAssetDocumentTypeDescriptor m_DocTypeDesc;
 };
-

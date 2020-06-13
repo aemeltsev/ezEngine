@@ -142,8 +142,7 @@ void ezAssetProcessor::RunNextProcessTask()
   ezUInt32 uiNumAssets;
   ezHybridArray<ezUInt32, ezAssetInfo::TransformState::COUNT> sections;
   ezAssetCurator::GetSingleton()->GetAssetTransformStats(uiNumAssets, sections);
-  if (m_bRunProcessTask == 0 ||
-      sections[ezAssetInfo::TransformState::NeedsTransform] == 0 && sections[ezAssetInfo::TransformState::NeedsThumbnail] == 0)
+  if (m_bRunProcessTask == 0 || sections[ezAssetInfo::TransformState::NeedsTransform] == 0 && sections[ezAssetInfo::TransformState::NeedsThumbnail] == 0)
     return;
 
   ezLock<ezMutex> ml(m_ProcessorMutex);
@@ -327,8 +326,7 @@ bool ezProcessTask::GetNextAssetToProcess(ezUuid& out_guid, ezStringBuilder& out
 {
   EZ_LOCK(ezAssetCurator::GetSingleton()->m_CuratorMutex);
 
-  for (auto it = ezAssetCurator::GetSingleton()->m_TransformState[ezAssetInfo::TransformState::NeedsTransform].GetIterator(); it.IsValid();
-       ++it)
+  for (auto it = ezAssetCurator::GetSingleton()->m_TransformState[ezAssetInfo::TransformState::NeedsTransform].GetIterator(); it.IsValid(); ++it)
   {
     ezAssetInfo* pInfo = ezAssetCurator::GetSingleton()->GetAssetInfo(it.Key());
     if (pInfo)
@@ -339,8 +337,7 @@ bool ezProcessTask::GetNextAssetToProcess(ezUuid& out_guid, ezStringBuilder& out
     }
   }
 
-  for (auto it = ezAssetCurator::GetSingleton()->m_TransformState[ezAssetInfo::TransformState::NeedsThumbnail].GetIterator(); it.IsValid();
-       ++it)
+  for (auto it = ezAssetCurator::GetSingleton()->m_TransformState[ezAssetInfo::TransformState::NeedsThumbnail].GetIterator(); it.IsValid(); ++it)
   {
     ezAssetInfo* pInfo = ezAssetCurator::GetSingleton()->GetAssetInfo(it.Key());
     if (pInfo)

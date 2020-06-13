@@ -127,8 +127,7 @@ ezUuid ezSceneDocument::RevertPrefab(const ezDocumentObject* pObject)
   return newGuid;
 }
 
-void ezSceneDocument::UpdatePrefabObject(
-  ezDocumentObject* pObject, const ezUuid& PrefabAsset, const ezUuid& PrefabSeed, const char* szBasePrefab)
+void ezSceneDocument::UpdatePrefabObject(ezDocumentObject* pObject, const ezUuid& PrefabAsset, const ezUuid& PrefabSeed, const char* szBasePrefab)
 {
   auto pHistory = GetCommandHistory();
   const ezVec3 vLocalPos = pObject->GetTypeAccessor().GetValue("LocalPosition").ConvertTo<ezVec3>();

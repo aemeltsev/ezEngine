@@ -7,8 +7,7 @@
 
 void ezQtEditorApp::OpenDocumentQueued(const char* szDocument, const ezDocumentObject* pOpenContext /*= nullptr*/)
 {
-  QMetaObject::invokeMethod(this, "SlotQueuedOpenDocument", Qt::ConnectionType::QueuedConnection, Q_ARG(QString, szDocument),
-    Q_ARG(void*, (void*)pOpenContext));
+  QMetaObject::invokeMethod(this, "SlotQueuedOpenDocument", Qt::ConnectionType::QueuedConnection, Q_ARG(QString, szDocument), Q_ARG(void*, (void*)pOpenContext));
 }
 
 ezDocument* ezQtEditorApp::OpenDocument(const char* szDocument, ezBitflags<ezDocumentFlags> flags, const ezDocumentObject* pOpenContext)
@@ -23,8 +22,7 @@ ezDocument* ezQtEditorApp::OpenDocument(const char* szDocument, ezBitflags<ezDoc
   if (ezDocumentManager::FindDocumentTypeFromPath(szDocument, false, pTypeDesc).Failed())
   {
     ezStringBuilder sTemp;
-    sTemp.Format("The selected file extension '{0}' is not registered with any known type.\nCannot open file '{1}'",
-      ezPathUtils::GetFileExtension(szDocument), szDocument);
+    sTemp.Format("The selected file extension '{0}' is not registered with any known type.\nCannot open file '{1}'", ezPathUtils::GetFileExtension(szDocument), szDocument);
     ezQtUiServices::MessageBoxWarning(sTemp);
     return nullptr;
   }

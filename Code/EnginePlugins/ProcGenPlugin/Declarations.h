@@ -113,11 +113,7 @@ namespace ezProcGenInternal
   {
     float GetTileSize() const { return m_pPattern->m_fSize * m_fFootprint; }
 
-    bool IsValid() const
-    {
-      return !m_ObjectsToPlace.IsEmpty() && m_pPattern != nullptr && m_fFootprint > 0.0f && m_fCullDistance > 0.0f &&
-             m_pByteCode != nullptr;
-    }
+    bool IsValid() const { return !m_ObjectsToPlace.IsEmpty() && m_pPattern != nullptr && m_fFootprint > 0.0f && m_fCullDistance > 0.0f && m_pByteCode != nullptr; }
 
     ezHybridArray<ezPrefabResourceHandle, 4> m_ObjectsToPlace;
 

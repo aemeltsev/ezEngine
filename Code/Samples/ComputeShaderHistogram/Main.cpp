@@ -55,8 +55,7 @@ ezApplication::ApplicationExecution ezComputeShaderHistogramApp::Run()
       auto& globalConstants = renderContext.WriteGlobalConstants();
       ezMemoryUtils::ZeroFill(&globalConstants, 1);
 
-      globalConstants.ViewportSize =
-        ezVec4((float)g_uiWindowWidth, (float)g_uiWindowHeight, 1.0f / (float)g_uiWindowWidth, 1.0f / (float)g_uiWindowHeight);
+      globalConstants.ViewportSize = ezVec4((float)g_uiWindowWidth, (float)g_uiWindowHeight, 1.0f / (float)g_uiWindowWidth, 1.0f / (float)g_uiWindowHeight);
       // Wrap around to prevent floating point issues. Wrap around is dividable by all whole numbers up to 11.
       globalConstants.GlobalTime = (float)ezMath::Mod(ezClock::GetGlobalClock()->GetAccumulatedTime().GetSeconds(), 20790.0);
       globalConstants.WorldTime = globalConstants.GlobalTime;
@@ -139,10 +138,7 @@ void ezComputeShaderHistogramApp::AfterCoreSystemsStartup()
   SUPER::AfterCoreSystemsStartup();
 
   m_directoryWatcher = EZ_DEFAULT_NEW(ezDirectoryWatcher);
-  EZ_VERIFY(
-    m_directoryWatcher->OpenDirectory(FindProjectDirectory(), ezDirectoryWatcher::Watch::Writes | ezDirectoryWatcher::Watch::Subdirectories)
-      .Succeeded(),
-    "Failed to watch project directory");
+  EZ_VERIFY(m_directoryWatcher->OpenDirectory(FindProjectDirectory(), ezDirectoryWatcher::Watch::Writes | ezDirectoryWatcher::Watch::Subdirectories).Succeeded(), "Failed to watch project directory");
 
   EZ_VERIFY(ezPlugin::LoadPlugin("ezShaderCompilerHLSL").Succeeded(), "Compiler Plugin not found");
 
@@ -271,8 +267,7 @@ void ezComputeShaderHistogramApp::CreateHistogramQuad()
     const float sizeScreen = 0.8f;
 
     ezGeometry geom;
-    ezMat4 transform(ezMat3::IdentityMatrix(),
-      ezVec3(1.0f - pixToScreen.x * borderOffsetPix - sizeScreen / 2, -1.0f + pixToScreen.y * borderOffsetPix + sizeScreen / 2, 0.0f));
+    ezMat4 transform(ezMat3::IdentityMatrix(), ezVec3(1.0f - pixToScreen.x * borderOffsetPix - sizeScreen / 2, -1.0f + pixToScreen.y * borderOffsetPix + sizeScreen / 2, 0.0f));
     geom.AddRectXY(ezVec2(sizeScreen, sizeScreen), ezColor::Black, transform);
 
     ezMeshBufferResourceDescriptor desc;
@@ -295,15 +290,13 @@ void ezComputeShaderHistogramApp::CreateHistogramQuad()
     {
       for (ezUInt32 v = 0; v < geom.GetPolygons()[p].m_Vertices.GetCount() - 2; ++v)
       {
-        desc.SetTriangleIndices(
-          t, geom.GetPolygons()[p].m_Vertices[0], geom.GetPolygons()[p].m_Vertices[v + 1], geom.GetPolygons()[p].m_Vertices[v + 2]);
+        desc.SetTriangleIndices(t, geom.GetPolygons()[p].m_Vertices[0], geom.GetPolygons()[p].m_Vertices[v + 1], geom.GetPolygons()[p].m_Vertices[v + 2]);
 
         ++t;
       }
     }
 
-    m_hHistogramQuadMeshBuffer =
-      ezResourceManager::CreateResource<ezMeshBufferResource>("{4BEFA142-FEDB-42D0-84DC-58223ADD8C62}", std::move(desc));
+    m_hHistogramQuadMeshBuffer = ezResourceManager::CreateResource<ezMeshBufferResource>("{4BEFA142-FEDB-42D0-84DC-58223ADD8C62}", std::move(desc));
   }
 }
 

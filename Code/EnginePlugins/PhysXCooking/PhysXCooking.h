@@ -1,8 +1,8 @@
 #pragma once
 
+#include <Foundation/Types/Status.h>
 #include <PhysXCooking/PhysXCookingDLL.h>
 #include <PhysXPlugin/PhysXInterface.h>
-#include <Foundation/Types/Status.h>
 
 using namespace physx;
 
@@ -26,7 +26,6 @@ struct EZ_PHYSXCOOKING_DLL ezPhysXCookingMesh
 class EZ_PHYSXCOOKING_DLL ezPhysXCooking
 {
 public:
-
   static void Startup();
   static void Shutdown();
 
@@ -43,4 +42,3 @@ private:
   static PxCooking* s_pCooking;
   static ezPhysXInterface* s_pPhysX;
 };
-

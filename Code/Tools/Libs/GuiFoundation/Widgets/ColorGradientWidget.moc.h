@@ -1,7 +1,7 @@
 #pragma once
 
-#include <GuiFoundation/GuiFoundationDLL.h>
 #include <Foundation/Tracks/ColorGradient.h>
+#include <GuiFoundation/GuiFoundationDLL.h>
 
 #include <QWidget>
 

@@ -35,7 +35,8 @@ ezLUTAssetDocument::ezLUTAssetDocument(const char* szDocumentPath)
 {
 }
 
-ezStatus ezLUTAssetDocument::InternalTransformAsset(const char* szTargetFile, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags)
+ezStatus ezLUTAssetDocument::InternalTransformAsset(
+  const char* szTargetFile, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags)
 {
   const auto props = GetProperties();
 

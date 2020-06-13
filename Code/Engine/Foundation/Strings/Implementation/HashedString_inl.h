@@ -236,4 +236,3 @@ struct ezHashHelper<ezTempHashedString>
 
   EZ_ALWAYS_INLINE static bool Equal(const ezTempHashedString& a, const ezTempHashedString& b) { return a == b; }
 };
-

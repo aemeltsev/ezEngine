@@ -61,8 +61,7 @@ void ezConsole::AutoCompleteInputLine()
   }
 }
 
-void ezConsole::FindPossibleCVars(const char* szVariable, ezDeque<ezString>& AutoCompleteOptions,
-                                  ezDeque<ConsoleString>& AutoCompleteDescriptions)
+void ezConsole::FindPossibleCVars(const char* szVariable, ezDeque<ezString>& AutoCompleteOptions, ezDeque<ConsoleString>& AutoCompleteDescriptions)
 {
   ezStringBuilder sText;
 
@@ -87,8 +86,7 @@ void ezConsole::FindPossibleCVars(const char* szVariable, ezDeque<ezString>& Aut
   }
 }
 
-void ezConsole::FindPossibleFunctions(const char* szVariable, ezDeque<ezString>& AutoCompleteOptions,
-                                      ezDeque<ConsoleString>& AutoCompleteDescriptions)
+void ezConsole::FindPossibleFunctions(const char* szVariable, ezDeque<ezString>& AutoCompleteOptions, ezDeque<ConsoleString>& AutoCompleteDescriptions)
 {
   ezStringBuilder sText;
 
@@ -212,4 +210,3 @@ const ezString ezConsole::FindCommonString(const ezDeque<ezString>& vStrings)
 
 
 EZ_STATICLINK_FILE(GameEngine, GameEngine_Console_Implementation_Autocomplete);
-

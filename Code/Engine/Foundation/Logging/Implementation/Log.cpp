@@ -2,9 +2,9 @@
 
 #include <Foundation/Logging/Log.h>
 #include <Foundation/Strings/StringBuilder.h>
+#include <Foundation/Strings/StringConversion.h>
 #include <Foundation/Time/Time.h>
 #include <Foundation/Time/Timestamp.h>
-#include <Foundation/Strings/StringConversion.h>
 
 #if EZ_ENABLED(EZ_PLATFORM_WINDOWS)
 #  include <Foundation/Logging/Implementation/Win/ETWProvider_win.h>
@@ -221,10 +221,10 @@ void ezLog::Print(const char* szText)
   printf("%s", szText);
 
 #if EZ_ENABLED(EZ_PLATFORM_WINDOWS)
-    ezETWProvider::GetInstance().LogMessge(ezLogMsgType::ErrorMsg, 0, szText);
+  ezETWProvider::GetInstance().LogMessge(ezLogMsgType::ErrorMsg, 0, szText);
 #endif
 #if EZ_ENABLED(EZ_PLATFORM_WINDOWS)
-    OutputDebugStringW(ezStringWChar(szText).GetData());
+  OutputDebugStringW(ezStringWChar(szText).GetData());
 #endif
 #if EZ_ENABLED(EZ_PLATFORM_ANDROID)
   __android_log_print(ANDROID_LOG_ERROR, "ezEngine", "%s", szText);
@@ -276,8 +276,7 @@ void ezLog::GenerateFormattedTimestamp(TimestampMode mode, ezStringBuilder& sTim
 
 void ezLog::SetThreadLocalLogSystem(ezLogInterface* pInterface)
 {
-  EZ_ASSERT_DEV(pInterface != nullptr,
-    "You cannot set a nullptr logging system. If you want to discard all log information, set a dummy system that does not do anything.");
+  EZ_ASSERT_DEV(pInterface != nullptr, "You cannot set a nullptr logging system. If you want to discard all log information, set a dummy system that does not do anything.");
 
   s_DefaultLogSystem = pInterface;
 }

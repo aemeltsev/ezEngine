@@ -5,22 +5,19 @@
 // static
 EZ_FORCE_INLINE ezSimdVec4f ezSimdMath::Sin(const ezSimdVec4f& f)
 {
-  return ezSimdVec4f(ezMath::Sin(ezAngle::Radian(f.x())), ezMath::Sin(ezAngle::Radian(f.y())), ezMath::Sin(ezAngle::Radian(f.z())),
-    ezMath::Sin(ezAngle::Radian(f.w())));
+  return ezSimdVec4f(ezMath::Sin(ezAngle::Radian(f.x())), ezMath::Sin(ezAngle::Radian(f.y())), ezMath::Sin(ezAngle::Radian(f.z())), ezMath::Sin(ezAngle::Radian(f.w())));
 }
 
 // static
 EZ_FORCE_INLINE ezSimdVec4f ezSimdMath::Cos(const ezSimdVec4f& f)
 {
-  return ezSimdVec4f(ezMath::Cos(ezAngle::Radian(f.x())), ezMath::Cos(ezAngle::Radian(f.y())), ezMath::Cos(ezAngle::Radian(f.z())),
-    ezMath::Cos(ezAngle::Radian(f.w())));
+  return ezSimdVec4f(ezMath::Cos(ezAngle::Radian(f.x())), ezMath::Cos(ezAngle::Radian(f.y())), ezMath::Cos(ezAngle::Radian(f.z())), ezMath::Cos(ezAngle::Radian(f.w())));
 }
 
 // static
 EZ_FORCE_INLINE ezSimdVec4f ezSimdMath::Tan(const ezSimdVec4f& f)
 {
-  return ezSimdVec4f(ezMath::Tan(ezAngle::Radian(f.x())), ezMath::Tan(ezAngle::Radian(f.y())), ezMath::Tan(ezAngle::Radian(f.z())),
-    ezMath::Tan(ezAngle::Radian(f.w())));
+  return ezSimdVec4f(ezMath::Tan(ezAngle::Radian(f.x())), ezMath::Tan(ezAngle::Radian(f.y())), ezMath::Tan(ezAngle::Radian(f.z())), ezMath::Tan(ezAngle::Radian(f.w())));
 }
 
 // static

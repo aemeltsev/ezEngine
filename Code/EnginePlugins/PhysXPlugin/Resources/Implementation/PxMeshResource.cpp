@@ -215,8 +215,7 @@ EZ_RESOURCE_IMPLEMENT_CREATEABLE(ezPxMeshResource, ezPxMeshResourceDescriptor)
 
 void ezPxMeshResource::ExtractGeometry(const ezTransform& transform, ezMsgExtractGeometry& msg) const
 {
-  if (msg.m_Mode != ezWorldGeoExtractionUtil::ExtractionMode::CollisionMesh &&
-      msg.m_Mode != ezWorldGeoExtractionUtil::ExtractionMode::NavMeshGeneration)
+  if (msg.m_Mode != ezWorldGeoExtractionUtil::ExtractionMode::CollisionMesh && msg.m_Mode != ezWorldGeoExtractionUtil::ExtractionMode::NavMeshGeneration)
     return;
 
   if (GetConvexMesh() != nullptr)

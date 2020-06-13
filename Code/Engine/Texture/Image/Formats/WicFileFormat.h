@@ -8,7 +8,6 @@
 class EZ_TEXTURE_DLL ezWicFileFormat : public ezImageFileFormat
 {
 public:
-
   ezWicFileFormat();
   virtual ~ezWicFileFormat();
 

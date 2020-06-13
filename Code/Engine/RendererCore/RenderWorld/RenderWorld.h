@@ -50,8 +50,7 @@ public:
   static void ClearMainViews();
   static ezArrayPtr<ezViewHandle> GetMainViews();
 
-  static void CacheRenderData(const ezView& view, const ezGameObjectHandle& hOwnerObject, const ezComponentHandle& hOwnerComponent,
-    ezArrayPtr<ezInternal::RenderDataCacheEntry> cacheEntries);
+  static void CacheRenderData(const ezView& view, const ezGameObjectHandle& hOwnerObject, const ezComponentHandle& hOwnerComponent, ezArrayPtr<ezInternal::RenderDataCacheEntry> cacheEntries);
 
   static void DeleteAllCachedRenderData();
   static void DeleteCachedRenderData(const ezGameObjectHandle& hOwnerObject, const ezComponentHandle& hOwnerComponent);

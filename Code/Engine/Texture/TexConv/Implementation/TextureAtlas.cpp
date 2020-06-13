@@ -173,8 +173,7 @@ ezResult ezTexConvProcessor::TrySortItemsIntoAtlas(ezDynamicArray<TextureAtlasIt
   {
     if (item.m_InputImage[layer].IsValid())
     {
-      packer.AddTexture((item.m_InputImage[layer].GetWidth() + (uiPixelAlign - 1)) / uiPixelAlign,
-        (item.m_InputImage[layer].GetHeight() + (uiPixelAlign - 1)) / uiPixelAlign);
+      packer.AddTexture((item.m_InputImage[layer].GetWidth() + (uiPixelAlign - 1)) / uiPixelAlign, (item.m_InputImage[layer].GetHeight() + (uiPixelAlign - 1)) / uiPixelAlign);
     }
   }
 

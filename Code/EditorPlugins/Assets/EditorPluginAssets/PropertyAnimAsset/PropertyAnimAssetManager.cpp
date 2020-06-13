@@ -38,8 +38,7 @@ void ezPropertyAnimAssetDocumentManager::OnDocumentManagerEvent(const ezDocument
     {
       if (e.m_pDocument->GetDynamicRTTI() == ezGetStaticRTTI<ezPropertyAnimAssetDocument>())
       {
-        ezQtPropertyAnimAssetDocumentWindow* pDocWnd =
-          new ezQtPropertyAnimAssetDocumentWindow(static_cast<ezPropertyAnimAssetDocument*>(e.m_pDocument));
+        ezQtPropertyAnimAssetDocumentWindow* pDocWnd = new ezQtPropertyAnimAssetDocumentWindow(static_cast<ezPropertyAnimAssetDocument*>(e.m_pDocument));
       }
     }
     break;

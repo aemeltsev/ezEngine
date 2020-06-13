@@ -45,7 +45,7 @@ void ezPxRevoluteJointComponent::SerializeComponent(ezWorldWriter& stream) const
 void ezPxRevoluteJointComponent::DeserializeComponent(ezWorldReader& stream)
 {
   SUPER::DeserializeComponent(stream);
-  //const ezUInt32 uiVersion = stream.GetComponentTypeVersion(GetStaticRTTI());
+  // const ezUInt32 uiVersion = stream.GetComponentTypeVersion(GetStaticRTTI());
 
   auto& s = stream.GetStream();
 
@@ -67,7 +67,7 @@ PxJoint* ezPxRevoluteJointComponent::CreateJointType(PxRigidActor* actor0, const
     if (m_bLimitRotation)
     {
       pJoint->setRevoluteJointFlag(PxRevoluteJointFlag::eLIMIT_ENABLED, true);
-      //pJoint->setConstraintFlag(PxConstraintFlag::eDRIVE_LIMITS_ARE_FORCES, false);
+      // pJoint->setConstraintFlag(PxConstraintFlag::eDRIVE_LIMITS_ARE_FORCES, false);
 
       float low = m_LowerLimit.GetRadian();
       float high = m_UpperLimit.GetRadian();
@@ -86,8 +86,8 @@ PxJoint* ezPxRevoluteJointComponent::CreateJointType(PxRigidActor* actor0, const
     {
       pJoint->setRevoluteJointFlag(PxRevoluteJointFlag::eDRIVE_ENABLED, true);
       pJoint->setDriveVelocity(m_fDriveVelocity);
-      //pJoint->setDriveForceLimit
-      //pJoint->setDriveGearRatio
+      // pJoint->setDriveForceLimit
+      // pJoint->setDriveGearRatio
 
       pJoint->setRevoluteJointFlag(PxRevoluteJointFlag::eDRIVE_FREESPIN, !m_bEnableDriveBraking);
     }

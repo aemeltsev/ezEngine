@@ -20,7 +20,7 @@
 #include <RendererFoundation/Resources/RenderTargetSetup.h>
 
 ezKrautTreeViewContext::ezKrautTreeViewContext(ezKrautTreeContext* pKrautTreeContext)
-    : ezEngineProcessViewContext(pKrautTreeContext)
+  : ezEngineProcessViewContext(pKrautTreeContext)
 {
   m_pKrautTreeContext = pKrautTreeContext;
 
@@ -69,8 +69,7 @@ void ezKrautTreeViewContext::SetCamera(const ezViewRedrawMsgToEngine* pMsg)
       bbox = pResource->GetDetails().m_Bounds.GetBox();
 
       ezStringBuilder sText;
-      sText.PrependFormat("Bounding Box: width={0}, depth={1}, height={2}", ezArgF(bbox.GetHalfExtents().x * 2, 2),
-                          ezArgF(bbox.GetHalfExtents().y * 2, 2), ezArgF(bbox.GetHalfExtents().z * 2, 2));
+      sText.PrependFormat("Bounding Box: width={0}, depth={1}, height={2}", ezArgF(bbox.GetHalfExtents().x * 2, 2), ezArgF(bbox.GetHalfExtents().y * 2, 2), ezArgF(bbox.GetHalfExtents().z * 2, 2));
 
       ezDebugRenderer::Draw2DText(m_hView, sText, ezVec2I32(10, viewHeight - 26), ezColor::White);
     }

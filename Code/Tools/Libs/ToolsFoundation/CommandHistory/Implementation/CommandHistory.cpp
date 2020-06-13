@@ -106,8 +106,7 @@ void ezCommandHistory::ResumeTemporaryTransaction()
 void ezCommandHistory::EndTemporaryCommands(bool bCancel)
 {
   EZ_ASSERT_DEV(m_bTemporaryMode, "Temporary Mode was not enabled");
-  EZ_ASSERT_DEV(m_iTemporaryDepth == (ezInt32)m_TransactionStack.GetCount(), "Transaction stack is at depth {0} but temporary is at {1}",
-    m_TransactionStack.GetCount(), m_iTemporaryDepth);
+  EZ_ASSERT_DEV(m_iTemporaryDepth == (ezInt32)m_TransactionStack.GetCount(), "Transaction stack is at depth {0} but temporary is at {1}", m_TransactionStack.GetCount(), m_iTemporaryDepth);
   m_bTemporaryMode = false;
 
   EndTransaction(bCancel);

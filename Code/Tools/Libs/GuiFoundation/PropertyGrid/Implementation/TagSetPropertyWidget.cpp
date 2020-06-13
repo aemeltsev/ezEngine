@@ -15,7 +15,7 @@
 /// *** Tag Set ***
 
 ezQtPropertyEditorTagSetWidget::ezQtPropertyEditorTagSetWidget()
-    : ezQtPropertyWidget()
+  : ezQtPropertyWidget()
 {
   m_pLayout = new QHBoxLayout(this);
   m_pLayout->setMargin(0);
@@ -49,8 +49,7 @@ void ezQtPropertyEditorTagSetWidget::SetSelection(const ezHybridArray<ezProperty
 
 void ezQtPropertyEditorTagSetWidget::OnInit()
 {
-  EZ_ASSERT_DEV(m_pProp->GetCategory() == ezPropertyCategory::Set && m_pProp->GetSpecificType() == ezGetStaticRTTI<ezConstCharPtr>(),
-                "ezQtPropertyEditorTagSetWidget only works with ezTagSet.");
+  EZ_ASSERT_DEV(m_pProp->GetCategory() == ezPropertyCategory::Set && m_pProp->GetSpecificType() == ezGetStaticRTTI<ezConstCharPtr>(), "ezQtPropertyEditorTagSetWidget only works with ezTagSet.");
 
   // Retrieve tag categories.
   const ezTagSetWidgetAttribute* pAssetAttribute = m_pProp->GetAttributeByType<ezTagSetWidgetAttribute>();
@@ -71,8 +70,7 @@ void ezQtPropertyEditorTagSetWidget::OnInit()
     if (!pTag->m_sCategory.IsEqual(szCurrentCategory))
     {
       /*QAction* pCategory = */ m_pMenu->addSection(
-          ezQtUiServices::GetSingleton()->GetCachedIconResource(":/EditorFramework/Icons/Tag16.png"),
-          QLatin1String("[") + QString(pTag->m_sCategory.GetData()) + QLatin1String("]"));
+        ezQtUiServices::GetSingleton()->GetCachedIconResource(":/EditorFramework/Icons/Tag16.png"), QLatin1String("[") + QString(pTag->m_sCategory.GetData()) + QLatin1String("]"));
 
       szCurrentCategory = pTag->m_sCategory;
 
@@ -110,8 +108,7 @@ void ezQtPropertyEditorTagSetWidget::OnInit()
   for (const auto& catname : categories)
   {
     /*QAction* pCategory = */ m_pMenu->addSection(
-        ezQtUiServices::GetSingleton()->GetCachedIconResource(":/EditorFramework/Icons/Tag16.png"),
-        QLatin1String("[") + QString(catname.GetData(tmp)) + QLatin1String("]"));
+      ezQtUiServices::GetSingleton()->GetCachedIconResource(":/EditorFramework/Icons/Tag16.png"), QLatin1String("[") + QString(catname.GetData(tmp)) + QLatin1String("]"));
   }
 }
 

@@ -15,8 +15,7 @@
       Reserve(uiCount);                                          \
   }
 
-#define CHUNK_SIZE(Type) \
-  (4096 / sizeof(Type) < 32 ? 32 : 4096 / sizeof(Type))
+#define CHUNK_SIZE(Type) (4096 / sizeof(Type) < 32 ? 32 : 4096 / sizeof(Type))
 //(sizeof(Type) <= 8 ? 256 : (sizeof(Type) <= 16 ? 128 : (sizeof(Type) <= 32 ? 64 : 32))) // although this is Pow(2), this is slower than just having larger chunks
 
 template <typename T, bool Construct>

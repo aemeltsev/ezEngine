@@ -186,19 +186,15 @@ public:                                                                  \
 /// \brief Implements rtti and component specific functionality. Add this macro to a cpp file.
 ///
 /// \see EZ_BEGIN_DYNAMIC_REFLECTED_TYPE
-#define EZ_BEGIN_COMPONENT_TYPE(componentType, version, mode)                                                                            \
-  ezWorldModuleTypeId componentType::TYPE_ID =                                                                                           \
-    ezWorldModuleFactory::GetInstance()->RegisterWorldModule<typename componentType::ComponentManagerType, componentType>();             \
-  ezComponentMode::Enum componentType::GetMode() const { return mode; }                                                                  \
-  ezComponentHandle componentType::CreateComponent(ezGameObject* pOwnerObject, componentType*& out_pComponent)                           \
-  {                                                                                                                                      \
-    return pOwnerObject->GetWorld()->GetOrCreateComponentManager<ComponentManagerType>()->CreateComponent(pOwnerObject, out_pComponent); \
-  }                                                                                                                                      \
-  void componentType::DeleteComponent(componentType* pComponent)                                                                         \
-  {                                                                                                                                      \
-    pComponent->GetOwningManager()->DeleteComponent(pComponent->GetHandle());                                                            \
-  }                                                                                                                                      \
-  void componentType::DeleteComponent() { GetOwningManager()->DeleteComponent(GetHandle()); }                                            \
+#define EZ_BEGIN_COMPONENT_TYPE(componentType, version, mode)                                                                                                           \
+  ezWorldModuleTypeId componentType::TYPE_ID = ezWorldModuleFactory::GetInstance()->RegisterWorldModule<typename componentType::ComponentManagerType, componentType>(); \
+  ezComponentMode::Enum componentType::GetMode() const { return mode; }                                                                                                 \
+  ezComponentHandle componentType::CreateComponent(ezGameObject* pOwnerObject, componentType*& out_pComponent)                                                          \
+  {                                                                                                                                                                     \
+    return pOwnerObject->GetWorld()->GetOrCreateComponentManager<ComponentManagerType>()->CreateComponent(pOwnerObject, out_pComponent);                                \
+  }                                                                                                                                                                     \
+  void componentType::DeleteComponent(componentType* pComponent) { pComponent->GetOwningManager()->DeleteComponent(pComponent->GetHandle()); }                          \
+  void componentType::DeleteComponent() { GetOwningManager()->DeleteComponent(GetHandle()); }                                                                           \
   EZ_BEGIN_DYNAMIC_REFLECTED_TYPE(componentType, version, ezRTTINoAllocator)
 
 /// \brief Implements rtti and abstract component specific functionality. Add this macro to a cpp file.

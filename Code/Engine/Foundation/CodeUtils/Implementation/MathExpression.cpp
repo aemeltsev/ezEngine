@@ -11,13 +11,14 @@ using namespace ezTokenParseUtils;
 const char* ezMathExpression::s_szValidVariableCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789";
 
 ezMathExpression::ezMathExpression(ezLogInterface* pLog)
-    : m_pLog(pLog ? pLog : ezLog::GetThreadLocalLogSystem()), m_bIsValid(false)
+  : m_pLog(pLog ? pLog : ezLog::GetThreadLocalLogSystem())
+  , m_bIsValid(false)
 {
 }
 
 
 ezMathExpression::ezMathExpression(const char* szExpressionString, ezLogInterface* pLog)
-    : m_pLog(pLog)
+  : m_pLog(pLog)
 {
   Reset(szExpressionString);
 }
@@ -85,7 +86,7 @@ double ezMathExpression::Evaluate(const ezDelegate<double(const ezStringView&)>&
         double operand1 = evaluationStack.PeekBack();
         evaluationStack.PopBack();
         double operand0 = evaluationStack.PeekBack();
-        //evaluationStack.PopBack();    // Don't pop, just overwrite directly.
+        // evaluationStack.PopBack();    // Don't pop, just overwrite directly.
 
         switch (instruction)
         {
@@ -135,7 +136,8 @@ double ezMathExpression::Evaluate(const ezDelegate<double(const ezStringView&)>&
       // Push Variable.
       case InstructionType::PushVariable:
       {
-        EZ_ASSERT_DEBUG(m_InstructionStream.GetCount() > instructionIdx + 2, "ezMathExpression::InstructionType::PushVariable should always be followed by two more integers in the instruction stream.");
+        EZ_ASSERT_DEBUG(
+          m_InstructionStream.GetCount() > instructionIdx + 2, "ezMathExpression::InstructionType::PushVariable should always be followed by two more integers in the instruction stream.");
 
         ezUInt32 variableSubstringStart = m_InstructionStream[instructionIdx + 1];
         ezUInt32 variableSubstringEnd = m_InstructionStream[instructionIdx + 2];
@@ -166,16 +168,15 @@ double ezMathExpression::Evaluate(const ezDelegate<double(const ezStringView&)>&
 
 namespace
 {
-  const int s_operatorPrecedence[] =
-      {
-          // Binary
-          1, // Add
-          1, // Subtract
-          2, // Multiply
-          2, // Divide
+  const int s_operatorPrecedence[] = {
+    // Binary
+    1, // Add
+    1, // Subtract
+    2, // Multiply
+    2, // Divide
 
-          // Unary
-          2, // Negate
+    // Unary
+    2, // Negate
   };
 
   // Accept/parses binary operator.
@@ -213,7 +214,7 @@ namespace
 
     return true;
   }
-}
+} // namespace
 
 ezResult ezMathExpression::ParseExpression(const ezTokenParseUtils::TokenStream& tokens, ezUInt32& uiCurToken, int precedence)
 {
@@ -263,7 +264,7 @@ ezResult ezMathExpression::ParseFactor(const TokenStream& tokens, ezUInt32& uiCu
 
     double fConstant = 0;
     ezConversionUtils::StringToFloat(sVal, fConstant);
-    
+
     m_InstructionStream.PushBack(InstructionType::PushConstant);
     m_InstructionStream.PushBack(m_Constants.GetCount());
     m_Constants.PushBack(fConstant);
@@ -328,4 +329,3 @@ ezResult ezMathExpression::ParseFactor(const TokenStream& tokens, ezUInt32& uiCu
 }
 
 EZ_STATICLINK_FILE(Foundation, Foundation_CodeUtils_Implementation_MathExpression);
-

@@ -2,15 +2,15 @@
 
 #ifdef BUILDSYSTEM_ENABLE_IMGUI_SUPPORT
 
-#include <Core/ResourceManager/ResourceHandle.h>
-#include <Foundation/Configuration/Singleton.h>
-#include <Foundation/Math/Size.h>
-#include <Foundation/Memory/CommonAllocators.h>
-#include <Foundation/Types/UniquePtr.h>
-#include <GameEngine/GameEngineDLL.h>
-#include <RendererCore/Pipeline/Declarations.h>
+#  include <Core/ResourceManager/ResourceHandle.h>
+#  include <Foundation/Configuration/Singleton.h>
+#  include <Foundation/Math/Size.h>
+#  include <Foundation/Memory/CommonAllocators.h>
+#  include <Foundation/Types/UniquePtr.h>
+#  include <GameEngine/GameEngineDLL.h>
+#  include <RendererCore/Pipeline/Declarations.h>
 
-#include <Imgui/imgui.h>
+#  include <Imgui/imgui.h>
 
 typedef ezTypedResourceHandle<class ezTexture2DResource> ezTexture2DResourceHandle;
 
@@ -35,8 +35,7 @@ class EZ_GAMEENGINE_DLL ezImgui
   EZ_DECLARE_SINGLETON(ezImgui);
 
 public:
-  ezImgui(ezImguiConfigFontCallback configFontCallback = ezImguiConfigFontCallback(),
-    ezImguiConfigStyleCallback configStyleCallback = ezImguiConfigStyleCallback());
+  ezImgui(ezImguiConfigFontCallback configFontCallback = ezImguiConfigFontCallback(), ezImguiConfigStyleCallback configStyleCallback = ezImguiConfigStyleCallback());
   ~ezImgui();
 
   /// \brief Sets the ImGui context for the given view

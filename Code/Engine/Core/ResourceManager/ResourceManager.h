@@ -78,8 +78,7 @@ public:
   /// \param szResourceDescription An optional description that might help during debugging. Often a human readable name or path is stored
   /// here, to make it easier to identify this resource.
   template <typename ResourceType, typename DescriptorType>
-  static ezTypedResourceHandle<ResourceType> CreateResource(
-    const char* szResourceID, DescriptorType&& descriptor, const char* szResourceDescription = nullptr);
+  static ezTypedResourceHandle<ResourceType> CreateResource(const char* szResourceID, DescriptorType&& descriptor, const char* szResourceDescription = nullptr);
 
   /// \brief Returns a handle to the resource with the given ID. If the resource does not exist, the handle is invalid.
   ///
@@ -152,8 +151,7 @@ public:
   /// \param out_AcquireResult Returns how successful the acquisition was. See ezResourceAcquireResult for details.
   template <typename ResourceType>
   static ResourceType* BeginAcquireResource(const ezTypedResourceHandle<ResourceType>& hResource, ezResourceAcquireMode mode,
-    const ezTypedResourceHandle<ResourceType>& hLoadingFallback = ezTypedResourceHandle<ResourceType>(),
-    ezResourceAcquireResult* out_AcquireResult = nullptr);
+    const ezTypedResourceHandle<ResourceType>& hLoadingFallback = ezTypedResourceHandle<ResourceType>(), ezResourceAcquireResult* out_AcquireResult = nullptr);
 
   /// \brief Needs to be called in concert with BeginAcquireResource() after accessing a resource has been finished. Prefer to use
   /// ezResourceLock instead.
@@ -192,7 +190,7 @@ public:
   template <typename ResourceType>
   static void SetIncrementalUnloadForResourceType(bool bActive);
 
-  template<typename TypeBeingUpdated, typename TypeItWantsToAcquire>
+  template <typename TypeBeingUpdated, typename TypeItWantsToAcquire>
   static void AllowResourceTypeAcquireDuringUpdateContent()
   {
     AllowResourceTypeAcquireDuringUpdateContent(ezGetStaticRTTI<TypeBeingUpdated>(), ezGetStaticRTTI<TypeItWantsToAcquire>());

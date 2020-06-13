@@ -53,7 +53,8 @@ public:
   /// \brief Increases the sphere's radius to include this point. Does NOT change its position, thus the resulting sphere might be not a very tight fit.
   void ExpandToInclude(const ezVec3Template<Type>& vPoint); // [tested]
 
-  /// \brief Increases the sphere's radius to include all given points. Does NOT change its position, thus the resulting sphere might be not a very tight fit. More efficient than calling this for every point individually.
+  /// \brief Increases the sphere's radius to include all given points. Does NOT change its position, thus the resulting sphere might be not a very tight fit. More efficient than calling this for
+  /// every point individually.
   void ExpandToInclude(const ezVec3Template<Type>* pPoints, ezUInt32 uiNumPoints, ezUInt32 uiStride = sizeof(ezVec3Template<Type>)); // [tested]
 
   /// \brief Increases this sphere's radius, such that it encloses the other sphere. Does not change the center position of this sphere.
@@ -125,12 +126,14 @@ public:
   /// \brief Clamps the given position to the volume of the sphere. The resulting point will always be inside the sphere, but have the closest distance to the original point.
   const ezVec3Template<Type> GetClampedPoint(const ezVec3Template<Type>& vPoint); // [tested]
 
-  /// \brief Computes the intersection of a ray with this sphere. Returns true if there was an intersection. May optionally return the intersection time and position. The ray's direction must be normalized.
-  /// The function will also return true, if the ray already starts inside the sphere, but it will still compute the intersection with the surface of the sphere.
-  bool GetRayIntersection(const ezVec3Template<Type>& vRayStartPos, const ezVec3Template<Type>& vRayDir, Type* out_fIntersection = nullptr, ezVec3Template<Type>* out_vIntersection = nullptr) const; // [tested]
+  /// \brief Computes the intersection of a ray with this sphere. Returns true if there was an intersection. May optionally return the intersection time and position. The ray's direction must be
+  /// normalized. The function will also return true, if the ray already starts inside the sphere, but it will still compute the intersection with the surface of the sphere.
+  bool GetRayIntersection(
+    const ezVec3Template<Type>& vRayStartPos, const ezVec3Template<Type>& vRayDir, Type* out_fIntersection = nullptr, ezVec3Template<Type>* out_vIntersection = nullptr) const; // [tested]
 
   /// \brief Returns true if the line segment intersects the sphere.
-  bool GetLineSegmentIntersection(const ezVec3Template<Type>& vLineStartPos, const ezVec3Template<Type>& vLineEndPos, Type* out_fHitFraction = nullptr, ezVec3Template<Type>* out_vIntersection = nullptr) const; // [tested]
+  bool GetLineSegmentIntersection(
+    const ezVec3Template<Type>& vLineStartPos, const ezVec3Template<Type>& vLineEndPos, Type* out_fHitFraction = nullptr, ezVec3Template<Type>* out_vIntersection = nullptr) const; // [tested]
 
 
 public:
@@ -148,4 +151,3 @@ bool operator!=(const ezBoundingSphereTemplate<Type>& lhs, const ezBoundingSpher
 
 
 #include <Foundation/Math/Implementation/BoundingSphere_inl.h>
-

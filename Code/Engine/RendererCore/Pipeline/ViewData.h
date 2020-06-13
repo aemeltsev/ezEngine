@@ -1,9 +1,9 @@
 #pragma once
 
+#include <Core/Graphics/Camera.h>
 #include <Foundation/Math/Rect.h>
 #include <Foundation/Utilities/GraphicsUtils.h>
 #include <RendererCore/Pipeline/ViewRenderMode.h>
-#include <Core/Graphics/Camera.h>
 
 /// \brief Holds view data like the viewport, view and projection matrices
 struct EZ_RENDERERCORE_DLL ezViewData
@@ -67,4 +67,3 @@ struct EZ_RENDERERCORE_DLL ezViewData
     return EZ_FAILURE;
   }
 };
-

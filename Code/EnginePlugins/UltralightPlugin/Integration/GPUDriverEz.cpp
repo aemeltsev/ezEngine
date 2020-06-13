@@ -5,8 +5,8 @@
 #include <Foundation/Profiling/Profiling.h>
 #include <Foundation/Utilities/Stats.h>
 
-#include <RendererFoundation/Device/Device.h>
 #include <RendererFoundation/Context/Context.h>
+#include <RendererFoundation/Device/Device.h>
 
 #include <UltralightPlugin/Integration/GPUDriverEz.h>
 
@@ -75,7 +75,7 @@ ezUltralightGPUDriver::ezUltralightGPUDriver()
 
   // Create vertex declarations for the vertex formats used
 
-  //ultralight::kVertexBufferFormat_2f_4ub_2f
+  // ultralight::kVertexBufferFormat_2f_4ub_2f
   {
     ezGALVertexDeclarationCreationDescription vertexDeclDesc;
     vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Position, ezGALResourceFormat::XYFloat, 0, 0, false));
@@ -87,21 +87,31 @@ ezUltralightGPUDriver::ezUltralightGPUDriver()
     m_hVertexDeclarations[0] = m_pDevice->CreateVertexDeclaration(vertexDeclDesc);
   }
 
-  //ultralight::kVertexBufferFormat_2f_4ub_2f_2f_28f
+  // ultralight::kVertexBufferFormat_2f_4ub_2f_2f_28f
   {
     ezGALVertexDeclarationCreationDescription vertexDeclDesc;
     vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Position, ezGALResourceFormat::XYFloat, 0, 0, false));
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color0, ezGALResourceFormat::RGBAUByte, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, color), 0, false));
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::TexCoord0, ezGALResourceFormat::XYFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, tex), 0, false));
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::TexCoord1, ezGALResourceFormat::XYFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, obj), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color0, ezGALResourceFormat::RGBAUByte, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, color), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::TexCoord0, ezGALResourceFormat::XYFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, tex), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::TexCoord1, ezGALResourceFormat::XYFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, obj), 0, false));
 
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color1, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data0), 0, false));
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color2, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data1), 0, false));
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color3, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data2), 0, false));
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color4, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data3), 0, false));
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color5, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data4), 0, false));
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color6, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data5), 0, false));
-    vertexDeclDesc.m_VertexAttributes.PushBack(ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color7, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data6), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color1, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data0), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color2, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data1), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color3, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data2), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color4, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data3), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color5, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data4), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color6, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data5), 0, false));
+    vertexDeclDesc.m_VertexAttributes.PushBack(
+      ezGALVertexAttribute(ezGALVertexAttributeSemantic::Color7, ezGALResourceFormat::XYZWFloat, offsetof(ultralight::Vertex_2f_4ub_2f_2f_28f, data6), 0, false));
 
     vertexDeclDesc.m_hShader = m_hShaders[0];
 
@@ -158,7 +168,6 @@ ezUltralightGPUDriver::ezUltralightGPUDriver()
     samplerDesc.m_fMaxMip = 0.0f;
 
     m_hSamplerState = m_pDevice->CreateSamplerState(samplerDesc);
-
   }
 }
 
@@ -271,7 +280,7 @@ void ezUltralightGPUDriver::UpdateTexture(uint32_t texture_id, ultralight::Ref<u
     ezGALSystemMemoryDescription sysmemDesc;
     sysmemDesc.m_pData = bitmap->LockPixels();
     sysmemDesc.m_uiRowPitch = bitmap->row_bytes();
-    sysmemDesc.m_uiSlicePitch = static_cast<ezUInt32>(bitmap->size());   
+    sysmemDesc.m_uiSlicePitch = static_cast<ezUInt32>(bitmap->size());
 
     m_pContext->UpdateTexture(phTex->m_hTex, subresource, destBox, sysmemDesc);
 
@@ -307,7 +316,7 @@ ezGALTextureHandle ezUltralightGPUDriver::GetTextureHandleForTextureId(uint32_t 
   {
     return phTex->m_hTex;
   }
-  
+
   return ezGALTextureHandle();
 }
 
@@ -339,7 +348,7 @@ void ezUltralightGPUDriver::CreateRenderBuffer(uint32_t render_buffer_id, const 
     renderBuffer.m_hDepthStencilView.Invalidate();
 
     m_RenderBuffers.Insert(render_buffer_id, std::move(renderBuffer));
-  }  
+  }
 }
 
 void ezUltralightGPUDriver::BindRenderBuffer(uint32_t render_buffer_id)
@@ -513,14 +522,8 @@ void ezUltralightGPUDriver::DrawGeometry(uint32_t geometry_id, uint32_t indices_
     if (state.enable_scissor)
     {
       m_pContext->SetRasterizerState(m_hRasterizerWithScissorTestState);
-      m_pContext->SetScissorRect(
-        ezRectU32(
-          static_cast<ezUInt32>(state.scissor_rect.left),
-          static_cast<ezUInt32>(state.scissor_rect.top),
-          static_cast<ezUInt32>(state.scissor_rect.width()),
-          static_cast<ezUInt32>(state.scissor_rect.height())
-            )
-        );
+      m_pContext->SetScissorRect(ezRectU32(static_cast<ezUInt32>(state.scissor_rect.left), static_cast<ezUInt32>(state.scissor_rect.top), static_cast<ezUInt32>(state.scissor_rect.width()),
+        static_cast<ezUInt32>(state.scissor_rect.height())));
     }
     else
     {
@@ -574,13 +577,13 @@ void ezUltralightGPUDriver::DrawCommandList()
   {
     switch (command.command_type)
     {
-    case ultralight::kCommandType_ClearRenderBuffer:
-      ClearRenderBuffer(command.gpu_state.render_buffer_id);
-      break;
+      case ultralight::kCommandType_ClearRenderBuffer:
+        ClearRenderBuffer(command.gpu_state.render_buffer_id);
+        break;
 
-    case ultralight::kCommandType_DrawGeometry:
-      DrawGeometry(command.geometry_id, command.indices_count, command.indices_offset, command.gpu_state);
-      break;
+      case ultralight::kCommandType_DrawGeometry:
+        DrawGeometry(command.geometry_id, command.indices_count, command.indices_offset, command.gpu_state);
+        break;
     }
   }
 

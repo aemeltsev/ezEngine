@@ -68,13 +68,12 @@ static inline ezColorLinearUB GetPixelColor(const ezImageView& image, ezUInt32 x
 ezResult ezTgaFileFormat::WriteImage(ezStreamWriter& stream, const ezImageView& image, ezLogInterface* pLog, const char* szFileExtension) const
 {
   // Technically almost arbitrary formats are supported, but we only use the common ones.
-  ezImageFormat::Enum compatibleFormats[] =
-    {
-      ezImageFormat::R8G8B8A8_UNORM,
-      ezImageFormat::B8G8R8A8_UNORM,
-      ezImageFormat::B8G8R8X8_UNORM,
-      ezImageFormat::B8G8R8_UNORM,
-    };
+  ezImageFormat::Enum compatibleFormats[] = {
+    ezImageFormat::R8G8B8A8_UNORM,
+    ezImageFormat::B8G8R8A8_UNORM,
+    ezImageFormat::B8G8R8X8_UNORM,
+    ezImageFormat::B8G8R8_UNORM,
+  };
 
   // Find a compatible format closest to the one the image currently has
   ezImageFormat::Enum format = ezImageConversion::FindClosestCompatibleFormat(image.GetImageFormat(), compatibleFormats);

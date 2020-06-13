@@ -1,8 +1,8 @@
 #pragma once
 
-#include <ToolsFoundation/ToolsFoundationDLL.h>
-#include <Foundation/Types/Delegate.h>
 #include <Foundation/Strings/String.h>
+#include <Foundation/Types/Delegate.h>
+#include <ToolsFoundation/ToolsFoundationDLL.h>
 
 class ezDocumentObjectManager;
 class ezDocumentObject;

@@ -162,7 +162,8 @@ static int __CPP_Physics_SweepTestCapsule(duk_context* pDuk)
   const ezUInt32 uiIgnoreShapeID = duk.GetIntValue(6);
 
   ezPhysicsCastResult res;
-  if (!pModule->SweepTestCapsule(res, fCapsuleRadius, fCapsuleHeight, transform, vDir, fDistance, ezPhysicsQueryParameters(uiCollisionLayer, ezPhysicsShapeType::Static | ezPhysicsShapeType::Dynamic, uiIgnoreShapeID)))
+  if (!pModule->SweepTestCapsule(
+        res, fCapsuleRadius, fCapsuleHeight, transform, vDir, fDistance, ezPhysicsQueryParameters(uiCollisionLayer, ezPhysicsShapeType::Static | ezPhysicsShapeType::Dynamic, uiIgnoreShapeID)))
   {
     return duk.ReturnNull();
   }
@@ -200,7 +201,8 @@ static int __CPP_Physics_OverlapTestCapsule(duk_context* pDuk)
   const ezUInt32 uiCollisionLayer = duk.GetUIntValue(3);
   const ezUInt32 uiIgnoreShapeID = duk.GetIntValue(4);
 
-  return duk.ReturnBool(pModule->OverlapTestCapsule(fCapsuleRadius, fCapsuleHeight, transform, ezPhysicsQueryParameters(uiCollisionLayer, ezPhysicsShapeType::Static | ezPhysicsShapeType::Dynamic, uiIgnoreShapeID)));
+  return duk.ReturnBool(
+    pModule->OverlapTestCapsule(fCapsuleRadius, fCapsuleHeight, transform, ezPhysicsQueryParameters(uiCollisionLayer, ezPhysicsShapeType::Static | ezPhysicsShapeType::Dynamic, uiIgnoreShapeID)));
 }
 
 static int __CPP_Physics_GetGravity(duk_context* pDuk)

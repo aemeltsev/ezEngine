@@ -94,8 +94,8 @@ EZ_CREATE_SIMPLE_TEST(Math, Frustum)
 
         const ezVec3 vCamPos(rot, rot * 0.5f, rot * -0.3f);
 
-        //const ezMat4 mViewLH = ezGraphicsUtils::CreateViewMatrix(vCamPos, vLookDir, -vRightDir, ezVec3(0, 1, 0), ezHandedness::LeftHanded);
-        //const ezMat4 mViewRH = ezGraphicsUtils::CreateViewMatrix(vCamPos, vLookDir, vRightDir, ezVec3(0, 1, 0), ezHandedness::RightHanded);
+        // const ezMat4 mViewLH = ezGraphicsUtils::CreateViewMatrix(vCamPos, vLookDir, -vRightDir, ezVec3(0, 1, 0), ezHandedness::LeftHanded);
+        // const ezMat4 mViewRH = ezGraphicsUtils::CreateViewMatrix(vCamPos, vLookDir, vRightDir, ezVec3(0, 1, 0), ezHandedness::RightHanded);
         const ezMat4 mViewLH = ezGraphicsUtils::CreateLookAtViewMatrix(vCamPos, vCamPos + vLookDir, ezVec3(0, 1, 0), ezHandedness::LeftHanded);
         const ezMat4 mViewRH = ezGraphicsUtils::CreateLookAtViewMatrix(vCamPos, vCamPos + vLookDir, ezVec3(0, 1, 0), ezHandedness::RightHanded);
 
@@ -137,8 +137,7 @@ EZ_CREATE_SIMPLE_TEST(Math, Frustum)
     for (ezUInt32 dir = 0; dir < 6; ++dir)
     {
       ezFrustum fDir;
-      fDir.SetFrustum(
-        offsetPos, camDir[dir], camDir[dir].GetOrthogonalVector() /*arbitrary*/, ezAngle::Degree(90), ezAngle::Degree(90), 1.0f, 100.0f);
+      fDir.SetFrustum(offsetPos, camDir[dir], camDir[dir].GetOrthogonalVector() /*arbitrary*/, ezAngle::Degree(90), ezAngle::Degree(90), 1.0f, 100.0f);
 
       for (ezUInt32 obj = 0; obj < 6; ++obj)
       {
@@ -234,8 +233,8 @@ EZ_CREATE_SIMPLE_TEST(Math, Frustum)
 
   EZ_TEST_BLOCK(ezTestBlock::Enabled, "ComputeCornerPoints")
   {
-    const ezMat4 mProj = ezGraphicsUtils::CreatePerspectiveProjectionMatrixFromFovY(
-      ezAngle::Degree(90), 1.0f, 1.0f, 10.0f, ezClipSpaceDepthRange::MinusOneToOne, ezClipSpaceYMode::Regular, ezHandedness::RightHanded);
+    const ezMat4 mProj =
+      ezGraphicsUtils::CreatePerspectiveProjectionMatrixFromFovY(ezAngle::Degree(90), 1.0f, 1.0f, 10.0f, ezClipSpaceDepthRange::MinusOneToOne, ezClipSpaceYMode::Regular, ezHandedness::RightHanded);
 
     ezFrustum frustum[2];
     frustum[0].SetFrustum(mProj, ezClipSpaceDepthRange::MinusOneToOne, ezHandedness::RightHanded);

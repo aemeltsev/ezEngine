@@ -70,10 +70,7 @@ ezQtContainerWindow::ezQtContainerWindow()
 
   m_DockManager = new ads::CDockManager(this);
   m_DockManager->setConfigFlags(static_cast<ads::CDockManager::ConfigFlags>(
-    ads::CDockManager::DockAreaHasCloseButton |
-    ads::CDockManager::DockAreaCloseButtonClosesTab |
-    ads::CDockManager::OpaqueSplitterResize |
-    ads::CDockManager::AllTabsHaveCloseButton));
+    ads::CDockManager::DockAreaHasCloseButton | ads::CDockManager::DockAreaCloseButtonClosesTab | ads::CDockManager::OpaqueSplitterResize | ads::CDockManager::AllTabsHaveCloseButton));
 
   connect(m_DockManager, &ads::CDockManager::floatingWidgetCreated, this, &ezQtContainerWindow::SlotFloatingWidgetOpened);
 }
@@ -295,7 +292,7 @@ void ezQtContainerWindow::RemoveDocumentWindow(ezQtDocumentWindow* pDocWindow)
   const bool bIsTabbed = dock->isTabbed();
   ads::CDockAreaWidget* pDockArea = dock->dockAreaWidget();
 
-    iCurIdx = pDockArea->currentIndex();
+  iCurIdx = pDockArea->currentIndex();
 
   m_DockManager->removeDockWidget(dock);
 
@@ -497,7 +494,7 @@ void ezQtContainerWindow::SlotDocumentTabCloseRequested()
 
   if (!pDocWindow->CanCloseWindow())
   {
-    //TODO: There is no CloseRequested event so we just reopen on a timer.
+    // TODO: There is no CloseRequested event so we just reopen on a timer.
     QTimer::singleShot(1, [dock]() { dock->toggleView(); });
     return;
   }

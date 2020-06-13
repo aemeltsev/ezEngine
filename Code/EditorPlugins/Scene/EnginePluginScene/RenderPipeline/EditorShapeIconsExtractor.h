@@ -8,6 +8,7 @@ class ezSceneContext;
 class ezEditorShapeIconsExtractor : public ezExtractor
 {
   EZ_ADD_DYNAMIC_REFLECTION(ezEditorShapeIconsExtractor, ezExtractor);
+
 public:
   ezEditorShapeIconsExtractor(const char* szName = "EditorShapeIconsExtractor");
   ~ezEditorShapeIconsExtractor();

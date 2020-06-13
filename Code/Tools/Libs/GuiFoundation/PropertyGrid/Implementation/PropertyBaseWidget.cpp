@@ -32,8 +32,7 @@ ezQtPropertyWidget::ezQtPropertyWidget()
 
 ezQtPropertyWidget::~ezQtPropertyWidget() {}
 
-void ezQtPropertyWidget::Init(ezQtPropertyGridWidget* pGrid, ezObjectAccessorBase* pObjectAccessor, const ezRTTI* pType,
-  const ezAbstractProperty* pProp)
+void ezQtPropertyWidget::Init(ezQtPropertyGridWidget* pGrid, ezObjectAccessorBase* pObjectAccessor, const ezRTTI* pType, const ezAbstractProperty* pProp)
 {
   m_pGrid = pGrid;
   m_pObjectAccessor = pObjectAccessor;
@@ -115,8 +114,7 @@ const ezRTTI* ezQtPropertyWidget::GetCommonBaseType(const ezHybridArray<ezProper
   return pSubtype;
 }
 
-bool ezQtPropertyWidget::GetCommonVariantSubType(const ezHybridArray<ezPropertySelection, 8>& items, const ezAbstractProperty* pProperty,
-  ezVariantType::Enum& out_Type)
+bool ezQtPropertyWidget::GetCommonVariantSubType(const ezHybridArray<ezPropertySelection, 8>& items, const ezAbstractProperty* pProperty, ezVariantType::Enum& out_Type)
 {
   bool bFirst = true;
   // check if we have multiple values
@@ -335,8 +333,7 @@ ezQtPropertyPointerWidget::ezQtPropertyPointerWidget()
 
 ezQtPropertyPointerWidget::~ezQtPropertyPointerWidget()
 {
-  m_pGrid->GetDocument()->GetObjectManager()->m_StructureEvents.RemoveEventHandler(
-    ezMakeDelegate(&ezQtPropertyPointerWidget::StructureEventHandler, this));
+  m_pGrid->GetDocument()->GetObjectManager()->m_StructureEvents.RemoveEventHandler(ezMakeDelegate(&ezQtPropertyPointerWidget::StructureEventHandler, this));
 }
 
 void ezQtPropertyPointerWidget::OnInit()
@@ -351,8 +348,7 @@ void ezQtPropertyPointerWidget::OnInit()
   m_pDeleteButton->setVisible(!pAttr || pAttr->CanDelete());
 
   m_pAddButton->Init(m_pGrid, m_pObjectAccessor, m_pType, m_pProp);
-  m_pGrid->GetDocument()->GetObjectManager()->m_StructureEvents.AddEventHandler(
-    ezMakeDelegate(&ezQtPropertyPointerWidget::StructureEventHandler, this));
+  m_pGrid->GetDocument()->GetObjectManager()->m_StructureEvents.AddEventHandler(ezMakeDelegate(&ezQtPropertyPointerWidget::StructureEventHandler, this));
 }
 
 void ezQtPropertyPointerWidget::SetSelection(const ezHybridArray<ezPropertySelection, 8>& items)
@@ -453,9 +449,7 @@ void ezQtPropertyPointerWidget::StructureEventHandler(const ezDocumentObjectStru
       if (!e.m_sParentProperty.IsEqual(m_pProp->GetPropertyName()))
         return;
 
-      if (std::none_of(cbegin(m_Items), cend(m_Items), [&](const ezPropertySelection& sel) {
-            return e.m_pNewParent == sel.m_pObject || e.m_pPreviousParent == sel.m_pObject;
-          }))
+      if (std::none_of(cbegin(m_Items), cend(m_Items), [&](const ezPropertySelection& sel) { return e.m_pNewParent == sel.m_pObject || e.m_pPreviousParent == sel.m_pObject; }))
         return;
 
       SetSelection(m_Items);
@@ -478,10 +472,8 @@ ezQtEmbeddedClassPropertyWidget::ezQtEmbeddedClassPropertyWidget()
 
 ezQtEmbeddedClassPropertyWidget::~ezQtEmbeddedClassPropertyWidget()
 {
-  m_pGrid->GetObjectManager()->m_PropertyEvents.RemoveEventHandler(
-    ezMakeDelegate(&ezQtEmbeddedClassPropertyWidget::PropertyEventHandler, this));
-  m_pGrid->GetCommandHistory()->m_Events.RemoveEventHandler(
-    ezMakeDelegate(&ezQtEmbeddedClassPropertyWidget::CommandHistoryEventHandler, this));
+  m_pGrid->GetObjectManager()->m_PropertyEvents.RemoveEventHandler(ezMakeDelegate(&ezQtEmbeddedClassPropertyWidget::PropertyEventHandler, this));
+  m_pGrid->GetCommandHistory()->m_Events.RemoveEventHandler(ezMakeDelegate(&ezQtEmbeddedClassPropertyWidget::CommandHistoryEventHandler, this));
 }
 
 void ezQtEmbeddedClassPropertyWidget::SetSelection(const ezHybridArray<ezPropertySelection, 8>& items)
@@ -530,10 +522,8 @@ void ezQtEmbeddedClassPropertyWidget::SetPropertyValue(const ezAbstractProperty*
 
 void ezQtEmbeddedClassPropertyWidget::OnInit()
 {
-  m_pGrid->GetObjectManager()->m_PropertyEvents.AddEventHandler(
-    ezMakeDelegate(&ezQtEmbeddedClassPropertyWidget::PropertyEventHandler, this));
-  m_pGrid->GetCommandHistory()->m_Events.AddEventHandler(
-    ezMakeDelegate(&ezQtEmbeddedClassPropertyWidget::CommandHistoryEventHandler, this));
+  m_pGrid->GetObjectManager()->m_PropertyEvents.AddEventHandler(ezMakeDelegate(&ezQtEmbeddedClassPropertyWidget::PropertyEventHandler, this));
+  m_pGrid->GetCommandHistory()->m_Events.AddEventHandler(ezMakeDelegate(&ezQtEmbeddedClassPropertyWidget::CommandHistoryEventHandler, this));
 }
 
 
@@ -544,8 +534,7 @@ void ezQtEmbeddedClassPropertyWidget::PropertyEventHandler(const ezDocumentObjec
   if (IsUndead())
     return;
 
-  if (std::none_of(cbegin(m_ResolvedObjects), cend(m_ResolvedObjects),
-        [=](const ezPropertySelection& sel) { return e.m_pObject == sel.m_pObject; }))
+  if (std::none_of(cbegin(m_ResolvedObjects), cend(m_ResolvedObjects), [=](const ezPropertySelection& sel) { return e.m_pObject == sel.m_pObject; }))
     return;
 
   if (!m_QueuedChanges.Contains(e.m_sProperty))
@@ -744,8 +733,7 @@ void ezQtPropertyContainerWidget::dropEvent(QDropEvent* event)
   if (updateDropIndex(event))
   {
     ezQtGroupBoxBase* pGroup = qobject_cast<ezQtGroupBoxBase*>(event->source());
-    Element* pDragElement =
-      std::find_if(begin(m_Elements), end(m_Elements), [pGroup](const Element& elem) -> bool { return elem.m_pSubGroup == pGroup; });
+    Element* pDragElement = std::find_if(begin(m_Elements), end(m_Elements), [pGroup](const Element& elem) -> bool { return elem.m_pSubGroup == pGroup; });
     if (pDragElement)
     {
       const ezAbstractProperty* pProp = pDragElement->m_pWidget->GetProperty();
@@ -862,8 +850,7 @@ void ezQtPropertyContainerWidget::OnElementButtonClicked()
 void ezQtPropertyContainerWidget::OnDragStarted(QMimeData& mimeData)
 {
   ezQtGroupBoxBase* pGroup = qobject_cast<ezQtGroupBoxBase*>(sender());
-  Element* pDragElement =
-    std::find_if(begin(m_Elements), end(m_Elements), [pGroup](const Element& elem) -> bool { return elem.m_pSubGroup == pGroup; });
+  Element* pDragElement = std::find_if(begin(m_Elements), end(m_Elements), [pGroup](const Element& elem) -> bool { return elem.m_pSubGroup == pGroup; });
   if (pDragElement)
   {
     mimeData.setData("application/x-groupBoxDragProperty", QByteArray());
@@ -873,8 +860,7 @@ void ezQtPropertyContainerWidget::OnDragStarted(QMimeData& mimeData)
 void ezQtPropertyContainerWidget::OnCustomElementContextMenu(const QPoint& pt)
 {
   ezQtGroupBoxBase* pGroup = qobject_cast<ezQtGroupBoxBase*>(sender());
-  Element* pElement =
-    std::find_if(begin(m_Elements), end(m_Elements), [pGroup](const Element& elem) -> bool { return elem.m_pSubGroup == pGroup; });
+  Element* pElement = std::find_if(begin(m_Elements), end(m_Elements), [pGroup](const Element& elem) -> bool { return elem.m_pSubGroup == pGroup; });
 
   if (pElement)
   {
@@ -943,8 +929,7 @@ ezQtPropertyContainerWidget::Element& ezQtPropertyContainerWidget::AddElement(ez
 
     if (!pAttr || pAttr->CanDelete())
     {
-      ezQtElementGroupButton* pDeleteButton =
-        new ezQtElementGroupButton(pSubGroup->GetHeader(), ezQtElementGroupButton::ElementAction::DeleteElement, pNewWidget);
+      ezQtElementGroupButton* pDeleteButton = new ezQtElementGroupButton(pSubGroup->GetHeader(), ezQtElementGroupButton::ElementAction::DeleteElement, pNewWidget);
       pSubGroup->GetHeader()->layout()->addWidget(pDeleteButton);
       connect(pDeleteButton, &QToolButton::clicked, this, &ezQtPropertyContainerWidget::OnElementButtonClicked);
     }
@@ -1287,9 +1272,7 @@ void ezQtPropertyTypeContainerWidget::StructureEventHandler(const ezDocumentObje
       if (!e.m_sParentProperty.IsEqual(m_pProp->GetPropertyName()))
         return;
 
-      if (std::none_of(cbegin(m_Items), cend(m_Items), [&](const ezPropertySelection& sel) {
-            return e.m_pNewParent == sel.m_pObject || e.m_pPreviousParent == sel.m_pObject;
-          }))
+      if (std::none_of(cbegin(m_Items), cend(m_Items), [&](const ezPropertySelection& sel) { return e.m_pNewParent == sel.m_pObject || e.m_pPreviousParent == sel.m_pObject; }))
         return;
 
       m_bNeedsUpdate = true;
@@ -1412,9 +1395,7 @@ void ezQtVariantPropertyWidget::ChangeVariantType(ezVariantType::Enum type)
     }
     else
     {
-      EZ_VERIFY(m_pObjectAccessor->SetValue(item.m_pObject, m_pProp, ezReflectionUtils::GetDefaultVariantFromType(type), item.m_Index)
-                  .Succeeded(),
-        "");
+      EZ_VERIFY(m_pObjectAccessor->SetValue(item.m_pObject, m_pProp, ezReflectionUtils::GetDefaultVariantFromType(type), item.m_Index).Succeeded(), "");
     }
   }
   m_pObjectAccessor->FinishTransaction();

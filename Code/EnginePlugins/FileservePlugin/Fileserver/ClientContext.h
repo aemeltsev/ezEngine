@@ -17,7 +17,6 @@ enum class ezFileserveFileState
 class EZ_FILESERVEPLUGIN_DLL ezFileserveClientContext
 {
 public:
-
   struct DataDir
   {
     ezString m_sRootName;
@@ -40,4 +39,3 @@ public:
   ezUInt32 m_uiApplicationID = 0;
   ezHybridArray<DataDir, 8> m_MountedDataDirs;
 };
-

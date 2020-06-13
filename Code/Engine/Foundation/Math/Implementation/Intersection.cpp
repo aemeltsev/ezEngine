@@ -1,10 +1,11 @@
 #include <FoundationPCH.h>
 
 #include <Foundation/Math/Intersection.h>
-#include <Foundation/Math/Plane.h>
 #include <Foundation/Math/Math.h>
+#include <Foundation/Math/Plane.h>
 
-bool ezIntersectionUtils::RayPolygonIntersection(const ezVec3& vRayStartPos, const ezVec3& vRayDir, const ezVec3* pPolygonVertices, ezUInt32 uiNumVertices, float* out_fIntersectionTime, ezVec3* out_vIntersectionPoint, ezUInt32 uiVertexStride)
+bool ezIntersectionUtils::RayPolygonIntersection(
+  const ezVec3& vRayStartPos, const ezVec3& vRayDir, const ezVec3* pPolygonVertices, ezUInt32 uiNumVertices, float* out_fIntersectionTime, ezVec3* out_vIntersectionPoint, ezUInt32 uiVertexStride)
 {
   EZ_ASSERT_DEBUG(uiNumVertices >= 3, "A polygon must have at least three vertices.");
   EZ_ASSERT_DEBUG(uiVertexStride >= sizeof(ezVec3), "The vertex stride is invalid.");
@@ -76,7 +77,8 @@ ezVec3 ezIntersectionUtils::ClosestPoint_PointLineSegment(const ezVec3& vStartPo
   return vLineSegmentPos0 + fPosAlongSegment * vLineDir;
 }
 
-bool ezIntersectionUtils::Ray2DLine2D(const ezVec2& vRayStartPos, const ezVec2& vRayDir, const ezVec2& vLineSegmentPos0, const ezVec2& vLineSegmentPos1, float* out_fIntersectionTime, ezVec2* out_vIntersectionPoint)
+bool ezIntersectionUtils::Ray2DLine2D(
+  const ezVec2& vRayStartPos, const ezVec2& vRayDir, const ezVec2& vLineSegmentPos0, const ezVec2& vLineSegmentPos1, float* out_fIntersectionTime, ezVec2* out_vIntersectionPoint)
 {
   const ezVec2 vLineDir = vLineSegmentPos1 - vLineSegmentPos0;
 
@@ -131,4 +133,3 @@ bool ezIntersectionUtils::IsPointOnLine(const ezVec3& vLineStart, const ezVec3& 
 }
 
 EZ_STATICLINK_FILE(Foundation, Foundation_Math_Implementation_Intersection);
-

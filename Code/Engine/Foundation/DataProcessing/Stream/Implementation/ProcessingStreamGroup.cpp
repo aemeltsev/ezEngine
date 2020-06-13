@@ -281,10 +281,7 @@ void ezProcessingStreamGroup::RunPendingSpawns()
 
 struct ProcessorComparer
 {
-  EZ_ALWAYS_INLINE bool Less(const ezProcessingStreamProcessor* a, const ezProcessingStreamProcessor* b) const
-  {
-    return a->m_fPriority < b->m_fPriority;
-  }
+  EZ_ALWAYS_INLINE bool Less(const ezProcessingStreamProcessor* a, const ezProcessingStreamProcessor* b) const { return a->m_fPriority < b->m_fPriority; }
 };
 
 void ezProcessingStreamGroup::SortProcessorsByPriority()
@@ -294,4 +291,3 @@ void ezProcessingStreamGroup::SortProcessorsByPriority()
 }
 
 EZ_STATICLINK_FILE(Foundation, Foundation_DataProcessing_Stream_Implementation_ProcessingStreamGroup);
-

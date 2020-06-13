@@ -20,8 +20,7 @@ bool ezPreprocessor::RemoveDefine(const char* szName)
 
 ezResult ezPreprocessor::StoreDefine(const ezToken* pMacroNameToken, const TokenStream* pReplacementTokens, ezUInt32 uiFirstReplacementToken, ezInt32 iNumParameters, bool bUsesVarArgs)
 {
-  if ((pMacroNameToken->m_DataView.IsEqual("defined")) || (pMacroNameToken->m_DataView.IsEqual("__FILE__")) ||
-      (pMacroNameToken->m_DataView.IsEqual("__LINE__")))
+  if ((pMacroNameToken->m_DataView.IsEqual("defined")) || (pMacroNameToken->m_DataView.IsEqual("__FILE__")) || (pMacroNameToken->m_DataView.IsEqual("__LINE__")))
   {
     PP_LOG(Error, "Macro name '{0}' is reserved", pMacroNameToken, pMacroNameToken->m_DataView);
     return EZ_FAILURE;
@@ -65,7 +64,7 @@ ezResult ezPreprocessor::StoreDefine(const ezToken* pMacroNameToken, const Token
   if (bExisted)
   {
     PP_LOG(Warning, "Redefinition of macro '{0}'", pMacroNameToken, pMacroNameToken->m_DataView);
-    //return EZ_FAILURE;
+    // return EZ_FAILURE;
   }
 
   it.Value() = md;
@@ -184,4 +183,3 @@ ezResult ezPreprocessor::AddCustomDefine(const char* szDefinition)
 
 
 EZ_STATICLINK_FILE(Foundation, Foundation_CodeUtils_Implementation_Defines);
-

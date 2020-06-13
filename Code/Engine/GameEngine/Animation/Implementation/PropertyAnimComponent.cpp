@@ -36,8 +36,7 @@ EZ_BEGIN_COMPONENT_TYPE(ezPropertyAnimComponent, 3, ezComponentMode::Dynamic)
       EZ_MESSAGE_SENDER(m_ReachedEndMsgSender),
     } EZ_END_MESSAGESENDERS;
     EZ_BEGIN_FUNCTIONS
-    {
-      EZ_SCRIPT_FUNCTION_PROPERTY(PlayAnimationRange, In, "RangeLow", In, "RangeHigh")} EZ_END_FUNCTIONS;
+    {EZ_SCRIPT_FUNCTION_PROPERTY(PlayAnimationRange, In, "RangeLow", In, "RangeHigh")} EZ_END_FUNCTIONS;
   }
 EZ_END_DYNAMIC_REFLECTED_TYPE;
 // clang-format on
@@ -192,8 +191,7 @@ void ezPropertyAnimComponent::CreatePropertyBindings()
   }
 }
 
-void ezPropertyAnimComponent::CreateGameObjectBinding(const ezFloatPropertyAnimEntry* pAnim, const ezRTTI* pOwnerRtti, void* pObject,
-  const ezGameObjectHandle& hGameObject)
+void ezPropertyAnimComponent::CreateGameObjectBinding(const ezFloatPropertyAnimEntry* pAnim, const ezRTTI* pOwnerRtti, void* pObject, const ezGameObjectHandle& hGameObject)
 {
   if (pAnim->m_Target < ezPropertyAnimTarget::Number || pAnim->m_Target > ezPropertyAnimTarget::RotationZ)
     return;
@@ -267,8 +265,7 @@ void ezPropertyAnimComponent::CreateGameObjectBinding(const ezFloatPropertyAnimE
   }
 }
 
-void ezPropertyAnimComponent::CreateFloatPropertyBinding(const ezFloatPropertyAnimEntry* pAnim, const ezRTTI* pOwnerRtti, void* pObject,
-  const ezComponentHandle& hComponent)
+void ezPropertyAnimComponent::CreateFloatPropertyBinding(const ezFloatPropertyAnimEntry* pAnim, const ezRTTI* pOwnerRtti, void* pObject, const ezComponentHandle& hComponent)
 {
   if (pAnim->m_Target < ezPropertyAnimTarget::Number || pAnim->m_Target > ezPropertyAnimTarget::VectorW)
     return;
@@ -285,10 +282,9 @@ void ezPropertyAnimComponent::CreateFloatPropertyBinding(const ezFloatPropertyAn
 
   if (pAnim->m_Target == ezPropertyAnimTarget::Number)
   {
-    if (pPropRtti != ezGetStaticRTTI<float>() && pPropRtti != ezGetStaticRTTI<double>() && pPropRtti != ezGetStaticRTTI<bool>() &&
-        pPropRtti != ezGetStaticRTTI<ezInt64>() && pPropRtti != ezGetStaticRTTI<ezInt32>() && pPropRtti != ezGetStaticRTTI<ezInt16>() &&
-        pPropRtti != ezGetStaticRTTI<ezInt8>() && pPropRtti != ezGetStaticRTTI<ezUInt64>() && pPropRtti != ezGetStaticRTTI<ezUInt32>() &&
-        pPropRtti != ezGetStaticRTTI<ezUInt16>() && pPropRtti != ezGetStaticRTTI<ezUInt8>() && pPropRtti != ezGetStaticRTTI<ezAngle>() &&
+    if (pPropRtti != ezGetStaticRTTI<float>() && pPropRtti != ezGetStaticRTTI<double>() && pPropRtti != ezGetStaticRTTI<bool>() && pPropRtti != ezGetStaticRTTI<ezInt64>() &&
+        pPropRtti != ezGetStaticRTTI<ezInt32>() && pPropRtti != ezGetStaticRTTI<ezInt16>() && pPropRtti != ezGetStaticRTTI<ezInt8>() && pPropRtti != ezGetStaticRTTI<ezUInt64>() &&
+        pPropRtti != ezGetStaticRTTI<ezUInt32>() && pPropRtti != ezGetStaticRTTI<ezUInt16>() && pPropRtti != ezGetStaticRTTI<ezUInt8>() && pPropRtti != ezGetStaticRTTI<ezAngle>() &&
         pPropRtti != ezGetStaticRTTI<ezTime>())
       return;
   }
@@ -343,8 +339,7 @@ void ezPropertyAnimComponent::CreateFloatPropertyBinding(const ezFloatPropertyAn
   }
 }
 
-void ezPropertyAnimComponent::CreateColorPropertyBinding(const ezColorPropertyAnimEntry* pAnim, const ezRTTI* pOwnerRtti, void* pObject,
-  const ezComponentHandle& hComponent)
+void ezPropertyAnimComponent::CreateColorPropertyBinding(const ezColorPropertyAnimEntry* pAnim, const ezRTTI* pOwnerRtti, void* pObject, const ezComponentHandle& hComponent)
 {
   if (pAnim->m_Target != ezPropertyAnimTarget::Color)
     return;
@@ -592,8 +587,7 @@ void ezPropertyAnimComponent::StartPlayback()
   if (!m_RandomOffset.IsZero() && m_AnimDesc->m_AnimationDuration.IsPositive())
   {
     // should the random offset also be scaled by the speed factor? I guess not
-    m_AnimationTime +=
-      ezMath::Abs(m_fSpeed) * ezTime::Seconds(GetWorld()->GetRandomNumberGenerator().DoubleInRange(0.0, m_RandomOffset.GetSeconds()));
+    m_AnimationTime += ezMath::Abs(m_fSpeed) * ezTime::Seconds(GetWorld()->GetRandomNumberGenerator().DoubleInRange(0.0, m_RandomOffset.GetSeconds()));
 
     const ezTime duration = m_AnimationRangeHigh - m_AnimationRangeLow;
 

@@ -15,8 +15,7 @@ namespace
 #endif
 
   template <typename Func>
-  VM_INLINE void VMOperation1(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters,
-    Func func)
+  VM_INLINE void VMOperation1(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters, Func func)
   {
     ezSimdVec4f* r = pRegisters + ezExpressionByteCode::GetRegisterIndex(pByteCode, uiNumRegisters);
     ezSimdVec4f* re = r + uiNumRegisters;
@@ -32,8 +31,7 @@ namespace
   }
 
   template <typename Func>
-  VM_INLINE void VMOperation1_C(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters,
-    Func func)
+  VM_INLINE void VMOperation1_C(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters, Func func)
   {
     ezSimdVec4f* r = pRegisters + ezExpressionByteCode::GetRegisterIndex(pByteCode, uiNumRegisters);
     ezSimdVec4f* re = r + uiNumRegisters;
@@ -48,8 +46,7 @@ namespace
   }
 
   template <typename Func>
-  VM_INLINE void VMOperation2(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters,
-    Func func)
+  VM_INLINE void VMOperation2(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters, Func func)
   {
     ezSimdVec4f* r = pRegisters + ezExpressionByteCode::GetRegisterIndex(pByteCode, uiNumRegisters);
     ezSimdVec4f* re = r + uiNumRegisters;
@@ -67,8 +64,7 @@ namespace
   }
 
   template <typename Func>
-  VM_INLINE void VMOperation2_C(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters,
-    Func func)
+  VM_INLINE void VMOperation2_C(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters, Func func)
   {
     ezSimdVec4f* r = pRegisters + ezExpressionByteCode::GetRegisterIndex(pByteCode, uiNumRegisters);
     ezSimdVec4f* re = r + uiNumRegisters;
@@ -86,8 +82,8 @@ namespace
 
   VM_INLINE float ReadInputData(const ezUInt8* pData) { return *reinterpret_cast<const float*>(pData); }
 
-  void VMLoadInput(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters,
-    ezArrayPtr<const ezExpression::Stream> inputs, ezArrayPtr<ezUInt32> inputMapping)
+  void VMLoadInput(
+    const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters, ezArrayPtr<const ezExpression::Stream> inputs, ezArrayPtr<ezUInt32> inputMapping)
   {
     ezSimdVec4f* r = pRegisters + ezExpressionByteCode::GetRegisterIndex(pByteCode, uiNumRegisters);
     ezSimdVec4f* re = r + uiNumRegisters;
@@ -117,8 +113,8 @@ namespace
 
   VM_INLINE void StoreOutputData(ezUInt8* pData, float fData) { *reinterpret_cast<float*>(pData) = fData; }
 
-  void VMStoreOutput(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters,
-    ezArrayPtr<ezExpression::Stream> outputs, ezArrayPtr<ezUInt32> outputMapping)
+  void VMStoreOutput(
+    const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters, ezArrayPtr<ezExpression::Stream> outputs, ezArrayPtr<ezUInt32> outputMapping)
   {
     ezUInt32 uiOutputIndex = ezExpressionByteCode::GetRegisterIndex(pByteCode, 1);
     uiOutputIndex = outputMapping[uiOutputIndex];
@@ -148,8 +144,7 @@ namespace
     }
   }
 
-  void VMCall(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters,
-    const ezExpression::GlobalData& globalData, ezExpressionFunction& func)
+  void VMCall(const ezExpressionByteCode::StorageType*& pByteCode, ezSimdVec4f* pRegisters, ezUInt32 uiNumRegisters, const ezExpression::GlobalData& globalData, ezExpressionFunction& func)
   {
     ezSimdVec4f* r = pRegisters + ezExpressionByteCode::GetRegisterIndex(pByteCode, uiNumRegisters);
     ezUInt32 uiNumArgs = ezExpressionByteCode::GetFunctionArgCount(pByteCode);
@@ -221,8 +216,7 @@ void ezExpression::Stream::ValidateDataSize(ezUInt32 uiNumInstances, const char*
   ezUInt32 uiElementSize = GetElementSize();
   ezUInt32 uiExpectedSize = m_uiByteStride * (uiNumInstances - 1) + uiElementSize;
 
-  EZ_ASSERT_DEV(m_Data.GetCount() >= uiExpectedSize, "{0} data size must be {1} bytes or more. Only {2} bytes given", szDataName,
-    uiExpectedSize, m_Data.GetCount());
+  EZ_ASSERT_DEV(m_Data.GetCount() >= uiExpectedSize, "{0} data size must be {1} bytes or more. Only {2} bytes given", szDataName, uiExpectedSize, m_Data.GetCount());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -230,8 +224,7 @@ void ezExpression::Stream::ValidateDataSize(ezUInt32 uiNumInstances, const char*
 ezExpressionVM::ezExpressionVM() = default;
 ezExpressionVM::~ezExpressionVM() = default;
 
-void ezExpressionVM::RegisterFunction(const char* szName, ezExpressionFunction func,
-  ezExpressionValidateGlobalData validationFunc /*= ezExpressionValidateGlobalData()*/)
+void ezExpressionVM::RegisterFunction(const char* szName, ezExpressionFunction func, ezExpressionValidateGlobalData validationFunc /*= ezExpressionValidateGlobalData()*/)
 {
   ezUInt32 uiFunctionIndex = m_Functions.GetCount();
 
@@ -249,8 +242,8 @@ void ezExpressionVM::RegisterDefaultFunctions()
   RegisterFunction("PerlinNoise", &ezDefaultExpressionFunctions::PerlinNoise);
 }
 
-ezResult ezExpressionVM::Execute(const ezExpressionByteCode& byteCode, ezArrayPtr<const ezExpression::Stream> inputs,
-  ezArrayPtr<ezExpression::Stream> outputs, ezUInt32 uiNumInstances, const ezExpression::GlobalData& globalData)
+ezResult ezExpressionVM::Execute(
+  const ezExpressionByteCode& byteCode, ezArrayPtr<const ezExpression::Stream> inputs, ezArrayPtr<ezExpression::Stream> outputs, ezUInt32 uiNumInstances, const ezExpression::GlobalData& globalData)
 {
   // Input mapping
   {

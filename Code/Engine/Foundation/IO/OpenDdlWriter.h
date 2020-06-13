@@ -125,7 +125,8 @@ protected:
 
   struct DdlState
   {
-    DdlState() : m_State(Empty)
+    DdlState()
+      : m_State(Empty)
     {
       m_bPrimitivesWritten = false;
     }
@@ -155,4 +156,3 @@ protected:
 
   ezHybridArray<DdlState, 16> m_StateStack;
 };
-

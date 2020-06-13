@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ParticlePlugin/ParticlePluginDLL.h>
 #include <ParticlePlugin/Effect/ParticleEffectInstance.h>
+#include <ParticlePlugin/ParticlePluginDLL.h>
 
 class EZ_PARTICLEPLUGIN_DLL ezParticleEffectController
 {
@@ -10,9 +10,8 @@ public:
   ezParticleEffectController(const ezParticleEffectController& rhs);
   void operator=(const ezParticleEffectController& rhs);
 
-  void Create(const ezParticleEffectResourceHandle& hEffectResource, ezParticleWorldModule* pModule, ezUInt64 uiRandomSeed,
-              const char* szSharedName /*= nullptr*/, const void* pSharedInstanceOwner /*= nullptr*/,
-              ezArrayPtr<ezParticleEffectFloatParam> floatParams, ezArrayPtr<ezParticleEffectColorParam> colorParams);
+  void Create(const ezParticleEffectResourceHandle& hEffectResource, ezParticleWorldModule* pModule, ezUInt64 uiRandomSeed, const char* szSharedName /*= nullptr*/,
+    const void* pSharedInstanceOwner /*= nullptr*/, ezArrayPtr<ezParticleEffectFloatParam> floatParams, ezArrayPtr<ezParticleEffectColorParam> colorParams);
 
   bool IsValid() const;
   void Invalidate();

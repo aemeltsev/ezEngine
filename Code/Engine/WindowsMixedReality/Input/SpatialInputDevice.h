@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include <WindowsMixedReality/Basics.h>
 #include <Core/Input/InputDevice.h>
+#include <WindowsMixedReality/Basics.h>
 #include <windows.ui.input.spatial.h>
 #include <wrl/client.h>
 
@@ -29,8 +29,8 @@ private:
       Ignored,
       Hand0,
       Hand1,
-      //Controller0,
-      //Controller1,
+      // Controller0,
+      // Controller1,
       // Voice
     };
 
@@ -71,4 +71,3 @@ private:
 
   ezMap<ezUInt32, SourceInfo> m_InputSources;
 };
-

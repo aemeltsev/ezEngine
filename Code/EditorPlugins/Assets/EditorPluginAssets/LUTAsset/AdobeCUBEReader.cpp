@@ -17,13 +17,9 @@ namespace
       return false;
     }
 
-    if (
-      (line[skip + 0]->m_iType != ezTokenType::Float && line[skip + 0]->m_iType != ezTokenType::Integer) ||
-      line[skip + 1]->m_iType != ezTokenType::Whitespace ||
-      (line[skip + 2]->m_iType != ezTokenType::Float && line[skip + 2]->m_iType != ezTokenType::Integer) ||
-      line[skip + 3]->m_iType != ezTokenType::Whitespace ||
-      (line[skip + 4]->m_iType != ezTokenType::Float && line[skip + 4]->m_iType != ezTokenType::Integer)
-      )
+    if ((line[skip + 0]->m_iType != ezTokenType::Float && line[skip + 0]->m_iType != ezTokenType::Integer) || line[skip + 1]->m_iType != ezTokenType::Whitespace ||
+        (line[skip + 2]->m_iType != ezTokenType::Float && line[skip + 2]->m_iType != ezTokenType::Integer) || line[skip + 3]->m_iType != ezTokenType::Whitespace ||
+        (line[skip + 4]->m_iType != ezTokenType::Float && line[skip + 4]->m_iType != ezTokenType::Integer))
     {
       return false;
     }
@@ -51,7 +47,7 @@ namespace
 
     return true;
   }
-}
+} // namespace
 
 ezAdobeCUBEReader::ezAdobeCUBEReader() = default;
 ezAdobeCUBEReader::~ezAdobeCUBEReader() = default;
@@ -74,7 +70,7 @@ ezStatus ezAdobeCUBEReader::ParseFile(ezStreamReader& Stream, ezLogInterface* pL
 
   while (tokenizer.GetNextLine(firstToken, line).Succeeded())
   {
-    if(line[0]->m_iType == ezTokenType::LineComment || line[0]->m_iType == ezTokenType::Newline)
+    if (line[0]->m_iType == ezTokenType::LineComment || line[0]->m_iType == ezTokenType::Newline)
       continue;
 
     if (line[0]->m_DataView == "TITLE")

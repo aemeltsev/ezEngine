@@ -55,8 +55,7 @@ ezResult ezTexConvProcessor::GenerateMipmaps(ezImage& img, ezUInt32 uiNumMips, M
   opt.m_preserveCoverage = m_Descriptor.m_bPreserveMipmapCoverage;
   opt.m_alphaThreshold = m_Descriptor.m_fMipmapAlphaThreshold;
 
-  opt.m_renormalizeNormals =
-    m_Descriptor.m_Usage == ezTexConvUsage::NormalMap || m_Descriptor.m_Usage == ezTexConvUsage::NormalMap_Inverted || m_Descriptor.m_Usage == ezTexConvUsage::BumpMap;
+  opt.m_renormalizeNormals = m_Descriptor.m_Usage == ezTexConvUsage::NormalMap || m_Descriptor.m_Usage == ezTexConvUsage::NormalMap_Inverted || m_Descriptor.m_Usage == ezTexConvUsage::BumpMap;
 
   // Copy red to alpha channel if we only have a single channel input texture
   if (opt.m_preserveCoverage && channelMode == MipmapChannelMode::SingleChannel)

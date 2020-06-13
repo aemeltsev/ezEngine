@@ -87,8 +87,7 @@ static ezTexConvUsage::Enum DetectUsageFromImage(const ezImage& image)
     return ezTexConvUsage::NormalMap;
   }
 
-  if (ezImageFormat::GetBitsPerChannel(format, ezImageFormatChannel::R) > 8 || format == ezImageFormat::BC6H_SF16 ||
-      format == ezImageFormat::BC6H_UF16)
+  if (ezImageFormat::GetBitsPerChannel(format, ezImageFormatChannel::R) > 8 || format == ezImageFormat::BC6H_SF16 || format == ezImageFormat::BC6H_UF16)
   {
     return ezTexConvUsage::Hdr;
   }

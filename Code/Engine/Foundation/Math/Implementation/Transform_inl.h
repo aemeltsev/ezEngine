@@ -29,7 +29,7 @@ inline void ezTransformTemplate<Type>::SetIdentity()
   m_vScale.Set(1);
 }
 
-//static
+// static
 template <typename Type>
 inline const ezTransformTemplate<Type> ezTransformTemplate<Type>::IdentityTransform()
 {
@@ -219,4 +219,3 @@ inline const ezTransformTemplate<Type> ezTransformTemplate<Type>::GetInverse() c
 
   return ezTransformTemplate<Type>(invPos, invRot, invScale);
 }
-

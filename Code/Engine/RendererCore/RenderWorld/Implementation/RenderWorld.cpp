@@ -175,8 +175,7 @@ bool ezRenderWorld::TryGetView(const ezViewHandle& hView, ezView*& out_pView)
   return s_Views.TryGetValue(hView, out_pView);
 }
 
-ezView* ezRenderWorld::GetViewByUsageHint(ezCameraUsageHint::Enum usageHint,
-  ezCameraUsageHint::Enum alternativeUsageHint /*= ezCameraUsageHint::None*/)
+ezView* ezRenderWorld::GetViewByUsageHint(ezCameraUsageHint::Enum usageHint, ezCameraUsageHint::Enum alternativeUsageHint /*= ezCameraUsageHint::None*/)
 {
   EZ_LOCK(s_ViewsMutex);
 
@@ -228,8 +227,7 @@ ezArrayPtr<ezViewHandle> ezRenderWorld::GetMainViews()
   return s_MainViews;
 }
 
-void ezRenderWorld::CacheRenderData(const ezView& view, const ezGameObjectHandle& hOwnerObject, const ezComponentHandle& hOwnerComponent,
-  ezArrayPtr<ezInternal::RenderDataCacheEntry> cacheEntries)
+void ezRenderWorld::CacheRenderData(const ezView& view, const ezGameObjectHandle& hOwnerObject, const ezComponentHandle& hOwnerComponent, ezArrayPtr<ezInternal::RenderDataCacheEntry> cacheEntries)
 {
   if (CVarCacheRenderData)
   {

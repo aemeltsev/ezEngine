@@ -161,16 +161,10 @@ public:
   }
 
   /// \brief Reinterprets this array as a byte array.
-  EZ_ALWAYS_INLINE ezArrayPtr<const ByteType> ToByteArray() const
-  {
-    return ezArrayPtr<const ByteType>(reinterpret_cast<const ByteType*>(GetPtr()), GetCount() * sizeof(T));
-  }
+  EZ_ALWAYS_INLINE ezArrayPtr<const ByteType> ToByteArray() const { return ezArrayPtr<const ByteType>(reinterpret_cast<const ByteType*>(GetPtr()), GetCount() * sizeof(T)); }
 
   /// \brief Reinterprets this array as a byte array.
-  EZ_ALWAYS_INLINE ezArrayPtr<ByteType> ToByteArray()
-  {
-    return ezArrayPtr<ByteType>(reinterpret_cast<ByteType*>(GetPtr()), GetCount() * sizeof(T));
-  }
+  EZ_ALWAYS_INLINE ezArrayPtr<ByteType> ToByteArray() { return ezArrayPtr<ByteType>(reinterpret_cast<ByteType*>(GetPtr()), GetCount() * sizeof(T)); }
 
 
   /// \brief Cast an ArrayPtr to an ArrayPtr to a different, but same size, type
@@ -224,8 +218,7 @@ public:
   /// \brief Copies the data from \a other into this array. The arrays must have the exact same size.
   inline void CopyFrom(const ezArrayPtr<const T>& other) // [tested]
   {
-    EZ_ASSERT_DEV(GetCount() == other.GetCount(), "Count for copy does not match. Target has {0} elements, source {1} elements", GetCount(),
-      other.GetCount());
+    EZ_ASSERT_DEV(GetCount() == other.GetCount(), "Count for copy does not match. Target has {0} elements, source {1} elements", GetCount(), other.GetCount());
 
     ezMemoryUtils::Copy(static_cast<ValueType*>(GetPtr()), static_cast<const ValueType*>(other.GetPtr()), GetCount());
   }

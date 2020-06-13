@@ -3,7 +3,6 @@
 #if EZ_ENABLED(EZ_PLATFORM_ANDROID)
 #  include <Foundation/Basics/Platform/Android/AndroidJni.h>
 #  include <Foundation/Basics/Platform/Android/AndroidUtils.h>
-#  include <Foundation/Basics/Platform/Android/AndroidUtils.h>
 #  include <android_native_app_glue.h>
 
 thread_local JNIEnv* ezJniAttachment::s_env;
@@ -77,10 +76,11 @@ JNIEnv* ezJniAttachment::GetEnv()
 {
   EZ_ASSERT_DEV(s_env != nullptr, "Thread not attached to the JVM - you forgot to create an instance of ezJniAttachment in the current scope.");
 
-#if EZ_ENABLED(EZ_COMPILE_FOR_DEBUG)
+#  if EZ_ENABLED(EZ_COMPILE_FOR_DEBUG)
   void* unused;
-  EZ_ASSERT_DEBUG(ezAndroidUtils::GetAndroidApp()->activity->vm->GetEnv(&unused, JNI_VERSION_1_6) == JNI_OK, "Current thread has lost its attachment to the JVM - some OS calls can cause this to happen. Try to reduce the attachment to a smaller scope.");
-#endif
+  EZ_ASSERT_DEBUG(ezAndroidUtils::GetAndroidApp()->activity->vm->GetEnv(&unused, JNI_VERSION_1_6) == JNI_OK,
+    "Current thread has lost its attachment to the JVM - some OS calls can cause this to happen. Try to reduce the attachment to a smaller scope.");
+#  endif
 
   return s_env;
 }
@@ -722,4 +722,3 @@ bool ezJniClass::IsPrimitive()
 
 
 EZ_STATICLINK_FILE(Foundation, Foundation_Basics_Platform_Android_AndroidJni);
-

@@ -12,13 +12,13 @@ class ezAbstractObjectNode;
 struct EZ_FOUNDATION_DLL ezRttiConverterObject
 {
   ezRttiConverterObject()
-      : m_pType(nullptr)
-      , m_pObject(nullptr)
+    : m_pType(nullptr)
+    , m_pObject(nullptr)
   {
   }
   ezRttiConverterObject(const ezRTTI* pType, void* pObject)
-      : m_pType(pType)
-      , m_pObject(pObject)
+    : m_pType(pType)
+    , m_pObject(pObject)
   {
   }
 
@@ -68,10 +68,7 @@ public:
     m_bSerializeOwnerPtrs = bSerializeOwnerPtrs;
   }
 
-  ezAbstractObjectNode* AddObjectToGraph(ezReflectedClass* pObject, const char* szNodeName = nullptr)
-  {
-    return AddObjectToGraph(pObject->GetDynamicRTTI(), pObject, szNodeName);
-  }
+  ezAbstractObjectNode* AddObjectToGraph(ezReflectedClass* pObject, const char* szNodeName = nullptr) { return AddObjectToGraph(pObject->GetDynamicRTTI(), pObject, szNodeName); }
   ezAbstractObjectNode* AddObjectToGraph(const ezRTTI* pRtti, const void* pObject, const char* szNodeName = nullptr);
 
   void AddProperty(ezAbstractObjectNode* pNode, const ezAbstractProperty* pProp, const void* pObject);
@@ -101,4 +98,3 @@ private:
   ezRttiConverterContext* m_pContext;
   const ezAbstractObjectGraph* m_pGraph;
 };
-

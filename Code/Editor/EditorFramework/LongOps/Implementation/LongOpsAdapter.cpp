@@ -69,8 +69,7 @@ void ezLongOpsAdapter::DocumentManagerEventHandler(const ezDocumentManager::Even
     {
       ezLongOpControllerManager::GetSingleton()->CancelAndRemoveAllOpsForDocument(e.m_pDocument->GetGuid());
 
-      e.m_pDocument->GetObjectManager()->m_StructureEvents.RemoveEventHandler(
-        ezMakeDelegate(&ezLongOpsAdapter::StructureEventHandler, this));
+      e.m_pDocument->GetObjectManager()->m_StructureEvents.RemoveEventHandler(ezMakeDelegate(&ezLongOpsAdapter::StructureEventHandler, this));
     }
   }
 }
@@ -141,8 +140,7 @@ void ezLongOpsAdapter::ObjectAdded(const ezDocumentObject* pObject)
         {
           if (auto pOpAttr = ezDynamicCast<ezLongOpAttribute*>(pAttr))
           {
-            ezLongOpControllerManager::GetSingleton()->RegisterLongOp(
-              pObject->GetDocumentObjectManager()->GetDocument()->GetGuid(), pObject->GetGuid(), pOpAttr->m_sOpTypeName);
+            ezLongOpControllerManager::GetSingleton()->RegisterLongOp(pObject->GetDocumentObjectManager()->GetDocument()->GetGuid(), pObject->GetGuid(), pOpAttr->m_sOpTypeName);
           }
         }
 
@@ -174,8 +172,7 @@ void ezLongOpsAdapter::ObjectRemoved(const ezDocumentObject* pObject)
         {
           if (auto pOpAttr = ezDynamicCast<ezLongOpAttribute*>(pAttr))
           {
-            ezLongOpControllerManager::GetSingleton()->UnregisterLongOp(
-              pObject->GetDocumentObjectManager()->GetDocument()->GetGuid(), pObject->GetGuid(), pOpAttr->m_sOpTypeName);
+            ezLongOpControllerManager::GetSingleton()->UnregisterLongOp(pObject->GetDocumentObjectManager()->GetDocument()->GetGuid(), pObject->GetGuid(), pOpAttr->m_sOpTypeName);
           }
         }
 

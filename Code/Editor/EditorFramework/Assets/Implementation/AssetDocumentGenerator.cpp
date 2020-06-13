@@ -76,9 +76,7 @@ void ezAssetDocumentGenerator::CreateGenerators(ezHybridArray<ezAssetDocumentGen
   }
 
   // sort by name
-  out_Generators.Sort([](ezAssetDocumentGenerator* lhs, ezAssetDocumentGenerator* rhs) -> bool {
-    return ezStringUtils::Compare_NoCase(lhs->GetDocumentExtension(), rhs->GetDocumentExtension()) < 0;
-  });
+  out_Generators.Sort([](ezAssetDocumentGenerator* lhs, ezAssetDocumentGenerator* rhs) -> bool { return ezStringUtils::Compare_NoCase(lhs->GetDocumentExtension(), rhs->GetDocumentExtension()) < 0; });
 }
 
 void ezAssetDocumentGenerator::DestroyGenerators(ezHybridArray<ezAssetDocumentGenerator*, 16>& generators)
@@ -216,8 +214,7 @@ void ezAssetDocumentGenerator::ImportAssets()
   }
 
   QStringList filenames =
-      QFileDialog::getOpenFileNames(QApplication::activeWindow(), "Import Assets", s_StartDir.GetData(),
-                                    QString::fromUtf8(fullFilter.GetData()), nullptr, QFileDialog::Option::DontResolveSymlinks);
+    QFileDialog::getOpenFileNames(QApplication::activeWindow(), "Import Assets", s_StartDir.GetData(), QString::fromUtf8(fullFilter.GetData()), nullptr, QFileDialog::Option::DontResolveSymlinks);
 
   DestroyGenerators(generators);
 
@@ -236,9 +233,8 @@ void ezAssetDocumentGenerator::ImportAssets()
   ImportAssets(filesToImport);
 }
 
-void ezAssetDocumentGenerator::CreateImportOptionList(const ezHybridArray<ezString, 16>& filesToImport,
-                                                      ezDynamicArray<ezAssetDocumentGenerator::ImportData>& allImports,
-                                                      const ezHybridArray<ezAssetDocumentGenerator*, 16>& generators)
+void ezAssetDocumentGenerator::CreateImportOptionList(
+  const ezHybridArray<ezString, 16>& filesToImport, ezDynamicArray<ezAssetDocumentGenerator::ImportData>& allImports, const ezHybridArray<ezAssetDocumentGenerator*, 16>& generators)
 {
   ezQtEditorApp* pApp = ezQtEditorApp::GetSingleton();
   ezStringBuilder sInputParentRelative, sInputRelative, sGroup;
@@ -299,16 +295,13 @@ void ezAssetDocumentGenerator::CreateImportOptionList(const ezHybridArray<ezStri
 
 void ezAssetDocumentGenerator::SortAndSelectBestImportOption(ezDynamicArray<ezAssetDocumentGenerator::ImportData>& allImports)
 {
-  allImports.Sort([](const ezAssetDocumentGenerator::ImportData& lhs, const ezAssetDocumentGenerator::ImportData& rhs) -> bool {
-    return lhs.m_sInputFileParentRelative < rhs.m_sInputFileParentRelative;
-  });
+  allImports.Sort(
+    [](const ezAssetDocumentGenerator::ImportData& lhs, const ezAssetDocumentGenerator::ImportData& rhs) -> bool { return lhs.m_sInputFileParentRelative < rhs.m_sInputFileParentRelative; });
 
   for (auto& singleImport : allImports)
   {
 
-    singleImport.m_ImportOptions.Sort([](const ezAssetDocumentGenerator::Info& lhs, const ezAssetDocumentGenerator::Info& rhs) -> bool {
-      return lhs.m_sName < rhs.m_sName;
-    });
+    singleImport.m_ImportOptions.Sort([](const ezAssetDocumentGenerator::Info& lhs, const ezAssetDocumentGenerator::Info& rhs) -> bool { return lhs.m_sName < rhs.m_sName; });
 
     ezUInt32 uiNumPrios[(ezUInt32)ezAssetDocGeneratorPriority::ENUM_COUNT] = {0};
     ezUInt32 uiBestPrio[(ezUInt32)ezAssetDocGeneratorPriority::ENUM_COUNT] = {0};
@@ -320,8 +313,7 @@ void ezAssetDocumentGenerator::SortAndSelectBestImportOption(ezDynamicArray<ezAs
     }
 
     singleImport.m_iSelectedOption = -1;
-    for (ezUInt32 prio = (ezUInt32)ezAssetDocGeneratorPriority::HighPriority; prio > (ezUInt32)ezAssetDocGeneratorPriority::Undecided;
-         --prio)
+    for (ezUInt32 prio = (ezUInt32)ezAssetDocGeneratorPriority::HighPriority; prio > (ezUInt32)ezAssetDocGeneratorPriority::Undecided; --prio)
     {
       if (uiNumPrios[prio] == 1)
       {

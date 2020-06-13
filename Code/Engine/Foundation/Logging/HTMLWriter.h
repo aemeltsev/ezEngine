@@ -37,5 +37,4 @@ namespace ezLogWriter
 
     ezLog::TimestampMode m_TimestampMode = ezLog::TimestampMode::None;
   };
-}
-
+} // namespace ezLogWriter

@@ -47,8 +47,7 @@ inline ezByteBlobPtr ezImage::GetByteBlobPtr()
 }
 
 template <typename T>
-const T* ezImageView::GetPixelPointer(ezUInt32 uiMipLevel /*= 0*/, ezUInt32 uiFace /*= 0*/, ezUInt32 uiArrayIndex /*= 0*/, ezUInt32 x /*= 0*/,
-  ezUInt32 y /*= 0*/, ezUInt32 z /*= 0*/) const
+const T* ezImageView::GetPixelPointer(ezUInt32 uiMipLevel /*= 0*/, ezUInt32 uiFace /*= 0*/, ezUInt32 uiArrayIndex /*= 0*/, ezUInt32 x /*= 0*/, ezUInt32 y /*= 0*/, ezUInt32 z /*= 0*/) const
 {
   ValidateDataTypeAccessor<T>();
   EZ_ASSERT_DEV(x < GetNumBlocksX(uiMipLevel), "Invalid x coordinate");
@@ -60,8 +59,7 @@ const T* ezImageView::GetPixelPointer(ezUInt32 uiMipLevel /*= 0*/, ezUInt32 uiFa
 }
 
 template <typename T>
-T* ezImage::GetPixelPointer(ezUInt32 uiMipLevel /*= 0*/, ezUInt32 uiFace /*= 0*/, ezUInt32 uiArrayIndex /*= 0*/,
-  ezUInt32 x /*= 0*/, ezUInt32 y /*= 0*/, ezUInt32 z /*= 0*/)
+T* ezImage::GetPixelPointer(ezUInt32 uiMipLevel /*= 0*/, ezUInt32 uiFace /*= 0*/, ezUInt32 uiArrayIndex /*= 0*/, ezUInt32 x /*= 0*/, ezUInt32 y /*= 0*/, ezUInt32 z /*= 0*/)
 {
   return const_cast<T*>(ezImageView::GetPixelPointer<T>(uiMipLevel, uiFace, uiArrayIndex, x, y, z));
 }

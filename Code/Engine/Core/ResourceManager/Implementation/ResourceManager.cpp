@@ -321,7 +321,8 @@ void ezResourceManager::AllowResourceTypeAcquireDuringUpdateContent(const ezRTTI
 {
   auto& info = s_State->m_TypeInfo[pTypeBeingUpdated];
 
-  EZ_ASSERT_DEV(info.m_bAllowNestedAcquireCached == false, "AllowResourceTypeAcquireDuringUpdateContent for type '{}' must be called before the resource info has been requested.", pTypeBeingUpdated->GetTypeName());
+  EZ_ASSERT_DEV(info.m_bAllowNestedAcquireCached == false, "AllowResourceTypeAcquireDuringUpdateContent for type '{}' must be called before the resource info has been requested.",
+    pTypeBeingUpdated->GetTypeName());
 
   if (info.m_NestedTypes.IndexOf(pTypeItWantsToAcquire) == ezInvalidIndex)
   {
@@ -405,8 +406,7 @@ ezResult ezResourceManager::DeallocateResource(ezResource* pResource)
 
   pResource->CallUnloadData(ezResource::Unload::AllQualityLevels);
 
-  EZ_ASSERT_DEBUG(pResource->GetLoadingState() <= ezResourceState::LoadedResourceMissing,
-    "Resource '{0}' should be in an unloaded state now.", pResource->GetResourceID());
+  EZ_ASSERT_DEBUG(pResource->GetLoadingState() <= ezResourceState::LoadedResourceMissing, "Resource '{0}' should be in an unloaded state now.", pResource->GetResourceID());
 
   // broadcast that we are going to delete the resource
   {
@@ -493,8 +493,7 @@ void ezResourceManager::PerFrameUpdate()
       // If the resource was still loaded, we are going to unload it now.
       resourceToUnload->CallUnloadData(ezResource::Unload::AllQualityLevels);
 
-      EZ_ASSERT_DEV(resourceToUnload->GetLoadingState() <= ezResourceState::LoadedResourceMissing,
-        "Resource '{0}' should be in an unloaded state now.", resourceToUnload->GetResourceID());
+      EZ_ASSERT_DEV(resourceToUnload->GetLoadingState() <= ezResourceState::LoadedResourceMissing, "Resource '{0}' should be in an unloaded state now.", resourceToUnload->GetResourceID());
     }
 
     s_State->s_ResourcesToUnloadOnMainThread.Clear();
@@ -695,8 +694,7 @@ ezResource* ezResourceManager::GetResource(const ezRTTI* pRtti, const char* szRe
   pRtti = FindResourceTypeOverride(pRtti, szResourceID);
 
   EZ_ASSERT_DEBUG(pRtti != nullptr, "There is no RTTI information available for the given resource type '{0}'", EZ_STRINGIZE(ResourceType));
-  EZ_ASSERT_DEBUG(pRtti->GetAllocator() != nullptr && pRtti->GetAllocator()->CanAllocate(),
-    "There is no RTTI allocator available for the given resource type '{0}'", EZ_STRINGIZE(ResourceType));
+  EZ_ASSERT_DEBUG(pRtti->GetAllocator() != nullptr && pRtti->GetAllocator()->CanAllocate(), "There is no RTTI allocator available for the given resource type '{0}'", EZ_STRINGIZE(ResourceType));
 
   ezResource* pResource = nullptr;
   ezTempHashedString sHashedResourceID(szResourceID);
@@ -723,8 +721,7 @@ ezResource* ezResourceManager::GetResource(const ezRTTI* pRtti, const char* szRe
   return pNewResource;
 }
 
-void ezResourceManager::RegisterResourceOverrideType(
-  const ezRTTI* pDerivedTypeToUse, ezDelegate<bool(const ezStringBuilder&)> OverrideDecider)
+void ezResourceManager::RegisterResourceOverrideType(const ezRTTI* pDerivedTypeToUse, ezDelegate<bool(const ezStringBuilder&)> OverrideDecider)
 {
   const ezRTTI* pParentType = pDerivedTypeToUse->GetParentType();
   while (pParentType != nullptr && pParentType != ezGetStaticRTTI<ezResource>())
@@ -877,10 +874,8 @@ void ezResourceManager::SetResourceLowResData(const ezTypelessResourceHandle& hR
     MemUsage.m_uiMemoryGPU = 0xFFFFFFFF;
     pResource->UpdateMemoryUsage(MemUsage);
 
-    EZ_ASSERT_DEV(
-      MemUsage.m_uiMemoryCPU != 0xFFFFFFFF, "Resource '{0}' did not properly update its CPU memory usage", pResource->GetResourceID());
-    EZ_ASSERT_DEV(
-      MemUsage.m_uiMemoryGPU != 0xFFFFFFFF, "Resource '{0}' did not properly update its GPU memory usage", pResource->GetResourceID());
+    EZ_ASSERT_DEV(MemUsage.m_uiMemoryCPU != 0xFFFFFFFF, "Resource '{0}' did not properly update its CPU memory usage", pResource->GetResourceID());
+    EZ_ASSERT_DEV(MemUsage.m_uiMemoryGPU != 0xFFFFFFFF, "Resource '{0}' did not properly update its GPU memory usage", pResource->GetResourceID());
 
     pResource->m_MemoryUsage = MemUsage;
   }

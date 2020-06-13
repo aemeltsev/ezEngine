@@ -133,9 +133,8 @@ ezOsProcessID ezProcess::GetCurrentProcessID()
 
 // Taken from "Programmatically controlling which handles are inherited by new processes in Win32" by Raymond Chen
 // https://devblogs.microsoft.com/oldnewthing/20111216-00/?p=8873
-static BOOL CreateProcessWithExplicitHandles(LPCWSTR lpApplicationName, LPWSTR lpCommandLine, LPSECURITY_ATTRIBUTES lpProcessAttributes,
-  LPSECURITY_ATTRIBUTES lpThreadAttributes, BOOL bInheritHandles, DWORD dwCreationFlags, LPVOID lpEnvironment, LPCWSTR lpCurrentDirectory,
-  LPSTARTUPINFOW lpStartupInfo, LPPROCESS_INFORMATION lpProcessInformation,
+static BOOL CreateProcessWithExplicitHandles(LPCWSTR lpApplicationName, LPWSTR lpCommandLine, LPSECURITY_ATTRIBUTES lpProcessAttributes, LPSECURITY_ATTRIBUTES lpThreadAttributes, BOOL bInheritHandles,
+  DWORD dwCreationFlags, LPVOID lpEnvironment, LPCWSTR lpCurrentDirectory, LPSTARTUPINFOW lpStartupInfo, LPPROCESS_INFORMATION lpProcessInformation,
   // here is the new stuff
   DWORD cHandlesToInherit, HANDLE* rgHandlesToInherit)
 {
@@ -167,8 +166,7 @@ static BOOL CreateProcessWithExplicitHandles(LPCWSTR lpApplicationName, LPWSTR l
     if (fSuccess)
     {
       fInitialized = TRUE;
-      fSuccess = UpdateProcThreadAttribute(
-        lpAttributeList, 0, PROC_THREAD_ATTRIBUTE_HANDLE_LIST, rgHandlesToInherit, cHandlesToInherit * sizeof(HANDLE), nullptr, nullptr);
+      fSuccess = UpdateProcThreadAttribute(lpAttributeList, 0, PROC_THREAD_ATTRIBUTE_HANDLE_LIST, rgHandlesToInherit, cHandlesToInherit * sizeof(HANDLE), nullptr, nullptr);
     }
   }
 
@@ -181,8 +179,8 @@ static BOOL CreateProcessWithExplicitHandles(LPCWSTR lpApplicationName, LPWSTR l
     info.lpAttributeList = lpAttributeList;
 
     // it is both possible to pass in (STARTUPINFOW*)&info OR info.StartupInfo ...
-    fSuccess = CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles,
-      dwCreationFlags | EXTENDED_STARTUPINFO_PRESENT, lpEnvironment, lpCurrentDirectory, &info.StartupInfo, lpProcessInformation);
+    fSuccess = CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags | EXTENDED_STARTUPINFO_PRESENT, lpEnvironment,
+      lpCurrentDirectory, &info.StartupInfo, lpProcessInformation);
   }
   if (fInitialized)
     DeleteProcThreadAttributeList(lpAttributeList);
@@ -252,16 +250,16 @@ ezResult ezProcess::Launch(const ezProcessOptions& opt, ezBitflags<ezProcessLaun
   // We pass nullptr as lpApplicationName as setting it would prevent OpenProcess to run system apps or apps in PATH.
   // Instead, the module name is pre-pended to lpCommandLine in BuildFullCommandLineString.
   if (!CreateProcessWithExplicitHandles(nullptr, const_cast<wchar_t*>(ezStringWChar(sCmdLine).GetData()),
-        nullptr,                              // lpProcessAttributes
-        nullptr,                              // lpThreadAttributes
+        nullptr,                                  // lpProcessAttributes
+        nullptr,                                  // lpThreadAttributes
         uiNumHandlesToInherit > 0 ? TRUE : FALSE, // bInheritHandles
         dwCreationFlags,
-        nullptr,           // lpEnvironment
-        nullptr,           // lpCurrentDirectory
-        &si,               // lpStartupInfo
-        &pi,               // lpProcessInformation
+        nullptr,               // lpEnvironment
+        nullptr,               // lpCurrentDirectory
+        &si,                   // lpStartupInfo
+        &pi,                   // lpProcessInformation
         uiNumHandlesToInherit, // cHandlesToInherit
-        HandlesToInherit   // rgHandlesToInherit
+        HandlesToInherit       // rgHandlesToInherit
         ))
   {
     m_impl->m_pipeStdOut.Close();

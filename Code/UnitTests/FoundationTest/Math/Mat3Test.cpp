@@ -12,23 +12,20 @@ EZ_CREATE_SIMPLE_TEST(Math, Mat3)
     {
       // In debug the default constructor initializes everything with NaN.
       ezMat3T m;
-      EZ_TEST_BOOL(ezMath::IsNaN(m.m_fElementsCM[0]) && ezMath::IsNaN(m.m_fElementsCM[1]) && ezMath::IsNaN(m.m_fElementsCM[2]) &&
-                   ezMath::IsNaN(m.m_fElementsCM[3]) && ezMath::IsNaN(m.m_fElementsCM[4]) && ezMath::IsNaN(m.m_fElementsCM[5]) &&
-                   ezMath::IsNaN(m.m_fElementsCM[6]) && ezMath::IsNaN(m.m_fElementsCM[7]) && ezMath::IsNaN(m.m_fElementsCM[8]));
+      EZ_TEST_BOOL(ezMath::IsNaN(m.m_fElementsCM[0]) && ezMath::IsNaN(m.m_fElementsCM[1]) && ezMath::IsNaN(m.m_fElementsCM[2]) && ezMath::IsNaN(m.m_fElementsCM[3]) &&
+                   ezMath::IsNaN(m.m_fElementsCM[4]) && ezMath::IsNaN(m.m_fElementsCM[5]) && ezMath::IsNaN(m.m_fElementsCM[6]) && ezMath::IsNaN(m.m_fElementsCM[7]) &&
+                   ezMath::IsNaN(m.m_fElementsCM[8]));
     }
 #else
     // Placement new of the default constructor should not have any effect on the previous data.
-    ezMat3T::ComponentType testBlock[9] = {(ezMat3T::ComponentType)1, (ezMat3T::ComponentType)2, (ezMat3T::ComponentType)3,
-                                           (ezMat3T::ComponentType)4, (ezMat3T::ComponentType)5, (ezMat3T::ComponentType)6,
-                                           (ezMat3T::ComponentType)7, (ezMat3T::ComponentType)8, (ezMat3T::ComponentType)9};
+    ezMat3T::ComponentType testBlock[9] = {(ezMat3T::ComponentType)1, (ezMat3T::ComponentType)2, (ezMat3T::ComponentType)3, (ezMat3T::ComponentType)4, (ezMat3T::ComponentType)5,
+      (ezMat3T::ComponentType)6, (ezMat3T::ComponentType)7, (ezMat3T::ComponentType)8, (ezMat3T::ComponentType)9};
 
     ezMat3T* m = ::new ((void*)&testBlock[0]) ezMat3T;
 
-    EZ_TEST_BOOL(m->m_fElementsCM[0] == (ezMat3T::ComponentType)1 && m->m_fElementsCM[1] == (ezMat3T::ComponentType)2 &&
-                 m->m_fElementsCM[2] == (ezMat3T::ComponentType)3 && m->m_fElementsCM[3] == (ezMat3T::ComponentType)4 &&
-                 m->m_fElementsCM[4] == (ezMat3T::ComponentType)5 && m->m_fElementsCM[5] == (ezMat3T::ComponentType)6 &&
-                 m->m_fElementsCM[6] == (ezMat3T::ComponentType)7 && m->m_fElementsCM[7] == (ezMat3T::ComponentType)8 &&
-                 m->m_fElementsCM[8] == (ezMat3T::ComponentType)9);
+    EZ_TEST_BOOL(m->m_fElementsCM[0] == (ezMat3T::ComponentType)1 && m->m_fElementsCM[1] == (ezMat3T::ComponentType)2 && m->m_fElementsCM[2] == (ezMat3T::ComponentType)3 &&
+                 m->m_fElementsCM[3] == (ezMat3T::ComponentType)4 && m->m_fElementsCM[4] == (ezMat3T::ComponentType)5 && m->m_fElementsCM[5] == (ezMat3T::ComponentType)6 &&
+                 m->m_fElementsCM[6] == (ezMat3T::ComponentType)7 && m->m_fElementsCM[7] == (ezMat3T::ComponentType)8 && m->m_fElementsCM[8] == (ezMat3T::ComponentType)9);
 #endif
   }
 
@@ -39,17 +36,15 @@ EZ_CREATE_SIMPLE_TEST(Math, Mat3)
     {
       ezMat3T m(data, ezMatrixLayout::ColumnMajor);
 
-      EZ_TEST_BOOL(m.m_fElementsCM[0] == 1.0f && m.m_fElementsCM[1] == 2.0f && m.m_fElementsCM[2] == 3.0f && m.m_fElementsCM[3] == 4.0f &&
-                   m.m_fElementsCM[4] == 5.0f && m.m_fElementsCM[5] == 6.0f && m.m_fElementsCM[6] == 7.0f && m.m_fElementsCM[7] == 8.0f &&
-                   m.m_fElementsCM[8] == 9.0f);
+      EZ_TEST_BOOL(m.m_fElementsCM[0] == 1.0f && m.m_fElementsCM[1] == 2.0f && m.m_fElementsCM[2] == 3.0f && m.m_fElementsCM[3] == 4.0f && m.m_fElementsCM[4] == 5.0f && m.m_fElementsCM[5] == 6.0f &&
+                   m.m_fElementsCM[6] == 7.0f && m.m_fElementsCM[7] == 8.0f && m.m_fElementsCM[8] == 9.0f);
     }
 
     {
       ezMat3T m(data, ezMatrixLayout::RowMajor);
 
-      EZ_TEST_BOOL(m.m_fElementsCM[0] == 1.0f && m.m_fElementsCM[1] == 4.0f && m.m_fElementsCM[2] == 7.0f && m.m_fElementsCM[3] == 2.0f &&
-                   m.m_fElementsCM[4] == 5.0f && m.m_fElementsCM[5] == 8.0f && m.m_fElementsCM[6] == 3.0f && m.m_fElementsCM[7] == 6.0f &&
-                   m.m_fElementsCM[8] == 9.0f);
+      EZ_TEST_BOOL(m.m_fElementsCM[0] == 1.0f && m.m_fElementsCM[1] == 4.0f && m.m_fElementsCM[2] == 7.0f && m.m_fElementsCM[3] == 2.0f && m.m_fElementsCM[4] == 5.0f && m.m_fElementsCM[5] == 8.0f &&
+                   m.m_fElementsCM[6] == 3.0f && m.m_fElementsCM[7] == 6.0f && m.m_fElementsCM[8] == 9.0f);
     }
   }
 
@@ -76,18 +71,16 @@ EZ_CREATE_SIMPLE_TEST(Math, Mat3)
       ezMat3T m;
       m.SetFromArray(data, ezMatrixLayout::ColumnMajor);
 
-      EZ_TEST_BOOL(m.m_fElementsCM[0] == 1.0f && m.m_fElementsCM[1] == 2.0f && m.m_fElementsCM[2] == 3.0f && m.m_fElementsCM[3] == 4.0f &&
-                   m.m_fElementsCM[4] == 5.0f && m.m_fElementsCM[5] == 6.0f && m.m_fElementsCM[6] == 7.0f && m.m_fElementsCM[7] == 8.0f &&
-                   m.m_fElementsCM[8] == 9.0f);
+      EZ_TEST_BOOL(m.m_fElementsCM[0] == 1.0f && m.m_fElementsCM[1] == 2.0f && m.m_fElementsCM[2] == 3.0f && m.m_fElementsCM[3] == 4.0f && m.m_fElementsCM[4] == 5.0f && m.m_fElementsCM[5] == 6.0f &&
+                   m.m_fElementsCM[6] == 7.0f && m.m_fElementsCM[7] == 8.0f && m.m_fElementsCM[8] == 9.0f);
     }
 
     {
       ezMat3T m;
       m.SetFromArray(data, ezMatrixLayout::RowMajor);
 
-      EZ_TEST_BOOL(m.m_fElementsCM[0] == 1.0f && m.m_fElementsCM[1] == 4.0f && m.m_fElementsCM[2] == 7.0f && m.m_fElementsCM[3] == 2.0f &&
-                   m.m_fElementsCM[4] == 5.0f && m.m_fElementsCM[5] == 8.0f && m.m_fElementsCM[6] == 3.0f && m.m_fElementsCM[7] == 6.0f &&
-                   m.m_fElementsCM[8] == 9.0f);
+      EZ_TEST_BOOL(m.m_fElementsCM[0] == 1.0f && m.m_fElementsCM[1] == 4.0f && m.m_fElementsCM[2] == 7.0f && m.m_fElementsCM[3] == 2.0f && m.m_fElementsCM[4] == 5.0f && m.m_fElementsCM[5] == 8.0f &&
+                   m.m_fElementsCM[6] == 3.0f && m.m_fElementsCM[7] == 6.0f && m.m_fElementsCM[8] == 9.0f);
     }
   }
 
@@ -475,10 +468,8 @@ EZ_CREATE_SIMPLE_TEST(Math, Mat3)
     ezMat3T m(1, 2, 3, 5, 6, 7, 9, 10, 11);
 
     ezVec3T s = m.GetScalingFactors();
-    EZ_TEST_VEC3(s,
-                 ezVec3T(ezMath::Sqrt((ezMathTestType)(1 * 1 + 5 * 5 + 9 * 9)), ezMath::Sqrt((ezMathTestType)(2 * 2 + 6 * 6 + 10 * 10)),
-                         ezMath::Sqrt((ezMathTestType)(3 * 3 + 7 * 7 + 11 * 11))),
-                 0.0001f);
+    EZ_TEST_VEC3(
+      s, ezVec3T(ezMath::Sqrt((ezMathTestType)(1 * 1 + 5 * 5 + 9 * 9)), ezMath::Sqrt((ezMathTestType)(2 * 2 + 6 * 6 + 10 * 10)), ezMath::Sqrt((ezMathTestType)(3 * 3 + 7 * 7 + 11 * 11))), 0.0001f);
   }
 
   EZ_TEST_BLOCK(ezTestBlock::Enabled, "SetScalingFactors")

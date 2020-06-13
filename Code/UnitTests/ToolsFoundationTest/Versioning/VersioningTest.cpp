@@ -65,7 +65,7 @@ namespace
   {
   public:
     ezPatchTestP()
-        : ezGraphPatch("ezPatchTestP", 2)
+      : ezGraphPatch("ezPatchTestP", 2)
     {
     }
     virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override
@@ -81,13 +81,10 @@ namespace
   {
   public:
     ezPatchTestBaseBP()
-        : ezGraphPatch("ezPatchTestBaseBP", 2)
+      : ezGraphPatch("ezPatchTestBaseBP", 2)
     {
     }
-    virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override
-    {
-      pNode->ChangeProperty("String", "BaseClassPatched");
-    }
+    virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override { pNode->ChangeProperty("String", "BaseClassPatched"); }
   };
   ezPatchTestBaseBP g_ezPatchTestBaseBP;
 
@@ -96,7 +93,7 @@ namespace
   {
   public:
     ezPatchTestRN()
-        : ezGraphPatch("ezPatchTestRN", 2)
+      : ezGraphPatch("ezPatchTestRN", 2)
     {
     }
     virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override
@@ -112,13 +109,10 @@ namespace
   {
   public:
     ezPatchTestRN2()
-        : ezGraphPatch("ezPatchTestRN2", 3)
+      : ezGraphPatch("ezPatchTestRN2", 3)
     {
     }
-    virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override
-    {
-      pNode->ChangeProperty("String2", "Patched");
-    }
+    virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override { pNode->ChangeProperty("String2", "Patched"); }
   };
   ezPatchTestRN2 g_ezPatchTestRN2;
 
@@ -127,7 +121,7 @@ namespace
   {
   public:
     ezPatchTestCB()
-        : ezGraphPatch("ezPatchTestCB", 2)
+      : ezGraphPatch("ezPatchTestCB", 2)
     {
     }
     virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override
@@ -194,7 +188,7 @@ namespace
     ezGraphVersioning::GetSingleton()->PatchGraph(&typesGraph);
     ezGraphVersioning::GetSingleton()->PatchGraph(&graph, &typesGraph);
   }
-}
+} // namespace
 
 EZ_CREATE_SIMPLE_TEST(Versioning, GraphPatch)
 {

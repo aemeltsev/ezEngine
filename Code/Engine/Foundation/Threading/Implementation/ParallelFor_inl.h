@@ -72,9 +72,7 @@ void ezTaskSystem::ParallelForInternal(ezArrayPtr<ElemType> taskItems, ezParalle
 template <typename ElemType, typename Callback>
 void ezTaskSystem::ParallelFor(ezArrayPtr<ElemType> taskItems, Callback taskCallback, const char* taskName, const ezParallelForParams& params)
 {
-  auto wrappedCallback = [taskCallback = std::move(taskCallback)](ezUInt32 /*uiBaseIndex*/, ezArrayPtr<ElemType> taskSlice) {
-    taskCallback(taskSlice);
-  };
+  auto wrappedCallback = [taskCallback = std::move(taskCallback)](ezUInt32 /*uiBaseIndex*/, ezArrayPtr<ElemType> taskSlice) { taskCallback(taskSlice); };
 
   ParallelForInternal<ElemType>(taskItems, ezParallelForFunction<ElemType>(std::move(wrappedCallback), ezFrameAllocator::GetCurrentAllocator()), taskName, params);
 }

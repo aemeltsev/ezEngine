@@ -97,9 +97,8 @@ public:
   void SetImageReferenceOverrideFolderName(const char* szFolderName);
 
   /// \brief Writes an Html file that contains test information and an image diff view for failed image comparisons.
-  void WriteImageDiffHtml(const char* fileName, ezImage& referenceImgRgb, ezImage& referenceImgAlpha, ezImage& capturedImgRgb,
-    ezImage& capturedImgAlpha, ezImage& diffImgRgb, ezImage& diffImgAlpha, ezUInt32 uiError, ezUInt32 uiThreshold, ezUInt8 uiMinDiffRgb,
-    ezUInt8 uiMaxDiffRgb, ezUInt8 uiMinDiffAlpha, ezUInt8 uiMaxDiffAlpha);
+  void WriteImageDiffHtml(const char* fileName, ezImage& referenceImgRgb, ezImage& referenceImgAlpha, ezImage& capturedImgRgb, ezImage& capturedImgAlpha, ezImage& diffImgRgb, ezImage& diffImgAlpha,
+    ezUInt32 uiError, ezUInt32 uiThreshold, ezUInt8 uiMinDiffRgb, ezUInt8 uiMaxDiffRgb, ezUInt8 uiMinDiffAlpha, ezUInt8 uiMaxDiffAlpha);
 
   bool PerformImageComparison(ezStringBuilder sImgName, const ezImage& img, ezUInt32 uiMaxError, char* szErrorMsg);
   bool CompareImages(ezUInt32 uiImageNumber, ezUInt32 uiMaxError, char* szErrorMsg);
@@ -157,7 +156,7 @@ private:
   std::string m_sTestName;                ///< The name of the tests being done
   std::string m_sAbsTestOutputDir;        ///< Absolute path to the output folder where results and temp data is stored
   std::string m_sRelTestDataDir;          ///< Relative path from the SDK to where the unit test data is located
-  std::string m_sAbsTestOrderFilePath; ///< Absolute path to the test order file
+  std::string m_sAbsTestOrderFilePath;    ///< Absolute path to the test order file
   std::string m_sAbsTestSettingsFilePath; ///< Absolute path to the test settings file
   ezInt32 m_iErrorCount = 0;
   ezInt32 m_iTestsFailed = 0;
@@ -346,39 +345,33 @@ struct ezTestBlock
 
 //////////////////////////////////////////////////////////////////////////
 
-EZ_TEST_DLL ezResult ezTestBool(
-  bool bCondition, const char* szErrorText, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestBool(bool bCondition, const char* szErrorText, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
 /// \brief Tests for a boolean condition, does not output an extra message.
 #define EZ_TEST_BOOL(condition) EZ_TEST_BOOL_MSG(condition, "")
 
 /// \brief Tests for a boolean condition, outputs a custom message on failure.
-#define EZ_TEST_BOOL_MSG(condition, msg, ...) \
-  ezTestBool(condition, "Test failed: " EZ_STRINGIZE(condition), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_BOOL_MSG(condition, msg, ...) ezTestBool(condition, "Test failed: " EZ_STRINGIZE(condition), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
-EZ_TEST_DLL ezResult ezTestResult(
-  ezResult bCondition, const char* szErrorText, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestResult(ezResult bCondition, const char* szErrorText, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
 /// \brief Tests for a boolean condition, does not output an extra message.
 #define EZ_TEST_RESULT(condition) EZ_TEST_RESULT_MSG(condition, "")
 
 /// \brief Tests for a boolean condition, outputs a custom message on failure.
-#define EZ_TEST_RESULT_MSG(condition, msg, ...) \
-  ezTestResult(condition, "Test failed: " EZ_STRINGIZE(condition), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_RESULT_MSG(condition, msg, ...) ezTestResult(condition, "Test failed: " EZ_STRINGIZE(condition), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
-EZ_TEST_DLL ezResult ezTestResult(
-  ezResult bCondition, const char* szErrorText, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestResult(ezResult bCondition, const char* szErrorText, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
 /// \brief Tests for a boolean condition, does not output an extra message.
 #define EZ_TEST_RESULT(condition) EZ_TEST_RESULT_MSG(condition, "")
 
 /// \brief Tests for a boolean condition, outputs a custom message on failure.
-#define EZ_TEST_RESULT_MSG(condition, msg, ...)                                                                                              \
-  ezTestResult(condition, "Test failed: " EZ_STRINGIZE(condition), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_RESULT_MSG(condition, msg, ...) ezTestResult(condition, "Test failed: " EZ_STRINGIZE(condition), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -397,17 +390,15 @@ inline double ToFloat(double f)
   return static_cast<double>(f);
 }
 
-EZ_TEST_DLL ezResult ezTestDouble(double f1, double f2, double fEps, const char* szF1, const char* szF2, const char* szFile, ezInt32 iLine,
-  const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestDouble(double f1, double f2, double fEps, const char* szF1, const char* szF2, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
 /// \brief Tests two floats for equality, within a given epsilon. On failure both actual and expected values are output.
 #define EZ_TEST_FLOAT(f1, f2, epsilon) EZ_TEST_FLOAT_MSG(f1, f2, epsilon, "")
 
 /// \brief Tests two floats for equality, within a given epsilon. On failure both actual and expected values are output, also a custom
 /// message is printed.
-#define EZ_TEST_FLOAT_MSG(f1, f2, epsilon, msg, ...)                                                                           \
-  ezTestDouble(ToFloat(f1), ToFloat(f2), ToFloat(epsilon), EZ_STRINGIZE(f1), EZ_STRINGIZE(f2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, \
-    EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_FLOAT_MSG(f1, f2, epsilon, msg, ...) \
+  ezTestDouble(ToFloat(f1), ToFloat(f2), ToFloat(epsilon), EZ_STRINGIZE(f1), EZ_STRINGIZE(f2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -417,47 +408,40 @@ EZ_TEST_DLL ezResult ezTestDouble(double f1, double f2, double fEps, const char*
 
 /// \brief Tests two doubles for equality, within a given epsilon. On failure both actual and expected values are output, also a custom
 /// message is printed.
-#define EZ_TEST_DOUBLE_MSG(f1, f2, epsilon, msg, ...)                                                                          \
-  ezTestDouble(ToFloat(f1), ToFloat(f2), ToFloat(epsilon), EZ_STRINGIZE(f1), EZ_STRINGIZE(f2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, \
-    EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_DOUBLE_MSG(f1, f2, epsilon, msg, ...) \
+  ezTestDouble(ToFloat(f1), ToFloat(f2), ToFloat(epsilon), EZ_STRINGIZE(f1), EZ_STRINGIZE(f2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
-EZ_TEST_DLL ezResult ezTestInt(ezInt64 i1, ezInt64 i2, const char* szI1, const char* szI2, const char* szFile, ezInt32 iLine,
-  const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestInt(ezInt64 i1, ezInt64 i2, const char* szI1, const char* szI2, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
 /// \brief Tests two ints for equality. On failure both actual and expected values are output.
 #define EZ_TEST_INT(i1, i2) EZ_TEST_INT_MSG(i1, i2, "")
 
 /// \brief Tests two ints for equality. On failure both actual and expected values are output, also a custom message is printed.
-#define EZ_TEST_INT_MSG(i1, i2, msg, ...) \
-  ezTestInt(i1, i2, EZ_STRINGIZE(i1), EZ_STRINGIZE(i2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_INT_MSG(i1, i2, msg, ...) ezTestInt(i1, i2, EZ_STRINGIZE(i1), EZ_STRINGIZE(i2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
-EZ_TEST_DLL ezResult ezTestString(std::string s1, std::string s2, const char* szString1, const char* szString2, const char* szFile,
-  ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestString(std::string s1, std::string s2, const char* szString1, const char* szString2, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
 /// \brief Tests two strings for equality. On failure both actual and expected values are output.
 #define EZ_TEST_STRING(i1, i2) EZ_TEST_STRING_MSG(i1, i2, "")
 
 /// \brief Tests two strings for equality. On failure both actual and expected values are output, also a custom message is printed.
-#define EZ_TEST_STRING_MSG(s1, s2, msg, ...)                                                                                   \
-  ezTestString(static_cast<const char*>(s1), static_cast<const char*>(s2), EZ_STRINGIZE(s1), EZ_STRINGIZE(s2), EZ_SOURCE_FILE, \
-    EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_STRING_MSG(s1, s2, msg, ...) \
+  ezTestString(static_cast<const char*>(s1), static_cast<const char*>(s2), EZ_STRINGIZE(s1), EZ_STRINGIZE(s2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
-EZ_TEST_DLL ezResult ezTestWString(std::wstring s1, std::wstring s2, const char* szString1, const char* szString2, const char* szFile,
-  ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestWString(std::wstring s1, std::wstring s2, const char* szString1, const char* szString2, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
 /// \brief Tests two strings for equality. On failure both actual and expected values are output.
 #define EZ_TEST_WSTRING(i1, i2) EZ_TEST_WSTRING_MSG(i1, i2, "")
 
 /// \brief Tests two strings for equality. On failure both actual and expected values are output, also a custom message is printed.
-#define EZ_TEST_WSTRING_MSG(s1, s2, msg, ...)                                                                                   \
-  ezTestWString(static_cast<const wchar_t*>(s1), static_cast<const wchar_t*>(s2), EZ_STRINGIZE(s1), EZ_STRINGIZE(s2), EZ_SOURCE_FILE, \
-    EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_WSTRING_MSG(s1, s2, msg, ...) \
+  ezTestWString(static_cast<const wchar_t*>(s1), static_cast<const wchar_t*>(s2), EZ_STRINGIZE(s1), EZ_STRINGIZE(s2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -467,22 +451,20 @@ EZ_TEST_DLL ezResult ezTestWString(std::wstring s1, std::wstring s2, const char*
 
 /// \brief Tests two strings for equality. On failure both actual and expected values are output, also a custom message is printed. Does not
 /// embed the original expression to work around issues with the current code page and unicode literals.
-#define EZ_TEST_STRING_UNICODE_MSG(s1, s2, msg, ...)                                                                                   \
-  ezTestString(static_cast<const char*>(s1), static_cast<const char*>(s2), "", "", EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, \
-    msg, ##__VA_ARGS__)
+#define EZ_TEST_STRING_UNICODE_MSG(s1, s2, msg, ...) \
+  ezTestString(static_cast<const char*>(s1), static_cast<const char*>(s2), "", "", EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
-EZ_TEST_DLL ezResult ezTestVector(ezVec4d v1, ezVec4d v2, double fEps, const char* szCondition, const char* szFile, ezInt32 iLine,
-  const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestVector(ezVec4d v1, ezVec4d v2, double fEps, const char* szCondition, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
 /// \brief Tests two ezVec2's for equality, using some epsilon. On failure both actual and expected values are output.
 #define EZ_TEST_VEC2(i1, i2, epsilon) EZ_TEST_VEC2_MSG(i1, i2, epsilon, "")
 
 /// \brief Tests two ezVec2's for equality. On failure both actual and expected values are output, also a custom message is printed.
-#define EZ_TEST_VEC2_MSG(r1, r2, epsilon, msg, ...)                                                                                \
-  ezTestVector(ezVec4d(ToFloat((r1).x), ToFloat((r1).y), 0, 0), ezVec4d(ToFloat((r2).x), ToFloat((r2).y), 0, 0), ToFloat(epsilon), \
-    EZ_STRINGIZE(r1) " == " EZ_STRINGIZE(r2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_VEC2_MSG(r1, r2, epsilon, msg, ...)                                                                                                                                          \
+  ezTestVector(ezVec4d(ToFloat((r1).x), ToFloat((r1).y), 0, 0), ezVec4d(ToFloat((r2).x), ToFloat((r2).y), 0, 0), ToFloat(epsilon), EZ_STRINGIZE(r1) " == " EZ_STRINGIZE(r2), EZ_SOURCE_FILE, \
+    EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -490,10 +472,9 @@ EZ_TEST_DLL ezResult ezTestVector(ezVec4d v1, ezVec4d v2, double fEps, const cha
 #define EZ_TEST_VEC3(i1, i2, epsilon) EZ_TEST_VEC3_MSG(i1, i2, epsilon, "")
 
 /// \brief Tests two ezVec3's for equality. On failure both actual and expected values are output, also a custom message is printed.
-#define EZ_TEST_VEC3_MSG(r1, r2, epsilon, msg, ...)                                                                            \
-  ezTestVector(ezVec4d(ToFloat((r1).x), ToFloat((r1).y), ToFloat((r1).z), 0),                                                  \
-    ezVec4d(ToFloat((r2).x), ToFloat((r2).y), ToFloat((r2).z), 0), ToFloat(epsilon), EZ_STRINGIZE(r1) " == " EZ_STRINGIZE(r2), \
-    EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_VEC3_MSG(r1, r2, epsilon, msg, ...)                                                                                                            \
+  ezTestVector(ezVec4d(ToFloat((r1).x), ToFloat((r1).y), ToFloat((r1).z), 0), ezVec4d(ToFloat((r2).x), ToFloat((r2).y), ToFloat((r2).z), 0), ToFloat(epsilon), \
+    EZ_STRINGIZE(r1) " == " EZ_STRINGIZE(r2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -501,29 +482,23 @@ EZ_TEST_DLL ezResult ezTestVector(ezVec4d v1, ezVec4d v2, double fEps, const cha
 #define EZ_TEST_VEC4(i1, i2, epsilon) EZ_TEST_VEC4_MSG(i1, i2, epsilon, "")
 
 /// \brief Tests two ezVec4's for equality. On failure both actual and expected values are output, also a custom message is printed.
-#define EZ_TEST_VEC4_MSG(r1, r2, epsilon, msg, ...)                                                \
-  ezTestVector(ezVec4d(ToFloat((r1).x), ToFloat((r1).y), ToFloat((r1).z), ToFloat((r1).w)),        \
-    ezVec4d(ToFloat((r2).x), ToFloat((r2).y), ToFloat((r2).z), ToFloat((r2).w)), ToFloat(epsilon), \
+#define EZ_TEST_VEC4_MSG(r1, r2, epsilon, msg, ...)                                                                                                                                        \
+  ezTestVector(ezVec4d(ToFloat((r1).x), ToFloat((r1).y), ToFloat((r1).z), ToFloat((r1).w)), ezVec4d(ToFloat((r2).x), ToFloat((r2).y), ToFloat((r2).z), ToFloat((r2).w)), ToFloat(epsilon), \
     EZ_STRINGIZE(r1) " == " EZ_STRINGIZE(r2), EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
-EZ_TEST_DLL ezResult ezTestFiles(
-  const char* szFile1, const char* szFile2, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestFiles(const char* szFile1, const char* szFile2, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
-#define EZ_TEST_FILES(szFile1, szFile2, msg, ...) \
-  ezTestFiles(szFile1, szFile2, EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_FILES(szFile1, szFile2, msg, ...) ezTestFiles(szFile1, szFile2, EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
-EZ_TEST_DLL ezResult ezTestTextFiles(
-  const char* szFile1, const char* szFile2, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestTextFiles(const char* szFile1, const char* szFile2, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
-#define EZ_TEST_TEXT_FILES(szFile1, szFile2, msg, ...) \
-  ezTestTextFiles(szFile1, szFile2, EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_TEXT_FILES(szFile1, szFile2, msg, ...) ezTestTextFiles(szFile1, szFile2, EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 //////////////////////////////////////////////////////////////////////////
 
-EZ_TEST_DLL ezResult ezTestImage(
-  ezUInt32 uiImageNumber, ezUInt32 uiMaxError, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
+EZ_TEST_DLL ezResult ezTestImage(ezUInt32 uiImageNumber, ezUInt32 uiMaxError, const char* szFile, ezInt32 iLine, const char* szFunction, const char* szMsg, ...);
 
 /// \brief Same as EZ_TEST_IMAGE_MSG but uses an empty error message.
 #define EZ_TEST_IMAGE(ImageNumber, MaxError) EZ_TEST_IMAGE_MSG(ImageNumber, MaxError, "")
@@ -543,8 +518,7 @@ EZ_TEST_DLL ezResult ezTestImage(
 ///
 /// \note Some tests need to know at the start, whether an image comparison will be done at the end, so they
 /// can capture the image first. For such use cases, use EZ_SCHEDULE_IMAGE_TEST at the start of a sub-test instead.
-#define EZ_TEST_IMAGE_MSG(ImageNumber, MaxError, msg, ...) \
-  ezTestImage(ImageNumber, MaxError, EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
+#define EZ_TEST_IMAGE_MSG(ImageNumber, MaxError, msg, ...) ezTestImage(ImageNumber, MaxError, EZ_SOURCE_FILE, EZ_SOURCE_LINE, EZ_SOURCE_FUNCTION, msg, ##__VA_ARGS__)
 
 /// \brief Schedules an EZ_TEST_IMAGE to be executed after the current sub-test execution finishes.
 ///

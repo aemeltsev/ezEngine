@@ -14,10 +14,8 @@ EZ_BEGIN_STATIC_REFLECTED_ENUM(ezTexConvMipmapMode, 1)
 EZ_END_STATIC_REFLECTED_ENUM;
 
 EZ_BEGIN_STATIC_REFLECTED_ENUM(ezTexConvUsage, 1)
-  EZ_ENUM_CONSTANT(ezTexConvUsage::Auto), EZ_ENUM_CONSTANT(ezTexConvUsage::Color), EZ_ENUM_CONSTANT(ezTexConvUsage::Linear),
-    EZ_ENUM_CONSTANT(ezTexConvUsage::Hdr), EZ_ENUM_CONSTANT(ezTexConvUsage::NormalMap),
-    EZ_ENUM_CONSTANT(ezTexConvUsage::NormalMap_Inverted),
-    EZ_ENUM_CONSTANT(ezTexConvUsage::BumpMap),
+  EZ_ENUM_CONSTANT(ezTexConvUsage::Auto), EZ_ENUM_CONSTANT(ezTexConvUsage::Color), EZ_ENUM_CONSTANT(ezTexConvUsage::Linear), EZ_ENUM_CONSTANT(ezTexConvUsage::Hdr),
+    EZ_ENUM_CONSTANT(ezTexConvUsage::NormalMap), EZ_ENUM_CONSTANT(ezTexConvUsage::NormalMap_Inverted), EZ_ENUM_CONSTANT(ezTexConvUsage::BumpMap),
 EZ_END_STATIC_REFLECTED_ENUM;
 // clang=format on
 
@@ -229,8 +227,7 @@ ezResult ezTexConvProcessor::GenerateThumbnailOutput(const ezImage& srcImg, ezIm
 
       if (ezImageUtils::Scale(*pCurrentScratch, *pOtherScratch, uiTargetRes, uiTargetHeight).Failed())
       {
-        ezLog::Error("Failed to resize thumbnail image from {}x{} to {}x{}", pCurrentScratch->GetWidth(), pCurrentScratch->GetHeight(),
-          uiTargetRes, uiTargetHeight);
+        ezLog::Error("Failed to resize thumbnail image from {}x{} to {}x{}", pCurrentScratch->GetWidth(), pCurrentScratch->GetHeight(), uiTargetRes, uiTargetHeight);
         return EZ_FAILURE;
       }
     }
@@ -243,8 +240,7 @@ ezResult ezTexConvProcessor::GenerateThumbnailOutput(const ezImage& srcImg, ezIm
 
       if (ezImageUtils::Scale(*pCurrentScratch, *pOtherScratch, uiTargetWidth, uiTargetRes).Failed())
       {
-        ezLog::Error("Failed to resize thumbnail image from {}x{} to {}x{}", pCurrentScratch->GetWidth(), pCurrentScratch->GetHeight(),
-          uiTargetWidth, uiTargetRes);
+        ezLog::Error("Failed to resize thumbnail image from {}x{} to {}x{}", pCurrentScratch->GetWidth(), pCurrentScratch->GetHeight(), uiTargetWidth, uiTargetRes);
         return EZ_FAILURE;
       }
     }

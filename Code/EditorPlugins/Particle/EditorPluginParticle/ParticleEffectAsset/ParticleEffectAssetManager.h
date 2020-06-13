@@ -22,4 +22,3 @@ private:
 
   ezAssetDocumentTypeDescriptor m_DocTypeDesc;
 };
-

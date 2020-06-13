@@ -8,11 +8,11 @@
 #include <EditorFramework/PropertyGrid/GameObjectReferencePropertyWidget.moc.h>
 #include <GuiFoundation/PropertyGrid/PropertyBaseWidget.moc.h>
 #include <GuiFoundation/PropertyGrid/PropertyGridWidget.moc.h>
-#include <ToolsFoundation/Object/ObjectAccessorBase.h>
 #include <QClipboard>
 #include <QMenu>
 #include <QMimeData>
 #include <QToolButton>
+#include <ToolsFoundation/Object/ObjectAccessorBase.h>
 
 ezQtGameObjectReferencePropertyWidget::ezQtGameObjectReferencePropertyWidget()
   : ezQtStandardPropertyWidget()

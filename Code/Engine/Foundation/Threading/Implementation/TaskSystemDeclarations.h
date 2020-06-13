@@ -113,11 +113,7 @@ public:
 
   EZ_ALWAYS_INLINE bool operator==(const ezTaskGroupID& other) const { return m_pTaskGroup == other.m_pTaskGroup && m_uiGroupCounter == other.m_uiGroupCounter; }
   EZ_ALWAYS_INLINE bool operator!=(const ezTaskGroupID& other) const { return m_pTaskGroup != other.m_pTaskGroup || m_uiGroupCounter != other.m_uiGroupCounter; }
-  EZ_ALWAYS_INLINE bool operator<(const ezTaskGroupID& other) const
-  {
-    return m_pTaskGroup < other.m_pTaskGroup ||
-           (m_pTaskGroup == other.m_pTaskGroup && m_uiGroupCounter < other.m_uiGroupCounter);
-  }
+  EZ_ALWAYS_INLINE bool operator<(const ezTaskGroupID& other) const { return m_pTaskGroup < other.m_pTaskGroup || (m_pTaskGroup == other.m_pTaskGroup && m_uiGroupCounter < other.m_uiGroupCounter); }
 
 private:
   friend class ezTaskSystem;

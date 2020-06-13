@@ -60,7 +60,7 @@ struct EZ_FOUNDATION_DLL ezLoggingEventData
 #endif
 };
 
-using ezLoggingEvent = ezEvent<const ezLoggingEventData &, ezMutex>;
+using ezLoggingEvent = ezEvent<const ezLoggingEventData&, ezMutex>;
 
 /// \brief Base class for all logging classes.
 ///
@@ -314,7 +314,7 @@ public:
   /// This function flushes the output immediately, to ensure output is never lost during a crash. Consequently it has a high performance
   /// overhead.
   static void Print(const char* szText);
-  
+
   /// \brief Calls low-level OS functionality to print a string to the typical outputs. Forwards to Print.
   /// \note This function uses actual printf formatting, not ezFormatString syntax.
   /// \sa ezLog::Print

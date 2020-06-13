@@ -7,8 +7,8 @@
 #include <Foundation/IO/MemoryStream.h>
 #include <RendererCore/Pipeline/Declarations.h>
 #include <RendererCore/RenderContext/Implementation/RenderContextStructs.h>
-#include <RendererFoundation/RendererFoundationDLL.h>
 #include <RendererFoundation/Descriptors/Descriptors.h>
+#include <RendererFoundation/RendererFoundationDLL.h>
 
 class ezImage;
 
@@ -47,8 +47,8 @@ public:
   EZ_ALWAYS_INLINE ezUInt32 GetHeight() const { return m_uiHeight; }
   EZ_ALWAYS_INLINE ezGALTextureType::Enum GetType() const { return m_Type; }
 
-  static void FillOutDescriptor(ezTexture2DResourceDescriptor& td, const ezImage* pImage, bool bSRGB, ezUInt32 uiNumMipLevels,
-                                ezUInt32& out_MemoryUsed, ezHybridArray<ezGALSystemMemoryDescription, 32>& initData);
+  static void FillOutDescriptor(
+    ezTexture2DResourceDescriptor& td, const ezImage* pImage, bool bSRGB, ezUInt32 uiNumMipLevels, ezUInt32& out_MemoryUsed, ezHybridArray<ezGALSystemMemoryDescription, 32>& initData);
 
 private:
   virtual ezResourceLoadDesc UnloadData(Unload WhatToUnload) override;
@@ -66,7 +66,7 @@ protected:
 protected:
   ezUInt8 m_uiLoadedTextures = 0;
   ezGALTextureHandle m_hGALTexture[2];
-  ezUInt32 m_uiMemoryGPU[2] = { 0, 0 };
+  ezUInt32 m_uiMemoryGPU[2] = {0, 0};
 
   ezGALTextureType::Enum m_Type = ezGALTextureType::Invalid;
   ezGALResourceFormat::Enum m_Format = ezGALResourceFormat::Invalid;
@@ -109,9 +109,6 @@ private:
   virtual void UpdateMemoryUsage(MemoryUsage& out_NewMemoryUsage) override;
 
 protected:
-
   // other views that use this texture as their target
   ezDynamicArray<ezViewHandle> m_RenderViews;
-
 };
-

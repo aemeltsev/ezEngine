@@ -50,8 +50,7 @@ ezPropertyAnimationTrackGroup::~ezPropertyAnimationTrackGroup()
 }
 
 ezPropertyAnimAssetDocument::ezPropertyAnimAssetDocument(const char* szDocumentPath)
-  : ezSimpleAssetDocument<ezPropertyAnimationTrackGroup, ezGameObjectContextDocument>(EZ_DEFAULT_NEW(ezPropertyAnimObjectManager),
-      szDocumentPath, ezAssetDocEngineConnection::FullObjectMirroring)
+  : ezSimpleAssetDocument<ezPropertyAnimationTrackGroup, ezGameObjectContextDocument>(EZ_DEFAULT_NEW(ezPropertyAnimObjectManager), szDocumentPath, ezAssetDocEngineConnection::FullObjectMirroring)
 {
   m_GameObjectContextEvents.AddEventHandler(ezMakeDelegate(&ezPropertyAnimAssetDocument::GameObjectContextEventHandler, this));
   m_pAccessor = EZ_DEFAULT_NEW(ezPropertyAnimObjectAccessor, this, GetCommandHistory());
@@ -170,8 +169,8 @@ bool ezPropertyAnimAssetDocument::SetScrubberPosition(ezUInt64 uiTick)
   return true;
 }
 
-ezStatus ezPropertyAnimAssetDocument::InternalTransformAsset(ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile,
-  const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags)
+ezStatus ezPropertyAnimAssetDocument::InternalTransformAsset(
+  ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags)
 {
   const ezPropertyAnimationTrackGroup* pProp = GetProperties();
 
@@ -241,13 +240,11 @@ void ezPropertyAnimAssetDocument::InitializeAfterLoading(bool bFirstTimeCreation
 {
   // Filter needs to be set before base class init as that one sends the doc.
   // (Local mirror ignores temporaries, i.e. only mirrors the asset itself)
-  m_ObjectMirror.SetFilterFunction([this](const ezDocumentObject* pObject, const char* szProperty) -> bool {
-    return !static_cast<ezPropertyAnimObjectManager*>(GetObjectManager())->IsTemporary(pObject, szProperty);
-  });
+  m_ObjectMirror.SetFilterFunction(
+    [this](const ezDocumentObject* pObject, const char* szProperty) -> bool { return !static_cast<ezPropertyAnimObjectManager*>(GetObjectManager())->IsTemporary(pObject, szProperty); });
   // (Remote IPC mirror only sends temporaries, i.e. the context)
-  m_Mirror.SetFilterFunction([this](const ezDocumentObject* pObject, const char* szProperty) -> bool {
-    return static_cast<ezPropertyAnimObjectManager*>(GetObjectManager())->IsTemporary(pObject, szProperty);
-  });
+  m_Mirror.SetFilterFunction(
+    [this](const ezDocumentObject* pObject, const char* szProperty) -> bool { return static_cast<ezPropertyAnimObjectManager*>(GetObjectManager())->IsTemporary(pObject, szProperty); });
   SUPER::InitializeAfterLoading(bFirstTimeCreation);
   // Important to do these after base class init as we want our subscriptions to happen after the mirror of the base class.
   GetObjectManager()->m_StructureEvents.AddEventHandler(ezMakeDelegate(&ezPropertyAnimAssetDocument::TreeStructureEventHandler, this));
@@ -370,9 +367,8 @@ void ezPropertyAnimAssetDocument::AddTrack(const ezUuid& track)
     if (!m_PropertyTable.Contains(key))
     {
       PropertyValue value;
-      EZ_VERIFY(m_pAccessor->GetValue(GetObjectManager()->GetObject(key.m_Object), key.m_pProperty, value.m_InitialValue, key.m_Index)
-                  .Succeeded(),
-        "Computed key invalid, does not resolve to a value.");
+      EZ_VERIFY(
+        m_pAccessor->GetValue(GetObjectManager()->GetObject(key.m_Object), key.m_pProperty, value.m_InitialValue, key.m_Index).Succeeded(), "Computed key invalid, does not resolve to a value.");
       m_PropertyTable.Insert(key, value);
     }
 
@@ -383,8 +379,7 @@ void ezPropertyAnimAssetDocument::AddTrack(const ezUuid& track)
 }
 
 
-void ezPropertyAnimAssetDocument::FindTrackKeys(const char* szObjectSearchSequence, const char* szComponentType, const char* szPropertyPath,
-  ezHybridArray<ezPropertyReference, 1>& keys) const
+void ezPropertyAnimAssetDocument::FindTrackKeys(const char* szObjectSearchSequence, const char* szComponentType, const char* szPropertyPath, ezHybridArray<ezPropertyReference, 1>& keys) const
 {
   ezObjectPropertyPathContext context = {GetContextObject(), m_pAccessor.Borrow(), "TempObjects"};
 
@@ -393,9 +388,8 @@ void ezPropertyAnimAssetDocument::FindTrackKeys(const char* szObjectSearchSequen
 }
 
 
-void ezPropertyAnimAssetDocument::GenerateTrackInfo(const ezDocumentObject* pObject, const ezAbstractProperty* pProp, ezVariant index,
-  ezStringBuilder& sObjectSearchSequence, ezStringBuilder& sComponentType,
-  ezStringBuilder& sPropertyPath) const
+void ezPropertyAnimAssetDocument::GenerateTrackInfo(
+  const ezDocumentObject* pObject, const ezAbstractProperty* pProp, ezVariant index, ezStringBuilder& sObjectSearchSequence, ezStringBuilder& sComponentType, ezStringBuilder& sPropertyPath) const
 {
   ezObjectPropertyPathContext context = {GetContextObject(), m_pAccessor.Borrow(), "TempObjects"};
   ezPropertyReference propertyRef = {pObject->GetGuid(), pProp, index};
@@ -561,8 +555,7 @@ const ezPropertyAnimationTrack* ezPropertyAnimAssetDocument::GetTrack(const ezUu
 ezPropertyAnimationTrack* ezPropertyAnimAssetDocument::GetTrack(const ezUuid& track)
 {
   auto obj = m_Context.GetObjectByGUID(track);
-  EZ_ASSERT_DEBUG(
-    obj.m_pType == ezGetStaticRTTI<ezPropertyAnimationTrack>(),
+  EZ_ASSERT_DEBUG(obj.m_pType == ezGetStaticRTTI<ezPropertyAnimationTrack>(),
     "Track guid does not resolve to a track, "
     "either the track is not yet created in the mirror or already destroyed. Make sure callbacks are executed in the right order.");
   auto pTrack = static_cast<ezPropertyAnimationTrack*>(obj.m_pObject);
@@ -570,8 +563,7 @@ ezPropertyAnimationTrack* ezPropertyAnimAssetDocument::GetTrack(const ezUuid& tr
 }
 
 
-ezStatus ezPropertyAnimAssetDocument::CanAnimate(const ezDocumentObject* pObject, const ezAbstractProperty* pProp, ezVariant index,
-  ezPropertyAnimTarget::Enum target) const
+ezStatus ezPropertyAnimAssetDocument::CanAnimate(const ezDocumentObject* pObject, const ezAbstractProperty* pProp, ezVariant index, ezPropertyAnimTarget::Enum target) const
 {
   if (!pObject)
     return ezStatus("Object is null.");
@@ -625,8 +617,7 @@ ezStatus ezPropertyAnimAssetDocument::CanAnimate(const ezDocumentObject* pObject
   return ezStatus(EZ_SUCCESS);
 }
 
-ezUuid ezPropertyAnimAssetDocument::FindTrack(const ezDocumentObject* pObject, const ezAbstractProperty* pProp, ezVariant index,
-  ezPropertyAnimTarget::Enum target) const
+ezUuid ezPropertyAnimAssetDocument::FindTrack(const ezDocumentObject* pObject, const ezAbstractProperty* pProp, ezVariant index, ezPropertyAnimTarget::Enum target) const
 {
   ezPropertyReference key;
   key.m_Object = pObject->GetGuid();
@@ -670,8 +661,7 @@ static ezColorGammaUB g_FloatColors[10] = {
   ezColorGammaUB(238, 130, 238),
 };
 
-ezUuid ezPropertyAnimAssetDocument::CreateTrack(const ezDocumentObject* pObject, const ezAbstractProperty* pProp, ezVariant index,
-  ezPropertyAnimTarget::Enum target)
+ezUuid ezPropertyAnimAssetDocument::CreateTrack(const ezDocumentObject* pObject, const ezAbstractProperty* pProp, ezVariant index, ezPropertyAnimTarget::Enum target)
 {
   ezStringBuilder sObjectSearchSequence;
   ezStringBuilder sComponentType;
@@ -681,11 +671,7 @@ ezUuid ezPropertyAnimAssetDocument::CreateTrack(const ezDocumentObject* pObject,
   ezObjectCommandAccessor accessor(GetCommandHistory());
   const ezRTTI* pTrackType = ezGetStaticRTTI<ezPropertyAnimationTrack>();
   ezUuid newTrack;
-  EZ_VERIFY(accessor
-              .AddObject(GetPropertyObject(), ezGetStaticRTTI<ezPropertyAnimationTrackGroup>()->FindPropertyByName("Tracks"), -1,
-                pTrackType, newTrack)
-              .Succeeded(),
-    "Adding track failed.");
+  EZ_VERIFY(accessor.AddObject(GetPropertyObject(), ezGetStaticRTTI<ezPropertyAnimationTrackGroup>()->FindPropertyByName("Tracks"), -1, pTrackType, newTrack).Succeeded(), "Adding track failed.");
   const ezDocumentObject* pTrackObj = accessor.GetObject(newTrack);
   ezVariant value = sObjectSearchSequence.GetData();
   EZ_VERIFY(accessor.SetValue(pTrackObj, pTrackType->FindPropertyByName("ObjectPath"), value).Succeeded(), "Adding track failed.");
@@ -772,10 +758,7 @@ ezUuid ezPropertyAnimAssetDocument::InsertCurveCpAt(const ezUuid& track, ezInt64
   const ezVariant curveGuid = trackObject->GetTypeAccessor().GetValue("FloatCurve");
 
   ezUuid newObjectGuid;
-  EZ_VERIFY(acc.AddObject(accessor.GetObject(curveGuid.Get<ezUuid>()), "ControlPoints", -1, ezGetStaticRTTI<ezCurveControlPointData>(),
-                 newObjectGuid)
-              .Succeeded(),
-    "");
+  EZ_VERIFY(acc.AddObject(accessor.GetObject(curveGuid.Get<ezUuid>()), "ControlPoints", -1, ezGetStaticRTTI<ezCurveControlPointData>(), newObjectGuid).Succeeded(), "");
   auto curveCPObj = accessor.GetObject(newObjectGuid);
   EZ_VERIFY(acc.SetValue(curveCPObj, "Tick", tickX).Succeeded(), "");
   EZ_VERIFY(acc.SetValue(curveCPObj, "Value", newPosY).Succeeded(), "");
@@ -928,10 +911,7 @@ ezUuid ezPropertyAnimAssetDocument::InsertEventTrackCpAt(ezInt64 tickX, const ch
   ezUuid trackGuid = accessor.Get<ezUuid>(GetPropertyObject(), pTrackProp);
 
   ezUuid newObjectGuid;
-  EZ_VERIFY(
-    acc.AddObject(accessor.GetObject(trackGuid), "ControlPoints", -1, ezGetStaticRTTI<ezEventTrackControlPointData>(), newObjectGuid)
-      .Succeeded(),
-    "");
+  EZ_VERIFY(acc.AddObject(accessor.GetObject(trackGuid), "ControlPoints", -1, ezGetStaticRTTI<ezEventTrackControlPointData>(), newObjectGuid).Succeeded(), "");
   const ezDocumentObject* pCPObj = accessor.GetObject(newObjectGuid);
   EZ_VERIFY(acc.SetValue(pCPObj, "Tick", tickX).Succeeded(), "");
   EZ_VERIFY(acc.SetValue(pCPObj, "Event", szValue).Succeeded(), "");

@@ -52,8 +52,7 @@ ezStatus ezGameObjectContextDocument::SetContext(ezUuid documentGuid, ezUuid obj
 
   ezRttiConverterContext context;
   ezRttiConverterReader rttiConverter(&graph, &context);
-  ezDocumentObjectConverterReader objectConverter(
-    &graph, GetObjectManager(), ezDocumentObjectConverterReader::Mode::CreateAndAddToDocument);
+  ezDocumentObjectConverterReader objectConverter(&graph, GetObjectManager(), ezDocumentObjectConverterReader::Mode::CreateAndAddToDocument);
   {
     EZ_PROFILE_SCOPE("Restoring Objects");
     auto* pRootNode = graph.GetNodeByName("ObjectTree");

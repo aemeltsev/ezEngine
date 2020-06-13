@@ -58,8 +58,7 @@ void ezSpriteRenderer::GetSupportedRenderDataCategories(ezHybridArray<ezRenderDa
   categories.PushBack(ezDefaultRenderDataCategories::Selection);
 }
 
-void ezSpriteRenderer::RenderBatch(
-  const ezRenderViewContext& renderViewContext, const ezRenderPipelinePass* pPass, const ezRenderDataBatch& batch) const
+void ezSpriteRenderer::RenderBatch(const ezRenderViewContext& renderViewContext, const ezRenderPipelinePass* pPass, const ezRenderDataBatch& batch) const
 {
   ezGALDevice* pDevice = ezGALDevice::GetDefaultDevice();
   ezRenderContext* pContext = renderViewContext.m_pRenderContext;
@@ -74,8 +73,7 @@ void ezSpriteRenderer::RenderBatch(
   renderViewContext.m_pRenderContext->BindBuffer("spriteData", pDevice->GetDefaultResourceView(hSpriteData));
   renderViewContext.m_pRenderContext->BindTexture2D("SpriteTexture", pRenderData->m_hTexture);
 
-  renderViewContext.m_pRenderContext->SetShaderPermutationVariable(
-    "BLEND_MODE", ezSpriteBlendMode::GetPermutationValue(pRenderData->m_BlendMode));
+  renderViewContext.m_pRenderContext->SetShaderPermutationVariable("BLEND_MODE", ezSpriteBlendMode::GetPermutationValue(pRenderData->m_BlendMode));
 
   ezUInt32 uiStartIndex = 0;
   while (uiStartIndex < batch.GetCount())
@@ -87,8 +85,7 @@ void ezSpriteRenderer::RenderBatch(
     {
       pGALContext->UpdateBuffer(hSpriteData, 0, m_spriteData.GetByteArrayPtr());
 
-      renderViewContext.m_pRenderContext->BindMeshBuffer(
-        ezGALBufferHandle(), ezGALBufferHandle(), nullptr, ezGALPrimitiveTopology::Triangles, uiCount * 2);
+      renderViewContext.m_pRenderContext->BindMeshBuffer(ezGALBufferHandle(), ezGALBufferHandle(), nullptr, ezGALPrimitiveTopology::Triangles, uiCount * 2);
       renderViewContext.m_pRenderContext->DrawMeshBuffer();
     }
 

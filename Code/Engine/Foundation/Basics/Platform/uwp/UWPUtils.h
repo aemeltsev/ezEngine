@@ -1,7 +1,7 @@
 #pragma once
 
 #if EZ_DISABLED(EZ_PLATFORM_WINDOWS_UWP)
-#error "uwp util header should only be included in UWP builds!"
+#  error "uwp util header should only be included in UWP builds!"
 #endif
 
 #include <Foundation/Basics/Platform/Win/HResultUtils.h>
@@ -9,15 +9,15 @@
 
 #include <Foundation/Basics/Platform/Win/IncludeWindows.h>
 
+#include <asyncinfo.h>
 #include <guiddef.h>
+#include <windows.foundation.collections.h>
 #include <windows.foundation.h>
 #include <windows.foundation.numerics.h>
 #include <wrl/client.h>
 #include <wrl/event.h>
 #include <wrl/implements.h>
 #include <wrl/wrappers/corewrappers.h>
-#include <windows.foundation.collections.h>
-#include <asyncinfo.h>
 
 class ezUuid;
 
@@ -152,5 +152,4 @@ namespace ezUwpUtils
 
   ezUuid EZ_FOUNDATION_DLL ConvertGuid(const GUID& in);
   void EZ_FOUNDATION_DLL ConvertGuid(const ezUuid& in, GUID& out);
-}
-
+} // namespace ezUwpUtils

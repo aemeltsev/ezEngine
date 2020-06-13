@@ -42,7 +42,8 @@ void ezCollectionResource::PreloadResources()
       }
       else
       {
-        ezLog::Error("There was no valid RTTI available for assets with type name '{}'. Could not pre-load resource '{}'. Did you forget to register the resource type with the ezResourceManager?", e.m_sAssetTypeName, ezArgSensitive(e.m_sResourceID, "ResourceID"));
+        ezLog::Error("There was no valid RTTI available for assets with type name '{}'. Could not pre-load resource '{}'. Did you forget to register the resource type with the ezResourceManager?",
+          e.m_sAssetTypeName, ezArgSensitive(e.m_sResourceID, "ResourceID"));
       }
     }
     else
@@ -182,8 +183,7 @@ void ezCollectionResource::UpdateMemoryUsage(MemoryUsage& out_NewMemoryUsage)
 {
   EZ_LOCK(m_preloadMutex);
   out_NewMemoryUsage.m_uiMemoryGPU = 0;
-  out_NewMemoryUsage.m_uiMemoryCPU =
-    static_cast<ezUInt32>(m_hPreloadedResources.GetHeapMemoryUsage() + m_Collection.m_Resources.GetHeapMemoryUsage());
+  out_NewMemoryUsage.m_uiMemoryCPU = static_cast<ezUInt32>(m_hPreloadedResources.GetHeapMemoryUsage() + m_Collection.m_Resources.GetHeapMemoryUsage());
 }
 
 

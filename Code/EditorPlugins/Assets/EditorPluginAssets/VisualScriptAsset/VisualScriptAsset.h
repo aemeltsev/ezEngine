@@ -1,9 +1,9 @@
 #pragma once
 
 #include <EditorFramework/Assets/AssetDocument.h>
-#include <ToolsFoundation/NodeObject/DocumentNodeManager.h>
-#include <EditorFramework/Preferences/Preferences.h>
 #include <EditorFramework/Assets/SimpleAssetDocument.h>
+#include <EditorFramework/Preferences/Preferences.h>
+#include <ToolsFoundation/NodeObject/DocumentNodeManager.h>
 
 struct ezVisualScriptResourceDescriptor;
 struct ezVisualScriptInstanceActivity;
@@ -44,7 +44,6 @@ class ezVisualScriptAssetProperties : public ezReflectedClass
   EZ_ADD_DYNAMIC_REFLECTION(ezVisualScriptAssetProperties, ezReflectedClass);
 
 public:
-
   ezDynamicArray<ezVisualScriptParameterBool> m_BoolParameters;
   ezDynamicArray<ezVisualScriptParameterNumber> m_NumberParameters;
 };
@@ -63,7 +62,8 @@ public:
   ezEvent<ezReflectedClass*> m_InterDocumentMessages;
 
 protected:
-  virtual ezStatus InternalTransformAsset(ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags) override;
+  virtual ezStatus InternalTransformAsset(
+    ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags) override;
   virtual void UpdateAssetDocumentInfo(ezAssetDocumentInfo* pInfo) const override;
 
   virtual void GetSupportedMimeTypesForPasting(ezHybridArray<ezString, 4>& out_MimeTypes) const override;
@@ -76,8 +76,6 @@ protected:
 
   ezResult GenerateVisualScriptDescriptor(ezVisualScriptResourceDescriptor& desc);
 
-  void GetAllVsNodes(ezDynamicArray<const ezDocumentObject *> &allNodes) const;
+  void GetAllVsNodes(ezDynamicArray<const ezDocumentObject*>& allNodes) const;
   void HighlightConnections(const ezVisualScriptInstanceActivity& act);
-
-
 };

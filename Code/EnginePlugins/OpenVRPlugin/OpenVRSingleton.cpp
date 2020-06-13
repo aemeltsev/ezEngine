@@ -26,7 +26,7 @@ EZ_IMPLEMENT_SINGLETON(ezOpenVR);
 static ezOpenVR g_OpenVRSingleton;
 
 ezOpenVR::ezOpenVR()
-    : m_SingletonRegistrar(this)
+  : m_SingletonRegistrar(this)
 {
   m_bInitialized = false;
   m_DeviceState[0].m_mPose.SetIdentity();
@@ -60,8 +60,7 @@ bool ezOpenVR::Initialize()
   }
 
   m_bInitialized = true;
-  ezGameApplicationBase::GetGameApplicationBaseInstance()->m_ExecutionEvents.AddEventHandler(
-      ezMakeDelegate(&ezOpenVR::GameApplicationEventHandler, this));
+  ezGameApplicationBase::GetGameApplicationBaseInstance()->m_ExecutionEvents.AddEventHandler(ezMakeDelegate(&ezOpenVR::GameApplicationEventHandler, this));
   ezRenderWorld::s_BeginRenderEvent.AddEventHandler(ezMakeDelegate(&ezOpenVR::OnBeginRender, this));
   ezGALDevice::GetDefaultDevice()->m_Events.AddEventHandler(ezMakeDelegate(&ezOpenVR::GALDeviceEventHandler, this));
   ReadHMDInfo();
@@ -85,8 +84,7 @@ void ezOpenVR::Deinitialize()
 {
   if (m_bInitialized)
   {
-    ezGameApplicationBase::GetGameApplicationBaseInstance()->m_ExecutionEvents.RemoveEventHandler(
-        ezMakeDelegate(&ezOpenVR::GameApplicationEventHandler, this));
+    ezGameApplicationBase::GetGameApplicationBaseInstance()->m_ExecutionEvents.RemoveEventHandler(ezMakeDelegate(&ezOpenVR::GameApplicationEventHandler, this));
     ezRenderWorld::s_BeginRenderEvent.RemoveEventHandler(ezMakeDelegate(&ezOpenVR::OnBeginRender, this));
     ezGALDevice::GetDefaultDevice()->m_Events.RemoveEventHandler(ezMakeDelegate(&ezOpenVR::GALDeviceEventHandler, this));
 
@@ -170,8 +168,7 @@ ezEvent<const ezVRDeviceEvent&>& ezOpenVR::DeviceEvents()
   return m_DeviceEvents;
 }
 
-ezViewHandle ezOpenVR::CreateVRView(
-    const ezRenderPipelineResourceHandle& hRenderPipeline, ezCamera* pCamera, ezGALMSAASampleCount::Enum msaaCount)
+ezViewHandle ezOpenVR::CreateVRView(const ezRenderPipelineResourceHandle& hRenderPipeline, ezCamera* pCamera, ezGALMSAASampleCount::Enum msaaCount)
 {
   SetHMDCamera(pCamera);
 
@@ -183,8 +180,7 @@ ezViewHandle ezOpenVR::CreateVRView(
 
   {
     ezGALTextureCreationDescription tcd;
-    tcd.SetAsRenderTarget(
-        m_Info.m_vEyeRenderTargetSize.x, m_Info.m_vEyeRenderTargetSize.y, ezGALResourceFormat::RGBAUByteNormalizedsRGB, msaaCount);
+    tcd.SetAsRenderTarget(m_Info.m_vEyeRenderTargetSize.x, m_Info.m_vEyeRenderTargetSize.y, ezGALResourceFormat::RGBAUByteNormalizedsRGB, msaaCount);
     tcd.m_uiArraySize = 2;
     m_hColorRT = pDevice->CreateTexture(tcd);
 
@@ -199,8 +195,7 @@ ezViewHandle ezOpenVR::CreateVRView(
     m_hDepthRT = pDevice->CreateTexture(tcd);
   }
 
-  m_RenderTargetSetup.SetRenderTarget(0, pDevice->GetDefaultRenderTargetView(m_hColorRT))
-      .SetDepthStencilTarget(pDevice->GetDefaultRenderTargetView(m_hDepthRT));
+  m_RenderTargetSetup.SetRenderTarget(0, pDevice->GetDefaultRenderTargetView(m_hColorRT)).SetDepthStencilTarget(pDevice->GetDefaultRenderTargetView(m_hDepthRT));
 
   pMainView->SetRenderTargetSetup(m_RenderTargetSetup);
   pMainView->SetRenderPipelineResource(hRenderPipeline);
@@ -325,8 +320,8 @@ void ezOpenVR::GameApplicationEventHandler(const ezGameApplicationExecutionEvent
       destSubRes.m_uiArraySlice = 0;
       destSubRes.m_uiMipLevel = 0;
 
-      pGALContext->CopyTextureRegion(hRight, destSubRes, ezVec3U32(0, 0, 0), m_hColorRT, sourceSubRes,
-          ezBoundingBoxu32(ezVec3U32(0, 0, 0), ezVec3U32(m_Info.m_vEyeRenderTargetSize.x, m_Info.m_vEyeRenderTargetSize.y, 1)));
+      pGALContext->CopyTextureRegion(
+        hRight, destSubRes, ezVec3U32(0, 0, 0), m_hColorRT, sourceSubRes, ezBoundingBoxu32(ezVec3U32(0, 0, 0), ezVec3U32(m_Info.m_vEyeRenderTargetSize.x, m_Info.m_vEyeRenderTargetSize.y, 1)));
     }
     else
     {
@@ -569,8 +564,7 @@ void ezOpenVR::UpdatePoses()
     // put the camera orientation into the sound listener and enable the listener override mode
     if (ezSoundInterface* pSoundInterface = ezSingletonRegistry::GetSingletonInstance<ezSoundInterface>("ezSoundInterface"))
     {
-      pSoundInterface->SetListener(
-          -1, m_VRCamera.GetCenterPosition(), m_VRCamera.GetCenterDirForwards(), m_VRCamera.GetCenterDirUp(), ezVec3::ZeroVector());
+      pSoundInterface->SetListener(-1, m_VRCamera.GetCenterPosition(), m_VRCamera.GetCenterDirForwards(), m_VRCamera.GetCenterDirUp(), ezVec3::ZeroVector());
     }
   }
 }
@@ -623,10 +617,8 @@ void ezOpenVR::UpdateCamera()
   if (m_uiSettingsModificationCounter != m_pCameraToSynchronize->GetSettingsModificationCounter())
   {
     const float fAspectRatio = (float)m_Info.m_vEyeRenderTargetSize.x / (float)m_Info.m_vEyeRenderTargetSize.y;
-    ezMat4 projLeft =
-        GetHMDProjectionEye(vr::Hmd_Eye::Eye_Left, m_pCameraToSynchronize->GetNearPlane(), m_pCameraToSynchronize->GetFarPlane());
-    ezMat4 projRight =
-        GetHMDProjectionEye(vr::Hmd_Eye::Eye_Right, m_pCameraToSynchronize->GetNearPlane(), m_pCameraToSynchronize->GetFarPlane());
+    ezMat4 projLeft = GetHMDProjectionEye(vr::Hmd_Eye::Eye_Left, m_pCameraToSynchronize->GetNearPlane(), m_pCameraToSynchronize->GetFarPlane());
+    ezMat4 projRight = GetHMDProjectionEye(vr::Hmd_Eye::Eye_Right, m_pCameraToSynchronize->GetNearPlane(), m_pCameraToSynchronize->GetFarPlane());
     m_VRCamera.SetStereoProjection(projLeft, projRight, fAspectRatio);
   }
 }
@@ -652,8 +644,7 @@ ezMat4 ezOpenVR::GetHMDEyePose(vr::Hmd_Eye nEye) const
   return matrixObj;
 }
 
-ezString ezOpenVR::GetTrackedDeviceString(
-    vr::TrackedDeviceIndex_t unDevice, vr::TrackedDeviceProperty prop, vr::TrackedPropertyError* peError) const
+ezString ezOpenVR::GetTrackedDeviceString(vr::TrackedDeviceIndex_t unDevice, vr::TrackedDeviceProperty prop, vr::TrackedPropertyError* peError) const
 {
   EZ_ASSERT_DEV(m_pHMD, "Need to call 'Initialize' first.");
 

@@ -237,9 +237,8 @@ void ezQtPhysxProjectSettingsDlg::on_ButtonAddLayer_clicked()
 
 void ezQtPhysxProjectSettingsDlg::on_ButtonRemoveLayer_clicked()
 {
-  if (ezQtUiServices::GetSingleton()->MessageBoxQuestion("Remove selected Collision Layer?",
-        QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No,
-        QMessageBox::StandardButton::No) == QMessageBox::StandardButton::No)
+  if (ezQtUiServices::GetSingleton()->MessageBoxQuestion("Remove selected Collision Layer?", QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, QMessageBox::StandardButton::No) ==
+      QMessageBox::StandardButton::No)
     return;
 
   const auto sel = FilterTable->selectionModel()->selectedRows();
@@ -271,8 +270,7 @@ void ezQtPhysxProjectSettingsDlg::on_ButtonRenameLayer_clicked()
   while (true)
   {
     bool ok;
-    QString result = QInputDialog::getText(
-      this, QStringLiteral("Rename Layer"), QStringLiteral("Name:"), QLineEdit::Normal, QString::fromUtf8(sOldName.GetData()), &ok);
+    QString result = QInputDialog::getText(this, QStringLiteral("Rename Layer"), QStringLiteral("Name:"), QLineEdit::Normal, QString::fromUtf8(sOldName.GetData()), &ok);
 
     if (!ok)
     {

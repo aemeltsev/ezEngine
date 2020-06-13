@@ -118,8 +118,8 @@ public:
   /// \brief Returns true, if the two given strings are identical (case-insensitive) up to the n-th character.
   ///
   /// This function will handle UTF-8 strings properly.
-  static bool IsEqualN_NoCase(const char* pString1, const char* pString2, ezUInt32 uiCharsToCompare,
-    const char* pString1End = ezUnicodeUtils::GetMaxStringEnd<char>(), const char* pString2End = ezUnicodeUtils::GetMaxStringEnd<char>()); // [tested]
+  static bool IsEqualN_NoCase(const char* pString1, const char* pString2, ezUInt32 uiCharsToCompare, const char* pString1End = ezUnicodeUtils::GetMaxStringEnd<char>(),
+    const char* pString2End = ezUnicodeUtils::GetMaxStringEnd<char>()); // [tested]
 
   /// \brief Compares two strings for equality.
   ///
@@ -154,8 +154,8 @@ public:
   /// Returns a positive number, if pString1 is 'larger' or longer than pString1.
   /// Returns 0 for equal strings.
   /// Works with UTF-8 strings as well.
-  static ezInt32 CompareN_NoCase(const char* pString1, const char* pString2, ezUInt32 uiCharsToCompare,
-    const char* pString1End = ezUnicodeUtils::GetMaxStringEnd<char>(), const char* pString2End = ezUnicodeUtils::GetMaxStringEnd<char>()); // [tested]
+  static ezInt32 CompareN_NoCase(const char* pString1, const char* pString2, ezUInt32 uiCharsToCompare, const char* pString1End = ezUnicodeUtils::GetMaxStringEnd<char>(),
+    const char* pString2End = ezUnicodeUtils::GetMaxStringEnd<char>()); // [tested]
 
 
   /// \brief Creates a formated string in szDst. uiDstSize defines how many bytes szDst can hold.
@@ -274,14 +274,12 @@ public:
   static ezResult FindUIntAtTheEnd(const char* szString, ezUInt32& out_uiValue, ezUInt32* pStringLengthBeforeUInt = nullptr); // [tested]
 
   /// \brief [internal] Prefer to use snprintf.
-  static void OutputFormattedInt(char* szOutputBuffer, ezUInt32 uiBufferSize, ezUInt32& uiWritePos, ezInt64 value, ezUInt8 uiWidth,
-    bool bPadZeros, ezUInt8 uiBase);
+  static void OutputFormattedInt(char* szOutputBuffer, ezUInt32 uiBufferSize, ezUInt32& uiWritePos, ezInt64 value, ezUInt8 uiWidth, bool bPadZeros, ezUInt8 uiBase);
   /// \brief [internal] Prefer to use snprintf.
-  static void OutputFormattedUInt(char* szOutputBuffer, ezUInt32 uiBufferSize, ezUInt32& uiWritePos, ezUInt64 value, ezUInt8 uiWidth,
-    bool bPadZeros, ezUInt8 uiBase, bool bUpperCase);
+  static void OutputFormattedUInt(char* szOutputBuffer, ezUInt32 uiBufferSize, ezUInt32& uiWritePos, ezUInt64 value, ezUInt8 uiWidth, bool bPadZeros, ezUInt8 uiBase, bool bUpperCase);
   /// \brief [internal] Prefer to use snprintf.
-  static void OutputFormattedFloat(char* szOutputBuffer, ezUInt32 uiBufferSize, ezUInt32& uiWritePos, double value, ezUInt8 uiWidth,
-    bool bPadZeros, ezInt8 iPrecision, bool bScientific, bool bRemoveTrailingZeroes = false);
+  static void OutputFormattedFloat(
+    char* szOutputBuffer, ezUInt32 uiBufferSize, ezUInt32& uiWritePos, double value, ezUInt8 uiWidth, bool bPadZeros, ezInt8 iPrecision, bool bScientific, bool bRemoveTrailingZeroes = false);
 
 #if EZ_ENABLED(EZ_COMPILE_FOR_DEBUG)
   static void AddUsedStringLength(ezUInt32 uiLength);

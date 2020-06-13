@@ -27,23 +27,18 @@ ezGameObjectGizmoEditTool::~ezGameObjectGizmoEditTool()
 void ezGameObjectGizmoEditTool::OnConfigured()
 {
   GetDocument()->m_GameObjectEvents.AddEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::GameObjectEventHandler, this));
-  GetDocument()->GetCommandHistory()->m_Events.AddEventHandler(
-    ezMakeDelegate(&ezGameObjectGizmoEditTool::CommandHistoryEventHandler, this));
-  GetDocument()->GetSelectionManager()->m_Events.AddEventHandler(
-    ezMakeDelegate(&ezGameObjectGizmoEditTool::SelectionManagerEventHandler, this));
-  ezManipulatorManager::GetSingleton()->m_Events.AddEventHandler(
-    ezMakeDelegate(&ezGameObjectGizmoEditTool::ManipulatorManagerEventHandler, this));
+  GetDocument()->GetCommandHistory()->m_Events.AddEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::CommandHistoryEventHandler, this));
+  GetDocument()->GetSelectionManager()->m_Events.AddEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::SelectionManagerEventHandler, this));
+  ezManipulatorManager::GetSingleton()->m_Events.AddEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::ManipulatorManagerEventHandler, this));
   GetWindow()->m_EngineWindowEvent.AddEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::EngineWindowEventHandler, this));
-  GetDocument()->GetObjectManager()->m_StructureEvents.AddEventHandler(
-    ezMakeDelegate(&ezGameObjectGizmoEditTool::ObjectStructureEventHandler, this));
+  GetDocument()->GetObjectManager()->m_StructureEvents.AddEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::ObjectStructureEventHandler, this));
 
   // subscribe to all views that already exist
   for (ezQtEngineViewWidget* pView : GetWindow()->GetViewWidgets())
   {
     if (ezQtGameObjectViewWidget* pViewWidget = qobject_cast<ezQtGameObjectViewWidget*>(pView))
     {
-      pViewWidget->m_pOrthoGizmoContext->m_GizmoEvents.AddEventHandler(
-        ezMakeDelegate(&ezGameObjectGizmoEditTool::TransformationGizmoEventHandler, this));
+      pViewWidget->m_pOrthoGizmoContext->m_GizmoEvents.AddEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::TransformationGizmoEventHandler, this));
     }
   }
 }
@@ -83,8 +78,7 @@ void ezGameObjectGizmoEditTool::UpdateGizmoTransformation()
     const ezTransform tGlobal = GetDocument()->GetGlobalTransform(LatestSelection);
 
     /// \todo Pivot point
-    const ezVec3 vPivotPoint =
-      tGlobal.m_qRotation * ezVec3::ZeroVector(); // LatestSelection->GetEditorTypeAccessor().GetValue("Pivot").ConvertTo<ezVec3>();
+    const ezVec3 vPivotPoint = tGlobal.m_qRotation * ezVec3::ZeroVector(); // LatestSelection->GetEditorTypeAccessor().GetValue("Pivot").ConvertTo<ezVec3>();
 
     ezTransform mt;
     mt.SetIdentity();
@@ -108,15 +102,11 @@ void ezGameObjectGizmoEditTool::DocumentWindowEventHandler(const ezQtDocumentWin
   if (e.m_Type == ezQtDocumentWindowEvent::WindowClosing && e.m_pWindow == GetWindow())
   {
     GetDocument()->m_GameObjectEvents.RemoveEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::GameObjectEventHandler, this));
-    GetDocument()->GetCommandHistory()->m_Events.RemoveEventHandler(
-      ezMakeDelegate(&ezGameObjectGizmoEditTool::CommandHistoryEventHandler, this));
-    GetDocument()->GetSelectionManager()->m_Events.RemoveEventHandler(
-      ezMakeDelegate(&ezGameObjectGizmoEditTool::SelectionManagerEventHandler, this));
-    ezManipulatorManager::GetSingleton()->m_Events.RemoveEventHandler(
-      ezMakeDelegate(&ezGameObjectGizmoEditTool::ManipulatorManagerEventHandler, this));
+    GetDocument()->GetCommandHistory()->m_Events.RemoveEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::CommandHistoryEventHandler, this));
+    GetDocument()->GetSelectionManager()->m_Events.RemoveEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::SelectionManagerEventHandler, this));
+    ezManipulatorManager::GetSingleton()->m_Events.RemoveEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::ManipulatorManagerEventHandler, this));
     GetWindow()->m_EngineWindowEvent.RemoveEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::EngineWindowEventHandler, this));
-    GetDocument()->GetObjectManager()->m_StructureEvents.RemoveEventHandler(
-      ezMakeDelegate(&ezGameObjectGizmoEditTool::ObjectStructureEventHandler, this));
+    GetDocument()->GetObjectManager()->m_StructureEvents.RemoveEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::ObjectStructureEventHandler, this));
   }
 }
 
@@ -182,8 +172,7 @@ void ezGameObjectGizmoEditTool::ManipulatorManagerEventHandler(const ezManipulat
     return;
 
   // make sure the gizmo is deactivated when a manipulator becomes active
-  if (e.m_pDocument == GetDocument() && e.m_pManipulator != nullptr && e.m_pSelection != nullptr && !e.m_pSelection->IsEmpty() &&
-      !e.m_bHideManipulators)
+  if (e.m_pDocument == GetDocument() && e.m_pManipulator != nullptr && e.m_pSelection != nullptr && !e.m_pSelection->IsEmpty() && !e.m_bHideManipulators)
   {
     GetDocument()->SetActiveEditTool(nullptr);
   }
@@ -196,8 +185,7 @@ void ezGameObjectGizmoEditTool::EngineWindowEventHandler(const ezEngineWindowEve
     switch (e.m_Type)
     {
       case ezEngineWindowEvent::Type::ViewCreated:
-        pViewWidget->m_pOrthoGizmoContext->m_GizmoEvents.AddEventHandler(
-          ezMakeDelegate(&ezGameObjectGizmoEditTool::TransformationGizmoEventHandler, this));
+        pViewWidget->m_pOrthoGizmoContext->m_GizmoEvents.AddEventHandler(ezMakeDelegate(&ezGameObjectGizmoEditTool::TransformationGizmoEventHandler, this));
         break;
 
       default:

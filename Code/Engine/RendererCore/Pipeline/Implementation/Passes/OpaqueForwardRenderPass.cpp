@@ -21,17 +21,15 @@ EZ_END_DYNAMIC_REFLECTED_TYPE;
 // clang-format on
 
 ezOpaqueForwardRenderPass::ezOpaqueForwardRenderPass(const char* szName)
-    : ezForwardRenderPass(szName)
-    , m_bWriteDepth(true)
+  : ezForwardRenderPass(szName)
+  , m_bWriteDepth(true)
 {
   m_hWhiteTexture = ezResourceManager::LoadResource<ezTexture2DResource>("White.color");
 }
 
 ezOpaqueForwardRenderPass::~ezOpaqueForwardRenderPass() {}
 
-bool ezOpaqueForwardRenderPass::GetRenderTargetDescriptions(const ezView& view,
-                                                            const ezArrayPtr<ezGALTextureCreationDescription* const> inputs,
-                                                            ezArrayPtr<ezGALTextureCreationDescription> outputs)
+bool ezOpaqueForwardRenderPass::GetRenderTargetDescriptions(const ezView& view, const ezArrayPtr<ezGALTextureCreationDescription* const> inputs, ezArrayPtr<ezGALTextureCreationDescription> outputs)
 {
   if (!SUPER::GetRenderTargetDescriptions(view, inputs, outputs))
   {
@@ -40,8 +38,7 @@ bool ezOpaqueForwardRenderPass::GetRenderTargetDescriptions(const ezView& view,
 
   if (inputs[m_PinSSAO.m_uiInputIndex])
   {
-    if (inputs[m_PinSSAO.m_uiInputIndex]->m_uiWidth != inputs[m_PinColor.m_uiInputIndex]->m_uiWidth ||
-        inputs[m_PinSSAO.m_uiInputIndex]->m_uiHeight != inputs[m_PinColor.m_uiInputIndex]->m_uiHeight)
+    if (inputs[m_PinSSAO.m_uiInputIndex]->m_uiWidth != inputs[m_PinColor.m_uiInputIndex]->m_uiWidth || inputs[m_PinSSAO.m_uiInputIndex]->m_uiHeight != inputs[m_PinColor.m_uiInputIndex]->m_uiHeight)
     {
       ezLog::Warning("Expected same resolution for SSAO and color input to pass '{0}'!", GetName());
     }
@@ -55,9 +52,8 @@ bool ezOpaqueForwardRenderPass::GetRenderTargetDescriptions(const ezView& view,
   return true;
 }
 
-void ezOpaqueForwardRenderPass::SetupResources(const ezRenderViewContext& renderViewContext,
-                                               const ezArrayPtr<ezRenderPipelinePassConnection* const> inputs,
-                                               const ezArrayPtr<ezRenderPipelinePassConnection* const> outputs)
+void ezOpaqueForwardRenderPass::SetupResources(
+  const ezRenderViewContext& renderViewContext, const ezArrayPtr<ezRenderPipelinePassConnection* const> inputs, const ezArrayPtr<ezRenderPipelinePassConnection* const> outputs)
 {
   SUPER::SetupResources(renderViewContext, inputs, outputs);
 
@@ -101,4 +97,3 @@ void ezOpaqueForwardRenderPass::RenderObjects(const ezRenderViewContext& renderV
 
 
 EZ_STATICLINK_FILE(RendererCore, RendererCore_Pipeline_Implementation_Passes_OpaqueForwardRenderPass);
-

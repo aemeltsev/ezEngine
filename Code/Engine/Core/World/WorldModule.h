@@ -169,11 +169,9 @@ private:                                                                   \
   static ezWorldModuleTypeId TYPE_ID;
 
 /// \brief Implements the given module type. Add this macro to a cpp outside of the type declaration.
-#define EZ_IMPLEMENT_WORLD_MODULE(moduleType) \
-  ezWorldModuleTypeId moduleType::TYPE_ID = ezWorldModuleFactory::GetInstance()->RegisterWorldModule<moduleType, moduleType>();
+#define EZ_IMPLEMENT_WORLD_MODULE(moduleType) ezWorldModuleTypeId moduleType::TYPE_ID = ezWorldModuleFactory::GetInstance()->RegisterWorldModule<moduleType, moduleType>();
 
 /// \brief Helper macro to create an update function description with proper name
-#define EZ_CREATE_MODULE_UPDATE_FUNCTION_DESC(func, instance) \
-  ezWorldModule::UpdateFunctionDesc(ezWorldModule::UpdateFunction(&func, instance), #func)
+#define EZ_CREATE_MODULE_UPDATE_FUNCTION_DESC(func, instance) ezWorldModule::UpdateFunctionDesc(ezWorldModule::UpdateFunction(&func, instance), #func)
 
 #include <Core/World/Implementation/WorldModule_inl.h>

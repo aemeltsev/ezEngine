@@ -40,7 +40,7 @@ void ezPxPrismaticJointComponent::SerializeComponent(ezWorldWriter& stream) cons
 void ezPxPrismaticJointComponent::DeserializeComponent(ezWorldReader& stream)
 {
   SUPER::DeserializeComponent(stream);
-  //const ezUInt32 uiVersion = stream.GetComponentTypeVersion(GetStaticRTTI());
+  // const ezUInt32 uiVersion = stream.GetComponentTypeVersion(GetStaticRTTI());
 
   auto& s = stream.GetStream();
 

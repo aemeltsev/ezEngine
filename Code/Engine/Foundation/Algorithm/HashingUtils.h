@@ -11,7 +11,10 @@ public:
   /// \brief helper struct to wrap a string pointer
   struct StringWrapper
   {
-    EZ_ALWAYS_INLINE StringWrapper(const char* str) : m_str(str) {}
+    EZ_ALWAYS_INLINE StringWrapper(const char* str)
+      : m_str(str)
+    {
+    }
     const char* m_str;
   };
 
@@ -52,4 +55,3 @@ struct ezHashHelper
 
 #include <Foundation/Algorithm/Implementation/HashingMurmur_inl.h>
 #include <Foundation/Algorithm/Implementation/HashingUtils_inl.h>
-

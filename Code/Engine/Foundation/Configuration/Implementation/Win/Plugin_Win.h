@@ -4,11 +4,11 @@ EZ_FOUNDATION_INTERNAL_HEADER
 
 #if EZ_ENABLED(EZ_PLATFORM_WINDOWS)
 
-#include <Foundation/Configuration/Plugin.h>
-#include <Foundation/IO/OSFile.h>
-#include <Foundation/Logging/Log.h>
-#include <Foundation/Strings/StringBuilder.h>
-#include <Foundation/Basics/Platform/Win/IncludeWindows.h>
+#  include <Foundation/Basics/Platform/Win/IncludeWindows.h>
+#  include <Foundation/Configuration/Plugin.h>
+#  include <Foundation/IO/OSFile.h>
+#  include <Foundation/Logging/Log.h>
+#  include <Foundation/Strings/StringBuilder.h>
 
 typedef HMODULE ezPluginModule;
 
@@ -47,13 +47,13 @@ ezResult LoadPluginModule(const char* szFileToLoad, ezPluginModule& Module, cons
   // reset last error code
   SetLastError(ERROR_SUCCESS);
 
-#if EZ_ENABLED(EZ_PLATFORM_WINDOWS_UWP)
+#  if EZ_ENABLED(EZ_PLATFORM_WINDOWS_UWP)
   ezStringBuilder relativePath = szFileToLoad;
   relativePath.MakeRelativeTo(ezOSFile::GetApplicationDirectory());
   Module = LoadPackagedLibrary(ezStringWChar(relativePath).GetData(), 0);
-#else
+#  else
   Module = LoadLibraryW(ezStringWChar(szFileToLoad).GetData());
-#endif
+#  endif
 
   if (Module == nullptr)
   {
@@ -72,6 +72,5 @@ ezResult LoadPluginModule(const char* szFileToLoad, ezPluginModule& Module, cons
 }
 
 #else
-#error "This file should not have been included."
+#  error "This file should not have been included."
 #endif
-

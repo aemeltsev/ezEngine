@@ -60,14 +60,12 @@ namespace
     "Call",
   };
 
-  EZ_CHECK_AT_COMPILETIME_MSG(
-    EZ_ARRAY_SIZE(s_szOpCodeNames) == ezExpressionByteCode::OpCode::Count, "OpCode name array size does not match OpCode type count");
+  EZ_CHECK_AT_COMPILETIME_MSG(EZ_ARRAY_SIZE(s_szOpCodeNames) == ezExpressionByteCode::OpCode::Count, "OpCode name array size does not match OpCode type count");
 
   static bool FirstArgIsConstant(ezExpressionByteCode::OpCode::Enum opCode)
   {
-    return opCode == ezExpressionByteCode::OpCode::Mov_C || opCode == ezExpressionByteCode::OpCode::Add_CR ||
-           opCode == ezExpressionByteCode::OpCode::Sub_CR || opCode == ezExpressionByteCode::OpCode::Mul_CR ||
-           opCode == ezExpressionByteCode::OpCode::Div_CR || opCode == ezExpressionByteCode::OpCode::Min_CR ||
+    return opCode == ezExpressionByteCode::OpCode::Mov_C || opCode == ezExpressionByteCode::OpCode::Add_CR || opCode == ezExpressionByteCode::OpCode::Sub_CR ||
+           opCode == ezExpressionByteCode::OpCode::Mul_CR || opCode == ezExpressionByteCode::OpCode::Div_CR || opCode == ezExpressionByteCode::OpCode::Min_CR ||
            opCode == ezExpressionByteCode::OpCode::Max_CR;
   }
 } // namespace

@@ -62,6 +62,4 @@ public:
 
 protected:
   void DisplaySelectModeUI();
-
-
 };

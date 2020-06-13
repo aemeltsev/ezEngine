@@ -31,7 +31,7 @@ public:
     ezUInt64 m_uiAllocationSize = 0;   ///< total allocation size in bytes
 
     ezUInt64 m_uiPerFrameAllocationSize = 0; ///< allocation size in bytes in this frame
-    ezTime m_PerFrameAllocationTime;  ///< time spend on allocations in this frame
+    ezTime m_PerFrameAllocationTime;         ///< time spend on allocations in this frame
   };
 
   ezAllocatorBase();
@@ -53,10 +53,8 @@ private:
 #include <Foundation/Memory/Implementation/AllocatorBase_inl.h>
 
 /// \brief creates a new instance of type using the given allocator
-#define EZ_NEW(allocator, type, ...)                                                                                                   \
-  ezInternal::NewInstance<type>(                                                                                                       \
-    new ((allocator)->Allocate(sizeof(type), EZ_ALIGNMENT_OF(type), ezMemoryUtils::MakeDestructorFunction<type>())) type(__VA_ARGS__), \
-    (allocator))
+#define EZ_NEW(allocator, type, ...) \
+  ezInternal::NewInstance<type>(new ((allocator)->Allocate(sizeof(type), EZ_ALIGNMENT_OF(type), ezMemoryUtils::MakeDestructorFunction<type>())) type(__VA_ARGS__), (allocator))
 
 /// \brief deletes the instance stored in ptr using the given allocator and sets ptr to nullptr
 #define EZ_DELETE(allocator, ptr)       \

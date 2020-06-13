@@ -136,4 +136,3 @@ EZ_ALWAYS_INLINE bool operator!=(const ezBoundingBoxSphereTemplate<Type>& lhs, c
 {
   return !(lhs == rhs);
 }
-

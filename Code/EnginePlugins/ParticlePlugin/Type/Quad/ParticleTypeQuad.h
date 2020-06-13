@@ -41,7 +41,7 @@ public:
   virtual void Save(ezStreamWriter& stream) const override;
   virtual void Load(ezStreamReader& stream) override;
 
-  virtual void QueryFinalizerDependencies(ezSet<const ezRTTI *>& inout_FinalizerDeps) const override;
+  virtual void QueryFinalizerDependencies(ezSet<const ezRTTI*>& inout_FinalizerDeps) const override;
 
   ezEnum<ezQuadParticleOrientation> m_Orientation;
   ezAngle m_MaxDeviation;
@@ -94,8 +94,8 @@ protected:
   virtual void Process(ezUInt64 uiNumElements) override {}
   void AllocateParticleData(const ezUInt32 numParticles, const bool bNeedsBillboardData, const bool bNeedsTangentData) const;
   void AddParticleRenderData(ezExtractedRenderData& extractedRenderData, const ezTransform& instanceTransform) const;
-  void CreateExtractedData(const ezView& view, ezExtractedRenderData& extractedRenderData, const ezTransform& instanceTransform,
-    ezUInt64 uiExtractedFrame, const ezHybridArray<sod, 64>* pSorted) const;
+  void CreateExtractedData(
+    const ezView& view, ezExtractedRenderData& extractedRenderData, const ezTransform& instanceTransform, ezUInt64 uiExtractedFrame, const ezHybridArray<sod, 64>* pSorted) const;
 
   ezProcessingStream* m_pStreamLifeTime = nullptr;
   ezProcessingStream* m_pStreamPosition = nullptr;

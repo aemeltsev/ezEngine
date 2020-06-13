@@ -1,8 +1,8 @@
 #pragma once
 
 #include <EditorFramework/Assets/AssetDocumentManager.h>
-#include <GameEngine/Configuration/PlatformProfile.h>
 #include <Foundation/Types/Status.h>
+#include <GameEngine/Configuration/PlatformProfile.h>
 
 
 class ezLUTAssetDocumentManager : public ezAssetDocumentManager

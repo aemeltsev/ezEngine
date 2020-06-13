@@ -322,7 +322,8 @@ void ezOpenDdlParser::ContinueIdle()
         // support for 'uint' is an extension to OpenDDL
         // support for u1, u2, u3, u4 for  8 Bit, 16 Bit, 32 Bit, 64 Bit is an extension to OpenDDL
 
-        if (ezStringUtils::IsEqual((const char*)m_szIdentifierType, "u1") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "unsigned_int8") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "uint8"))
+        if (ezStringUtils::IsEqual((const char*)m_szIdentifierType, "u1") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "unsigned_int8") ||
+            ezStringUtils::IsEqual((const char*)m_szIdentifierType, "uint8"))
         {
           m_StateStack.PushBack(State::ReadingUInt8);
 
@@ -333,7 +334,8 @@ void ezOpenDdlParser::ContinueIdle()
           return;
         }
 
-        if (ezStringUtils::IsEqual((const char*)m_szIdentifierType, "u3") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "unsigned_int32") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "uint32"))
+        if (ezStringUtils::IsEqual((const char*)m_szIdentifierType, "u3") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "unsigned_int32") ||
+            ezStringUtils::IsEqual((const char*)m_szIdentifierType, "uint32"))
         {
           m_StateStack.PushBack(State::ReadingUInt32);
 
@@ -344,7 +346,8 @@ void ezOpenDdlParser::ContinueIdle()
           return;
         }
 
-        if (ezStringUtils::IsEqual((const char*)m_szIdentifierType, "u2") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "unsigned_int16") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "uint16"))
+        if (ezStringUtils::IsEqual((const char*)m_szIdentifierType, "u2") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "unsigned_int16") ||
+            ezStringUtils::IsEqual((const char*)m_szIdentifierType, "uint16"))
         {
           m_StateStack.PushBack(State::ReadingUInt16);
 
@@ -355,7 +358,8 @@ void ezOpenDdlParser::ContinueIdle()
           return;
         }
 
-        if (ezStringUtils::IsEqual((const char*)m_szIdentifierType, "u4") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "unsigned_int64") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "uint64"))
+        if (ezStringUtils::IsEqual((const char*)m_szIdentifierType, "u4") || ezStringUtils::IsEqual((const char*)m_szIdentifierType, "unsigned_int64") ||
+            ezStringUtils::IsEqual((const char*)m_szIdentifierType, "uint64"))
         {
           m_StateStack.PushBack(State::ReadingUInt64);
 

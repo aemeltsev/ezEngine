@@ -67,8 +67,7 @@ void ezTypeScriptAssetDocumentManager::OnDocumentManagerEvent(const ezDocumentMa
     {
       if (e.m_pDocument->GetDynamicRTTI() == ezGetStaticRTTI<ezTypeScriptAssetDocument>())
       {
-        ezQtTypeScriptAssetDocumentWindow* pDocWnd =
-          new ezQtTypeScriptAssetDocumentWindow(static_cast<ezTypeScriptAssetDocument*>(e.m_pDocument));
+        ezQtTypeScriptAssetDocumentWindow* pDocWnd = new ezQtTypeScriptAssetDocumentWindow(static_cast<ezTypeScriptAssetDocument*>(e.m_pDocument));
       }
     }
     break;
@@ -149,7 +148,7 @@ void ezTypeScriptAssetDocumentManager::ModifyTsBeforeTranspilation(ezStringBuild
     const char* szClassAG = content.FindLastSubString("class", szBeginAG);
     if (szClassAG == nullptr)
     {
-      //return ezStatus(ezFmt("'{}' tag is incorrectly placed.", szBeginAG));
+      // return ezStatus(ezFmt("'{}' tag is incorrectly placed.", szBeginAG));
       return;
     }
 
@@ -170,7 +169,7 @@ void ezTypeScriptAssetDocumentManager::ModifyTsBeforeTranspilation(ezStringBuild
 
       if (sClassName.IsEmpty())
       {
-        //return ezStatus("Message class name not found.");
+        // return ezStatus("Message class name not found.");
         return;
       }
 

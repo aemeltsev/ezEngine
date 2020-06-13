@@ -43,8 +43,7 @@ void ezTranslateGizmoEditTool::OnConfigured()
 
   m_TranslateGizmo.SetOwner(GetWindow(), nullptr);
 
-  ezPreferences::QueryPreferences<ezScenePreferencesUser>(GetDocument())
-    ->m_ChangedEvent.AddEventHandler(ezMakeDelegate(&ezTranslateGizmoEditTool::OnPreferenceChange, this));
+  ezPreferences::QueryPreferences<ezScenePreferencesUser>(GetDocument())->m_ChangedEvent.AddEventHandler(ezMakeDelegate(&ezTranslateGizmoEditTool::OnPreferenceChange, this));
 }
 
 void ezTranslateGizmoEditTool::ApplyGizmoVisibleState(bool visible)
@@ -64,8 +63,7 @@ void ezTranslateGizmoEditTool::TransformationGizmoEventHandlerImpl(const ezGizmo
   {
     case ezGizmoEvent::Type::BeginInteractions:
     {
-      const bool bDuplicate =
-        QApplication::keyboardModifiers().testFlag(Qt::KeyboardModifier::ShiftModifier) && GetGizmoInterface()->CanDuplicateSelection();
+      const bool bDuplicate = QApplication::keyboardModifiers().testFlag(Qt::KeyboardModifier::ShiftModifier) && GetGizmoInterface()->CanDuplicateSelection();
 
       // duplicate the object when shift is held while dragging the item
       if (bDuplicate && (e.m_pGizmo == &m_TranslateGizmo || e.m_pGizmo->GetDynamicRTTI()->IsDerivedFrom<ezOrthoGizmoContext>()))
@@ -171,8 +169,7 @@ void ezTranslateGizmoEditTool::GetGridSettings(ezGridSettingsMsgToEngine& msg)
   ezScenePreferencesUser* pPreferences = ezPreferences::QueryPreferences<ezScenePreferencesUser>(GetDocument());
 
   // if density != 0, it is enabled at least in ortho mode
-  msg.m_fGridDensity =
-    ezSnapProvider::GetTranslationSnapValue() * (pSceneDoc->GetGizmoWorldSpace() ? 1.0f : -1.0f); // negative density = local space
+  msg.m_fGridDensity = ezSnapProvider::GetTranslationSnapValue() * (pSceneDoc->GetGizmoWorldSpace() ? 1.0f : -1.0f); // negative density = local space
 
   // to be active in perspective mode, tangents have to be non-zero
   msg.m_vGridTangent1.SetZero();
@@ -265,8 +262,7 @@ void ezRotateGizmoEditTool::TransformationGizmoEventHandlerImpl(const ezGizmoEve
   {
     case ezGizmoEvent::Type::BeginInteractions:
     {
-      const bool bDuplicate =
-        QApplication::keyboardModifiers().testFlag(Qt::KeyboardModifier::ShiftModifier) && GetGizmoInterface()->CanDuplicateSelection();
+      const bool bDuplicate = QApplication::keyboardModifiers().testFlag(Qt::KeyboardModifier::ShiftModifier) && GetGizmoInterface()->CanDuplicateSelection();
 
       // duplicate the object when shift is held while dragging the item
       if (e.m_pGizmo == &m_RotateGizmo && bDuplicate)
@@ -296,8 +292,7 @@ void ezRotateGizmoEditTool::TransformationGizmoEventHandlerImpl(const ezGizmoEve
           tNew.m_vPosition = vPivot + qRotation * (obj.m_GlobalTransform.m_vPosition - vPivot);
 
           if (GetDocument()->GetGizmoMoveParentOnly())
-            pDocument->SetGlobalTransformParentOnly(
-              obj.m_pObject, tNew, TransformationChanges::Rotation | TransformationChanges::Translation);
+            pDocument->SetGlobalTransformParentOnly(obj.m_pObject, tNew, TransformationChanges::Rotation | TransformationChanges::Translation);
           else
             pDocument->SetGlobalTransform(obj.m_pObject, tNew, TransformationChanges::Rotation | TransformationChanges::Translation);
         }
@@ -503,8 +498,7 @@ void ezDragToPositionGizmoEditTool::TransformationGizmoEventHandlerImpl(const ez
   {
     case ezGizmoEvent::Type::BeginInteractions:
     {
-      const bool bDuplicate =
-        QApplication::keyboardModifiers().testFlag(Qt::KeyboardModifier::ShiftModifier) && GetGizmoInterface()->CanDuplicateSelection();
+      const bool bDuplicate = QApplication::keyboardModifiers().testFlag(Qt::KeyboardModifier::ShiftModifier) && GetGizmoInterface()->CanDuplicateSelection();
 
       // duplicate the object when shift is held while dragging the item
       if (e.m_pGizmo == &m_DragToPosGizmo && bDuplicate)
@@ -538,8 +532,7 @@ void ezDragToPositionGizmoEditTool::TransformationGizmoEventHandlerImpl(const ez
           }
 
           if (GetDocument()->GetGizmoMoveParentOnly())
-            pDocument->SetGlobalTransformParentOnly(
-              obj.m_pObject, tNew, TransformationChanges::Rotation | TransformationChanges::Translation);
+            pDocument->SetGlobalTransformParentOnly(obj.m_pObject, tNew, TransformationChanges::Rotation | TransformationChanges::Translation);
           else
             pDocument->SetGlobalTransform(obj.m_pObject, tNew, TransformationChanges::Translation | TransformationChanges::Rotation);
         }

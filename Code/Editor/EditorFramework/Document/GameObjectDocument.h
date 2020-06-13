@@ -77,9 +77,7 @@ public:
     AllFlags = 0xFFFFFFFF
   };
 
-  ezGameObjectMetaData()
-  {
-  }
+  ezGameObjectMetaData() {}
 
   ezString m_CachedNodeName;
   QIcon m_Icon;

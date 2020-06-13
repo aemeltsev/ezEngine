@@ -12,7 +12,7 @@ namespace ezMemoryPolicies
   {
   public:
     ezAlignedAllocation(ezAllocatorBase* pParent)
-        : m_allocator(pParent)
+      : m_allocator(pParent)
     {
     }
 
@@ -67,22 +67,13 @@ namespace ezMemoryPolicies
     };
 
     // Meta-data is stored 4 bytes before the aligned memory
-    inline ezUInt32* GetMetadataPtr(void* pAlignedMemory)
-    {
-      return static_cast<ezUInt32*>(ezMemoryUtils::AddByteOffset(pAlignedMemory, -MetadataSize));
-    }
+    inline ezUInt32* GetMetadataPtr(void* pAlignedMemory) { return static_cast<ezUInt32*>(ezMemoryUtils::AddByteOffset(pAlignedMemory, -MetadataSize)); }
 
-    inline ezUInt32 GetMetadata(const void* pAlignedMemory)
-    {
-      return *static_cast<const ezUInt32*>(ezMemoryUtils::AddByteOffset(pAlignedMemory, -MetadataSize));
-    }
+    inline ezUInt32 GetMetadata(const void* pAlignedMemory) { return *static_cast<const ezUInt32*>(ezMemoryUtils::AddByteOffset(pAlignedMemory, -MetadataSize)); }
 
     // Store offset between pMemory and pAlignedMemory in the lower 24 bit of meta-data.
     // The upper 8 bit are used to store the Log2 of the alignment.
-    EZ_ALWAYS_INLINE ezUInt32 PackMetadata(ezUInt32 uiOffset, ezUInt32 uiAlignment)
-    {
-      return uiOffset | (ezMath::Log2i(uiAlignment) << 24);
-    }
+    EZ_ALWAYS_INLINE ezUInt32 PackMetadata(ezUInt32 uiOffset, ezUInt32 uiAlignment) { return uiOffset | (ezMath::Log2i(uiAlignment) << 24); }
 
     EZ_ALWAYS_INLINE ezUInt32 UnpackOffset(ezUInt32 uiMetadata) { return uiMetadata & 0x00FFFFFF; }
 
@@ -90,5 +81,4 @@ namespace ezMemoryPolicies
 
     T m_allocator;
   };
-}
-
+} // namespace ezMemoryPolicies

@@ -412,8 +412,7 @@ ezUInt32 ezProcPlacementComponentManager::GetNumAllocatedProcessingTasks() const
   return m_ProcessingTasks.GetCount() - m_FreeProcessingTasks.GetCount();
 }
 
-void ezProcPlacementComponentManager::RemoveTilesForComponent(
-  ezProcPlacementComponent* pComponent, bool* out_bAnyObjectsRemoved /*= nullptr*/)
+void ezProcPlacementComponentManager::RemoveTilesForComponent(ezProcPlacementComponent* pComponent, bool* out_bAnyObjectsRemoved /*= nullptr*/)
 {
   ezComponentHandle hComponent = pComponent->GetHandle();
 
@@ -473,15 +472,13 @@ void ezProcPlacementComponentManager::OnResourceEvent(const ezResourceEvent& res
   }
 }
 
-void ezProcPlacementComponentManager::AddVisibleComponent(
-  const ezComponentHandle& hComponent, const ezVec3& cameraPosition, const ezVec3& cameraDirection) const
+void ezProcPlacementComponentManager::AddVisibleComponent(const ezComponentHandle& hComponent, const ezVec3& cameraPosition, const ezVec3& cameraDirection) const
 {
   EZ_LOCK(m_VisibleComponentsMutex);
 
   for (auto& visibleComponent : m_VisibleComponents)
   {
-    if (visibleComponent.m_hComponent == hComponent && visibleComponent.m_vCameraPosition == cameraPosition &&
-        visibleComponent.m_vCameraDirection == cameraDirection)
+    if (visibleComponent.m_hComponent == hComponent && visibleComponent.m_vCameraPosition == cameraPosition && visibleComponent.m_vCameraDirection == cameraDirection)
     {
       return;
     }
@@ -626,8 +623,7 @@ void ezProcPlacementComponent::OnMsgExtractRenderData(ezMsgExtractRenderData& ms
   if (msg.m_OverrideCategory != ezInvalidRenderDataCategory)
     return;
 
-  if (msg.m_pView->GetCameraUsageHint() == ezCameraUsageHint::MainView ||
-      msg.m_pView->GetCameraUsageHint() == ezCameraUsageHint::EditorView)
+  if (msg.m_pView->GetCameraUsageHint() == ezCameraUsageHint::MainView || msg.m_pView->GetCameraUsageHint() == ezCameraUsageHint::EditorView)
   {
     const ezCamera* pCamera = msg.m_pView->GetCullingCamera();
 

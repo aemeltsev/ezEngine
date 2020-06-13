@@ -28,7 +28,7 @@ EZ_END_SUBSYSTEM_DECLARATION;
 // clang-format on
 
 ezManipulatorAdapterRegistry::ezManipulatorAdapterRegistry()
-    : m_SingletonRegistrar(this)
+  : m_SingletonRegistrar(this)
 {
   ezManipulatorManager::GetSingleton()->m_Events.AddEventHandler(ezMakeDelegate(&ezManipulatorAdapterRegistry::ManipulatorManagerEventHandler, this));
 }

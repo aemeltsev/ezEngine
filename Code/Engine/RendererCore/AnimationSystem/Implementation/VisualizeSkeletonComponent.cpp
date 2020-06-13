@@ -310,8 +310,7 @@ void ezVisualizeSkeletonComponent::CreateHitBoxGeometry(const ezSkeletonResource
 
       case ezSkeletonJointGeometryType::Capsule:
       {
-        geo.AddCapsule(jointGeo.m_Transform.m_vScale.z, jointGeo.m_Transform.m_vScale.x, 16, 4, ezColor::White,
-          jointTransform.GetAsMat4() * mRotCapsule, jointGeo.m_uiAttachedToJoint);
+        geo.AddCapsule(jointGeo.m_Transform.m_vScale.z, jointGeo.m_Transform.m_vScale.x, 16, 4, ezColor::White, jointTransform.GetAsMat4() * mRotCapsule, jointGeo.m_uiAttachedToJoint);
       }
       break;
 

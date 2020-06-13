@@ -1,7 +1,7 @@
 #pragma once
 
-#include <EditorFramework/Assets/SimpleAssetDocument.h>
 #include <EditorFramework/Assets/AssetDocumentGenerator.h>
+#include <EditorFramework/Assets/SimpleAssetDocument.h>
 #include <RendererCore/AnimationSystem/EditableSkeleton.h>
 
 //////////////////////////////////////////////////////////////////////////
@@ -19,7 +19,8 @@ public:
   static void PropertyMetaStateEventHandler(ezPropertyMetaStateEvent& e);
 
 protected:
-  virtual ezStatus InternalTransformAsset(ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags) override;
+  virtual ezStatus InternalTransformAsset(
+    ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags) override;
   virtual ezStatus InternalCreateThumbnail(const ThumbnailInfo& ThumbnailInfo) override;
 
   void MergeWithNewSkeleton(ezEditableSkeleton& newSkeleton);

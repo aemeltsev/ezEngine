@@ -5,8 +5,7 @@
 #include <ProcGenPlugin/Tasks/FindPlacementTilesTask.h>
 #include <RendererCore/RenderWorld/RenderWorld.h>
 
-ezCVarFloat CVarCullDistanceScale(
-  "pp_CullDistanceScale", 1.0f, ezCVarFlags::Default, "Global scale to control cull distance for all placement outputs");
+ezCVarFloat CVarCullDistanceScale("pp_CullDistanceScale", 1.0f, ezCVarFlags::Default, "Global scale to control cull distance for all placement outputs");
 ezCVarInt CVarMaxCullRadius("pp_MaxCullRadius", 10, ezCVarFlags::Default, "Maximum cull radius in number of tiles");
 
 using namespace ezProcGenInternal;

@@ -35,8 +35,7 @@ void ezParticleEffectAssetDocumentManager::OnDocumentManagerEvent(const ezDocume
     {
       if (e.m_pDocument->GetDynamicRTTI() == ezGetStaticRTTI<ezParticleEffectAssetDocument>())
       {
-        ezQtParticleEffectAssetDocumentWindow* pDocWnd =
-          new ezQtParticleEffectAssetDocumentWindow(static_cast<ezParticleEffectAssetDocument*>(e.m_pDocument));
+        ezQtParticleEffectAssetDocumentWindow* pDocWnd = new ezQtParticleEffectAssetDocumentWindow(static_cast<ezParticleEffectAssetDocument*>(e.m_pDocument));
       }
     }
     break;

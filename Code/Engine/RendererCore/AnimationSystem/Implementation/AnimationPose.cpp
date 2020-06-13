@@ -109,8 +109,8 @@ ezVec3 ezAnimationPose::SkinDirectionWithFourJoints(const ezVec3& Direction, con
   return (Dir1 * weights.x) + (Dir2 * weights.y) + (Dir3 * weights.z) + (Dir4 * weights.w);
 }
 
-void ezAnimationPose::VisualizePose(const ezDebugRendererContext& context, const ezSkeleton& skeleton, const ezTransform& objectTransform,
-                                    float fJointSizeRatio /*= 1.0f / 6.0f*/, ezUInt16 uiStartJoint /*= ezInvalidJointIndex*/) const
+void ezAnimationPose::VisualizePose(
+  const ezDebugRendererContext& context, const ezSkeleton& skeleton, const ezTransform& objectTransform, float fJointSizeRatio /*= 1.0f / 6.0f*/, ezUInt16 uiStartJoint /*= ezInvalidJointIndex*/) const
 {
   // TODO: store current space and assert that it is correct ?
 
@@ -205,4 +205,3 @@ void ezAnimationPose::SetValidityOfAllTransforms(bool bValid)
 
 
 EZ_STATICLINK_FILE(RendererCore, RendererCore_AnimationSystem_Implementation_AnimationPose);
-

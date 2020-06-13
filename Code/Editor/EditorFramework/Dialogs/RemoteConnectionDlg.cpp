@@ -34,7 +34,7 @@ bool ezQtRemoteConnectionDlg::Address::IsEmpty() const
 }
 
 ezQtRemoteConnectionDlg::ezQtRemoteConnectionDlg(QWidget* parent)
-    : QDialog(parent)
+  : QDialog(parent)
 {
   setupUi(this);
 
@@ -108,11 +108,7 @@ void ezQtRemoteConnectionDlg::showEvent(QShowEvent* event)
     if (!m_RecentAddresses[i].IsEmpty())
     {
       QAction* pAction = new QAction(this);
-      pAction->setText(QString("%1.%2.%3.%4")
-                           .arg(m_RecentAddresses[i].part[0])
-                           .arg(m_RecentAddresses[i].part[1])
-                           .arg(m_RecentAddresses[i].part[2])
-                           .arg(m_RecentAddresses[i].part[3]));
+      pAction->setText(QString("%1.%2.%3.%4").arg(m_RecentAddresses[i].part[0]).arg(m_RecentAddresses[i].part[1]).arg(m_RecentAddresses[i].part[2]).arg(m_RecentAddresses[i].part[3]));
       pAction->setData(i);
 
       connect(pAction, &QAction::triggered, this, &ezQtRemoteConnectionDlg::onRecentIPselected);
@@ -126,11 +122,7 @@ void ezQtRemoteConnectionDlg::showEvent(QShowEvent* event)
     if (!m_RecentFsAddresses[i].IsEmpty())
     {
       QAction* pAction = new QAction(this);
-      pAction->setText(QString("%1.%2.%3.%4")
-                           .arg(m_RecentFsAddresses[i].part[0])
-                           .arg(m_RecentFsAddresses[i].part[1])
-                           .arg(m_RecentFsAddresses[i].part[2])
-                           .arg(m_RecentFsAddresses[i].part[3]));
+      pAction->setText(QString("%1.%2.%3.%4").arg(m_RecentFsAddresses[i].part[0]).arg(m_RecentFsAddresses[i].part[1]).arg(m_RecentFsAddresses[i].part[2]).arg(m_RecentFsAddresses[i].part[3]));
       pAction->setData(i);
 
       connect(pAction, &QAction::triggered, this, &ezQtRemoteConnectionDlg::onRecentFsIPselected);
@@ -194,20 +186,12 @@ void ezQtRemoteConnectionDlg::on_ButtonLaunchFS_clicked()
 
 QString ezQtRemoteConnectionDlg::GetResultingAddress() const
 {
-  return QString("%1.%2.%3.%4:1050")
-      .arg(m_UsedAddress.part[0])
-      .arg(m_UsedAddress.part[1])
-      .arg(m_UsedAddress.part[2])
-      .arg(m_UsedAddress.part[3]);
+  return QString("%1.%2.%3.%4:1050").arg(m_UsedAddress.part[0]).arg(m_UsedAddress.part[1]).arg(m_UsedAddress.part[2]).arg(m_UsedAddress.part[3]);
 }
 
 QString ezQtRemoteConnectionDlg::GetResultingFsAddress() const
 {
-  return QString("%1.%2.%3.%4:1042")
-      .arg(m_UsedFsAddress.part[0])
-      .arg(m_UsedFsAddress.part[1])
-      .arg(m_UsedFsAddress.part[2])
-      .arg(m_UsedFsAddress.part[3]);
+  return QString("%1.%2.%3.%4:1042").arg(m_UsedFsAddress.part[0]).arg(m_UsedFsAddress.part[1]).arg(m_UsedFsAddress.part[2]).arg(m_UsedFsAddress.part[3]);
 }
 
 void ezQtRemoteConnectionDlg::onRecentIPselected()

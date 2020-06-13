@@ -8,8 +8,8 @@ EZ_END_DYNAMIC_REFLECTED_TYPE;
 // clang-format on
 
 ezComponentManagerBase::ezComponentManagerBase(ezWorld* pWorld)
-    : ezWorldModule(pWorld)
-    , m_Components(pWorld->GetAllocator())
+  : ezWorldModule(pWorld)
+  , m_Components(pWorld->GetAllocator())
 {
 }
 
@@ -57,8 +57,7 @@ void ezComponentManagerBase::Deinitialize()
 
 ezComponentHandle ezComponentManagerBase::CreateComponentNoInit(ezGameObject* pOwnerObject, ezComponent*& out_pComponent)
 {
-  EZ_ASSERT_DEV(m_Components.GetCount() < ezWorld::GetMaxNumComponentsPerType(), "Max number of components per type reached: {}",
-    ezWorld::GetMaxNumComponentsPerType());
+  EZ_ASSERT_DEV(m_Components.GetCount() < ezWorld::GetMaxNumComponentsPerType(), "Max number of components per type reached: {}", ezWorld::GetMaxNumComponentsPerType());
 
   ezComponent* pComponent = CreateComponentStorage();
   if (pComponent == nullptr)
@@ -113,4 +112,3 @@ void ezComponentManagerBase::PatchIdTable(ezComponent* pComponent)
 }
 
 EZ_STATICLINK_FILE(Core, Core_World_Implementation_ComponentManager);
-

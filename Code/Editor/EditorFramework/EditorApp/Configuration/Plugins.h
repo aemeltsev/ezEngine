@@ -7,8 +7,8 @@
 /// \brief Holds information about a plugin. Used for editor and engine plugins, where the user can configure whether to load them or not.
 struct EZ_EDITORFRAMEWORK_DLL ezPluginInfo
 {
-  bool m_bAvailable = false; // exists on disk
-  bool m_bActive = false; // currently loaded into the process
+  bool m_bAvailable = false;  // exists on disk
+  bool m_bActive = false;     // currently loaded into the process
   bool m_bToBeLoaded = false; // supposed to be loaded into the process next restart
   bool m_bLoadCopy = false;
 

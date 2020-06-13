@@ -17,10 +17,8 @@
 ezQtColorGradientAssetDocumentWindow::ezQtColorGradientAssetDocumentWindow(ezDocument* pDocument)
   : ezQtDocumentWindow(pDocument)
 {
-  GetDocument()->GetObjectManager()->m_PropertyEvents.AddEventHandler(
-    ezMakeDelegate(&ezQtColorGradientAssetDocumentWindow::PropertyEventHandler, this));
-  GetDocument()->GetObjectManager()->m_StructureEvents.AddEventHandler(
-    ezMakeDelegate(&ezQtColorGradientAssetDocumentWindow::StructureEventHandler, this));
+  GetDocument()->GetObjectManager()->m_PropertyEvents.AddEventHandler(ezMakeDelegate(&ezQtColorGradientAssetDocumentWindow::PropertyEventHandler, this));
+  GetDocument()->GetObjectManager()->m_StructureEvents.AddEventHandler(ezMakeDelegate(&ezQtColorGradientAssetDocumentWindow::StructureEventHandler, this));
 
   // Menu Bar
   {
@@ -367,10 +365,8 @@ void ezQtColorGradientAssetDocumentWindow::onGradientEndOperation(bool commit)
 
 void ezQtColorGradientAssetDocumentWindow::onGradientNormalizeRange()
 {
-  if (ezQtUiServices::GetSingleton()->MessageBoxQuestion(
-        "This will adjust the positions of all control points, such that the minimum is at 0 and the maximum at 1.\n\nContinue?",
-        QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No,
-        QMessageBox::StandardButton::Yes) != QMessageBox::StandardButton::Yes)
+  if (ezQtUiServices::GetSingleton()->MessageBoxQuestion("This will adjust the positions of all control points, such that the minimum is at 0 and the maximum at 1.\n\nContinue?",
+        QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, QMessageBox::StandardButton::Yes) != QMessageBox::StandardButton::Yes)
     return;
 
   ezColorGradientAssetDocument* pDoc = static_cast<ezColorGradientAssetDocument*>(GetDocument());

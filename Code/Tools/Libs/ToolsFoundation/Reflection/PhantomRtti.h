@@ -6,6 +6,7 @@
 class ezPhantomRTTI : public ezRTTI
 {
   friend class ezPhantomRttiManager;
+
 public:
   ~ezPhantomRTTI();
 

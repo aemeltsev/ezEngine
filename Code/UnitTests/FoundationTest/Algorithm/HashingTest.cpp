@@ -1,15 +1,15 @@
 #include <FoundationTestPCH.h>
 
-#include <Foundation/Algorithm/HashableStruct.h>
 #include <Foundation/Algorithm/HashHelperString.h>
 #include <Foundation/Algorithm/HashStream.h>
+#include <Foundation/Algorithm/HashableStruct.h>
 #include <Foundation/Strings/HashedString.h>
 
 EZ_CREATE_SIMPLE_TEST_GROUP(Algorithm);
 
 // Warning for overflow in compile time executed static_assert(ezHashingUtils::MurmurHash32...)
 // Todo: Why is this not happening elsewhere?
-#pragma warning (disable:4307)
+#pragma warning(disable : 4307)
 
 EZ_CREATE_SIMPLE_TEST(Algorithm, Hashing)
 {
@@ -46,7 +46,6 @@ EZ_CREATE_SIMPLE_TEST(Algorithm, Hashing)
     // 64 Bit xxHash
     const ezUInt64 uiXXHash64 = ezHashingUtils::xxHash64(sb.GetData(), sb.GetElementCount());
     EZ_TEST_INT(uiXXHash64, 0x141fb89c0bf32020);
-
   }
 
   EZ_TEST_BLOCK(ezTestBlock::Enabled, "HashHelper")
@@ -112,21 +111,25 @@ EZ_CREATE_SIMPLE_TEST(Algorithm, Hashing)
     auto test = [szTest, szTestHalf1, szTestHalf2](bool flush, ezUInt32* outHash) {
       ezHashStreamWriter32 writer1;
       writer1.WriteBytes(szTest, std::strlen(szTest));
-      if (flush) writer1.Flush();
+      if (flush)
+        writer1.Flush();
       const ezUInt32 uiHash1 = writer1.GetHashValue();
 
       ezHashStreamWriter32 writer2;
       writer2.WriteBytes(szTestHalf1, std::strlen(szTestHalf1));
-      if (flush) writer2.Flush();
+      if (flush)
+        writer2.Flush();
       writer2.WriteBytes(szTestHalf2, std::strlen(szTestHalf2));
-      if (flush) writer2.Flush();
+      if (flush)
+        writer2.Flush();
       const ezUInt32 uiHash2 = writer2.GetHashValue();
 
       ezHashStreamWriter32 writer3;
       for (ezUInt64 i = 0; szTest[i] != 0; ++i)
       {
         writer3.WriteBytes(szTest + i, 1);
-        if (flush) writer3.Flush();
+        if (flush)
+          writer3.Flush();
       }
       const ezUInt32 uiHash3 = writer3.GetHashValue();
 
@@ -154,21 +157,25 @@ EZ_CREATE_SIMPLE_TEST(Algorithm, Hashing)
     auto test = [szTest, szTestHalf1, szTestHalf2](bool flush, ezUInt64* outHash) {
       ezHashStreamWriter64 writer1;
       writer1.WriteBytes(szTest, std::strlen(szTest));
-      if (flush) writer1.Flush();
+      if (flush)
+        writer1.Flush();
       const ezUInt64 uiHash1 = writer1.GetHashValue();
 
       ezHashStreamWriter64 writer2;
       writer2.WriteBytes(szTestHalf1, std::strlen(szTestHalf1));
-      if (flush) writer2.Flush();
+      if (flush)
+        writer2.Flush();
       writer2.WriteBytes(szTestHalf2, std::strlen(szTestHalf2));
-      if (flush) writer2.Flush();
+      if (flush)
+        writer2.Flush();
       const ezUInt64 uiHash2 = writer2.GetHashValue();
 
       ezHashStreamWriter64 writer3;
       for (ezUInt64 i = 0; szTest[i] != 0; ++i)
       {
         writer3.WriteBytes(szTest + i, 1);
-        if (flush) writer3.Flush();
+        if (flush)
+          writer3.Flush();
       }
       const ezUInt64 uiHash3 = writer3.GetHashValue();
 

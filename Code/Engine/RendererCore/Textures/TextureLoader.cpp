@@ -5,13 +5,13 @@
 #include <Foundation/Configuration/Startup.h>
 #include <Foundation/IO/FileSystem/FileReader.h>
 #include <Foundation/IO/OSFile.h>
-#include <Texture/Image/Formats/DdsFileFormat.h>
-#include <Texture/Image/ImageConversion.h>
 #include <RendererCore/Textures/Texture2DResource.h>
 #include <RendererCore/Textures/Texture3DResource.h>
 #include <RendererCore/Textures/TextureCubeResource.h>
 #include <RendererCore/Textures/TextureLoader.h>
 #include <RendererCore/Textures/TextureUtils.h>
+#include <Texture/Image/Formats/DdsFileFormat.h>
+#include <Texture/Image/ImageConversion.h>
 #include <Texture/ezTexFormat/ezTexFormat.h>
 
 static ezTextureResourceLoader s_TextureResourceLoader;
@@ -116,8 +116,8 @@ ezResourceLoadData ezTextureResourceLoader::OpenDataStream(const ezResource* pRe
     const ezStringBuilder sName = ezPathUtils::GetFileName(sAbsolutePath);
     pData->m_TexFormat.m_bSRGB = (sName.EndsWith_NoCase("_D") || sName.EndsWith_NoCase("_SRGB") || sName.EndsWith_NoCase("_diff"));
 
-    if (sAbsolutePath.HasExtension("ezTexture2D") || sAbsolutePath.HasExtension("ezTexture3D") || sAbsolutePath.HasExtension("ezTextureCube") ||
-        sAbsolutePath.HasExtension("ezRenderTarget") || sAbsolutePath.HasExtension("ezLUT"))
+    if (sAbsolutePath.HasExtension("ezTexture2D") || sAbsolutePath.HasExtension("ezTexture3D") || sAbsolutePath.HasExtension("ezTextureCube") || sAbsolutePath.HasExtension("ezRenderTarget") ||
+        sAbsolutePath.HasExtension("ezLUT"))
     {
       if (LoadTexFile(File, *pData).Failed())
         return res;
@@ -219,4 +219,3 @@ void ezTextureResourceLoader::WriteTextureLoadStream(ezStreamWriter& w, const Lo
 }
 
 EZ_STATICLINK_FILE(RendererCore, RendererCore_Textures_TextureLoader);
-

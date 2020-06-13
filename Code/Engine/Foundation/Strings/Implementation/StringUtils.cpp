@@ -4,7 +4,7 @@
 #include <Foundation/Utilities/ConversionUtils.h>
 
 #if EZ_ENABLED(EZ_COMPILE_FOR_DEBUG)
-#include <Foundation/Logging/Log.h>
+#  include <Foundation/Logging/Log.h>
 
 ezAtomicInteger32 ezStringUtils::g_MaxUsedStringLength;
 ezAtomicInteger32 ezStringUtils::g_UsedStringLengths[256];
@@ -290,8 +290,7 @@ ezInt32 ezStringUtils::Compare(const char* pString1, const char* pString2, const
   }
 }
 
-ezInt32 ezStringUtils::CompareN(const char* pString1, const char* pString2, ezUInt32 uiCharsToCompare, const char* pString1End,
-                                const char* pString2End)
+ezInt32 ezStringUtils::CompareN(const char* pString1, const char* pString2, ezUInt32 uiCharsToCompare, const char* pString1End, const char* pString2End)
 {
   if (uiCharsToCompare == 0)
     return 0;
@@ -363,8 +362,7 @@ ezInt32 ezStringUtils::Compare_NoCase(const char* pString1, const char* pString2
   }
 }
 
-ezInt32 ezStringUtils::CompareN_NoCase(const char* pString1, const char* pString2, ezUInt32 uiCharsToCompare, const char* pString1End,
-                                       const char* pString2End)
+ezInt32 ezStringUtils::CompareN_NoCase(const char* pString1, const char* pString2, ezUInt32 uiCharsToCompare, const char* pString1End, const char* pString2End)
 {
   if (uiCharsToCompare == 0)
     return 0;
@@ -641,8 +639,7 @@ const char* ezStringUtils::FindSubString_NoCase(const char* szSource, const char
 }
 
 
-const char* ezStringUtils::FindLastSubString(const char* szSource, const char* szStringToFind, const char* szStartSearchAt,
-                                             const char* pSourceEnd)
+const char* ezStringUtils::FindLastSubString(const char* szSource, const char* szStringToFind, const char* szStartSearchAt, const char* pSourceEnd)
 {
   // Handle nullptr-pointer strings
   if ((IsNullOrEmpty(szSource)) || (IsNullOrEmpty(szStringToFind)))
@@ -664,8 +661,7 @@ const char* ezStringUtils::FindLastSubString(const char* szSource, const char* s
   return nullptr;
 }
 
-const char* ezStringUtils::FindLastSubString_NoCase(const char* szSource, const char* szStringToFind, const char* szStartSearchAt,
-                                                    const char* pSourceEnd)
+const char* ezStringUtils::FindLastSubString_NoCase(const char* szSource, const char* szStringToFind, const char* szStartSearchAt, const char* pSourceEnd)
 {
   // Handle nullptr-pointer strings
   if ((IsNullOrEmpty(szSource)) || (IsNullOrEmpty(szStringToFind)))
@@ -686,8 +682,7 @@ const char* ezStringUtils::FindLastSubString_NoCase(const char* szSource, const 
 }
 
 
-const char* ezStringUtils::FindWholeWord(const char* szString, const char* szSearchFor, EZ_CHARACTER_FILTER IsDelimiterCB,
-                                         const char* pStringEnd)
+const char* ezStringUtils::FindWholeWord(const char* szString, const char* szSearchFor, EZ_CHARACTER_FILTER IsDelimiterCB, const char* pStringEnd)
 {
   // Handle nullptr-pointer strings
   if ((IsNullOrEmpty(szString)) || (IsNullOrEmpty(szSearchFor)))
@@ -702,12 +697,10 @@ const char* ezStringUtils::FindWholeWord(const char* szString, const char* szSea
   {
     if (StartsWith(pCurPos, szSearchFor, pStringEnd)) // yay, we found a substring, now make sure it is a 'whole word'
     {
-      if (((szString == pCurPos) || // the start of the string is always a word delimiter
-           (IsDelimiterCB(ezUnicodeUtils::ConvertUtf8ToUtf32(
-               pPrevPos) /* front */))) &&                   // make sure the character before this substring is a word delimiter
-          ((pCurPos + uiSearchedWordLength >= pStringEnd) || // the end of the string is also always a delimiter
-           (IsDelimiterCB(
-               ezUnicodeUtils::ConvertUtf8ToUtf32(pCurPos + uiSearchedWordLength) /* back */)))) // and the character after it, as well
+      if (((szString == pCurPos) ||                                                                          // the start of the string is always a word delimiter
+            (IsDelimiterCB(ezUnicodeUtils::ConvertUtf8ToUtf32(pPrevPos) /* front */))) &&                    // make sure the character before this substring is a word delimiter
+          ((pCurPos + uiSearchedWordLength >= pStringEnd) ||                                                 // the end of the string is also always a delimiter
+            (IsDelimiterCB(ezUnicodeUtils::ConvertUtf8ToUtf32(pCurPos + uiSearchedWordLength) /* back */)))) // and the character after it, as well
         return pCurPos;
     }
 
@@ -718,8 +711,7 @@ const char* ezStringUtils::FindWholeWord(const char* szString, const char* szSea
   return nullptr;
 }
 
-const char* ezStringUtils::FindWholeWord_NoCase(const char* szString, const char* szSearchFor, EZ_CHARACTER_FILTER IsDelimiterCB,
-                                                const char* pStringEnd)
+const char* ezStringUtils::FindWholeWord_NoCase(const char* szString, const char* szSearchFor, EZ_CHARACTER_FILTER IsDelimiterCB, const char* pStringEnd)
 {
   // Handle nullptr-pointer strings
   if ((IsNullOrEmpty(szString)) || (IsNullOrEmpty(szSearchFor)))
@@ -734,11 +726,9 @@ const char* ezStringUtils::FindWholeWord_NoCase(const char* szString, const char
   {
     if (StartsWith_NoCase(pCurPos, szSearchFor, pStringEnd)) // yay, we found a substring, now make sure it is a 'whole word'
     {
-      if (((szString == pCurPos) || // the start of the string is always a word delimiter
-           (IsDelimiterCB(ezUnicodeUtils::ConvertUtf8ToUtf32(
-               pPrevPos) /* front */))) && // make sure the character before this substring is a word delimiter
-          (IsDelimiterCB(
-              ezUnicodeUtils::ConvertUtf8ToUtf32(pCurPos + uiSearchedWordLength) /* back */))) // and the character after it, as well
+      if (((szString == pCurPos) ||                                                                       // the start of the string is always a word delimiter
+            (IsDelimiterCB(ezUnicodeUtils::ConvertUtf8ToUtf32(pPrevPos) /* front */))) &&                 // make sure the character before this substring is a word delimiter
+          (IsDelimiterCB(ezUnicodeUtils::ConvertUtf8ToUtf32(pCurPos + uiSearchedWordLength) /* back */))) // and the character after it, as well
         return pCurPos;
     }
 
@@ -761,9 +751,9 @@ ezResult ezStringUtils::FindUIntAtTheEnd(const char* szString, ezUInt32& out_uiV
   {
     char cChar = *szWork;
 
-    if(cChar >= '0' && cChar <= '9')
+    if (cChar >= '0' && cChar <= '9')
     {
-      if(szNumberStart == nullptr)
+      if (szNumberStart == nullptr)
       {
         szNumberStart = szWork;
       }
@@ -776,17 +766,17 @@ ezResult ezStringUtils::FindUIntAtTheEnd(const char* szString, ezUInt32& out_uiV
     szWork++;
   }
 
-  if(szNumberStart != nullptr)
+  if (szNumberStart != nullptr)
   {
     ezInt64 iResult = 0;
-    if(ezConversionUtils::StringToInt64(szNumberStart, iResult).Failed() || iResult < 0 || iResult > 0xFFFFFFFFu)
+    if (ezConversionUtils::StringToInt64(szNumberStart, iResult).Failed() || iResult < 0 || iResult > 0xFFFFFFFFu)
     {
       return EZ_FAILURE;
     }
 
     out_uiValue = static_cast<ezUInt32>(iResult);
 
-    if(pStringLengthBeforeUInt != nullptr)
+    if (pStringLengthBeforeUInt != nullptr)
     {
       *pStringLengthBeforeUInt = static_cast<ezUInt32>(szNumberStart - szString);
     }
@@ -939,4 +929,3 @@ bool ezStringUtils::IsValidIdentifierName(const char* pString, const char* pStri
 }
 
 EZ_STATICLINK_FILE(Foundation, Foundation_Strings_Implementation_StringUtils);
-

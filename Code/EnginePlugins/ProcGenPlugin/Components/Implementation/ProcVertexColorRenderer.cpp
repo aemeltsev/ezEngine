@@ -29,8 +29,7 @@ void ezProcVertexColorRenderer::SetAdditionalData(const ezRenderViewContext& ren
   pContext->BindBuffer("perInstanceVertexColors", pDevice->GetDefaultResourceView(pProcVertexColorRenderData->m_hVertexColorBuffer));
 }
 
-void ezProcVertexColorRenderer::FillPerInstanceData(
-  ezArrayPtr<ezPerInstanceData> instanceData, const ezRenderDataBatch& batch, ezUInt32 uiStartIndex, ezUInt32& out_uiFilteredCount) const
+void ezProcVertexColorRenderer::FillPerInstanceData(ezArrayPtr<ezPerInstanceData> instanceData, const ezRenderDataBatch& batch, ezUInt32 uiStartIndex, ezUInt32& out_uiFilteredCount) const
 {
   ezUInt32 uiCount = ezMath::Min<ezUInt32>(instanceData.GetCount(), batch.GetCount() - uiStartIndex);
   ezUInt32 uiCurrentIndex = 0;

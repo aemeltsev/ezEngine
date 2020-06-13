@@ -45,7 +45,10 @@ public:
   ezExtractor* GetExtractorByName(const ezStringView& sExtractorName);
 
   template <typename T>
-  EZ_ALWAYS_INLINE T* GetFrameDataProvider() const { return static_cast<T*>(GetFrameDataProvider(ezGetStaticRTTI<T>())); }
+  EZ_ALWAYS_INLINE T* GetFrameDataProvider() const
+  {
+    return static_cast<T*>(GetFrameDataProvider(ezGetStaticRTTI<T>()));
+  }
 
   const ezExtractedRenderData& GetRenderData() const;
   ezRenderDataBatchList GetRenderDataBatchesWithCategory(ezRenderData::Category category, ezRenderDataBatch::Filter filter = ezRenderDataBatch::Filter()) const;
@@ -121,7 +124,7 @@ private: // Member data
   };
   ezDynamicArray<TextureUsageData> m_TextureUsage;
   ezDynamicArray<ezUInt16> m_TextureUsageIdxSortedByFirstUsage; ///< Indices map into m_TextureUsage
-  ezDynamicArray<ezUInt16> m_TextureUsageIdxSortedByLastUsage; ///< Indices map into m_TextureUsage
+  ezDynamicArray<ezUInt16> m_TextureUsageIdxSortedByLastUsage;  ///< Indices map into m_TextureUsage
 
   ezHashTable<ezRenderPipelinePassConnection*, ezUInt32> m_ConnectionToTextureIndex;
 
@@ -133,4 +136,3 @@ private: // Member data
   mutable ezDynamicArray<ezUniquePtr<ezFrameDataProviderBase>> m_DataProviders;
   mutable ezHashTable<const ezRTTI*, ezUInt32> m_TypeToDataProviderIndex;
 };
-

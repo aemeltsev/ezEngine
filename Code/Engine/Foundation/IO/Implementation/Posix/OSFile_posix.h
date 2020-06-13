@@ -25,9 +25,9 @@ EZ_FOUNDATION_INTERNAL_HEADER
 #endif
 
 #if EZ_ENABLED(EZ_PLATFORM_ANDROID)
-#  include <android_native_app_glue.h>
-#  include <Foundation/Basics/Platform/Android/AndroidUtils.h>
 #  include <Foundation/Basics/Platform/Android/AndroidJni.h>
+#  include <Foundation/Basics/Platform/Android/AndroidUtils.h>
+#  include <android_native_app_glue.h>
 #endif
 
 #ifndef PATH_MAX

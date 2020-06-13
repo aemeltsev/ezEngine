@@ -39,8 +39,7 @@ void ezInputManager::RegisterInputSlot(const char* szInputSlot, const char* szDe
       if ((it.Value().m_SlotFlags != ezInputSlotFlags::Default) && (SlotFlags != ezInputSlotFlags::Default))
       {
         ezStringBuilder tmp;
-        tmp.Printf("Different devices register Input Slot '%s' with different Slot Flags: %16b vs. %16b", szInputSlot,
-                   it.Value().m_SlotFlags.GetValue(), SlotFlags.GetValue());
+        tmp.Printf("Different devices register Input Slot '%s' with different Slot Flags: %16b vs. %16b", szInputSlot, it.Value().m_SlotFlags.GetValue(), SlotFlags.GetValue());
         ezLog::Warning(tmp);
       }
 
@@ -164,7 +163,7 @@ ezKeyState::Enum ezInputManager::GetInputSlotState(const char* szInputSlot, floa
 
   ezLog::Warning("ezInputManager::GetInputSlotState: Input Slot '{0}' does not exist (yet). To ensure all devices are initialized, call "
                  "ezInputManager::Update before querying device states, or at least call ezInputManager::PollHardware.",
-                 szInputSlot);
+    szInputSlot);
   RegisterInputSlot(szInputSlot, szInputSlot, ezInputSlotFlags::None);
 
   return ezKeyState::Up;
@@ -398,4 +397,3 @@ const char* ezInputManager::GetInputSlotTouchPointPositionY(unsigned int index)
 }
 
 EZ_STATICLINK_FILE(Core, Core_Input_Implementation_InputManager);
-

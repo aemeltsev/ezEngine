@@ -40,7 +40,7 @@ EZ_END_SUBSYSTEM_DECLARATION;
 // clang-format on
 
 ezPrefabCache::ezPrefabCache()
-    : m_SingletonRegistrar(this)
+  : m_SingletonRegistrar(this)
 {
 }
 
@@ -81,8 +81,7 @@ ezPrefabCache::PrefabData& ezPrefabCache::GetOrCreatePrefabCache(const ezUuid& d
   if (it.IsValid())
   {
     ezFileStats Stats;
-    if (ezOSFile::GetFileStats(it.Value()->m_sAbsPath, Stats).Succeeded() &&
-        !Stats.m_LastModificationTime.Compare(it.Value()->m_fileModifiedTime, ezTimestamp::CompareMode::FileTimeEqual))
+    if (ezOSFile::GetFileStats(it.Value()->m_sAbsPath, Stats).Succeeded() && !Stats.m_LastModificationTime.Compare(it.Value()->m_fileModifiedTime, ezTimestamp::CompareMode::FileTimeEqual))
     {
       UpdatePrefabData(*it.Value().Borrow());
     }

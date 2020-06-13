@@ -330,7 +330,8 @@ ezResult ezFileSystemIterator::StartSearch(const char* szSearchStart, ezBitflags
 
   // Since the use of wildcard-ed file names will disable recursion, we ensure both are not used simultaneously.
   const bool bHasWildcard = sSearch.FindLastSubString("*") || sSearch.FindLastSubString("?");
-  EZ_ASSERT_DEV(flags.IsSet(ezFileSystemIteratorFlags::Recursive) == false || bHasWildcard == false, "Recursive file iteration does not support wildcards. Either don't use recursion, or filter the filenames manually.");
+  EZ_ASSERT_DEV(flags.IsSet(ezFileSystemIteratorFlags::Recursive) == false || bHasWildcard == false,
+    "Recursive file iteration does not support wildcards. Either don't use recursion, or filter the filenames manually.");
 
   m_sCurPath = sSearch.GetFileDirectory();
 
@@ -599,8 +600,7 @@ ezString ezOSFile::GetTempDataFolder(const char* szSubFolder /*= nullptr*/)
   {
 #if EZ_ENABLED(EZ_PLATFORM_WINDOWS_UWP)
     ComPtr<ABI::Windows::Storage::IApplicationDataStatics> appDataStatics;
-    if (SUCCEEDED(ABI::Windows::Foundation::GetActivationFactory(
-          HStringReference(RuntimeClass_Windows_Storage_ApplicationData).Get(), &appDataStatics)))
+    if (SUCCEEDED(ABI::Windows::Foundation::GetActivationFactory(HStringReference(RuntimeClass_Windows_Storage_ApplicationData).Get(), &appDataStatics)))
     {
       ComPtr<ABI::Windows::Storage::IApplicationData> applicationData;
       if (SUCCEEDED(appDataStatics->get_Current(&applicationData)))

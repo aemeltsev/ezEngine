@@ -168,8 +168,7 @@ struct ezGALVertexAttribute
 {
   ezGALVertexAttribute() = default;
 
-  ezGALVertexAttribute(ezGALVertexAttributeSemantic::Enum eSemantic, ezGALResourceFormat::Enum eFormat, ezUInt16 uiOffset,
-    ezUInt8 uiVertexBufferSlot, bool bInstanceData);
+  ezGALVertexAttribute(ezGALVertexAttributeSemantic::Enum eSemantic, ezGALResourceFormat::Enum eFormat, ezUInt16 uiOffset, ezUInt8 uiVertexBufferSlot, bool bInstanceData);
 
   ezGALVertexAttributeSemantic::Enum m_eSemantic = ezGALVertexAttributeSemantic::Position;
   ezGALResourceFormat::Enum m_eFormat = ezGALResourceFormat::XYZFloat;
@@ -178,8 +177,7 @@ struct ezGALVertexAttribute
   bool m_bInstanceData = false;
 };
 
-struct EZ_RENDERERFOUNDATION_DLL ezGALVertexDeclarationCreationDescription
-  : public ezHashableStruct<ezGALVertexDeclarationCreationDescription>
+struct EZ_RENDERERFOUNDATION_DLL ezGALVertexDeclarationCreationDescription : public ezHashableStruct<ezGALVertexDeclarationCreationDescription>
 {
   ezGALShaderHandle m_hShader;
   ezStaticArray<ezGALVertexAttribute, 16> m_VertexAttributes;
@@ -229,8 +227,7 @@ struct ezGALBufferCreationDescription : public ezHashableStruct<ezGALBufferCreat
 
 struct ezGALTextureCreationDescription : public ezHashableStruct<ezGALTextureCreationDescription>
 {
-  void SetAsRenderTarget(ezUInt32 uiWidth, ezUInt32 uiHeight, ezGALResourceFormat::Enum format,
-    ezGALMSAASampleCount::Enum sampleCount = ezGALMSAASampleCount::None);
+  void SetAsRenderTarget(ezUInt32 uiWidth, ezUInt32 uiHeight, ezGALResourceFormat::Enum format, ezGALMSAASampleCount::Enum sampleCount = ezGALMSAASampleCount::None);
 
   ezUInt32 m_uiWidth = 0;
   ezUInt32 m_uiHeight = 0;

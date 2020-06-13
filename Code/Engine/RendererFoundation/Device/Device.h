@@ -1,13 +1,13 @@
 
 #pragma once
 
-#include <RendererFoundation/RendererFoundationDLL.h>
-#include <Foundation/Containers/IdTable.h>
 #include <Foundation/Containers/HashTable.h>
-#include <Foundation/Strings/HashedString.h>
+#include <Foundation/Containers/IdTable.h>
 #include <Foundation/Memory/CommonAllocators.h>
+#include <Foundation/Strings/HashedString.h>
 #include <RendererFoundation/Descriptors/Descriptors.h>
 #include <RendererFoundation/Device/DeviceCapabilities.h>
+#include <RendererFoundation/RendererFoundationDLL.h>
 
 class ezColor;
 
@@ -18,7 +18,6 @@ class ezColor;
 class EZ_RENDERERFOUNDATION_DLL ezGALDevice
 {
 public:
-
   ezEvent<const ezGALDeviceEvent&> m_Events;
 
   //
@@ -139,7 +138,7 @@ public:
 
   ezGALContext* GetPrimaryContext() const;
 
-  template<typename T>
+  template <typename T>
   T* GetPrimaryContext() const;
 
   const ezGALDeviceCreationDescription* GetDescription() const;
@@ -176,12 +175,11 @@ private:
   static ezGALDevice* s_pDefaultDevice;
 
 protected:
-
   ezGALDevice(const ezGALDeviceCreationDescription& Description);
 
   virtual ~ezGALDevice();
 
-  template<typename IdTableType, typename ReturnType>
+  template <typename IdTableType, typename ReturnType>
   ReturnType* Get(typename IdTableType::TypeOfId hHandle, const IdTableType& IdTable) const;
 
   void DestroyViews(ezGALResourceBase* pResource);
@@ -285,9 +283,8 @@ protected:
   // Deactivate Doxygen document generation for the following block. (API abstraction only)
   /// \cond
 
-// These functions need to be implemented by a render API abstraction
+  // These functions need to be implemented by a render API abstraction
 protected:
-
   friend class ezMemoryUtils;
 
   // Init & shutdown functions
@@ -384,8 +381,6 @@ protected:
 
 private:
   bool m_bFrameBeginCalled;
-
 };
 
 #include <RendererFoundation/Device/Implementation/Device_inl.h>
-

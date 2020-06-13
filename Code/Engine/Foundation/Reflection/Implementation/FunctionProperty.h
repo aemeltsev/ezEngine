@@ -28,24 +28,17 @@ public:
     return params[uiParamIndex];
   }
 
-  virtual const ezRTTI* GetArgumentType(ezUInt32 uiParamIndex) const override
-  {
-    return GetParameterTypeImpl(uiParamIndex, std::make_index_sequence<sizeof...(Args)>{});
-  }
+  virtual const ezRTTI* GetArgumentType(ezUInt32 uiParamIndex) const override { return GetParameterTypeImpl(uiParamIndex, std::make_index_sequence<sizeof...(Args)>{}); }
 
   template <std::size_t... I>
   ezBitflags<ezPropertyFlags> GetParameterFlagsImpl(ezUInt32 uiParamIndex, std::index_sequence<I...>) const
   {
     // There is a dummy entry at the end to support zero parameter functions (can't have zero-size arrays).
-    static ezBitflags<ezPropertyFlags> params[] = {ezPropertyFlags::GetParameterFlags<typename getArgument<I, Args...>::Type>()...,
-      ezPropertyFlags::Void};
+    static ezBitflags<ezPropertyFlags> params[] = {ezPropertyFlags::GetParameterFlags<typename getArgument<I, Args...>::Type>()..., ezPropertyFlags::Void};
     return params[uiParamIndex];
   }
 
-  virtual ezBitflags<ezPropertyFlags> GetArgumentFlags(ezUInt32 uiParamIndex) const override
-  {
-    return GetParameterFlagsImpl(uiParamIndex, std::make_index_sequence<sizeof...(Args)>{});
-  }
+  virtual ezBitflags<ezPropertyFlags> GetArgumentFlags(ezUInt32 uiParamIndex) const override { return GetParameterFlagsImpl(uiParamIndex, std::make_index_sequence<sizeof...(Args)>{}); }
 };
 
 template <typename FUNC>

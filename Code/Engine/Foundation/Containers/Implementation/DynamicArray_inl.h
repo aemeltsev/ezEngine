@@ -65,8 +65,7 @@ inline void ezDynamicArrayBase<T>::operator=(ezDynamicArrayBase<T>&& rhs) noexce
   // Clear any existing data (calls destructors if necessary)
   this->Clear();
 
-  if (this->m_pAllocator == rhs.m_pAllocator &&
-      rhs.m_pAllocator.GetFlags() == Storage::Owned) // only move the storage of rhs, if it owns it
+  if (this->m_pAllocator == rhs.m_pAllocator && rhs.m_pAllocator.GetFlags() == Storage::Owned) // only move the storage of rhs, if it owns it
   {
     if (this->m_pAllocator.GetFlags() == Storage::Owned)
     {
@@ -114,8 +113,7 @@ void ezDynamicArrayBase<T>::Swap(ezDynamicArrayBase<T>& other)
     const ezUInt32 localSize = this->m_uiCount;
     const ezUInt32 otherLocalSize = other.m_uiCount;
 
-    if (localSize <= InplaceStorageSize && otherLocalSize <= InplaceStorageSize &&
-        localSize <= other.m_uiCapacity && otherLocalSize <= this->m_uiCapacity)
+    if (localSize <= InplaceStorageSize && otherLocalSize <= InplaceStorageSize && localSize <= other.m_uiCapacity && otherLocalSize <= this->m_uiCapacity)
     {
 
       Tmp tmp;

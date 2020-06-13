@@ -54,10 +54,7 @@ struct ezFmodEventComponentManager::OcclusionState
   float m_fRadius = 0.0f;
   float m_fLastOcclusionValue = -1.0f;
 
-  float GetOcclusionValue(float fThreshold) const
-  {
-    return ezMath::Clamp((m_fLastOcclusionValue - fThreshold) / ezMath::Max(1.0f - fThreshold, 0.0001f), 0.0f, 1.0f);
-  }
+  float GetOcclusionValue(float fThreshold) const { return ezMath::Clamp((m_fLastOcclusionValue - fThreshold) / ezMath::Max(1.0f - fThreshold, 0.0001f), 0.0f, 1.0f); }
 };
 
 ezFmodEventComponentManager::ezFmodEventComponentManager(ezWorld* pWorld)
@@ -141,8 +138,7 @@ void ezFmodEventComponentManager::RemoveOcclusionState(ezUInt32 uiIndex)
   }
 }
 
-void ezFmodEventComponentManager::ShootOcclusionRays(OcclusionState& state, ezVec3 listenerPos, ezUInt32 uiNumRays,
-  const ezPhysicsWorldModuleInterface* pPhysicsWorldModule, ezTime deltaTime)
+void ezFmodEventComponentManager::ShootOcclusionRays(OcclusionState& state, ezVec3 listenerPos, ezUInt32 uiNumRays, const ezPhysicsWorldModuleInterface* pPhysicsWorldModule, ezTime deltaTime)
 {
   ezVec3 centerPos = state.m_pComponent->GetOwner()->GetGlobalPosition();
   ezUInt8 uiCollisionLayer = state.m_pComponent->m_uiOcclusionCollisionLayer;
@@ -206,8 +202,7 @@ void ezFmodEventComponentManager::UpdateEvents(const ezWorldModule::UpdateContex
 
 void ezFmodEventComponentManager::ResourceEventHandler(const ezResourceEvent& e)
 {
-  if (e.m_Type == ezResourceEvent::Type::ResourceContentUnloading &&
-      e.m_pResource->GetDynamicRTTI()->IsDerivedFrom<ezFmodSoundEventResource>())
+  if (e.m_Type == ezResourceEvent::Type::ResourceContentUnloading && e.m_pResource->GetDynamicRTTI()->IsDerivedFrom<ezFmodSoundEventResource>())
   {
     ezFmodSoundEventResourceHandle hResource((ezFmodSoundEventResource*)(e.m_pResource));
 
@@ -558,8 +553,7 @@ void ezFmodEventComponent::StartOneShot()
   // do not start sounds that will not terminate
   if (!bIsOneShot)
   {
-    ezLog::Warning("ezFmodEventComponent::StartOneShot: Request ignored, because sound event '{0}' ('{0}') is not a one-shot event.",
-      pEvent->GetResourceID(), pEvent->GetResourceDescription());
+    ezLog::Warning("ezFmodEventComponent::StartOneShot: Request ignored, because sound event '{0}' ('{0}') is not a one-shot event.", pEvent->GetResourceID(), pEvent->GetResourceDescription());
     return;
   }
 
@@ -745,8 +739,7 @@ void ezFmodEventComponent::Update()
         }
       }
 
-      ezDebugRenderer::Draw3DText(GetWorld(), sb, GetOwner()->GetGlobalPosition(), ezColor::Cyan, 16,
-        ezDebugRenderer::HorizontalAlignment::Center, ezDebugRenderer::VerticalAlignment::Bottom);
+      ezDebugRenderer::Draw3DText(GetWorld(), sb, GetOwner()->GetGlobalPosition(), ezColor::Cyan, 16, ezDebugRenderer::HorizontalAlignment::Center, ezDebugRenderer::VerticalAlignment::Bottom);
     }
   }
 #endif
@@ -804,8 +797,7 @@ void ezFmodEventComponent::UpdateOcclusion()
       }
     }
 
-    m_uiOcclusionStateIndex =
-      static_cast<ezFmodEventComponentManager*>(GetOwningManager())->AddOcclusionState(this, occlusionParamId, fRadius);
+    m_uiOcclusionStateIndex = static_cast<ezFmodEventComponentManager*>(GetOwningManager())->AddOcclusionState(this, occlusionParamId, fRadius);
   }
 
   auto& occlusionState = static_cast<ezFmodEventComponentManager*>(GetOwningManager())->GetOcclusionState(m_uiOcclusionStateIndex);

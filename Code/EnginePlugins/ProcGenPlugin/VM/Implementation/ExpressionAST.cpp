@@ -57,8 +57,7 @@ namespace
 
     "FunctionCall"};
 
-  EZ_CHECK_AT_COMPILETIME_MSG(
-    EZ_ARRAY_SIZE(s_szNodeTypeNames) == ezExpressionAST::NodeType::Count, "Node name array size does not match node type count");
+  EZ_CHECK_AT_COMPILETIME_MSG(EZ_ARRAY_SIZE(s_szNodeTypeNames) == ezExpressionAST::NodeType::Count, "Node name array size does not match node type count");
 } // namespace
 
 // static

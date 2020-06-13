@@ -28,9 +28,9 @@
 
 // [[nodiscard]] helper
 #if __has_cpp_attribute(nodiscard)
-  #define EZ_NODISCARD [[nodiscard]]
+#  define EZ_NODISCARD [[nodiscard]]
 #else
-  #define EZ_NODISCARD
+#  define EZ_NODISCARD
 #endif
 
 #ifndef __INTELLISENSE__
@@ -38,11 +38,9 @@
 // Macros to do compile-time checks, such as to ensure sizes of types
 // EZ_CHECK_AT_COMPILETIME(exp) : only checks exp
 // EZ_CHECK_AT_COMPILETIME_MSG(exp, msg) : checks exp and displays msg
-#  define EZ_CHECK_AT_COMPILETIME(exp) \
-    static_assert(exp, EZ_STRINGIZE(exp) " is false.");
+#  define EZ_CHECK_AT_COMPILETIME(exp) static_assert(exp, EZ_STRINGIZE(exp) " is false.");
 
-#  define EZ_CHECK_AT_COMPILETIME_MSG(exp, msg) \
-    static_assert(exp, EZ_STRINGIZE(exp) " is false. Message: " msg);
+#  define EZ_CHECK_AT_COMPILETIME_MSG(exp, msg) static_assert(exp, EZ_STRINGIZE(exp) " is false. Message: " msg);
 
 #else
 
@@ -61,8 +59,7 @@
 
 #if EZ_ENABLED(EZ_COMPILE_FOR_DEVELOPMENT)
 /// \brief Macro helper to check alignment
-#  define EZ_CHECK_ALIGNMENT(ptr, alignment) \
-    EZ_ASSERT_DEV(((size_t)ptr & (alignment - 1)) == 0, "Wrong alignment.")
+#  define EZ_CHECK_ALIGNMENT(ptr, alignment) EZ_ASSERT_DEV(((size_t)ptr & (alignment - 1)) == 0, "Wrong alignment.")
 #else
 /// \brief Macro helper to check alignment
 #  define EZ_CHECK_ALIGNMENT(ptr, alignment)
@@ -85,7 +82,7 @@
 /// \brief Checks whether Windows.h has been included directly instead of through 'IncludeWindows.h'
 ///
 /// Does this by stringifying the available defines, concatenating them into one long word, which is a known #define that evaluates to 0 or 1
-#define EZ_CHECK_WINDOWS_INCLUDE(EZ_WINH_INCLUDED, WINH_INCLUDED)                         \
+#define EZ_CHECK_WINDOWS_INCLUDE(EZ_WINH_INCLUDED, WINH_INCLUDED)                                       \
   EZ_CHECK_AT_COMPILETIME_MSG(EZ_CONCAT(EZ_WINCHECK_, EZ_CONCAT(EZ_WINH_INCLUDED, WINH_INCLUDED)) == 1, \
     "Windows.h has been included but not through ez. #include <Foundation/Basics/Platform/Win/IncludeWindows.h> instead of Windows.h");
 
@@ -98,7 +95,7 @@
 #define EZ_MSVC_ANALYSIS_ASSUME(expression)
 
 #if defined(_MSC_VER)
-  #include <Foundation/Basics/Compiler/MSVC/StaticAnalysis.h>
+#  include <Foundation/Basics/Compiler/MSVC/StaticAnalysis.h>
 #endif
 
 #if EZ_ENABLED(EZ_COMPILE_ENGINE_AS_DLL)
@@ -108,8 +105,7 @@
 /// The macros create functions that reference each other, which means the linker is forced to look at all files in the library.
 /// This in turn will drag all global variables into the visibility of the linker, and since it mustn't optimize them away,
 /// they then end up in the final application, where they will do what they are meant for.
-#  define EZ_STATICLINK_FILE(LibraryName, UniqueName) \
-    EZ_CHECK_WINDOWS_INCLUDE(EZ_INCLUDED_WINDOWS_H, _WINDOWS_)
+#  define EZ_STATICLINK_FILE(LibraryName, UniqueName) EZ_CHECK_WINDOWS_INCLUDE(EZ_INCLUDED_WINDOWS_H, _WINDOWS_)
 
 
 /// \brief Used by the tool 'StaticLinkUtil' to generate the block after EZ_STATICLINK_LIBRARY, to create references to all
@@ -117,8 +113,7 @@
 #  define EZ_STATICLINK_REFERENCE(UniqueName)
 
 /// \brief This must occur exactly once in each static library, such that all EZ_STATICLINK_FILE macros can reference it.
-#  define EZ_STATICLINK_LIBRARY(LibraryName) \
-    void ezReferenceFunction_##LibraryName(bool bReturn = true)
+#  define EZ_STATICLINK_LIBRARY(LibraryName) void ezReferenceFunction_##LibraryName(bool bReturn = true)
 
 #else
 
@@ -145,8 +140,7 @@ struct ezStaticLinkHelper
     ezReferenceFunction_##UniqueName()
 
 /// \brief This must occur exactly once in each static library, such that all EZ_STATICLINK_FILE macros can reference it.
-#  define EZ_STATICLINK_LIBRARY(LibraryName) \
-    void ezReferenceFunction_##LibraryName(bool bReturn = true)
+#  define EZ_STATICLINK_LIBRARY(LibraryName) void ezReferenceFunction_##LibraryName(bool bReturn = true)
 
 #endif
 

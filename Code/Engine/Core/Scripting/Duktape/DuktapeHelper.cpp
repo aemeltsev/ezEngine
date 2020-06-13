@@ -46,7 +46,7 @@ ezDuktapeHelper::ezDuktapeHelper(const ezDuktapeHelper& rhs)
 
 ezDuktapeHelper::~ezDuktapeHelper() = default;
 
-void ezDuktapeHelper::operator = (const ezDuktapeHelper& rhs)
+void ezDuktapeHelper::operator=(const ezDuktapeHelper& rhs)
 {
   if (this == &rhs)
     return;
@@ -639,4 +639,3 @@ ezResult ezDuktapeHelper::ExecuteFile(const char* szFile)
 
 
 EZ_STATICLINK_FILE(Core, Core_Scripting_Duktape_DuktapeHelper);
-

@@ -21,15 +21,9 @@ public:
 
     EZ_DETECT_TYPE_CLASS(KEY, VALUE);
 
-    EZ_ALWAYS_INLINE bool operator<(const Pair& rhs) const
-    {
-      return key < rhs.key;
-    }
+    EZ_ALWAYS_INLINE bool operator<(const Pair& rhs) const { return key < rhs.key; }
 
-    EZ_ALWAYS_INLINE bool operator==(const Pair& rhs) const
-    {
-      return key == rhs.key;
-    }
+    EZ_ALWAYS_INLINE bool operator==(const Pair& rhs) const { return key == rhs.key; }
   };
 
   /// \brief Constructor.
@@ -99,7 +93,8 @@ public:
   /// are removed, or new values are going to be inserted, as well, \a bKeepSorted should be left to false.
   void RemoveAtAndCopy(ezUInt32 index, bool bKeepSorted = false);
 
-  /// \brief Removes one element with the given key. Returns true, if one was found and removed. If the same key exists multiple times, you need to call this function multiple times to remove them all.
+  /// \brief Removes one element with the given key. Returns true, if one was found and removed. If the same key exists multiple times, you need to call this function multiple times to remove them
+  /// all.
   ///
   /// If the map is sorted and bKeepSorted is true, the element will be removed such that the map stays sorted.
   /// This is only useful, if only a single (or very few) elements are removed before the next lookup. If multiple values
@@ -153,4 +148,3 @@ public:
 };
 
 #include <Foundation/Containers/Implementation/ArrayMap_inl.h>
-

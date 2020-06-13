@@ -194,8 +194,8 @@ void ezRaycastComponent::Update()
   const ezVec3 rayStartPosition = GetOwner()->GetGlobalPosition();
   const ezVec3 rayDir = GetOwner()->GetGlobalDirForwards().GetNormalized(); // PhysX is very picky about normalized vectors
 
-  //ezDebugRenderer::Line lines[] = { {rayStartPosition, rayStartPosition + rayDir * m_fMaxDistance} };
-  //ezDebugRenderer::DrawLines(GetWorld(), lines, ezColor::RebeccaPurple);
+  // ezDebugRenderer::Line lines[] = { {rayStartPosition, rayStartPosition + rayDir * m_fMaxDistance} };
+  // ezDebugRenderer::DrawLines(GetWorld(), lines, ezColor::RebeccaPurple);
 
   float fHitDistance = m_fMaxDistance;
   ezPhysicsCastResult hit;
@@ -288,4 +288,3 @@ void ezRaycastComponent::PostTriggerMessage(ezTriggerState::Enum state, ezGameOb
 
 
 EZ_STATICLINK_FILE(GameEngine, GameEngine_Gameplay_Implementation_RaycastComponent);
-

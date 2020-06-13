@@ -184,9 +184,9 @@ float ezLightComponent::CalculateScreenSpaceSize(const ezBoundingSphere& sphere,
   }
 }
 
-  //////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
 #include <Foundation/Serialization/GraphPatch.h>
 #include <Foundation/Serialization/AbstractObjectGraph.h>
@@ -195,14 +195,11 @@ class ezLightComponentPatch_1_2 : public ezGraphPatch
 {
 public:
   ezLightComponentPatch_1_2()
-      : ezGraphPatch("ezLightComponent", 2)
+    : ezGraphPatch("ezLightComponent", 2)
   {
   }
 
-  virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override
-  {
-    pNode->RenameProperty("Light Color", "LightColor");
-  }
+  virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override { pNode->RenameProperty("Light Color", "LightColor"); }
 };
 
 ezLightComponentPatch_1_2 g_ezLightComponentPatch_1_2;
@@ -210,4 +207,3 @@ ezLightComponentPatch_1_2 g_ezLightComponentPatch_1_2;
 
 
 EZ_STATICLINK_FILE(RendererCore, RendererCore_Lights_Implementation_LightComponent);
-

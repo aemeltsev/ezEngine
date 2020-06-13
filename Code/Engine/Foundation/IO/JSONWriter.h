@@ -24,8 +24,8 @@ public:
   /// \brief Modes to configure how arrays are written.
   enum class ArrayMode
   {
-    InOneLine,       ///< All array items are written in a single line in the file.
-    OneLinePerItem,  ///< Each array item is put on a separate line.
+    InOneLine,      ///< All array items are written in a single line in the file.
+    OneLinePerItem, ///< Each array item is put on a separate line.
   };
 
   /// \brief Constructor
@@ -255,14 +255,13 @@ public:
 
   /// \brief Ends outputting an object variable.
   virtual void EndObject() = 0;
-  
+
   /// \brief Indicates if an error was encountered while writing
   ///
   /// If any error was encountered at any time during writing, this will return true
   bool HadWriteError() const;
 
 protected:
-
   WhitespaceMode m_WhitespaceMode = WhitespaceMode::All;
   ArrayMode m_ArrayMode = ArrayMode::InOneLine;
 
@@ -426,4 +425,3 @@ protected:
 
   ezHybridArray<JSONState, 16> m_StateStack;
 };
-

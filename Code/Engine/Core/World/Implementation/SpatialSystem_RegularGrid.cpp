@@ -189,8 +189,7 @@ struct ezSpatialSystem_RegularGrid::Cell
 
   EZ_FORCE_INLINE void RemoveData(ezSpatialData* pData)
   {
-    auto PatchMovedData = [&](ezSpatialData* pMovedData, ezUInt32 uiNewDataIndex, ezUInt32 category)
-    {
+    auto PatchMovedData = [&](ezSpatialData* pMovedData, ezUInt32 uiNewDataIndex, ezUInt32 category) {
       auto pMovedUserData = reinterpret_cast<SpatialUserData*>(&pMovedData->m_uiUserData[0]);
       if (pMovedUserData->m_uiCachedCategory == category)
       {
@@ -267,10 +266,7 @@ struct ezSpatialSystem_RegularGrid::Cell
     }
   }
 
-  EZ_ALWAYS_INLINE ezBoundingBox GetBoundingBox() const
-  {
-    return ezSimdConversion::ToBBoxSphere(m_Bounds).GetBox();
-  }
+  EZ_ALWAYS_INLINE ezBoundingBox GetBoundingBox() const { return ezSimdConversion::ToBBoxSphere(m_Bounds).GetBox(); }
 
   ezSimdBBoxSphere m_Bounds;
   ezUInt32 m_uiCategoryBitmask = 0;
@@ -286,14 +282,11 @@ struct ezSpatialSystem_RegularGrid::CellKeyHashHelper
 {
   EZ_ALWAYS_INLINE static ezUInt32 Hash(ezUInt64 value)
   {
-    //return ezUInt32(value * 2654435761U);
+    // return ezUInt32(value * 2654435761U);
     return ezHashHelper<ezUInt64>::Hash(value);
   }
 
-  EZ_ALWAYS_INLINE static bool Equal(ezUInt64 a, ezUInt64 b)
-  {
-    return a == b;
-  }
+  EZ_ALWAYS_INLINE static bool Equal(ezUInt64 a, ezUInt64 b) { return a == b; }
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -316,9 +309,7 @@ ezSpatialSystem_RegularGrid::ezSpatialSystem_RegularGrid(ezUInt32 uiCellSize /* 
   m_pOverflowCell->m_Bounds = overflowBox;
 }
 
-ezSpatialSystem_RegularGrid::~ezSpatialSystem_RegularGrid()
-{
-}
+ezSpatialSystem_RegularGrid::~ezSpatialSystem_RegularGrid() {}
 
 ezResult ezSpatialSystem_RegularGrid::GetCellBoxForSpatialData(const ezSpatialDataHandle& hData, ezBoundingBox& out_BoundingBox) const
 {
@@ -348,8 +339,7 @@ void ezSpatialSystem_RegularGrid::GetAllCellBoxes(ezHybridArray<ezBoundingBox, 1
   }
 }
 
-void ezSpatialSystem_RegularGrid::FindObjectsInSphereInternal(const ezBoundingSphere& sphere, ezUInt32 uiCategoryBitmask, QueryCallback callback,
-  QueryStats* pStats) const
+void ezSpatialSystem_RegularGrid::FindObjectsInSphereInternal(const ezBoundingSphere& sphere, ezUInt32 uiCategoryBitmask, QueryCallback callback, QueryStats* pStats) const
 {
   ezSimdBSphere simdSphere(ezSimdConversion::ToVec3(sphere.m_vCenter), sphere.m_fRadius);
   ezSimdBBox simdBox;
@@ -449,8 +439,7 @@ void ezSpatialSystem_RegularGrid::FindObjectsInBoxInternal(const ezBoundingBox& 
   });
 }
 
-void ezSpatialSystem_RegularGrid::FindVisibleObjectsInternal(const ezFrustum& frustum, ezUInt32 uiCategoryBitmask, ezDynamicArray<const ezGameObject*>& out_Objects,
-  QueryStats* pStats) const
+void ezSpatialSystem_RegularGrid::FindVisibleObjectsInternal(const ezFrustum& frustum, ezUInt32 uiCategoryBitmask, ezDynamicArray<const ezGameObject*>& out_Objects, QueryStats* pStats) const
 {
   ezVec3 cornerPoints[8];
   frustum.ComputeCornerPoints(cornerPoints);

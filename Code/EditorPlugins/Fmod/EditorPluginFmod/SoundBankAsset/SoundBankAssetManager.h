@@ -14,8 +14,7 @@ public:
   ~ezSoundBankAssetDocumentManager();
 
   virtual void FillOutSubAssetList(const ezAssetDocumentInfo& assetInfo, ezHybridArray<ezSubAssetData, 4>& out_SubAssets) const override;
-  virtual ezString GetAssetTableEntry(const ezSubAsset* pSubAsset, const char* szDataDirectory,
-                                      const ezPlatformProfile* pAssetProfile) const override;
+  virtual ezString GetAssetTableEntry(const ezSubAsset* pSubAsset, const char* szDataDirectory, const ezPlatformProfile* pAssetProfile) const override;
 
 private:
   void OnDocumentManagerEvent(const ezDocumentManager::Event& e);

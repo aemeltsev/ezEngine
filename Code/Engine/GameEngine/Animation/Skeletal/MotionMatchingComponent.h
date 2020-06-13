@@ -81,8 +81,8 @@ protected:
 
   ezDynamicArray<MotionData> m_MotionData;
 
-  static void PrecomputeMotion(ezDynamicArray<MotionData>& motionData, ezTempHashedString jointName1, ezTempHashedString jointName2,
-    const ezAnimationClipResourceDescriptor& animClip, ezUInt16 uiAnimClipIndex, const ezSkeleton& skeleton);
+  static void PrecomputeMotion(ezDynamicArray<MotionData>& motionData, ezTempHashedString jointName1, ezTempHashedString jointName2, const ezAnimationClipResourceDescriptor& animClip,
+    ezUInt16 uiAnimClipIndex, const ezSkeleton& skeleton);
 
   ezUInt32 FindBestKeyframe(const TargetKeyframe& current, ezVec3 vLeftFootPosition, ezVec3 vRightFootPosition, ezVec3 vTargetDir) const;
 };

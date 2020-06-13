@@ -1,26 +1,24 @@
 
 #pragma once
 
-#include <RendererFoundation/RendererFoundationDLL.h>
-#include <RendererFoundation/Context/ContextState.h>
 #include <Foundation/Communication/Event.h>
 #include <Foundation/Math/Color.h>
 #include <Foundation/Threading/ThreadUtils.h>
+#include <RendererFoundation/Context/ContextState.h>
+#include <RendererFoundation/RendererFoundationDLL.h>
 
 class ezGALDevice;
 
 class EZ_RENDERERFOUNDATION_DLL ezGALContext
 {
 public:
-
   // Draw functions
 
   /// \brief Clears active rendertargets.
   ///
   /// \param uiRenderTargetClearMask
   ///   Each bit represents a bound color target. If all bits are set, all bound color targets will be cleared.
-  void Clear(const ezColor& ClearColor, ezUInt32 uiRenderTargetClearMask = 0xFFFFFFFFu, bool bClearDepth = true, bool bClearStencil = true,
-              float fDepthClear = 1.0f, ezUInt8 uiStencilClear = 0x0u);
+  void Clear(const ezColor& ClearColor, ezUInt32 uiRenderTargetClearMask = 0xFFFFFFFFu, bool bClearDepth = true, bool bClearStencil = true, float fDepthClear = 1.0f, ezUInt8 uiStencilClear = 0x0u);
 
   /// Clears an unordered access view with a float value.
   void ClearUnorderedAccessView(ezGALUnorderedAccessViewHandle hUnorderedAccessView, ezVec4 clearValues);
@@ -118,7 +116,8 @@ public:
 
   void CopyTexture(ezGALTextureHandle hDest, ezGALTextureHandle hSource);
 
-  void CopyTextureRegion(ezGALTextureHandle hDest, const ezGALTextureSubresource& DestinationSubResource, const ezVec3U32& DestinationPoint, ezGALTextureHandle hSource, const ezGALTextureSubresource& SourceSubResource, const ezBoundingBoxu32& Box);
+  void CopyTextureRegion(ezGALTextureHandle hDest, const ezGALTextureSubresource& DestinationSubResource, const ezVec3U32& DestinationPoint, ezGALTextureHandle hSource,
+    const ezGALTextureSubresource& SourceSubResource, const ezBoundingBoxu32& Box);
 
   void UpdateTexture(ezGALTextureHandle hDest, const ezGALTextureSubresource& DestinationSubResource, const ezBoundingBoxu32& DestinationBox, const ezGALSystemMemoryDescription& pSourceData);
 
@@ -147,7 +146,6 @@ public:
   ezGALDevice* GetDevice() const;
 
 protected:
-
   friend class ezGALDevice;
 
   ezGALContext(ezGALDevice* pDevice);
@@ -250,11 +248,14 @@ protected:
 
   virtual void CopyTexturePlatform(const ezGALTexture* pDestination, const ezGALTexture* pSource) = 0;
 
-  virtual void CopyTextureRegionPlatform(const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezVec3U32& DestinationPoint, const ezGALTexture* pSource, const ezGALTextureSubresource& SourceSubResource, const ezBoundingBoxu32& Box) = 0;
+  virtual void CopyTextureRegionPlatform(const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezVec3U32& DestinationPoint, const ezGALTexture* pSource,
+    const ezGALTextureSubresource& SourceSubResource, const ezBoundingBoxu32& Box) = 0;
 
-  virtual void UpdateTexturePlatform(const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezBoundingBoxu32& DestinationBox, const ezGALSystemMemoryDescription& pSourceData) = 0;
+  virtual void UpdateTexturePlatform(
+    const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezBoundingBoxu32& DestinationBox, const ezGALSystemMemoryDescription& pSourceData) = 0;
 
-  virtual void ResolveTexturePlatform(const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezGALTexture* pSource, const ezGALTextureSubresource& SourceSubResource) = 0;
+  virtual void ResolveTexturePlatform(
+    const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezGALTexture* pSource, const ezGALTextureSubresource& SourceSubResource) = 0;
 
   virtual void ReadbackTexturePlatform(const ezGALTexture* pTexture) = 0;
 
@@ -284,7 +285,6 @@ protected:
   bool UnsetUnorderedAccessViews(const ezGALResourceBase* pResource);
 
 private:
-
   friend class ezMemoryUtils;
 
   void CountDrawCall();
@@ -314,4 +314,3 @@ private:
 };
 
 #include <RendererFoundation/Context/Implementation/Context_inl.h>
-

@@ -221,8 +221,7 @@ bool ezVisualScriptComponent::OnUnhandledMessage(ezMessage& msg, bool bWasPosted
 
 const ezRangeView<const char*, ezUInt32> ezVisualScriptComponent::GetParameters() const
 {
-  return ezRangeView<const char*, ezUInt32>([]() -> ezUInt32 { return 0; },
-    [this]() -> ezUInt32 { return m_NumberParams.GetCount() + m_BoolParams.GetCount(); }, [](ezUInt32& it) { ++it; },
+  return ezRangeView<const char*, ezUInt32>([]() -> ezUInt32 { return 0; }, [this]() -> ezUInt32 { return m_NumberParams.GetCount() + m_BoolParams.GetCount(); }, [](ezUInt32& it) { ++it; },
     [this](const ezUInt32& it) -> const char* {
       if (it < m_NumberParams.GetCount())
         return m_NumberParams[it].m_sName.GetData();

@@ -26,6 +26,4 @@ public:
 
 protected:
   ezDocumentObjectManager* m_pManager;
-
 };
-

@@ -19,7 +19,8 @@ EZ_FORCE_INLINE void ezBoundingBoxTemplate<Type>::SetElements(const ezVec3Templa
   m_vMin = vMin;
   m_vMax = vMax;
 
-  EZ_ASSERT_DEBUG(IsValid(), "The given values did not create a valid bounding box ({0} | {1} | {2} - {3} | {4} | {5})", ezArgF(vMin.x, 2), ezArgF(vMin.y, 2), ezArgF(vMin.z, 2), ezArgF(vMax.x, 2), ezArgF(vMax.y, 2), ezArgF(vMax.z, 2));
+  EZ_ASSERT_DEBUG(IsValid(), "The given values did not create a valid bounding box ({0} | {1} | {2} - {3} | {4} | {5})", ezArgF(vMin.x, 2), ezArgF(vMin.y, 2), ezArgF(vMin.z, 2), ezArgF(vMax.x, 2),
+    ezArgF(vMax.y, 2), ezArgF(vMax.z, 2));
 }
 
 template <typename Type>
@@ -148,9 +149,7 @@ EZ_FORCE_INLINE bool ezBoundingBoxTemplate<Type>::Contains(const ezVec3Template<
   EZ_NAN_ASSERT(this);
   EZ_NAN_ASSERT(&vPoint);
 
-  return (ezMath::IsInRange(vPoint.x, m_vMin.x, m_vMax.x) &&
-          ezMath::IsInRange(vPoint.y, m_vMin.y, m_vMax.y) &&
-          ezMath::IsInRange(vPoint.z, m_vMin.z, m_vMax.z));
+  return (ezMath::IsInRange(vPoint.x, m_vMin.x, m_vMax.x) && ezMath::IsInRange(vPoint.y, m_vMin.y, m_vMax.y) && ezMath::IsInRange(vPoint.z, m_vMin.z, m_vMax.z));
 }
 
 template <typename Type>
@@ -467,7 +466,8 @@ bool ezBoundingBoxTemplate<Type>::GetRayIntersection(const ezVec3Template<Type>&
 }
 
 template <typename Type>
-bool ezBoundingBoxTemplate<Type>::GetLineSegmentIntersection(const ezVec3Template<Type>& vStartPos, const ezVec3Template<Type>& vEndPos, Type* out_fLineFraction, ezVec3Template<Type>* out_vIntersection) const
+bool ezBoundingBoxTemplate<Type>::GetLineSegmentIntersection(
+  const ezVec3Template<Type>& vStartPos, const ezVec3Template<Type>& vEndPos, Type* out_fLineFraction, ezVec3Template<Type>* out_vIntersection) const
 {
   const ezVec3Template<Type> vRayDir = vEndPos - vStartPos;
 
@@ -484,4 +484,3 @@ bool ezBoundingBoxTemplate<Type>::GetLineSegmentIntersection(const ezVec3Templat
 
 
 #include <Foundation/Math/Implementation/AllClasses_inl.h>
-

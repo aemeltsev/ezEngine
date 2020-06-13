@@ -11,7 +11,7 @@
 #include <qevent.h>
 
 ezQtTimeScrubberWidget::ezQtTimeScrubberWidget(QWidget* pParent)
-    : QWidget(pParent)
+  : QWidget(pParent)
 {
   setMinimumWidth(100);
   setMinimumHeight(24);
@@ -197,7 +197,7 @@ void ezQtTimeScrubberWidget::SetScrubberPosFromPixelCoord(ezInt32 posX)
 //////////////////////////////////////////////////////////////////////////
 
 ezQtTimeScrubberToolbar::ezQtTimeScrubberToolbar(QWidget* parent)
-    : QToolBar("Time Scrubber", parent)
+  : QToolBar("Time Scrubber", parent)
 {
   m_pScrubber = new ezQtTimeScrubberWidget(this);
   setObjectName("TimeScrubberToolbar");
@@ -227,8 +227,7 @@ ezQtTimeScrubberToolbar::ezQtTimeScrubberToolbar(QWidget* parent)
   addWidget(m_pAdjustDurationButton);
 
   // Pass event through
-  connect(m_pScrubber, &ezQtTimeScrubberWidget::ScrubberPosChangedEvent, this,
-          [this](ezUInt64 uiNewScrubberTickPos) { Q_EMIT ScrubberPosChangedEvent(uiNewScrubberTickPos); });
+  connect(m_pScrubber, &ezQtTimeScrubberWidget::ScrubberPosChangedEvent, this, [this](ezUInt64 uiNewScrubberTickPos) { Q_EMIT ScrubberPosChangedEvent(uiNewScrubberTickPos); });
 
   connect(m_pPlayButton, &QPushButton::clicked, this, [this](bool) { Q_EMIT PlayPauseEvent(); });
   connect(m_pRepeatButton, &QPushButton::clicked, this, [this](bool) { Q_EMIT RepeatEvent(); });

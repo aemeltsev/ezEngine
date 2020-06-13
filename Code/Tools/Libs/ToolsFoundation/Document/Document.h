@@ -1,16 +1,16 @@
 #pragma once
 
-#include <ToolsFoundation/ToolsFoundationDLL.h>
-#include <Foundation/Strings/String.h>
-#include <Foundation/Types/Status.h>
-#include <ToolsFoundation/Selection/SelectionManager.h>
-#include <ToolsFoundation/CommandHistory/CommandHistory.h>
 #include <Foundation/Communication/Event.h>
 #include <Foundation/Logging/Log.h>
+#include <Foundation/Strings/String.h>
+#include <Foundation/Threading/Implementation/TaskSystemDeclarations.h>
+#include <Foundation/Types/Status.h>
+#include <Foundation/Types/UniquePtr.h>
+#include <ToolsFoundation/CommandHistory/CommandHistory.h>
 #include <ToolsFoundation/Document/Implementation/Declarations.h>
 #include <ToolsFoundation/Object/ObjectMetaData.h>
-#include <Foundation/Types/UniquePtr.h>
-#include <Foundation/Threading/Implementation/TaskSystemDeclarations.h>
+#include <ToolsFoundation/Selection/SelectionManager.h>
+#include <ToolsFoundation/ToolsFoundationDLL.h>
 
 class ezObjectAccessorBase;
 class ezObjectCommandAccessor;
@@ -29,7 +29,6 @@ class EZ_TOOLSFOUNDATION_DLL ezDocumentObjectMetaData : public ezReflectedClass
   EZ_ADD_DYNAMIC_REFLECTION(ezDocumentObjectMetaData, ezReflectedClass);
 
 public:
-
   enum ModifiedFlags : unsigned int
   {
     HiddenFlag = EZ_BIT(0),
@@ -38,15 +37,12 @@ public:
     AllFlags = 0xFFFFFFFF
   };
 
-  ezDocumentObjectMetaData()
-  {
-    m_bHidden = false;
-  }
+  ezDocumentObjectMetaData() { m_bHidden = false; }
 
-  bool m_bHidden; /// Whether the object should be rendered in the editor view (no effect on the runtime)
+  bool m_bHidden;            /// Whether the object should be rendered in the editor view (no effect on the runtime)
   ezUuid m_CreateFromPrefab; /// The asset GUID of the prefab from which this object was created. Invalid GUID, if this is not a prefab instance.
-  ezUuid m_PrefabSeedGuid; /// The seed GUID used to remap the object GUIDs from the prefab asset into this instance.
-  ezString m_sBasePrefab; /// The prefab from which this instance was created as complete DDL text (this describes the entire object!). Necessary for three-way-merging the prefab instances.
+  ezUuid m_PrefabSeedGuid;   /// The seed GUID used to remap the object GUIDs from the prefab asset into this instance.
+  ezString m_sBasePrefab;    /// The prefab from which this instance was created as complete DDL text (this describes the entire object!). Necessary for three-way-merging the prefab instances.
 };
 
 class EZ_TOOLSFOUNDATION_DLL ezDocument : public ezReflectedClass
@@ -134,7 +130,7 @@ public:
   /// \brief Called on all documents when BroadcastInterDocumentMessage() is called.
   ///
   /// Use the RTTI information to identify whether the message is of interest.
-  virtual void OnInterDocumentMessage(ezReflectedClass* pMessage, ezDocument* pSender) { }
+  virtual void OnInterDocumentMessage(ezReflectedClass* pMessage, ezDocument* pSender) {}
 
   ///@}
   /// \name Editing Functionality
@@ -182,8 +178,10 @@ public:
   /// \brief Removes the link between a prefab instance and its template, turning the instance into a regular object.
   virtual void UnlinkPrefabs(const ezDeque<const ezDocumentObject*>& Selection);
 
-  virtual ezStatus CreatePrefabDocumentFromSelection(const char* szFile, const ezRTTI* pRootType, ezDelegate<void(ezAbstractObjectNode*)> AdjustGraphNodeCB = ezDelegate<void(ezAbstractObjectNode*)>(), ezDelegate<void(ezDocumentObject*)> AdjustNewNodesCB = ezDelegate<void(ezDocumentObject*)>());
-  virtual ezStatus CreatePrefabDocument(const char* szFile, ezArrayPtr<const ezDocumentObject*> rootObjects, const ezUuid& invPrefabSeed, ezUuid& out_NewDocumentGuid, ezDelegate<void(ezAbstractObjectNode*)> AdjustGraphNodeCB = ezDelegate<void(ezAbstractObjectNode*)>());
+  virtual ezStatus CreatePrefabDocumentFromSelection(const char* szFile, const ezRTTI* pRootType, ezDelegate<void(ezAbstractObjectNode*)> AdjustGraphNodeCB = ezDelegate<void(ezAbstractObjectNode*)>(),
+    ezDelegate<void(ezDocumentObject*)> AdjustNewNodesCB = ezDelegate<void(ezDocumentObject*)>());
+  virtual ezStatus CreatePrefabDocument(const char* szFile, ezArrayPtr<const ezDocumentObject*> rootObjects, const ezUuid& invPrefabSeed, ezUuid& out_NewDocumentGuid,
+    ezDelegate<void(ezAbstractObjectNode*)> AdjustGraphNodeCB = ezDelegate<void(ezAbstractObjectNode*)>());
   // Returns new guid of replaced object.
   virtual ezUuid ReplaceByPrefab(const ezDocumentObject* pRootObject, const char* szPrefabFile, const ezUuid& PrefabAsset, const ezUuid& PrefabSeed, bool bEnginePrefab);
   // Returns new guid of reverted object.

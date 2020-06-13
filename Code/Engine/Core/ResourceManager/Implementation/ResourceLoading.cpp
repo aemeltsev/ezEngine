@@ -306,11 +306,13 @@ bool ezResourceManager::ReloadResource(ezResource* pResource, bool bForce)
 
     if (pResource->GetLoadingState() == ezResourceState::LoadedResourceMissing)
     {
-      ezLog::Dev("Resource '{0}' is missing and will be tried to be reloaded ('{1}')", ezArgSensitive(pResource->GetResourceID(), "ResourceID"), ezArgSensitive(pResource->GetResourceDescription(), "ResourceDesc"));
+      ezLog::Dev("Resource '{0}' is missing and will be tried to be reloaded ('{1}')", ezArgSensitive(pResource->GetResourceID(), "ResourceID"),
+        ezArgSensitive(pResource->GetResourceDescription(), "ResourceDesc"));
     }
     else
     {
-      ezLog::Dev("Resource '{0}' is outdated and will be reloaded ('{1}')", ezArgSensitive(pResource->GetResourceID(), "ResourceID"), ezArgSensitive(pResource->GetResourceDescription(), "ResourceDesc"));
+      ezLog::Dev(
+        "Resource '{0}' is outdated and will be reloaded ('{1}')", ezArgSensitive(pResource->GetResourceID(), "ResourceID"), ezArgSensitive(pResource->GetResourceDescription(), "ResourceDesc"));
     }
   }
 
@@ -319,8 +321,7 @@ bool ezResourceManager::ReloadResource(ezResource* pResource, bool bForce)
     // make sure existing data is purged
     pResource->CallUnloadData(ezResource::Unload::AllQualityLevels);
 
-    EZ_ASSERT_DEV(pResource->GetLoadingState() <= ezResourceState::LoadedResourceMissing,
-      "Resource '{0}' should be in an unloaded state now.", pResource->GetResourceID());
+    EZ_ASSERT_DEV(pResource->GetLoadingState() <= ezResourceState::LoadedResourceMissing, "Resource '{0}' should be in an unloaded state now.", pResource->GetResourceID());
   }
   else
   {
@@ -387,8 +388,7 @@ ezUInt32 ezResourceManager::ReloadAllResources(bool bForce)
   return count;
 }
 
-void ezResourceManager::UpdateResourceWithCustomLoader(
-  const ezTypelessResourceHandle& hResource, ezUniquePtr<ezResourceTypeLoader>&& loader)
+void ezResourceManager::UpdateResourceWithCustomLoader(const ezTypelessResourceHandle& hResource, ezUniquePtr<ezResourceTypeLoader>&& loader)
 {
   EZ_LOCK(s_ResourceMutex);
 
@@ -433,9 +433,8 @@ void ezResourceManager::EnsureResourceLoadingState(ezResource* pResourceToLoad, 
     else
     {
       // do not use ezThreadUtils::YieldTimeSlice here, otherwise the thread is not tagged as 'blocked' in the TaskSystem
-      ezTaskSystem::WaitForCondition([=]() -> bool {
-        return (ezInt32)pResourceToLoad->GetLoadingState() >= (ezInt32)RequestedState || (pResourceToLoad->GetLoadingState() == ezResourceState::LoadedResourceMissing);
-      });
+      ezTaskSystem::WaitForCondition(
+        [=]() -> bool { return (ezInt32)pResourceToLoad->GetLoadingState() >= (ezInt32)RequestedState || (pResourceToLoad->GetLoadingState() == ezResourceState::LoadedResourceMissing); });
     }
   }
 }

@@ -28,10 +28,7 @@ ezQtMainWindow::ezQtMainWindow()
 
   m_DockManager = new ads::CDockManager(this);
   m_DockManager->setConfigFlags(static_cast<ads::CDockManager::ConfigFlags>(
-    ads::CDockManager::DockAreaHasCloseButton |
-    ads::CDockManager::DockAreaCloseButtonClosesTab |
-    ads::CDockManager::OpaqueSplitterResize |
-    ads::CDockManager::AllTabsHaveCloseButton));
+    ads::CDockManager::DockAreaHasCloseButton | ads::CDockManager::DockAreaCloseButtonClosesTab | ads::CDockManager::OpaqueSplitterResize | ads::CDockManager::AllTabsHaveCloseButton));
 
   QSettings Settings;
   SetAlwaysOnTop((OnTopMode)Settings.value("AlwaysOnTop", (int)WhenConnected).toInt());

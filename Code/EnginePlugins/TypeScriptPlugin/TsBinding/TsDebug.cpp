@@ -345,16 +345,10 @@ public:
 
   ezStaticArray<ezVariant::Type::Enum, 8> m_Args;
 
-  ezUInt32 GetNumParameters() const override
-  {
-    return m_Args.GetCount();
-  }
+  ezUInt32 GetNumParameters() const override { return m_Args.GetCount(); }
 
 
-  ezVariant::Type::Enum GetParameterType(ezUInt32 uiParam) const override
-  {
-    return m_Args[uiParam];
-  }
+  ezVariant::Type::Enum GetParameterType(ezUInt32 uiParam) const override { return m_Args[uiParam]; }
 
   ezResult Call(ezArrayPtr<ezVariant> params) override
   {

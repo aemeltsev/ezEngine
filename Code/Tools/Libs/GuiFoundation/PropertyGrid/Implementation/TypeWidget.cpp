@@ -10,8 +10,8 @@
 #include <GuiFoundation/PropertyGrid/PropertyGridWidget.moc.h>
 #include <GuiFoundation/PropertyGrid/PropertyMetaState.h>
 #include <GuiFoundation/UIServices/UIServices.moc.h>
-#include <GuiFoundation/Widgets/GroupBoxBase.moc.h>
 #include <GuiFoundation/Widgets/CollapsibleGroupBox.moc.h>
+#include <GuiFoundation/Widgets/GroupBoxBase.moc.h>
 #include <ToolsFoundation/Command/TreeCommands.h>
 #include <ToolsFoundation/Document/Document.h>
 #include <ToolsFoundation/Object/ObjectAccessorBase.h>
@@ -21,12 +21,12 @@
 #include <QLabel>
 
 
-ezQtTypeWidget::ezQtTypeWidget(QWidget* pParent, ezQtPropertyGridWidget* pGrid, ezObjectAccessorBase* pObjectAccessor, const ezRTTI* pType,
-                               const char* szIncludeProperties, const char* szExcludeProperties)
-    : QWidget(pParent)
-    , m_pGrid(pGrid)
-    , m_pObjectAccessor(pObjectAccessor)
-    , m_pType(pType)
+ezQtTypeWidget::ezQtTypeWidget(
+  QWidget* pParent, ezQtPropertyGridWidget* pGrid, ezObjectAccessorBase* pObjectAccessor, const ezRTTI* pType, const char* szIncludeProperties, const char* szExcludeProperties)
+  : QWidget(pParent)
+  , m_pGrid(pGrid)
+  , m_pObjectAccessor(pObjectAccessor)
+  , m_pType(pType)
 {
   EZ_ASSERT_DEBUG(m_pGrid && m_pObjectAccessor && m_pType, "");
   m_pLayout = new QGridLayout(this);
@@ -96,8 +96,8 @@ void ezQtTypeWidget::PrepareToDie()
   }
 }
 
-void ezQtTypeWidget::BuildUI(const ezRTTI* pType, const ezMap<ezString, const ezManipulatorAttribute*>& manipulatorMap,
-  const ezDynamicArray<ezUniquePtr<PropertyGroup>>& groups, const char* szIncludeProperties, const char* szExcludeProperties)
+void ezQtTypeWidget::BuildUI(const ezRTTI* pType, const ezMap<ezString, const ezManipulatorAttribute*>& manipulatorMap, const ezDynamicArray<ezUniquePtr<PropertyGroup>>& groups,
+  const char* szIncludeProperties, const char* szExcludeProperties)
 {
   ezQtScopedUpdatesDisabled _(this);
 
@@ -182,8 +182,6 @@ void ezQtTypeWidget::BuildUI(const ezRTTI* pType, const ezMap<ezString, const ez
     ezUInt32 iRows = m_pLayout->rowCount();
     m_pLayout->addWidget(pGroupBox, iRows, 0, 1, 3);
   }
-
-
 }
 
 void ezQtTypeWidget::BuildUI(const ezRTTI* pType, const char* szIncludeProperties, const char* szExcludeProperties)
@@ -193,8 +191,7 @@ void ezQtTypeWidget::BuildUI(const ezRTTI* pType, const char* szIncludePropertie
   PropertyGroup* pCurrentGroup = nullptr;
   float fOrder = -1.0f;
 
-  auto AddProperty = [&](const ezAbstractProperty* pProp)
-  {
+  auto AddProperty = [&](const ezAbstractProperty* pProp) {
     const ezGroupAttribute* pGroup = pProp->GetAttributeByType<ezGroupAttribute>();
     if (pGroup != nullptr)
     {
@@ -296,9 +293,7 @@ void ezQtTypeWidget::BuildUI(const ezRTTI* pType, const char* szIncludePropertie
     pCurrentGroup = nullptr;
   }
 
-  groups.Sort([](const ezUniquePtr<PropertyGroup>& lhs, const ezUniquePtr<PropertyGroup>& rhs) -> bool {
-    return lhs->m_fOrder < rhs->m_fOrder;
-  });
+  groups.Sort([](const ezUniquePtr<PropertyGroup>& lhs, const ezUniquePtr<PropertyGroup>& rhs) -> bool { return lhs->m_fOrder < rhs->m_fOrder; });
 
   BuildUI(pType, manipulatorMap, groups, szIncludeProperties, szExcludeProperties);
 }
@@ -406,8 +401,8 @@ void ezQtTypeWidget::UpdatePropertyMetaState()
   {
     auto itData = PropertyStates.Find(it.Key());
 
-    const bool bReadOnly = (it.Value().m_pWidget->GetProperty()->GetFlags().IsSet(ezPropertyFlags::ReadOnly)) ||
-                           (it.Value().m_pWidget->GetProperty()->GetAttributeByType<ezReadOnlyAttribute>() != nullptr);
+    const bool bReadOnly =
+      (it.Value().m_pWidget->GetProperty()->GetFlags().IsSet(ezPropertyFlags::ReadOnly)) || (it.Value().m_pWidget->GetProperty()->GetAttributeByType<ezReadOnlyAttribute>() != nullptr);
     ezPropertyUiState::Visibility state = ezPropertyUiState::Default;
     bool bIsDefaultValue = true;
     if (itData.IsValid())

@@ -51,8 +51,7 @@ public:
   inline static void Register(Interface* pSingletonInstance) // [tested]
   {
     EZ_ASSERT_DEV(pSingletonInstance != nullptr, "Invalid singleton instance pointer");
-    EZ_ASSERT_DEV(s_Singletons[GetHash<Interface>()].m_pInstance == nullptr, "Singleton for type '{0}' has already been registered",
-      typeid(Interface).name());
+    EZ_ASSERT_DEV(s_Singletons[GetHash<Interface>()].m_pInstance == nullptr, "Singleton for type '{0}' has already been registered", typeid(Interface).name());
 
     s_Singletons[GetHash<Interface>()] = {typeid(Interface).name(), pSingletonInstance};
   }
@@ -61,8 +60,7 @@ public:
   template <typename Interface>
   inline static void Unregister() // [tested]
   {
-    EZ_ASSERT_DEV(s_Singletons[GetHash<Interface>()].m_pInstance != nullptr, "Singleton for type '{0}' is currently not registered",
-      typeid(Interface).name());
+    EZ_ASSERT_DEV(s_Singletons[GetHash<Interface>()].m_pInstance != nullptr, "Singleton for type '{0}' is currently not registered", typeid(Interface).name());
 
     s_Singletons.Remove(GetHash<Interface>());
   }

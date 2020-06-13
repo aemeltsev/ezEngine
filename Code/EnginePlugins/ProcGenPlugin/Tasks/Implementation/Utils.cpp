@@ -70,8 +70,8 @@ ezResult ezProcGenExpressionFunctions::ApplyVolumesValidate(const ezExpression::
 
 //////////////////////////////////////////////////////////////////////////
 
-void ezProcGenInternal::ExtractVolumeCollections(const ezWorld& world, const ezBoundingBox& box, const Output& output,
-  ezDynamicArray<ezVolumeCollection>& volumeCollections, ezExpression::GlobalData& globalData)
+void ezProcGenInternal::ExtractVolumeCollections(
+  const ezWorld& world, const ezBoundingBox& box, const Output& output, ezDynamicArray<ezVolumeCollection>& volumeCollections, ezExpression::GlobalData& globalData)
 {
   auto& volumeTagSetIndices = output.m_VolumeTagSetIndices;
   if (volumeTagSetIndices.IsEmpty())

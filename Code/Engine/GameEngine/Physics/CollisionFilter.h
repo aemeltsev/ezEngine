@@ -1,8 +1,8 @@
 #pragma once
 
-#include <GameEngine/GameEngineDLL.h>
 #include <Foundation/Containers/StaticArray.h>
 #include <Foundation/Strings/String.h>
+#include <GameEngine/GameEngineDLL.h>
 
 /// \brief A 32x32 matrix of named filters that can be configured to enable or disable collisions
 class EZ_GAMEENGINE_DLL ezCollisionFilterConfig
@@ -42,8 +42,4 @@ public:
 private:
   ezUInt32 m_GroupMasks[32];
   char m_GroupNames[32][32];
-
-
 };
-
-

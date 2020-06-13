@@ -23,7 +23,6 @@ public:
   ezMemoryStreamStorage m_TextureAtlas;
 
 private:
-
   //////////////////////////////////////////////////////////////////////////
   // Modifying the Descriptor
 
@@ -92,7 +91,4 @@ private:
   // Texture Atlas
 
   ezResult GenerateTextureAtlas(ezMemoryStreamWriter& stream);
-
 };
-
-

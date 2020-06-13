@@ -4,8 +4,8 @@
 #include <Core/World/CoordinateSystem.h>
 #include <Foundation/Math/Mat4.h>
 #include <Foundation/Reflection/Reflection.h>
-#include <Foundation/Types/UniquePtr.h>
 #include <Foundation/Types/SharedPtr.h>
+#include <Foundation/Types/UniquePtr.h>
 
 /// \brief Specifies in which mode this camera is configured.
 struct EZ_CORE_DLL ezCameraMode
@@ -174,8 +174,8 @@ public:
   ///
   /// If the camera is stereo and the given aspect ratio is close to the aspect ratio passed in SetStereoProjection,
   /// the matrix set in SetStereoProjection will be used.
-  void GetProjectionMatrix(float fAspectRatioWidthDivHeight, ezMat4& out_projectionMatrix, ezCameraEye eye = ezCameraEye::Left,
-    ezClipSpaceDepthRange::Enum depthRange = ezClipSpaceDepthRange::Default) const;
+  void GetProjectionMatrix(
+    float fAspectRatioWidthDivHeight, ezMat4& out_projectionMatrix, ezCameraEye eye = ezCameraEye::Left, ezClipSpaceDepthRange::Enum depthRange = ezClipSpaceDepthRange::Default) const;
 
   float GetExposure() const;
 

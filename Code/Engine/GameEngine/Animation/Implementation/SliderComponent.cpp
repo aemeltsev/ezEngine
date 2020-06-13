@@ -4,8 +4,7 @@
 #include <Core/WorldSerializer/WorldWriter.h>
 #include <GameEngine/Animation/SliderComponent.h>
 
-float CalculateAcceleratedMovement(
-  float fDistanceInMeters, float fAcceleration, float fMaxVelocity, float fDeceleration, ezTime& fTimeSinceStartInSec);
+float CalculateAcceleratedMovement(float fDistanceInMeters, float fAcceleration, float fMaxVelocity, float fDeceleration, ezTime& fTimeSinceStartInSec);
 
 // clang-format off
 EZ_BEGIN_COMPONENT_TYPE(ezSliderComponent, 3, ezComponentMode::Dynamic)
@@ -59,8 +58,7 @@ void ezSliderComponent::Update()
     else
       m_AnimationTime += GetWorld()->GetClock().GetTimeDiff();
 
-    const float fNewDistance =
-      CalculateAcceleratedMovement(m_fDistanceToTravel, m_fAcceleration, m_fAnimationSpeed, m_fDeceleration, m_AnimationTime);
+    const float fNewDistance = CalculateAcceleratedMovement(m_fDistanceToTravel, m_fAcceleration, m_fAnimationSpeed, m_fDeceleration, m_AnimationTime);
 
     const float fDistanceDiff = fNewDistance - m_fLastDistance;
 

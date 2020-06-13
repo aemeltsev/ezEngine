@@ -15,9 +15,8 @@ namespace ezProcGenInternal
     VertexColorTask();
     ~VertexColorTask();
 
-    void Prepare(const ezWorld& world, const ezMeshBufferResourceDescriptor& mbDesc, const ezTransform& transform,
-      ezArrayPtr<ezSharedPtr<const VertexColorOutput>> outputs, ezArrayPtr<ezProcVertexColorMapping> outputMappings,
-      ezArrayPtr<ezUInt32> outputVertexColors);
+    void Prepare(const ezWorld& world, const ezMeshBufferResourceDescriptor& mbDesc, const ezTransform& transform, ezArrayPtr<ezSharedPtr<const VertexColorOutput>> outputs,
+      ezArrayPtr<ezProcVertexColorMapping> outputMappings, ezArrayPtr<ezUInt32> outputVertexColors);
 
   private:
     virtual void Execute() override;

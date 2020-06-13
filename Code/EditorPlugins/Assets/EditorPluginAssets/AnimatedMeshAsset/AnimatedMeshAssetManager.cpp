@@ -38,8 +38,7 @@ void ezAnimatedMeshAssetDocumentManager::OnDocumentManagerEvent(const ezDocument
     {
       if (e.m_pDocument->GetDynamicRTTI() == ezGetStaticRTTI<ezAnimatedMeshAssetDocument>())
       {
-        ezQtAnimatedMeshAssetDocumentWindow* pDocWnd =
-          new ezQtAnimatedMeshAssetDocumentWindow(static_cast<ezAnimatedMeshAssetDocument*>(e.m_pDocument));
+        ezQtAnimatedMeshAssetDocumentWindow* pDocWnd = new ezQtAnimatedMeshAssetDocumentWindow(static_cast<ezAnimatedMeshAssetDocument*>(e.m_pDocument));
       }
     }
     break;

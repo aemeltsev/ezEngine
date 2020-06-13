@@ -126,13 +126,11 @@ void ezEnumerationMenuAction::GetEntries(ezHybridArray<ezDynamicMenuAction::Item
         item.m_UserValue = iValue;
         if (m_pEnumerationType->IsDerivedFrom<ezEnumBase>())
         {
-          item.m_CheckState =
-            (iCurrentValue == iValue) ? ezDynamicMenuAction::Item::CheckMark::Checked : ezDynamicMenuAction::Item::CheckMark::Unchecked;
+          item.m_CheckState = (iCurrentValue == iValue) ? ezDynamicMenuAction::Item::CheckMark::Checked : ezDynamicMenuAction::Item::CheckMark::Unchecked;
         }
         else if (m_pEnumerationType->IsDerivedFrom<ezBitflagsBase>())
         {
-          item.m_CheckState = ((iCurrentValue & iValue) != 0) ? ezDynamicMenuAction::Item::CheckMark::Checked
-                                                              : ezDynamicMenuAction::Item::CheckMark::Unchecked;
+          item.m_CheckState = ((iCurrentValue & iValue) != 0) ? ezDynamicMenuAction::Item::CheckMark::Checked : ezDynamicMenuAction::Item::CheckMark::Unchecked;
         }
       }
     }

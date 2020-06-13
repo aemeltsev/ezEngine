@@ -16,10 +16,7 @@
 class ezAssetProfilesObjectManager : public ezDocumentObjectManager
 {
 public:
-  virtual void GetCreateableTypes(ezHybridArray<const ezRTTI*, 32>& Types) const override
-  {
-    Types.PushBack(ezGetStaticRTTI<ezPlatformProfile>());
-  }
+  virtual void GetCreateableTypes(ezHybridArray<const ezRTTI*, 32>& Types) const override { Types.PushBack(ezGetStaticRTTI<ezPlatformProfile>()); }
 };
 
 class ezAssetProfilesDocument : public ezDocument
@@ -156,8 +153,7 @@ ezUuid ezQtAssetProfilesDlg::NativeToObject(ezPlatformProfile* pProfile)
   ezDocumentObject* pObject = m_pDocument->GetObjectManager()->CreateObject(pType);
   m_pDocument->GetObjectManager()->AddObject(pObject, pRoot, "Children", -1);
 
-  ezDocumentObjectConverterReader objectConverter(
-    &graph, m_pDocument->GetObjectManager(), ezDocumentObjectConverterReader::Mode::CreateAndAddToDocument);
+  ezDocumentObjectConverterReader objectConverter(&graph, m_pDocument->GetObjectManager(), ezDocumentObjectConverterReader::Mode::CreateAndAddToDocument);
   objectConverter.ApplyPropertiesToObject(pNode, pObject);
 
   return pObject->GetGuid();
@@ -190,8 +186,7 @@ void ezQtAssetProfilesDlg::SelectionEventHandler(const ezSelectionManagerEvent& 
 {
   const auto& selection = m_pDocument->GetSelectionManager()->GetSelection();
 
-  const bool bAllowModification =
-    !selection.IsEmpty() && (selection[0] != m_pDocument->GetObjectManager()->GetRootObject()->GetChildren()[0]);
+  const bool bAllowModification = !selection.IsEmpty() && (selection[0] != m_pDocument->GetObjectManager()->GetRootObject()->GetChildren()[0]);
 
   DeleteButton->setEnabled(bAllowModification);
   RenameButton->setEnabled(bAllowModification);
@@ -309,8 +304,7 @@ void ezQtAssetProfilesDlg::on_DeleteButton_clicked()
   if (sel[0] == m_pDocument->GetObjectManager()->GetRootObject()->GetChildren()[0])
     return;
 
-  if (ezQtUiServices::GetSingleton()->MessageBoxQuestion(
-        ezFmt("Delete the selected profile?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) != QMessageBox::Yes)
+  if (ezQtUiServices::GetSingleton()->MessageBoxQuestion(ezFmt("Delete the selected profile?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) != QMessageBox::Yes)
     return;
 
   m_ProfileBindings[sel[0]->GetGuid()].m_State = Binding::State::Deleted;

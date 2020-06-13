@@ -8,8 +8,7 @@
 #include <Texture/Image/ImageFilter.h>
 
 template <typename TYPE>
-static void SetDiff(
-  const ezImageView& ImageA, const ezImageView& ImageB, ezImage& out_Difference, ezUInt32 w, ezUInt32 h, ezUInt32 d, ezUInt32 comp)
+static void SetDiff(const ezImageView& ImageA, const ezImageView& ImageB, ezImage& out_Difference, ezUInt32 w, ezUInt32 h, ezUInt32 d, ezUInt32 comp)
 {
   const TYPE* pA = ImageA.GetPixelPointer<TYPE>(0, 0, 0, w, h, d);
   const TYPE* pB = ImageB.GetPixelPointer<TYPE>(0, 0, 0, w, h, d);
@@ -194,8 +193,7 @@ static void ApplyFunc(ImageType& image, Func func)
   ezUInt32 uiHeight = image.GetHeight();
   ezUInt32 uiDepth = image.GetDepth();
 
-  EZ_ASSERT_DEV(uiWidth > 0 && uiHeight > 0 && uiDepth > 0, "The image passed to FindMinMax has illegal dimension {}x{}x{}.", uiWidth,
-    uiHeight, uiDepth);
+  EZ_ASSERT_DEV(uiWidth > 0 && uiHeight > 0 && uiDepth > 0, "The image passed to FindMinMax has illegal dimension {}x{}x{}.", uiWidth, uiHeight, uiDepth);
 
   ezUInt64 uiRowPitch = image.GetRowPitch();
   ezUInt64 uiDepthPitch = image.GetDepthPitch();
@@ -228,8 +226,7 @@ static void ApplyFunc(ImageType& image, Func func)
 static void FindMinMax(const ezImageView& image, ezUInt8& uiMinRgb, ezUInt8& uiMaxRgb, ezUInt8& uiMinAlpha, ezUInt8& uiMaxAlpha)
 {
   ezImageFormat::Enum imageFormat = image.GetImageFormat();
-  EZ_ASSERT_DEV(ezImageFormat::GetBitsPerChannel(imageFormat, ezImageFormatChannel::R) == 8 &&
-                  ezImageFormat::GetDataType(imageFormat) == ezImageFormatDataType::UNORM,
+  EZ_ASSERT_DEV(ezImageFormat::GetBitsPerChannel(imageFormat, ezImageFormatChannel::R) == 8 && ezImageFormat::GetDataType(imageFormat) == ezImageFormatDataType::UNORM,
     "Only 8bpp unorm formats are supported in FindMinMax");
 
   uiMinRgb = 255u;
@@ -264,8 +261,7 @@ void ezImageUtils::Normalize(ezImage& image, ezUInt8& uiMinRgb, ezUInt8& uiMaxRg
 {
   ezImageFormat::Enum imageFormat = image.GetImageFormat();
 
-  EZ_ASSERT_DEV(ezImageFormat::GetBitsPerChannel(imageFormat, ezImageFormatChannel::R) == 8 &&
-                  ezImageFormat::GetDataType(imageFormat) == ezImageFormatDataType::UNORM,
+  EZ_ASSERT_DEV(ezImageFormat::GetBitsPerChannel(imageFormat, ezImageFormatChannel::R) == 8 && ezImageFormat::GetDataType(imageFormat) == ezImageFormatDataType::UNORM,
     "Only 8bpp unorm formats are supported in NormalizeImage");
 
   bool ignoreAlpha = false;
@@ -313,8 +309,7 @@ void ezImageUtils::ExtractAlphaChannel(const ezImageView& inputImage, ezImage& o
     case ezImageFormat::B8G8R8A8_UNORM_SRGB:
       break;
     default:
-      EZ_REPORT_FAILURE(
-        "ExtractAlpha needs an image with 8bpp and 4 channel. The ezImageFormat {} is not supported.", (ezUInt32)imageFormat);
+      EZ_REPORT_FAILURE("ExtractAlpha needs an image with 8bpp and 4 channel. The ezImageFormat {} is not supported.", (ezUInt32)imageFormat);
       return;
   }
 
@@ -455,8 +450,8 @@ void ezImageUtils::RotateSubImage180(ezImage& image, ezUInt32 uiMipLevel /*= 0*/
   }
 }
 
-ezResult ezImageUtils::Copy(const ezImageView& srcImg, const ezRectU32& srcRect, ezImage& dstImg, const ezVec3U32& dstOffset,
-  ezUInt32 uiDstMipLevel /*= 0*/, ezUInt32 uiDstFace /*= 0*/, ezUInt32 uiDstArrayIndex /*= 0*/)
+ezResult ezImageUtils::Copy(
+  const ezImageView& srcImg, const ezRectU32& srcRect, ezImage& dstImg, const ezVec3U32& dstOffset, ezUInt32 uiDstMipLevel /*= 0*/, ezUInt32 uiDstFace /*= 0*/, ezUInt32 uiDstArrayIndex /*= 0*/)
 {
   if (dstImg.GetImageFormat() != srcImg.GetImageFormat()) // Can only copy when the image formats are identical
     return EZ_FAILURE;
@@ -502,9 +497,7 @@ ezResult ezImageUtils::ExtractLowerMipChain(const ezImageView& srcImg, ezImage& 
   {
     // Some block compressed image formats require resolutions that are divisible by block size,
     // therefore adjust startMipLevel accordingly
-    while (
-      srcImgHeader.GetWidth(startMipLevel) % ezImageFormat::GetBlockWidth(format) != 0 ||
-      srcImgHeader.GetHeight(startMipLevel) % ezImageFormat::GetBlockHeight(format) != 0)
+    while (srcImgHeader.GetWidth(startMipLevel) % ezImageFormat::GetBlockWidth(format) != 0 || srcImgHeader.GetHeight(startMipLevel) % ezImageFormat::GetBlockHeight(format) != 0)
     {
       if (uiNumMips >= srcImgHeader.GetNumMipLevels())
         return EZ_FAILURE;
@@ -585,8 +578,7 @@ ezUInt32 ezImageUtils::GetSampleIndex(ezUInt32 numTexels, ezInt32 index, ezImage
   return index;
 }
 
-static ezSimdVec4f LoadSample(const ezSimdVec4f* source, ezUInt32 numSourceElements, ezUInt32 stride, ezInt32 index,
-  ezImageAddressMode::Enum addressMode, const ezSimdVec4f& borderColor)
+static ezSimdVec4f LoadSample(const ezSimdVec4f* source, ezUInt32 numSourceElements, ezUInt32 stride, ezInt32 index, ezImageAddressMode::Enum addressMode, const ezSimdVec4f& borderColor)
 {
   bool useBorderColor = false;
   // result is in the range [-(w-1), (w-1)], bring it to [0, w - 1]
@@ -598,9 +590,8 @@ static ezSimdVec4f LoadSample(const ezSimdVec4f* source, ezUInt32 numSourceEleme
   return source[index * stride];
 }
 
-inline static void FilterLine(ezUInt32 numSourceElements, const ezSimdVec4f* __restrict sourceBegin, ezSimdVec4f* __restrict targetBegin,
-  ezUInt32 stride, const ezImageFilterWeights& weights, ezArrayPtr<const ezInt32> firstSampleIndices, ezImageAddressMode::Enum addressMode,
-  const ezSimdVec4f& borderColor)
+inline static void FilterLine(ezUInt32 numSourceElements, const ezSimdVec4f* __restrict sourceBegin, ezSimdVec4f* __restrict targetBegin, ezUInt32 stride, const ezImageFilterWeights& weights,
+  ezArrayPtr<const ezInt32> firstSampleIndices, ezImageAddressMode::Enum addressMode, const ezSimdVec4f& borderColor)
 {
   // Convolve the image using the precomputed weights
   const ezUInt32 numWeights = weights.GetNumWeights();
@@ -632,8 +623,7 @@ inline static void FilterLine(ezUInt32 numSourceElements, const ezSimdVec4f* __r
       ezInt32 sourceIdx = firstSourceIdx;
       for (ezUInt32 weightIdx = 0; weightIdx < numWeights; ++weightIdx)
       {
-        total = ezSimdVec4f::MulAdd(
-          LoadSample(sourceBegin, numSourceElements, stride, sourceIdx, addressMode, borderColor), ezSimdVec4f(*nextWeightPtr++), total);
+        total = ezSimdVec4f::MulAdd(LoadSample(sourceBegin, numSourceElements, stride, sourceIdx, addressMode, borderColor), ezSimdVec4f(*nextWeightPtr++), total);
         sourceIdx++;
       }
     }
@@ -648,8 +638,7 @@ inline static void FilterLine(ezUInt32 numSourceElements, const ezSimdVec4f* __r
   }
 }
 
-static void DownScaleFastLine(
-  ezUInt32 pixelStride, const ezUInt8* src, ezUInt8* dest, ezUInt32 lengthIn, ezUInt32 strideIn, ezUInt32 lengthOut, ezUInt32 strideOut)
+static void DownScaleFastLine(ezUInt32 pixelStride, const ezUInt8* src, ezUInt8* dest, ezUInt32 lengthIn, ezUInt32 strideIn, ezUInt32 lengthOut, ezUInt32 strideOut)
 {
   const ezUInt32 downScaleFactor = lengthIn / lengthOut;
 
@@ -703,8 +692,8 @@ static void DownScaleFast(const ezImageView& image, ezImage& out_Result, ezUInt3
     {
       for (ezUInt32 row = 0; row < originalHeight; row++)
       {
-        DownScaleFastLine(pixelStride, image.GetPixelPointer<ezUInt8>(0, face, arrayIndex, 0, row),
-          intermediate.GetPixelPointer<ezUInt8>(0, face, arrayIndex, 0, row), originalWidth, pixelStride, width, pixelStride);
+        DownScaleFastLine(
+          pixelStride, image.GetPixelPointer<ezUInt8>(0, face, arrayIndex, 0, row), intermediate.GetPixelPointer<ezUInt8>(0, face, arrayIndex, 0, row), originalWidth, pixelStride, width, pixelStride);
       }
     }
   }
@@ -729,9 +718,8 @@ static void DownScaleFast(const ezImageView& image, ezImage& out_Result, ezUInt3
     {
       for (ezUInt32 col = 0; col < width; col++)
       {
-        DownScaleFastLine(pixelStride, intermediate.GetPixelPointer<ezUInt8>(0, face, arrayIndex, col),
-          out_Result.GetPixelPointer<ezUInt8>(0, face, arrayIndex, col), originalHeight, static_cast<ezUInt32>(intermediate.GetRowPitch()), height,
-          static_cast<ezUInt32>(out_Result.GetRowPitch()));
+        DownScaleFastLine(pixelStride, intermediate.GetPixelPointer<ezUInt8>(0, face, arrayIndex, col), out_Result.GetPixelPointer<ezUInt8>(0, face, arrayIndex, col), originalHeight,
+          static_cast<ezUInt32>(intermediate.GetRowPitch()), height, static_cast<ezUInt32>(out_Result.GetRowPitch()));
       }
     }
   }
@@ -816,15 +804,14 @@ static void NormalizeCoverage(ezBlobPtr<ezColor> colors, float alphaThreshold, f
 }
 
 
-ezResult ezImageUtils::Scale(const ezImageView& source, ezImage& target, ezUInt32 width, ezUInt32 height, const ezImageFilter* filter,
-  ezImageAddressMode::Enum addressModeU, ezImageAddressMode::Enum addressModeV, const ezColor& borderColor)
+ezResult ezImageUtils::Scale(const ezImageView& source, ezImage& target, ezUInt32 width, ezUInt32 height, const ezImageFilter* filter, ezImageAddressMode::Enum addressModeU,
+  ezImageAddressMode::Enum addressModeV, const ezColor& borderColor)
 {
   return Scale3D(source, target, width, height, 1, filter, addressModeU, addressModeV, ezImageAddressMode::Clamp, borderColor);
 }
 
-ezResult ezImageUtils::Scale3D(const ezImageView& source, ezImage& target, ezUInt32 width, ezUInt32 height, ezUInt32 depth,
-  const ezImageFilter* filter /*= ez_NULL*/, ezImageAddressMode::Enum addressModeU /*= ezImageAddressMode::Clamp*/,
-  ezImageAddressMode::Enum addressModeV /*= ezImageAddressMode::Clamp*/,
+ezResult ezImageUtils::Scale3D(const ezImageView& source, ezImage& target, ezUInt32 width, ezUInt32 height, ezUInt32 depth, const ezImageFilter* filter /*= ez_NULL*/,
+  ezImageAddressMode::Enum addressModeU /*= ezImageAddressMode::Clamp*/, ezImageAddressMode::Enum addressModeV /*= ezImageAddressMode::Clamp*/,
   ezImageAddressMode::Enum addressModeW /*= ezImageAddressMode::Clamp*/, const ezColor& borderColor /*= ezColors::Black*/)
 {
   if (width == 0 || height == 0 || depth == 0)
@@ -853,10 +840,8 @@ ezResult ezImageUtils::Scale3D(const ezImageView& source, ezImage& target, ezUIn
   const ezUInt32 downScaleFactorX = originalWidth / width;
   const ezUInt32 downScaleFactorY = originalHeight / height;
 
-  if (filter == nullptr &&
-      (format == ezImageFormat::R8G8B8A8_UNORM || format == ezImageFormat::B8G8R8A8_UNORM || format == ezImageFormat::B8G8R8_UNORM) &&
-      downScaleFactorX * width == originalWidth && downScaleFactorY * height == originalHeight && depth == 1 && originalDepth == 1 &&
-      ezMath::IsPowerOf2(downScaleFactorX) && ezMath::IsPowerOf2(downScaleFactorY))
+  if (filter == nullptr && (format == ezImageFormat::R8G8B8A8_UNORM || format == ezImageFormat::B8G8R8A8_UNORM || format == ezImageFormat::B8G8R8_UNORM) && downScaleFactorX * width == originalWidth &&
+      downScaleFactorY * height == originalHeight && depth == 1 && originalDepth == 1 && ezMath::IsPowerOf2(downScaleFactorX) && ezMath::IsPowerOf2(downScaleFactorY))
   {
     DownScaleFast(source, target, width, height);
     return EZ_SUCCESS;
@@ -948,8 +933,7 @@ ezResult ezImageUtils::Scale3D(const ezImageView& source, ezImage& target, ezUIn
           {
             const ezSimdVec4f* filterSource = stepSource->GetPixelPointer<ezSimdVec4f>(0, face, arrayIndex, 0, y, z);
             ezSimdVec4f* filterTarget = stepTarget->GetPixelPointer<ezSimdVec4f>(0, face, arrayIndex, 0, y, z);
-            FilterLine(originalWidth, filterSource, filterTarget, 1, weights, firstSampleIndices, addressModeU,
-              ezSimdVec4f(borderColor.r, borderColor.g, borderColor.b, borderColor.a));
+            FilterLine(originalWidth, filterSource, filterTarget, 1, weights, firstSampleIndices, addressModeU, ezSimdVec4f(borderColor.r, borderColor.g, borderColor.b, borderColor.a));
           }
         }
       }
@@ -992,8 +976,7 @@ ezResult ezImageUtils::Scale3D(const ezImageView& source, ezImage& target, ezUIn
           {
             const ezSimdVec4f* filterSource = stepSource->GetPixelPointer<ezSimdVec4f>(0, face, arrayIndex, x, 0, z);
             ezSimdVec4f* filterTarget = stepTarget->GetPixelPointer<ezSimdVec4f>(0, face, arrayIndex, x, 0, z);
-            FilterLine(originalHeight, filterSource, filterTarget, width, weights, firstSampleIndices, addressModeV,
-              ezSimdVec4f(borderColor.r, borderColor.g, borderColor.b, borderColor.a));
+            FilterLine(originalHeight, filterSource, filterTarget, width, weights, firstSampleIndices, addressModeV, ezSimdVec4f(borderColor.r, borderColor.g, borderColor.b, borderColor.a));
           }
         }
       }
@@ -1036,8 +1019,7 @@ ezResult ezImageUtils::Scale3D(const ezImageView& source, ezImage& target, ezUIn
           {
             const ezSimdVec4f* filterSource = stepSource->GetPixelPointer<ezSimdVec4f>(0, face, arrayIndex, x, y, 0);
             ezSimdVec4f* filterTarget = stepTarget->GetPixelPointer<ezSimdVec4f>(0, face, arrayIndex, x, y, 0);
-            FilterLine(originalHeight, filterSource, filterTarget, width * height, weights, firstSampleIndices, addressModeW,
-              ezSimdVec4f(borderColor.r, borderColor.g, borderColor.b, borderColor.a));
+            FilterLine(originalHeight, filterSource, filterTarget, width * height, weights, firstSampleIndices, addressModeW, ezSimdVec4f(borderColor.r, borderColor.g, borderColor.b, borderColor.a));
           }
         }
       }
@@ -1096,8 +1078,7 @@ void ezImageUtils::GenerateMipMaps(const ezImageView& source, ezImage& target, c
       float targetCoverage = 0.0f;
       if (mipMapOptions.m_preserveCoverage)
       {
-        targetCoverage =
-          EvaluateAverageCoverage(source.GetSubImageView(0, face, arrayIndex).GetBlobPtr<ezColor>(), mipMapOptions.m_alphaThreshold);
+        targetCoverage = EvaluateAverageCoverage(source.GetSubImageView(0, face, arrayIndex).GetBlobPtr<ezColor>(), mipMapOptions.m_alphaThreshold);
       }
 
       for (ezUInt32 mipMapLevel = 0; mipMapLevel < numMipMaps - 1; mipMapLevel++)
@@ -1115,9 +1096,8 @@ void ezImageUtils::GenerateMipMaps(const ezImageView& source, ezImage& target, c
         ezImage nextMipMap;
         nextMipMap.ResetAndUseExternalStorage(nextMipMapHeader, dstData);
 
-        ezImageUtils::Scale3D(currentMipMap, nextMipMap, nextMipMapHeader.GetWidth(), nextMipMapHeader.GetHeight(),
-          nextMipMapHeader.GetDepth(), mipMapOptions.m_filter, mipMapOptions.m_addressModeU, mipMapOptions.m_addressModeV,
-          mipMapOptions.m_addressModeW, mipMapOptions.m_borderColor);
+        ezImageUtils::Scale3D(currentMipMap, nextMipMap, nextMipMapHeader.GetWidth(), nextMipMapHeader.GetHeight(), nextMipMapHeader.GetDepth(), mipMapOptions.m_filter, mipMapOptions.m_addressModeU,
+          mipMapOptions.m_addressModeV, mipMapOptions.m_addressModeW, mipMapOptions.m_borderColor);
 
         if (mipMapOptions.m_preserveCoverage)
         {
@@ -1188,13 +1168,10 @@ void ezImageUtils::RenormalizeNormalMap(ezImage& image)
 
 void ezImageUtils::AdjustRoughness(ezImage& roughnessMap, const ezImageView& normalMap)
 {
-  EZ_ASSERT_DEV(
-    roughnessMap.GetImageFormat() == ezImageFormat::R32G32B32A32_FLOAT, "This algorithm currently expects a RGBA 32 Float as input");
-  EZ_ASSERT_DEV(
-    normalMap.GetImageFormat() == ezImageFormat::R32G32B32A32_FLOAT, "This algorithm currently expects a RGBA 32 Float as input");
+  EZ_ASSERT_DEV(roughnessMap.GetImageFormat() == ezImageFormat::R32G32B32A32_FLOAT, "This algorithm currently expects a RGBA 32 Float as input");
+  EZ_ASSERT_DEV(normalMap.GetImageFormat() == ezImageFormat::R32G32B32A32_FLOAT, "This algorithm currently expects a RGBA 32 Float as input");
 
-  EZ_ASSERT_DEV(roughnessMap.GetWidth() >= normalMap.GetWidth() && roughnessMap.GetHeight() >= normalMap.GetHeight(),
-    "The roughness map needs to be bigger or same size than the normal map.");
+  EZ_ASSERT_DEV(roughnessMap.GetWidth() >= normalMap.GetWidth() && roughnessMap.GetHeight() >= normalMap.GetHeight(), "The roughness map needs to be bigger or same size than the normal map.");
 
   ezImage filteredNormalMap;
   ezImageUtils::MipMapOptions options;
@@ -1212,8 +1189,7 @@ void ezImageUtils::AdjustRoughness(ezImage& roughnessMap, const ezImageView& nor
     ezImageUtils::GenerateMipMaps(normalMap, filteredNormalMap, options);
   }
 
-  EZ_ASSERT_DEV(roughnessMap.GetNumMipLevels() == filteredNormalMap.GetNumMipLevels(),
-    "Roughness and normal map must have the same number of mip maps");
+  EZ_ASSERT_DEV(roughnessMap.GetNumMipLevels() == filteredNormalMap.GetNumMipLevels(), "Roughness and normal map must have the same number of mip maps");
 
   ezSimdVec4f two(2.0f);
   ezSimdVec4f minusOne(-1.0f);

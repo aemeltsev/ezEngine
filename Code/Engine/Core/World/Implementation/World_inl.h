@@ -18,8 +18,8 @@ EZ_FORCE_INLINE ezGameObjectHandle ezWorld::CreateObject(const ezGameObjectDesc&
 EZ_FORCE_INLINE bool ezWorld::IsValidObject(const ezGameObjectHandle& object) const
 {
   CheckForReadAccess();
-  EZ_ASSERT_DEV(object.IsInvalidated() || object.m_InternalId.m_WorldIndex == m_uiIndex,
-    "Object does not belong to this world. Expected world id {0} got id {1}", m_uiIndex, object.m_InternalId.m_WorldIndex);
+  EZ_ASSERT_DEV(
+    object.IsInvalidated() || object.m_InternalId.m_WorldIndex == m_uiIndex, "Object does not belong to this world. Expected world id {0} got id {1}", m_uiIndex, object.m_InternalId.m_WorldIndex);
 
   return m_Data.m_Objects.Contains(object);
 }
@@ -27,8 +27,8 @@ EZ_FORCE_INLINE bool ezWorld::IsValidObject(const ezGameObjectHandle& object) co
 EZ_FORCE_INLINE bool ezWorld::TryGetObject(const ezGameObjectHandle& object, ezGameObject*& out_pObject)
 {
   CheckForReadAccess();
-  EZ_ASSERT_DEV(object.IsInvalidated() || object.m_InternalId.m_WorldIndex == m_uiIndex,
-    "Object does not belong to this world. Expected world id {0} got id {1}", m_uiIndex, object.m_InternalId.m_WorldIndex);
+  EZ_ASSERT_DEV(
+    object.IsInvalidated() || object.m_InternalId.m_WorldIndex == m_uiIndex, "Object does not belong to this world. Expected world id {0} got id {1}", m_uiIndex, object.m_InternalId.m_WorldIndex);
 
   return m_Data.m_Objects.TryGetValue(object, out_pObject);
 }
@@ -36,8 +36,8 @@ EZ_FORCE_INLINE bool ezWorld::TryGetObject(const ezGameObjectHandle& object, ezG
 EZ_FORCE_INLINE bool ezWorld::TryGetObject(const ezGameObjectHandle& object, const ezGameObject*& out_pObject) const
 {
   CheckForReadAccess();
-  EZ_ASSERT_DEV(object.IsInvalidated() || object.m_InternalId.m_WorldIndex == m_uiIndex,
-    "Object does not belong to this world. Expected world id {0} got id {1}", m_uiIndex, object.m_InternalId.m_WorldIndex);
+  EZ_ASSERT_DEV(
+    object.IsInvalidated() || object.m_InternalId.m_WorldIndex == m_uiIndex, "Object does not belong to this world. Expected world id {0} got id {1}", m_uiIndex, object.m_InternalId.m_WorldIndex);
 
   ezGameObject* pObject = nullptr;
   bool bResult = m_Data.m_Objects.TryGetValue(object, pObject);
@@ -333,15 +333,13 @@ EZ_FORCE_INLINE void ezWorld::SendMessageRecursive(const ezGameObjectHandle& rec
   }
 }
 
-EZ_ALWAYS_INLINE void ezWorld::PostMessage(const ezGameObjectHandle& receiverObject, const ezMessage& msg, ezTime delay,
-  ezObjectMsgQueueType::Enum queueType) const
+EZ_ALWAYS_INLINE void ezWorld::PostMessage(const ezGameObjectHandle& receiverObject, const ezMessage& msg, ezTime delay, ezObjectMsgQueueType::Enum queueType) const
 {
   // This method is allowed to be called from multiple threads.
   PostMessage(receiverObject, msg, queueType, delay, false);
 }
 
-EZ_ALWAYS_INLINE void ezWorld::PostMessageRecursive(const ezGameObjectHandle& receiverObject, const ezMessage& msg, ezTime delay,
-  ezObjectMsgQueueType::Enum queueType) const
+EZ_ALWAYS_INLINE void ezWorld::PostMessageRecursive(const ezGameObjectHandle& receiverObject, const ezMessage& msg, ezTime delay, ezObjectMsgQueueType::Enum queueType) const
 {
   // This method is allowed to be called from multiple threads.
   PostMessage(receiverObject, msg, queueType, delay, true);
@@ -526,8 +524,7 @@ EZ_ALWAYS_INLINE void ezWorld::CheckForReadAccess() const
 
 EZ_ALWAYS_INLINE void ezWorld::CheckForWriteAccess() const
 {
-  EZ_ASSERT_DEV(m_Data.m_WriteThreadID == ezThreadUtils::GetCurrentThreadID(),
-    "Trying to write to World '{0}', but it is not marked for writing.", GetName());
+  EZ_ASSERT_DEV(m_Data.m_WriteThreadID == ezThreadUtils::GetCurrentThreadID(), "Trying to write to World '{0}', but it is not marked for writing.", GetName());
 }
 
 EZ_ALWAYS_INLINE ezGameObject* ezWorld::GetObjectUnchecked(ezUInt32 uiIndex) const

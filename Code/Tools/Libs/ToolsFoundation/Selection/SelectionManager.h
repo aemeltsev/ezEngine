@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ToolsFoundation/ToolsFoundationDLL.h>
 #include <ToolsFoundation/Object/DocumentObjectBase.h>
+#include <ToolsFoundation/ToolsFoundationDLL.h>
 
 class ezDocument;
 struct ezDocumentObjectStructureEvent;
@@ -24,7 +24,6 @@ struct ezSelectionManagerEvent
 class EZ_TOOLSFOUNDATION_DLL ezSelectionManager
 {
 public:
-
   ezEvent<const ezSelectionManagerEvent&> m_Events;
 
 public:

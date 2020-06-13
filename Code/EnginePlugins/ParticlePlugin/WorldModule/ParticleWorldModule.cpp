@@ -246,7 +246,7 @@ void ezParticleWorldModule::CreateFinisherComponent(ezParticleEffectInstance* pE
     go.m_LocalPosition = transform.m_vPosition;
     go.m_LocalRotation = transform.m_qRotation;
     go.m_LocalScaling = transform.m_vScale;
-    //go.m_Tags = GetOwner()->GetTags(); // TODO: pass along tags -> needed for rendering filters
+    // go.m_Tags = GetOwner()->GetTags(); // TODO: pass along tags -> needed for rendering filters
 
     ezGameObject* pFinisher;
     pWorld->CreateObject(go, pFinisher);

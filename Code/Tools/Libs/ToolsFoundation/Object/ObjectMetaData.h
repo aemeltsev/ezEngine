@@ -1,16 +1,15 @@
 #pragma once
 
-#include <ToolsFoundation/ToolsFoundationDLL.h>
-#include <Foundation/Containers/HashTable.h>
 #include <Foundation/Communication/Event.h>
-#include <Foundation/Serialization/AbstractObjectGraph.h>
+#include <Foundation/Containers/HashTable.h>
 #include <Foundation/Reflection/ReflectionUtils.h>
+#include <Foundation/Serialization/AbstractObjectGraph.h>
+#include <ToolsFoundation/ToolsFoundationDLL.h>
 
-template<typename KEY, typename VALUE>
+template <typename KEY, typename VALUE>
 class ezObjectMetaData
 {
 public:
-
   struct EventData
   {
     KEY m_ObjectKey;
@@ -45,12 +44,12 @@ public:
 
 private:
   VALUE m_DefaultValue;
-  mutable enum class AccessMode { Nothing, Read, Write } m_AccessMode;
+  mutable enum class AccessMode { Nothing,
+    Read,
+    Write } m_AccessMode;
   mutable KEY m_AcessingKey;
   mutable ezMutex m_Mutex;
   ezHashTable<KEY, VALUE> m_MetaData;
 };
 
 #include <ToolsFoundation/Object/Implementation/ObjectMetaData_inl.h>
-
-

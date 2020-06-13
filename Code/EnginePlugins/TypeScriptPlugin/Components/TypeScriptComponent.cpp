@@ -358,8 +358,8 @@ void ezTypeScriptComponent::OnMsgTypeScriptMsgProxy(ezMsgTypeScriptMsgProxy& msg
 
 const ezRangeView<const char*, ezUInt32> ezTypeScriptComponent::GetParameters() const
 {
-  return ezRangeView<const char*, ezUInt32>([]() -> ezUInt32 { return 0; }, [this]() -> ezUInt32 { return m_Parameters.GetCount(); },
-    [](ezUInt32& it) { ++it; }, [this](const ezUInt32& it) -> const char* { return m_Parameters.GetKey(it).GetString().GetData(); });
+  return ezRangeView<const char*, ezUInt32>([]() -> ezUInt32 { return 0; }, [this]() -> ezUInt32 { return m_Parameters.GetCount(); }, [](ezUInt32& it) { ++it; },
+    [this](const ezUInt32& it) -> const char* { return m_Parameters.GetKey(it).GetString().GetData(); });
 }
 
 void ezTypeScriptComponent::SetParameter(const char* szKey, const ezVariant& value)
@@ -373,14 +373,14 @@ void ezTypeScriptComponent::SetParameter(const char* szKey, const ezVariant& val
 
   m_Parameters[hs] = value;
 
-  //GetWorld()->GetComponentManager<ezTypeScriptComponentManager>()->AddToUpdateList(this);
+  // GetWorld()->GetComponentManager<ezTypeScriptComponentManager>()->AddToUpdateList(this);
 }
 
 void ezTypeScriptComponent::RemoveParameter(const char* szKey)
 {
   if (m_Parameters.RemoveAndCopy(ezTempHashedString(szKey)))
   {
-    //GetWorld()->GetComponentManager<ezTypeScriptComponentManager>()->AddToUpdateList(this);
+    // GetWorld()->GetComponentManager<ezTypeScriptComponentManager>()->AddToUpdateList(this);
   }
 }
 

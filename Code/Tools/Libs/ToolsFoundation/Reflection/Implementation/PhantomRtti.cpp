@@ -4,11 +4,10 @@
 #include <ToolsFoundation/Reflection/PhantomProperty.h>
 #include <ToolsFoundation/Reflection/PhantomRtti.h>
 
-ezPhantomRTTI::ezPhantomRTTI(const char* szName, const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion,
-  ezUInt32 uiVariantType, ezBitflags<ezTypeFlags> flags, const char* szPluginName)
-  : ezRTTI(nullptr, pParentType, uiTypeSize, uiTypeVersion, uiVariantType, flags | ezTypeFlags::Phantom, nullptr,
-      ezArrayPtr<ezAbstractProperty*>(), ezArrayPtr<ezAbstractProperty*>(), ezArrayPtr<ezPropertyAttribute*>(),
-      ezArrayPtr<ezAbstractMessageHandler*>(), ezArrayPtr<ezMessageSenderInfo>(), nullptr)
+ezPhantomRTTI::ezPhantomRTTI(
+  const char* szName, const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion, ezUInt32 uiVariantType, ezBitflags<ezTypeFlags> flags, const char* szPluginName)
+  : ezRTTI(nullptr, pParentType, uiTypeSize, uiTypeVersion, uiVariantType, flags | ezTypeFlags::Phantom, nullptr, ezArrayPtr<ezAbstractProperty*>(), ezArrayPtr<ezAbstractProperty*>(),
+      ezArrayPtr<ezPropertyAttribute*>(), ezArrayPtr<ezAbstractMessageHandler*>(), ezArrayPtr<ezMessageSenderInfo>(), nullptr)
 {
   m_sTypeNameStorage = szName;
   m_sPluginNameStorage = szPluginName;
@@ -120,8 +119,7 @@ void ezPhantomRTTI::SetAttributes(ezHybridArray<ezPropertyAttribute*, 2>& attrib
 
 void ezPhantomRTTI::UpdateType(ezReflectedTypeDescriptor& desc)
 {
-  ezRTTI::UpdateType(ezRTTI::FindTypeByName(desc.m_sParentTypeName), desc.m_uiTypeSize, desc.m_uiTypeVersion, ezVariantType::Invalid,
-    desc.m_Flags);
+  ezRTTI::UpdateType(ezRTTI::FindTypeByName(desc.m_sParentTypeName), desc.m_uiTypeSize, desc.m_uiTypeVersion, ezVariantType::Invalid, desc.m_Flags);
 
   m_sPluginNameStorage = desc.m_sPluginName;
   m_szPluginName = m_sPluginNameStorage.GetData();
@@ -159,8 +157,7 @@ bool ezPhantomRTTI::IsEqualToDescriptor(const ezReflectedTypeDescriptor& desc)
     if (desc.m_Properties[i].m_sName != GetProperties()[i]->GetPropertyName())
       return false;
 
-    if ((desc.m_Properties[i].m_Flags.GetValue() & ~ezPropertyFlags::Phantom) !=
-        (GetProperties()[i]->GetFlags().GetValue() & ~ezPropertyFlags::Phantom))
+    if ((desc.m_Properties[i].m_Flags.GetValue() & ~ezPropertyFlags::Phantom) != (GetProperties()[i]->GetFlags().GetValue() & ~ezPropertyFlags::Phantom))
       return false;
 
     switch (desc.m_Properties[i].m_Category)
@@ -212,8 +209,7 @@ bool ezPhantomRTTI::IsEqualToDescriptor(const ezReflectedTypeDescriptor& desc)
       const ezAbstractFunctionProperty* pProp = GetFunctions()[j];
       if (desc.m_Functions[j].m_sName != pProp->GetPropertyName())
         return false;
-      if ((desc.m_Functions[j].m_Flags.GetValue() & ~ezPropertyFlags::Phantom) !=
-          (pProp->GetFlags().GetValue() & ~ezPropertyFlags::Phantom))
+      if ((desc.m_Functions[j].m_Flags.GetValue() & ~ezPropertyFlags::Phantom) != (pProp->GetFlags().GetValue() & ~ezPropertyFlags::Phantom))
         return false;
       if (desc.m_Functions[j].m_Type != pProp->GetFunctionType())
         return false;

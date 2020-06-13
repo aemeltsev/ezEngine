@@ -175,8 +175,7 @@ void ezTypeScriptBinding::InjectMessageImportExport(ezStringBuilder& content, co
   for (const ezRTTI* pRtti : sorted)
   {
     GetTsName(pRtti, sTypeName);
-    sImportExport.AppendFormat("export import {0} = __AllMessages.{0};\n",
-      sTypeName);
+    sImportExport.AppendFormat("export import {0} = __AllMessages.{0};\n", sTypeName);
   }
 
   AppendToTextFile(content, sImportExport);
@@ -326,7 +325,7 @@ int ezTypeScriptBinding::__CPP_Binding_RegisterMessageHandler(duk_context* pDuk)
   const ezRTTI* pMsgType = ezRTTI::FindTypeByNameHash(uiMsgTypeHash);
 
   // this happens for pure TypeScript messages
-  //if (pMsgType == nullptr)
+  // if (pMsgType == nullptr)
   //{
   //  ezLog::Error("Message with type name hash '{}' does not exist.", uiMsgTypeHash);
   //  return duk.ReturnVoid();

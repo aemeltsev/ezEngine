@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include <RendererDX11/RendererDX11DLL.h>
-#include <RendererFoundation/Device/Device.h>
-#include <RendererFoundation/Context/Context.h>
 #include <Foundation/Types/Bitflags.h>
+#include <RendererDX11/RendererDX11DLL.h>
+#include <RendererFoundation/Context/Context.h>
+#include <RendererFoundation/Device/Device.h>
 
 struct ID3D11DeviceChild;
 struct ID3D11DeviceContext;
@@ -21,11 +21,9 @@ struct ID3D11Query;
 class EZ_RENDERERDX11_DLL ezGALContextDX11 : public ezGALContext
 {
 public:
-
   EZ_ALWAYS_INLINE ID3D11DeviceContext* GetDXContext() const;
 
 protected:
-
   friend class ezGALDeviceDX11;
   friend class ezMemoryUtils;
 
@@ -128,11 +126,14 @@ protected:
 
   virtual void CopyTexturePlatform(const ezGALTexture* pDestination, const ezGALTexture* pSource) override;
 
-  virtual void CopyTextureRegionPlatform(const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezVec3U32& DestinationPoint, const ezGALTexture* pSource, const ezGALTextureSubresource& SourceSubResource, const ezBoundingBoxu32& Box) override;
+  virtual void CopyTextureRegionPlatform(const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezVec3U32& DestinationPoint, const ezGALTexture* pSource,
+    const ezGALTextureSubresource& SourceSubResource, const ezBoundingBoxu32& Box) override;
 
-  virtual void UpdateTexturePlatform(const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezBoundingBoxu32& DestinationBox, const ezGALSystemMemoryDescription& pSourceData) override;
+  virtual void UpdateTexturePlatform(
+    const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezBoundingBoxu32& DestinationBox, const ezGALSystemMemoryDescription& pSourceData) override;
 
-  virtual void ResolveTexturePlatform(const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezGALTexture* pSource, const ezGALTextureSubresource& SourceSubResource) override;
+  virtual void ResolveTexturePlatform(
+    const ezGALTexture* pDestination, const ezGALTextureSubresource& DestinationSubResource, const ezGALTexture* pSource, const ezGALTextureSubresource& SourceSubResource) override;
 
   virtual void ReadbackTexturePlatform(const ezGALTexture* pTexture) override;
 

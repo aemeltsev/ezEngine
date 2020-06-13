@@ -1,7 +1,7 @@
 #pragma once
 
-#include <EditorFramework/Assets/SimpleAssetDocument.h>
 #include <EditorFramework/Assets/AssetDocumentGenerator.h>
+#include <EditorFramework/Assets/SimpleAssetDocument.h>
 
 class ezAssetFileHeader;
 struct ezPropertyMetaStateEvent;
@@ -57,7 +57,8 @@ public:
   ezDecalAssetDocument(const char* szDocumentPath);
 
 protected:
-  virtual ezStatus InternalTransformAsset(ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags) override;
+  virtual ezStatus InternalTransformAsset(
+    ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags) override;
 
   virtual ezStatus InternalCreateThumbnail(const ThumbnailInfo& ThumbnailInfo) override;
 };

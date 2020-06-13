@@ -37,8 +37,7 @@ void ezMeshRenderer::GetSupportedRenderDataCategories(ezHybridArray<ezRenderData
   categories.PushBack(ezDefaultRenderDataCategories::GUI);
 }
 
-void ezMeshRenderer::RenderBatch(
-  const ezRenderViewContext& renderViewContext, const ezRenderPipelinePass* pPass, const ezRenderDataBatch& batch) const
+void ezMeshRenderer::RenderBatch(const ezRenderViewContext& renderViewContext, const ezRenderPipelinePass* pPass, const ezRenderDataBatch& batch) const
 {
   ezGALDevice* pDevice = ezGALDevice::GetDefaultDevice();
   ezRenderContext* pContext = renderViewContext.m_pRenderContext;
@@ -60,9 +59,8 @@ void ezMeshRenderer::RenderBatch(
     return;
   }
 
-  ezInstanceData* pInstanceData = bHasExplicitInstanceData
-                                    ? static_cast<const ezInstancedMeshRenderData*>(pRenderData)->m_pExplicitInstanceData
-                                    : pPass->GetPipeline()->GetFrameDataProvider<ezInstanceDataProvider>()->GetData(renderViewContext);
+  ezInstanceData* pInstanceData = bHasExplicitInstanceData ? static_cast<const ezInstancedMeshRenderData*>(pRenderData)->m_pExplicitInstanceData
+                                                           : pPass->GetPipeline()->GetFrameDataProvider<ezInstanceDataProvider>()->GetData(renderViewContext);
 
   pInstanceData->BindResources(pContext);
 
@@ -140,8 +138,7 @@ void ezMeshRenderer::SetAdditionalData(const ezRenderViewContext& renderViewCont
   renderViewContext.m_pRenderContext->SetShaderPermutationVariable("VERTEX_SKINNING", "FALSE");
 }
 
-void ezMeshRenderer::FillPerInstanceData(
-  ezArrayPtr<ezPerInstanceData> instanceData, const ezRenderDataBatch& batch, ezUInt32 uiStartIndex, ezUInt32& out_uiFilteredCount) const
+void ezMeshRenderer::FillPerInstanceData(ezArrayPtr<ezPerInstanceData> instanceData, const ezRenderDataBatch& batch, ezUInt32 uiStartIndex, ezUInt32& out_uiFilteredCount) const
 {
   ezUInt32 uiCount = ezMath::Min<ezUInt32>(instanceData.GetCount(), batch.GetCount() - uiStartIndex);
   ezUInt32 uiCurrentIndex = 0;

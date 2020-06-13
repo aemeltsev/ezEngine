@@ -55,7 +55,8 @@ void ezDocument::UnlinkPrefabs(const ezDeque<const ezDocumentObject*>& Selection
   pHistory->FinishTransaction();
 }
 
-ezStatus ezDocument::CreatePrefabDocumentFromSelection(const char* szFile, const ezRTTI* pRootType, ezDelegate<void(ezAbstractObjectNode*)> AdjustGraphNodeCB, ezDelegate<void(ezDocumentObject*)> AdjustNewNodesCB)
+ezStatus ezDocument::CreatePrefabDocumentFromSelection(
+  const char* szFile, const ezRTTI* pRootType, ezDelegate<void(ezAbstractObjectNode*)> AdjustGraphNodeCB, ezDelegate<void(ezDocumentObject*)> AdjustNewNodesCB)
 {
   auto Selection = GetSelectionManager()->GetTopLevelSelection(pRootType);
 
@@ -108,7 +109,8 @@ ezStatus ezDocument::CreatePrefabDocumentFromSelection(const char* szFile, const
   return res;
 }
 
-ezStatus ezDocument::CreatePrefabDocument(const char* szFile, ezArrayPtr<const ezDocumentObject*> rootObjects, const ezUuid& invPrefabSeed, ezUuid& out_NewDocumentGuid, ezDelegate<void(ezAbstractObjectNode*)> AdjustGraphNodeCB)
+ezStatus ezDocument::CreatePrefabDocument(
+  const char* szFile, ezArrayPtr<const ezDocumentObject*> rootObjects, const ezUuid& invPrefabSeed, ezUuid& out_NewDocumentGuid, ezDelegate<void(ezAbstractObjectNode*)> AdjustGraphNodeCB)
 {
   const ezDocumentTypeDescriptor* pTypeDesc = nullptr;
   if (ezDocumentManager::FindDocumentTypeFromPath(szFile, true, pTypeDesc).Failed())
@@ -187,8 +189,7 @@ ezUuid ezDocument::ReplaceByPrefab(const ezDocumentObject* pRootObject, const ch
     instCmd.m_bAllowPickedPosition = false;
     instCmd.m_CreateFromPrefab = PrefabAsset;
     instCmd.m_Parent = pRootObject->GetParent() == GetObjectManager()->GetRootObject() ? ezUuid() : pRootObject->GetParent()->GetGuid();
-    instCmd.m_sBasePrefabGraph = ezPrefabUtils::ReadDocumentAsString(
-      szPrefabFile); // since the prefab might have been created just now, going through the cache (via GUID) will most likely fail
+    instCmd.m_sBasePrefabGraph = ezPrefabUtils::ReadDocumentAsString(szPrefabFile); // since the prefab might have been created just now, going through the cache (via GUID) will most likely fail
     instCmd.m_RemapGuid = PrefabSeed;
 
     GetCommandHistory()->AddCommand(instCmd);

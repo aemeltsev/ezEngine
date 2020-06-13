@@ -39,9 +39,7 @@ public:
   ezMat3Template(const Type* const pData, ezMatrixLayout::Enum layout); // [tested]
 
   /// \brief Sets each element manually: Naming is "column-n row-m"
-  ezMat3Template(Type c1r1, Type c2r1, Type c3r1,
-                 Type c1r2, Type c2r2, Type c3r2,
-                 Type c1r3, Type c2r3, Type c3r3); // [tested]
+  ezMat3Template(Type c1r1, Type c2r1, Type c3r1, Type c1r2, Type c2r2, Type c3r2, Type c1r3, Type c2r3, Type c3r3); // [tested]
 
 #if EZ_ENABLED(EZ_MATH_CHECK_FOR_NAN)
   void AssertNotNaN() const
@@ -63,9 +61,7 @@ public:
   void GetAsArray(Type* out_pData, ezMatrixLayout::Enum layout) const; // [tested]
 
   /// \brief Sets each element manually: Naming is "column-n row-m"
-  void SetElements(Type c1r1, Type c2r1, Type c3r1,
-                   Type c1r2, Type c2r2, Type c3r2,
-                   Type c1r3, Type c2r3, Type c3r3); // [tested]
+  void SetElements(Type c1r1, Type c2r1, Type c3r1, Type c1r2, Type c2r2, Type c3r2, Type c1r3, Type c2r3, Type c3r3); // [tested]
 
   // *** Special matrix constructors ***
 public:
@@ -211,4 +207,3 @@ template <typename Type>
 bool operator!=(const ezMat3Template<Type>& lhs, const ezMat3Template<Type>& rhs); // [tested]
 
 #include <Foundation/Math/Implementation/Mat3_inl.h>
-

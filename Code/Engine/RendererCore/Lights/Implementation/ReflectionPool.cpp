@@ -39,10 +39,8 @@ EZ_BEGIN_SUBSYSTEM_DECLARATION(RendererCore, ReflectionPool)
 EZ_END_SUBSYSTEM_DECLARATION;
 // clang-format on
 
-ezCVarInt CVarMaxRenderViews(
-  "r_ReflectionPoolMaxRenderViews", 1, ezCVarFlags::Default, "The maximum number of render views for reflection probes each frame");
-ezCVarInt CVarMaxFilterViews(
-  "r_ReflectionPoolMaxFilterViews", 1, ezCVarFlags::Default, "The maximum number of filter views for reflection probes each frame");
+ezCVarInt CVarMaxRenderViews("r_ReflectionPoolMaxRenderViews", 1, ezCVarFlags::Default, "The maximum number of render views for reflection probes each frame");
+ezCVarInt CVarMaxFilterViews("r_ReflectionPoolMaxFilterViews", 1, ezCVarFlags::Default, "The maximum number of filter views for reflection probes each frame");
 
 #if EZ_ENABLED(EZ_COMPILE_FOR_DEVELOPMENT)
 // ezCVarBool CVarShadowPoolStats("r_ShadowPoolStats", false, ezCVarFlags::Default, "Display same stats of the shadow pool");
@@ -193,8 +191,7 @@ struct SortedUpdateInfo
   }
 };
 
-static void CreateViews(
-  ezDynamicArray<ReflectionView>& views, ezUInt32 uiMaxRenderViews, const char* szNameSuffix, const char* szRenderPipelineResource)
+static void CreateViews(ezDynamicArray<ReflectionView>& views, ezUInt32 uiMaxRenderViews, const char* szNameSuffix, const char* szRenderPipelineResource)
 {
   uiMaxRenderViews = ezMath::Max<ezUInt32>(uiMaxRenderViews, 1);
 
@@ -213,8 +210,7 @@ static void CreateViews(
       renderView.m_hView = ezRenderWorld::CreateView(sName, pView);
 
       pView->SetCameraUsageHint(ezCameraUsageHint::Reflection);
-      pView->SetViewport(
-        ezRectFloat(0.0f, 0.0f, static_cast<float>(s_uiReflectionCubeMapSize), static_cast<float>(s_uiReflectionCubeMapSize)));
+      pView->SetViewport(ezRectFloat(0.0f, 0.0f, static_cast<float>(s_uiReflectionCubeMapSize), static_cast<float>(s_uiReflectionCubeMapSize)));
 
       pView->SetRenderPipelineResource(ezResourceManager::LoadResource<ezRenderPipelineResource>(szRenderPipelineResource));
 
@@ -304,8 +300,7 @@ struct ezReflectionPool::Data
       auto pUpdateInfo = sortedUpdateInfo.m_pUpdateInfo;
 
       auto& updateSteps = pUpdateInfo->m_UpdateSteps;
-      UpdateStep::Enum nextStep =
-        UpdateStep::NextStep(updateSteps.IsEmpty() ? pUpdateInfo->m_LastUpdateStep : updateSteps.PeekBack().m_UpdateStep);
+      UpdateStep::Enum nextStep = UpdateStep::NextStep(updateSteps.IsEmpty() ? pUpdateInfo->m_LastUpdateStep : updateSteps.PeekBack().m_UpdateStep);
 
       bool bNextProbe = false;
 
@@ -408,8 +403,7 @@ struct ezReflectionPool::Data
 
     if (!m_hDebugMaterial.IsValid())
     {
-      m_hDebugMaterial = ezResourceManager::LoadResource<ezMaterialResource>(
-        "{ 6f8067d0-ece8-44e1-af46-79b49266de41 }"); // ReflectionProbeVisualization.ezMaterialAsset
+      m_hDebugMaterial = ezResourceManager::LoadResource<ezMaterialResource>("{ 6f8067d0-ece8-44e1-af46-79b49266de41 }"); // ReflectionProbeVisualization.ezMaterialAsset
     }
 #endif
   }
@@ -433,8 +427,7 @@ struct ezReflectionPool::Data
     }
   }
 
-  void AddViewToRender(
-    const ProbeUpdateInfo::Step& step, const ezReflectionProbeData& data, ProbeUpdateInfo& updateInfo, const ezVec3& vPosition)
+  void AddViewToRender(const ProbeUpdateInfo::Step& step, const ezReflectionProbeData& data, ProbeUpdateInfo& updateInfo, const ezVec3& vPosition)
   {
     ezVec3 vForward[6] = {
       ezVec3(1.0f, 0.0f, 0.0f),
@@ -555,8 +548,7 @@ void ezReflectionPool::DeregisterReflectionProbe(ezReflectionProbeData& data, ez
 }
 
 // static
-void ezReflectionPool::ExtractReflectionProbe(
-  ezMsgExtractRenderData& msg, const ezReflectionProbeData& data, const ezComponent* pComponent, float fPriority /*= 1.0f*/)
+void ezReflectionPool::ExtractReflectionProbe(ezMsgExtractRenderData& msg, const ezReflectionProbeData& data, const ezComponent* pComponent, float fPriority /*= 1.0f*/)
 {
   fPriority = ezMath::Clamp(fPriority, ezMath::DefaultEpsilon<float>(), 100.0f);
   ezVec3 vPosition = pComponent->GetOwner()->GetGlobalPosition();
@@ -621,8 +613,8 @@ void ezReflectionPool::ExtractReflectionProbe(
       ezStringBuilder sTemp;
       sTemp.Format("Priority: {}\\nIndex in Update Queue: {}", pUpdateInfo->m_fPriority, pUpdateInfo->m_uiIndexInUpdateQueue);
 
-      ezDebugRenderer::Draw3DText(msg.m_pView->GetHandle(), sTemp, vPosition + ezVec3(0, 0, s_fDebugSphereRadius), ezColor::LightPink, 16,
-        ezDebugRenderer::HorizontalAlignment::Center, ezDebugRenderer::VerticalAlignment::Bottom);
+      ezDebugRenderer::Draw3DText(msg.m_pView->GetHandle(), sTemp, vPosition + ezVec3(0, 0, s_fDebugSphereRadius), ezColor::LightPink, 16, ezDebugRenderer::HorizontalAlignment::Center,
+        ezDebugRenderer::VerticalAlignment::Bottom);
     }
   }
 #endif

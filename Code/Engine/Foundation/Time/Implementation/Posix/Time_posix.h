@@ -1,8 +1,10 @@
 #include <Foundation/FoundationInternal.h>
 EZ_FOUNDATION_INTERNAL_HEADER
-#include<time.h>
+#include <time.h>
 
-void ezTime::Initialize() {}
+void ezTime::Initialize()
+{
+}
 
 ezTime ezTime::Now()
 {
@@ -11,4 +13,3 @@ ezTime ezTime::Now()
 
   return ezTime::Seconds((double)sp.tv_sec + (double)(sp.tv_nsec / 1000000000.0));
 }
-

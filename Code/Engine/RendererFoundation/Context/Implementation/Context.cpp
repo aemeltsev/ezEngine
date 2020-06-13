@@ -23,8 +23,8 @@ ezGALContext::ezGALContext(ezGALDevice* pDevice)
 
 ezGALContext::~ezGALContext() {}
 
-void ezGALContext::Clear(const ezColor& ClearColor, ezUInt32 uiRenderTargetClearMask /*= 0xFFFFFFFFu*/, bool bClearDepth /*= true*/,
-  bool bClearStencil /*= true*/, float fDepthClear /*= 1.0f*/, ezUInt8 uiStencilClear /*= 0x0u*/)
+void ezGALContext::Clear(const ezColor& ClearColor, ezUInt32 uiRenderTargetClearMask /*= 0xFFFFFFFFu*/, bool bClearDepth /*= true*/, bool bClearStencil /*= true*/, float fDepthClear /*= 1.0f*/,
+  ezUInt8 uiStencilClear /*= 0x0u*/)
 {
   AssertRenderingThread();
 
@@ -166,8 +166,7 @@ void ezGALContext::Dispatch(ezUInt32 uiThreadGroupCountX, ezUInt32 uiThreadGroup
 {
   AssertRenderingThread();
 
-  EZ_ASSERT_DEBUG(uiThreadGroupCountX > 0 && uiThreadGroupCountY > 0 && uiThreadGroupCountZ > 0,
-    "Thread group counts of zero are not meaningful. Did you mean 1?");
+  EZ_ASSERT_DEBUG(uiThreadGroupCountX > 0 && uiThreadGroupCountY > 0 && uiThreadGroupCountZ > 0, "Thread group counts of zero are not meaningful. Did you mean 1?");
 
   /// \todo Assert for compute
 
@@ -444,8 +443,7 @@ void ezGALContext::SetUnorderedAccessView(ezUInt32 uiSlot, ezGALUnorderedAccessV
   m_State.m_hUnorderedAccessViews[uiSlot] = hUnorderedAccessView;
 
   m_State.m_pResourcesForUnorderedAccessViews.EnsureCount(uiSlot + 1);
-  m_State.m_pResourcesForUnorderedAccessViews[uiSlot] =
-    pUnorderedAccessView != nullptr ? pUnorderedAccessView->GetResource()->GetParentResource() : nullptr;
+  m_State.m_pResourcesForUnorderedAccessViews[uiSlot] = pUnorderedAccessView != nullptr ? pUnorderedAccessView->GetResource()->GetParentResource() : nullptr;
 
   CountStateChange();
 }
@@ -454,8 +452,7 @@ void ezGALContext::SetBlendState(ezGALBlendStateHandle hBlendState, const ezColo
 {
   AssertRenderingThread();
 
-  if (m_State.m_hBlendState == hBlendState && m_State.m_BlendFactor.IsEqualRGBA(BlendFactor, 0.001f) &&
-      m_State.m_uiSampleMask == uiSampleMask)
+  if (m_State.m_hBlendState == hBlendState && m_State.m_BlendFactor.IsEqualRGBA(BlendFactor, 0.001f) && m_State.m_uiSampleMask == uiSampleMask)
   {
     CountRedundantStateChange();
     return;
@@ -629,8 +626,7 @@ void ezGALContext::CopyBuffer(ezGALBufferHandle hDest, ezGALBufferHandle hSource
   }
 }
 
-void ezGALContext::CopyBufferRegion(
-  ezGALBufferHandle hDest, ezUInt32 uiDestOffset, ezGALBufferHandle hSource, ezUInt32 uiSourceOffset, ezUInt32 uiByteCount)
+void ezGALContext::CopyBufferRegion(ezGALBufferHandle hDest, ezUInt32 uiDestOffset, ezGALBufferHandle hSource, ezUInt32 uiSourceOffset, ezUInt32 uiByteCount)
 {
   AssertRenderingThread();
 
@@ -653,8 +649,7 @@ void ezGALContext::CopyBufferRegion(
   }
 }
 
-void ezGALContext::UpdateBuffer(
-  ezGALBufferHandle hDest, ezUInt32 uiDestOffset, ezArrayPtr<const ezUInt8> pSourceData, ezGALUpdateMode::Enum updateMode)
+void ezGALContext::UpdateBuffer(ezGALBufferHandle hDest, ezUInt32 uiDestOffset, ezArrayPtr<const ezUInt8> pSourceData, ezGALUpdateMode::Enum updateMode)
 {
   AssertRenderingThread();
 
@@ -695,9 +690,8 @@ void ezGALContext::CopyTexture(ezGALTextureHandle hDest, ezGALTextureHandle hSou
   }
 }
 
-void ezGALContext::CopyTextureRegion(ezGALTextureHandle hDest, const ezGALTextureSubresource& DestinationSubResource,
-  const ezVec3U32& DestinationPoint, ezGALTextureHandle hSource, const ezGALTextureSubresource& SourceSubResource,
-  const ezBoundingBoxu32& Box)
+void ezGALContext::CopyTextureRegion(ezGALTextureHandle hDest, const ezGALTextureSubresource& DestinationSubResource, const ezVec3U32& DestinationPoint, ezGALTextureHandle hSource,
+  const ezGALTextureSubresource& SourceSubResource, const ezBoundingBoxu32& Box)
 {
   AssertRenderingThread();
 
@@ -714,8 +708,8 @@ void ezGALContext::CopyTextureRegion(ezGALTextureHandle hDest, const ezGALTextur
   }
 }
 
-void ezGALContext::UpdateTexture(ezGALTextureHandle hDest, const ezGALTextureSubresource& DestinationSubResource,
-  const ezBoundingBoxu32& DestinationBox, const ezGALSystemMemoryDescription& pSourceData)
+void ezGALContext::UpdateTexture(
+  ezGALTextureHandle hDest, const ezGALTextureSubresource& DestinationSubResource, const ezBoundingBoxu32& DestinationBox, const ezGALSystemMemoryDescription& pSourceData)
 {
   AssertRenderingThread();
 
@@ -731,8 +725,7 @@ void ezGALContext::UpdateTexture(ezGALTextureHandle hDest, const ezGALTextureSub
   }
 }
 
-void ezGALContext::ResolveTexture(ezGALTextureHandle hDest, const ezGALTextureSubresource& DestinationSubResource,
-  ezGALTextureHandle hSource, const ezGALTextureSubresource& SourceSubResource)
+void ezGALContext::ResolveTexture(ezGALTextureHandle hDest, const ezGALTextureSubresource& DestinationSubResource, ezGALTextureHandle hSource, const ezGALTextureSubresource& SourceSubResource)
 {
   AssertRenderingThread();
 
@@ -757,8 +750,7 @@ void ezGALContext::ReadbackTexture(ezGALTextureHandle hTexture)
 
   if (pTexture != nullptr)
   {
-    EZ_ASSERT_RELEASE(pTexture->GetDescription().m_ResourceAccess.m_bReadBack,
-      "A texture supplied to read-back needs to be created with the correct resource usage (m_bReadBack = true)!");
+    EZ_ASSERT_RELEASE(pTexture->GetDescription().m_ResourceAccess.m_bReadBack, "A texture supplied to read-back needs to be created with the correct resource usage (m_bReadBack = true)!");
 
     ReadbackTexturePlatform(pTexture);
   }
@@ -772,8 +764,7 @@ void ezGALContext::CopyTextureReadbackResult(ezGALTextureHandle hTexture, const 
 
   if (pTexture != nullptr)
   {
-    EZ_ASSERT_RELEASE(pTexture->GetDescription().m_ResourceAccess.m_bReadBack,
-      "A texture supplied to read-back needs to be created with the correct resource usage (m_bReadBack = true)!");
+    EZ_ASSERT_RELEASE(pTexture->GetDescription().m_ResourceAccess.m_bReadBack, "A texture supplied to read-back needs to be created with the correct resource usage (m_bReadBack = true)!");
 
     CopyTextureReadbackResultPlatform(pTexture, pData);
   }
@@ -788,8 +779,7 @@ void ezGALContext::GenerateMipMaps(ezGALResourceViewHandle hResourceView)
   {
     EZ_ASSERT_DEV(!pResourceView->GetDescription().m_hTexture.IsInvalidated(), "Resource view needs a valid texture to generate mip maps.");
     const ezGALTexture* pTexture = m_pDevice->GetTexture(pResourceView->GetDescription().m_hTexture);
-    EZ_ASSERT_DEV(pTexture->GetDescription().m_bAllowDynamicMipGeneration,
-      "Dynamic mip map generation needs to be enabled (m_bAllowDynamicMipGeneration = true)!");
+    EZ_ASSERT_DEV(pTexture->GetDescription().m_bAllowDynamicMipGeneration, "Dynamic mip map generation needs to be enabled (m_bAllowDynamicMipGeneration = true)!");
 
     GenerateMipMapsPlatform(pResourceView);
   }

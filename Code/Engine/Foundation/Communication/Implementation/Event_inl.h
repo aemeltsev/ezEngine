@@ -30,7 +30,8 @@ ezEventSubscriptionID ezEventBase<EventData, MutexType, EventType>::AddEventHand
 
   if constexpr (std::is_same_v<MutexType, ezNoMutex>)
   {
-    EZ_ASSERT_DEV(!m_bCurrentlyBroadcasting, "Can't add or remove event handlers while broadcasting. Use ezCopyOnBroadcastEvent if this should be allowed. Since this event does not have a mutex, this error can also happen due to multi-threaded access.");
+    EZ_ASSERT_DEV(!m_bCurrentlyBroadcasting, "Can't add or remove event handlers while broadcasting. Use ezCopyOnBroadcastEvent if this should be allowed. Since this event does not have a mutex, "
+                                             "this error can also happen due to multi-threaded access.");
   }
   else
   {
@@ -53,7 +54,8 @@ void ezEventBase<EventData, MutexType, EventType>::AddEventHandler(Handler handl
 
   if constexpr (std::is_same_v<MutexType, ezNoMutex>)
   {
-    EZ_ASSERT_DEV(!m_bCurrentlyBroadcasting, "Can't add or remove event handlers while broadcasting. Use ezCopyOnBroadcastEvent if this should be allowed. Since this event does not have a mutex, this error can also happen due to multi-threaded access.");
+    EZ_ASSERT_DEV(!m_bCurrentlyBroadcasting, "Can't add or remove event handlers while broadcasting. Use ezCopyOnBroadcastEvent if this should be allowed. Since this event does not have a mutex, "
+                                             "this error can also happen due to multi-threaded access.");
   }
   else
   {
@@ -81,7 +83,8 @@ void ezEventBase<EventData, MutexType, EventType>::RemoveEventHandler(const Hand
     {
       if constexpr (std::is_same_v<MutexType, ezNoMutex>)
       {
-        EZ_ASSERT_DEV(!m_bCurrentlyBroadcasting, "Can't add or remove event handlers while broadcasting. Use ezCopyOnBroadcastEvent if this should be allowed. Since this event does not have a mutex, this error can also happen due to multi-threaded access.");
+        EZ_ASSERT_DEV(!m_bCurrentlyBroadcasting, "Can't add or remove event handlers while broadcasting. Use ezCopyOnBroadcastEvent if this should be allowed. Since this event does not have a mutex, "
+                                                 "this error can also happen due to multi-threaded access.");
       }
       else
       {
@@ -110,7 +113,8 @@ void ezEventBase<EventData, MutexType, EventType>::RemoveEventHandler(ezEventSub
     {
       if constexpr (std::is_same_v<MutexType, ezNoMutex>)
       {
-        EZ_ASSERT_DEV(!m_bCurrentlyBroadcasting, "Can't add or remove event handlers while broadcasting. Use ezCopyOnBroadcastEvent if this should be allowed. Since this event does not have a mutex, this error can also happen due to multi-threaded access.");
+        EZ_ASSERT_DEV(!m_bCurrentlyBroadcasting, "Can't add or remove event handlers while broadcasting. Use ezCopyOnBroadcastEvent if this should be allowed. Since this event does not have a mutex, "
+                                                 "this error can also happen due to multi-threaded access.");
       }
       else
       {

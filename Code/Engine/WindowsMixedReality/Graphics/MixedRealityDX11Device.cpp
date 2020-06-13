@@ -1,4 +1,4 @@
-﻿#includde <WindowsMixedRealityPCH.h>
+﻿#includde < WindowsMixedRealityPCH.h>
 #include <WindowsMixedReality/Graphics/MixedRealityDX11Device.h>
 #include <WindowsMixedReality/Graphics/MixedRealitySwapChainDX11.h>
 #include <WindowsMixedReality/HolographicSpace.h>
@@ -13,10 +13,10 @@
 #include <d3d11_1.h>
 #include <dxgi1_4.h>
 #include <windows.graphics.holographic.h>
-#pragma warning (push)
-#pragma warning (disable: 4467) // warning C4467: usage of ATL attributes is deprecated
+#pragma warning(push)
+#pragma warning(disable : 4467) // warning C4467: usage of ATL attributes is deprecated
 #include <windows.graphics.directx.direct3d11.interop.h>
-#pragma warning (pop)
+#pragma warning(pop)
 
 ezGALMixedRealityDeviceDX11::ezGALMixedRealityDeviceDX11(const ezGALDeviceCreationDescription& Description)
   : ezGALDeviceDX11(Description)
@@ -25,9 +25,7 @@ ezGALMixedRealityDeviceDX11::ezGALMixedRealityDeviceDX11(const ezGALDeviceCreati
   ezLog::Info("Created DX11 device for Mixed Reality");
 }
 
-ezGALMixedRealityDeviceDX11::~ezGALMixedRealityDeviceDX11()
-{
-}
+ezGALMixedRealityDeviceDX11::~ezGALMixedRealityDeviceDX11() {}
 
 ezResult ezGALMixedRealityDeviceDX11::InitPlatform()
 {
@@ -168,12 +166,12 @@ void ezGALMixedRealityDeviceDX11::PresentPlatform(ezGALSwapChain* pSwapChain, bo
   }
 
   //// Test
-  //ezGALContext* pContext = GetPrimaryContext();
-  //auto renderTarget = GetDefaultRenderTargetView(pSwapChain->GetBackBufferTexture());
-  //ezGALRenderTagetSetup targetSetup;
-  //targetSetup.SetRenderTarget(0, renderTarget);
-  //pContext->SetRenderTargetSetup(targetSetup);
-  //pContext->Clear(ezColorLinearUB(100, 149, 237, 255));
+  // ezGALContext* pContext = GetPrimaryContext();
+  // auto renderTarget = GetDefaultRenderTargetView(pSwapChain->GetBackBufferTexture());
+  // ezGALRenderTagetSetup targetSetup;
+  // targetSetup.SetRenderTarget(0, renderTarget);
+  // pContext->SetRenderTargetSetup(targetSetup);
+  // pContext->Clear(ezColorLinearUB(100, 149, 237, 255));
 
 
   // Presents frame and blocks until done.
@@ -240,4 +238,3 @@ void ezGALMixedRealityDeviceDX11::EndFramePlatform()
   EZ_ASSERT_DEV(m_pCurrentHolographicFrame, "There is no holographic frame.");
   m_pCurrentHolographicFrame.Reset();
 }
-

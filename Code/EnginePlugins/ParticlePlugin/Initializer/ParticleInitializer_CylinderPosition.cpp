@@ -72,7 +72,7 @@ float ezParticleInitializerFactory_CylinderPosition::GetSpawnCountMultiplier(con
   {
     const float s0 = /* 2.0f * ezMath::Pi<float>() * m_fRadius **/ m_fRadius + /* 2.0f * ezMath::Pi<float>() * m_fRadius **/ m_fHeight;
     const float s1 = /* 2.0f * ezMath::Pi<float>() * m_fRadius **/ m_fRadius * fScaleRadius * fScaleRadius +
-                             /*2.0f * ezMath::Pi<float>() * m_fRadius **/ fScaleRadius * m_fHeight * fScaleHeight;
+                     /*2.0f * ezMath::Pi<float>() * m_fRadius **/ fScaleRadius * m_fHeight * fScaleHeight;
 
     return s1 / s0;
   }
@@ -179,8 +179,7 @@ void ezParticleInitializer_CylinderPosition::InitializeElements(ezUInt64 uiStart
       pos.y = (float)rng.DoubleMinMax(-m_fRadius, m_fRadius);
 
       len = pos.GetLengthSquared();
-    } while (len > fRadiusSqr ||
-             len <= 0.000001f); // prevent spawning at the exact center (note: this has to be smaller than the minimum allowed radius sqr)
+    } while (len > fRadiusSqr || len <= 0.000001f); // prevent spawning at the exact center (note: this has to be smaller than the minimum allowed radius sqr)
 
     ezVec3 normalPos = pos;
 

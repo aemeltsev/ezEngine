@@ -17,9 +17,8 @@ ezPrefabResource::ezPrefabResource()
 {
 }
 
-void ezPrefabResource::InstantiatePrefab(ezWorld& world, const ezTransform& rootTransform, ezGameObjectHandle hParent,
-  ezHybridArray<ezGameObject*, 8>* out_CreatedRootObjects, const ezUInt16* pOverrideTeamID,
-  const ezArrayMap<ezHashedString, ezVariant>* pExposedParamValues, bool bForceDynamic)
+void ezPrefabResource::InstantiatePrefab(ezWorld& world, const ezTransform& rootTransform, ezGameObjectHandle hParent, ezHybridArray<ezGameObject*, 8>* out_CreatedRootObjects,
+  const ezUInt16* pOverrideTeamID, const ezArrayMap<ezHashedString, ezVariant>* pExposedParamValues, bool bForceDynamic)
 {
   if (GetLoadingState() != ezResourceState::Loaded)
     return;
@@ -42,9 +41,8 @@ void ezPrefabResource::InstantiatePrefab(ezWorld& world, const ezTransform& root
   }
 }
 
-void ezPrefabResource::ApplyExposedParameterValues(const ezArrayMap<ezHashedString, ezVariant>* pExposedParamValues,
-  const ezHybridArray<ezGameObject*, 8>& createdChildObjects,
-  const ezHybridArray<ezGameObject*, 8>& createdRootObjects) const
+void ezPrefabResource::ApplyExposedParameterValues(
+  const ezArrayMap<ezHashedString, ezVariant>* pExposedParamValues, const ezHybridArray<ezGameObject*, 8>& createdChildObjects, const ezHybridArray<ezGameObject*, 8>& createdRootObjects) const
 {
   const ezUInt32 uiNumParamDescs = m_PrefabParamDescs.GetCount();
 
@@ -60,8 +58,7 @@ void ezPrefabResource::ApplyExposedParameterValues(const ezArrayMap<ezHashedStri
       if (ppd.m_sExposeName.GetHash() != uiNameHash)
         break;
 
-      ezGameObject* pTarget = ppd.m_uiWorldReaderChildObject ? createdChildObjects[ppd.m_uiWorldReaderObjectIndex]
-                                                             : createdRootObjects[ppd.m_uiWorldReaderObjectIndex];
+      ezGameObject* pTarget = ppd.m_uiWorldReaderChildObject ? createdChildObjects[ppd.m_uiWorldReaderObjectIndex] : createdRootObjects[ppd.m_uiWorldReaderObjectIndex];
 
       if (ppd.m_CachedPropertyPath.IsValid())
       {
@@ -177,9 +174,7 @@ ezResourceLoadDesc ezPrefabResource::UpdateContent(ezStreamReader* Stream)
     }
 
     // sort exposed parameter descriptions by name hash for quicker access
-    m_PrefabParamDescs.Sort([](const ezExposedPrefabParameterDesc& lhs, const ezExposedPrefabParameterDesc& rhs) -> bool {
-      return lhs.m_sExposeName.GetHash() < rhs.m_sExposeName.GetHash();
-    });
+    m_PrefabParamDescs.Sort([](const ezExposedPrefabParameterDesc& lhs, const ezExposedPrefabParameterDesc& rhs) -> bool { return lhs.m_sExposeName.GetHash() < rhs.m_sExposeName.GetHash(); });
   }
 
   res.m_State = ezResourceState::Loaded;

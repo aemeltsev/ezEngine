@@ -1,5 +1,5 @@
 #ifdef EZ_STACKTRACER_POSIX_INL_H_INCLUDED
-#error "This file must not be included twice."
+#  error "This file must not be included twice."
 #endif
 
 #define EZ_STACKTRACER_POSIX_INL_H_INCLUDED
@@ -10,7 +10,9 @@ EZ_FOUNDATION_INTERNAL_HEADER
 #include <Foundation/Math/Math.h>
 #include <execinfo.h>
 
-void ezStackTracer::OnPluginEvent(const ezPluginEvent& e) {}
+void ezStackTracer::OnPluginEvent(const ezPluginEvent& e)
+{
+}
 
 // static
 ezUInt32 ezStackTracer::GetStackTrace(ezArrayPtr<void*>& trace, void* pContext)
@@ -42,4 +44,3 @@ void ezStackTracer::ResolveStackTrace(const ezArrayPtr<void*>& trace, PrintFunc 
     free(ppSymbols);
   }
 }
-

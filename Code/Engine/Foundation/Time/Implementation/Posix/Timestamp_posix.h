@@ -1,6 +1,6 @@
 #include <Foundation/FoundationInternal.h>
 EZ_FOUNDATION_INTERNAL_HEADER
-#include<time.h>
+#include <time.h>
 
 const ezTimestamp ezTimestamp::CurrentTimestamp()
 {
@@ -14,8 +14,8 @@ bool operator!=(const tm& lhs, const tm& rhs)
 {
   if (lhs.tm_isdst == rhs.tm_isdst)
   {
-    return !((lhs.tm_sec == rhs.tm_sec) && (lhs.tm_min == rhs.tm_min) && (lhs.tm_hour == rhs.tm_hour) && (lhs.tm_mday == rhs.tm_mday) &&
-             (lhs.tm_mon == rhs.tm_mon) && (lhs.tm_year == rhs.tm_year) && (lhs.tm_isdst == rhs.tm_isdst));
+    return !((lhs.tm_sec == rhs.tm_sec) && (lhs.tm_min == rhs.tm_min) && (lhs.tm_hour == rhs.tm_hour) && (lhs.tm_mday == rhs.tm_mday) && (lhs.tm_mon == rhs.tm_mon) && (lhs.tm_year == rhs.tm_year) &&
+             (lhs.tm_isdst == rhs.tm_isdst));
   }
   else
   {
@@ -74,4 +74,3 @@ bool ezDateTime::SetTimestamp(ezTimestamp timestamp)
 
   return true;
 }
-

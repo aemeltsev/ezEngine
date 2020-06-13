@@ -64,11 +64,9 @@ EZ_DECLARE_FLAGS_OPERATORS(ezDuktapeTypeMask);
 
 #    define EZ_DUK_VERIFY_STACK(duk, ExpectedStackChange)
 
-#    define EZ_DUK_RETURN_AND_VERIFY_STACK(duk, ReturnCode, ExpectedStackChange) \
-      return ReturnCode;
+#    define EZ_DUK_RETURN_AND_VERIFY_STACK(duk, ReturnCode, ExpectedStackChange) return ReturnCode;
 
-#    define EZ_DUK_RETURN_VOID_AND_VERIFY_STACK(duk, ExpectedStackChange) \
-      return;
+#    define EZ_DUK_RETURN_VOID_AND_VERIFY_STACK(duk, ExpectedStackChange) return;
 
 #  endif
 
@@ -78,7 +76,7 @@ public:
   ezDuktapeHelper(duk_context* pContext);
   ezDuktapeHelper(const ezDuktapeHelper& rhs);
   ~ezDuktapeHelper();
-  void operator = (const ezDuktapeHelper& rhs);
+  void operator=(const ezDuktapeHelper& rhs);
 
   /// \name Basics
   ///@{

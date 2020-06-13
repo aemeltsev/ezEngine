@@ -68,8 +68,8 @@ ezResourceLoadDesc ezTexture3DResource::UnloadData(Unload WhatToUnload)
   return res;
 }
 
-void ezTexture3DResource::FillOutDescriptor(ezTexture3DResourceDescriptor& td, const ezImage* pImage, bool bSRGB, ezUInt32 uiNumMipLevels,
-  ezUInt32& out_MemoryUsed, ezHybridArray<ezGALSystemMemoryDescription, 32>& initData)
+void ezTexture3DResource::FillOutDescriptor(
+  ezTexture3DResourceDescriptor& td, const ezImage* pImage, bool bSRGB, ezUInt32 uiNumMipLevels, ezUInt32& out_MemoryUsed, ezHybridArray<ezGALSystemMemoryDescription, 32>& initData)
 {
   const ezUInt32 uiHighestMipLevel = pImage->GetNumMipLevels() - uiNumMipLevels;
 
@@ -157,8 +157,7 @@ ezResourceLoadDesc ezTexture3DResource::UpdateContent(ezStreamReader* Stream)
 
   {
 
-    const ezUInt32 uiNumMipmapsLowRes =
-      ezTextureUtils::s_bForceFullQualityAlways ? pImage->GetNumMipLevels() : ezMath::Min(pImage->GetNumMipLevels(), 6U);
+    const ezUInt32 uiNumMipmapsLowRes = ezTextureUtils::s_bForceFullQualityAlways ? pImage->GetNumMipLevels() : ezMath::Min(pImage->GetNumMipLevels(), 6U);
     ezUInt32 uiUploadNumMipLevels = 0;
     bool bCouldLoadMore = false;
 

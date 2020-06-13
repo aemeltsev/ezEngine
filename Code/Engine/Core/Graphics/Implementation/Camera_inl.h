@@ -54,8 +54,7 @@ EZ_ALWAYS_INLINE ezCameraMode::Enum ezCamera::GetCameraMode() const
 
 EZ_ALWAYS_INLINE bool ezCamera::IsPerspective() const
 {
-  return m_Mode == ezCameraMode::PerspectiveFixedFovX || m_Mode == ezCameraMode::PerspectiveFixedFovY ||
-         m_Mode == ezCameraMode::Stereo; // All HMD stereo cameras are perspective!
+  return m_Mode == ezCameraMode::PerspectiveFixedFovX || m_Mode == ezCameraMode::PerspectiveFixedFovY || m_Mode == ezCameraMode::Stereo; // All HMD stereo cameras are perspective!
 }
 
 EZ_ALWAYS_INLINE bool ezCamera::IsOrthographic() const
@@ -82,4 +81,3 @@ EZ_ALWAYS_INLINE const ezMat4& ezCamera::GetViewMatrix(ezCameraEye eye) const
 {
   return m_mViewMatrix[static_cast<int>(eye)];
 }
-

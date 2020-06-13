@@ -337,8 +337,7 @@ ezResult ezTexConv::ParseCompressionMode()
 ezResult ezTexConv::ParseWrapModes()
 {
   // cubemaps do not require any wrap mode settings
-  if (m_Processor.m_Descriptor.m_OutputType == ezTexConvOutputType::Cubemap ||
-      m_Processor.m_Descriptor.m_OutputType == ezTexConvOutputType::Atlas ||
+  if (m_Processor.m_Descriptor.m_OutputType == ezTexConvOutputType::Cubemap || m_Processor.m_Descriptor.m_OutputType == ezTexConvOutputType::Atlas ||
       m_Processor.m_Descriptor.m_OutputType == ezTexConvOutputType::None)
     return EZ_SUCCESS;
 
@@ -392,8 +391,7 @@ ezResult ezTexConv::ParseResolutionModifiers()
 
 ezResult ezTexConv::ParseMiscOptions()
 {
-  if (m_Processor.m_Descriptor.m_OutputType == ezTexConvOutputType::Texture2D ||
-      m_Processor.m_Descriptor.m_OutputType == ezTexConvOutputType::None)
+  if (m_Processor.m_Descriptor.m_OutputType == ezTexConvOutputType::Texture2D || m_Processor.m_Descriptor.m_OutputType == ezTexConvOutputType::None)
   {
     EZ_SUCCEED_OR_RETURN(ParseBoolOption("-flip_horz", m_Processor.m_Descriptor.m_bFlipHorizontal));
     EZ_SUCCEED_OR_RETURN(ParseBoolOption("-premulalpha", m_Processor.m_Descriptor.m_bPremultiplyAlpha));

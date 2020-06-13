@@ -67,13 +67,11 @@ ezQtTestGUI::ezQtTestGUI(ezQtTestFramework& testFramework)
   addDockWidget(Qt::RightDockWidgetArea, m_pMessageLogDock);
 
   // connect custom context menu
-  connect(
-    testTreeView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onTestTreeViewCustomContextMenuRequested(const QPoint&)));
+  connect(testTreeView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onTestTreeViewCustomContextMenuRequested(const QPoint&)));
 
   // connect current row changed signal
   QItemSelectionModel* pSelectionModel = testTreeView->selectionModel();
-  connect(pSelectionModel, SIGNAL(currentRowChanged(const QModelIndex&, const QModelIndex&)), this,
-    SLOT(onSelectionModelCurrentRowChanged(const QModelIndex&)));
+  connect(pSelectionModel, SIGNAL(currentRowChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(onSelectionModelCurrentRowChanged(const QModelIndex&)));
 
   // Sync actions with test framework settings
   TestSettings settings = m_pTestFramework->GetSettings();
@@ -429,16 +427,13 @@ void ezQtTestGUI::onTestFrameworkTestResultReceived(qint32 iTestIndex, qint32 iS
   float fSubTestPercentage = 0.0f;
   if (iTestIndex != -1 && iSubTestIndex != -1)
   {
-    fSubTestPercentage =
-      (float)m_pTestFramework->GetTestResult().GetSubTestCount(m_pTestFramework->GetCurrentTestIndex(), ezTestResultQuery::Executed) /
-      (float)m_uiSubTestsEnabledCount;
+    fSubTestPercentage = (float)m_pTestFramework->GetTestResult().GetSubTestCount(m_pTestFramework->GetCurrentTestIndex(), ezTestResultQuery::Executed) / (float)m_uiSubTestsEnabledCount;
   }
 
   float fProgress = 100.0f * (fSubTestPercentage + uiFailed + uiPassed) / uiTestCount;
-  QString sStatusText = QLatin1String("[progress: ") % QString::number(fProgress, 'f', 2) % QLatin1String("%] [passed: ") %
-                        QString::number(uiPassed) % QLatin1String("] [failed: ") % QString::number(uiFailed) %
-                        QLatin1String("] [errors: ") % QString::number(uiErrors) % QLatin1String("] [time taken: ") %
-                        QString::number(fTestDurationInSeconds, 'f', 2) % QLatin1String(" seconds]");
+  QString sStatusText = QLatin1String("[progress: ") % QString::number(fProgress, 'f', 2) % QLatin1String("%] [passed: ") % QString::number(uiPassed) % QLatin1String("] [failed: ") %
+                        QString::number(uiFailed) % QLatin1String("] [errors: ") % QString::number(uiErrors) % QLatin1String("] [time taken: ") % QString::number(fTestDurationInSeconds, 'f', 2) %
+                        QLatin1String(" seconds]");
 
   m_pStatusText->setText(sStatusText);
   m_pMessageLogDock->currentTestResultChanged(&m_pTestFramework->GetTestResult().GetTestResultData(iTestIndex, iSubTestIndex));

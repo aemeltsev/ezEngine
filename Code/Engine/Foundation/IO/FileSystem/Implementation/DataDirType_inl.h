@@ -26,4 +26,3 @@ inline ezDataDirectoryType* ezDataDirectoryReaderWriterBase::GetDataDirectory() 
 {
   return m_pDataDirectory;
 }
-

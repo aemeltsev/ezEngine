@@ -1,12 +1,12 @@
 #pragma once
 
-#include <GuiFoundation/GuiFoundationDLL.h>
-#include <Foundation/Containers/HybridArray.h>
 #include <Foundation/Communication/Event.h>
-#include <ToolsFoundation/Reflection/ReflectedType.h>
-#include <ToolsFoundation/Object/DocumentObjectManager.h>
+#include <Foundation/Containers/HybridArray.h>
+#include <GuiFoundation/GuiFoundationDLL.h>
 #include <GuiFoundation/PropertyGrid/Implementation/PropertyEventHandler.h>
 #include <QWidget>
+#include <ToolsFoundation/Object/DocumentObjectManager.h>
+#include <ToolsFoundation/Reflection/ReflectedType.h>
 
 class ezDocumentObject;
 class ezQtTypeWidget;
@@ -89,6 +89,7 @@ private:
 class EZ_GUIFOUNDATION_DLL ezQtUnsupportedPropertyWidget : public ezQtPropertyWidget
 {
   Q_OBJECT;
+
 public:
   explicit ezQtUnsupportedPropertyWidget(const char* szMessage = nullptr);
 
@@ -106,6 +107,7 @@ protected:
 class EZ_GUIFOUNDATION_DLL ezQtStandardPropertyWidget : public ezQtPropertyWidget
 {
   Q_OBJECT;
+
 public:
   explicit ezQtStandardPropertyWidget();
 
@@ -128,6 +130,7 @@ protected:
 class EZ_GUIFOUNDATION_DLL ezQtEmbeddedClassPropertyWidget : public ezQtPropertyWidget
 {
   Q_OBJECT;
+
 public:
   explicit ezQtEmbeddedClassPropertyWidget();
   ~ezQtEmbeddedClassPropertyWidget();
@@ -161,6 +164,7 @@ protected:
 class EZ_GUIFOUNDATION_DLL ezQtPropertyTypeWidget : public ezQtPropertyWidget
 {
   Q_OBJECT;
+
 public:
   explicit ezQtPropertyTypeWidget(bool bAddCollapsibleGroup = false);
   virtual ~ezQtPropertyTypeWidget();
@@ -184,6 +188,7 @@ protected:
 class EZ_GUIFOUNDATION_DLL ezQtPropertyPointerWidget : public ezQtPropertyWidget
 {
   Q_OBJECT;
+
 public:
   explicit ezQtPropertyPointerWidget();
   virtual ~ezQtPropertyPointerWidget();
@@ -214,6 +219,7 @@ protected:
 class EZ_GUIFOUNDATION_DLL ezQtPropertyContainerWidget : public ezQtPropertyWidget
 {
   Q_OBJECT;
+
 public:
   ezQtPropertyContainerWidget();
   virtual ~ezQtPropertyContainerWidget();
@@ -230,8 +236,16 @@ public Q_SLOTS:
 protected:
   struct Element
   {
-    Element() : m_pSubGroup(nullptr), m_pWidget(nullptr) {}
-    Element(ezQtGroupBoxBase* pSubGroup, ezQtPropertyWidget* pWidget) : m_pSubGroup(pSubGroup), m_pWidget(pWidget) {}
+    Element()
+      : m_pSubGroup(nullptr)
+      , m_pWidget(nullptr)
+    {
+    }
+    Element(ezQtGroupBoxBase* pSubGroup, ezQtPropertyWidget* pWidget)
+      : m_pSubGroup(pSubGroup)
+      , m_pWidget(pWidget)
+    {
+    }
 
     ezQtGroupBoxBase* m_pSubGroup;
     ezQtPropertyWidget* m_pWidget;
@@ -255,7 +269,7 @@ protected:
   virtual void dragMoveEvent(QDragMoveEvent* event) override;
   virtual void dragLeaveEvent(QDragLeaveEvent* event) override;
   virtual void dropEvent(QDropEvent* event) override;
-  virtual void paintEvent(QPaintEvent *event) override;
+  virtual void paintEvent(QPaintEvent* event) override;
 
 private:
   bool updateDropIndex(QDropEvent* pEvent);
@@ -276,6 +290,7 @@ protected:
 class EZ_GUIFOUNDATION_DLL ezQtPropertyStandardTypeContainerWidget : public ezQtPropertyContainerWidget
 {
   Q_OBJECT;
+
 public:
   ezQtPropertyStandardTypeContainerWidget();
   virtual ~ezQtPropertyStandardTypeContainerWidget();
@@ -291,6 +306,7 @@ protected:
 class EZ_GUIFOUNDATION_DLL ezQtPropertyTypeContainerWidget : public ezQtPropertyContainerWidget
 {
   Q_OBJECT;
+
 public:
   ezQtPropertyTypeContainerWidget();
   virtual ~ezQtPropertyTypeContainerWidget();
@@ -309,6 +325,7 @@ private:
 class EZ_GUIFOUNDATION_DLL ezQtVariantPropertyWidget : public ezQtStandardPropertyWidget
 {
   Q_OBJECT;
+
 public:
   ezQtVariantPropertyWidget();
   virtual ~ezQtVariantPropertyWidget();
@@ -318,7 +335,7 @@ public:
   virtual void ExtendContextMenu(QMenu& menu) override;
 
 protected:
-  virtual void OnInit() override {};
+  virtual void OnInit() override{};
   virtual void InternalSetValue(const ezVariant& value) override;
   virtual void DoPrepareToDie() override;
   void ChangeVariantType(ezVariantType::Enum type);

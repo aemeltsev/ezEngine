@@ -38,7 +38,7 @@ void ezPxSphericalJointComponent::SerializeComponent(ezWorldWriter& stream) cons
 void ezPxSphericalJointComponent::DeserializeComponent(ezWorldReader& stream)
 {
   SUPER::DeserializeComponent(stream);
-  //const ezUInt32 uiVersion = stream.GetComponentTypeVersion(GetStaticRTTI());
+  // const ezUInt32 uiVersion = stream.GetComponentTypeVersion(GetStaticRTTI());
 
   auto& s = stream.GetStream();
 
@@ -81,8 +81,7 @@ void ezPxSphericalJointComponent::ApplyConeLimit(PxJoint* pJoint0)
   }
 }
 
-PxJoint* ezPxSphericalJointComponent::CreateJointType(PxRigidActor* actor0, const PxTransform& localFrame0, PxRigidActor* actor1,
-  const PxTransform& localFrame1)
+PxJoint* ezPxSphericalJointComponent::CreateJointType(PxRigidActor* actor0, const PxTransform& localFrame0, PxRigidActor* actor1, const PxTransform& localFrame1)
 {
   PxSphericalJoint* pJoint = PxSphericalJointCreate(*(ezPhysX::GetSingleton()->GetPhysXAPI()), actor0, localFrame0, actor1, localFrame1);
 

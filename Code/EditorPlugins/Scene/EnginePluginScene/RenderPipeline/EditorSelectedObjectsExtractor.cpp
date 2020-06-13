@@ -149,17 +149,14 @@ void ezEditorSelectedObjectsExtractor::UpdateRenderTargetCamera(const ezCameraCo
   {
     case ezCameraMode::OrthoFixedHeight:
     case ezCameraMode::OrthoFixedWidth:
-      m_RenderTargetCamera.SetCameraMode(
-        pCamComp->GetCameraMode(), pCamComp->GetOrthoDimension(), pCamComp->GetNearPlane(), pCamComp->GetFarPlane());
+      m_RenderTargetCamera.SetCameraMode(pCamComp->GetCameraMode(), pCamComp->GetOrthoDimension(), pCamComp->GetNearPlane(), pCamComp->GetFarPlane());
       break;
     case ezCameraMode::PerspectiveFixedFovX:
     case ezCameraMode::PerspectiveFixedFovY:
-      m_RenderTargetCamera.SetCameraMode(
-        pCamComp->GetCameraMode(), pCamComp->GetFieldOfView(), pCamComp->GetNearPlane(), pCamComp->GetFarPlane());
+      m_RenderTargetCamera.SetCameraMode(pCamComp->GetCameraMode(), pCamComp->GetFieldOfView(), pCamComp->GetNearPlane(), pCamComp->GetFarPlane());
       break;
     case ezCameraMode::Stereo:
-      m_RenderTargetCamera.SetCameraMode(ezCameraMode::PerspectiveFixedFovY, 45,
-        pCamComp->GetNearPlane(), pCamComp->GetFarPlane());
+      m_RenderTargetCamera.SetCameraMode(ezCameraMode::PerspectiveFixedFovY, 45, pCamComp->GetNearPlane(), pCamComp->GetFarPlane());
       break;
     default:
       break;

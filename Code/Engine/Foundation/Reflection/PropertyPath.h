@@ -41,11 +41,9 @@ public:
   void ReadFromLeafObject(void* pRootObject, const ezRTTI& pType, ezDelegate<void(void* pLeaf, const ezRTTI& pType)> func) const;
 
   ///\brief Applies the path up to the last step and allows a functor to write to the final property.
-  void WriteProperty(void* pRootObject, const ezRTTI& pType,
-                     ezDelegate<void(void* pLeaf, ezAbstractProperty* pProp, const ezVariant& index)> func) const;
+  void WriteProperty(void* pRootObject, const ezRTTI& pType, ezDelegate<void(void* pLeaf, ezAbstractProperty* pProp, const ezVariant& index)> func) const;
   ///\brief Applies the path up to the last step and allows a functor to read from the final property.
-  void ReadProperty(void* pRootObject, const ezRTTI& pType,
-                    ezDelegate<void(void* pLeaf, const ezAbstractProperty* pProp, const ezVariant& index)> func) const;
+  void ReadProperty(void* pRootObject, const ezRTTI& pType, ezDelegate<void(void* pLeaf, const ezAbstractProperty* pProp, const ezVariant& index)> func) const;
 
   ///\brief Convenience function that writes 'value' to the 'pRootObject' at the current path.
   void SetValue(void* pRootObject, const ezRTTI& pType, const ezVariant& value) const;
@@ -72,10 +70,8 @@ private:
     ezVariant m_Index;
   };
 
-  static void ResolvePath(void* pCurrentObject, const ezRTTI* pType, const ezArrayPtr<const ResolvedStep> path, bool bWriteToObject,
-                          const ezDelegate<void(void* pLeaf, const ezRTTI& pType)>& func);
+  static void ResolvePath(void* pCurrentObject, const ezRTTI* pType, const ezArrayPtr<const ResolvedStep> path, bool bWriteToObject, const ezDelegate<void(void* pLeaf, const ezRTTI& pType)>& func);
 
   bool m_bIsValid = false;
   ezHybridArray<ResolvedStep, 2> m_PathSteps;
 };
-

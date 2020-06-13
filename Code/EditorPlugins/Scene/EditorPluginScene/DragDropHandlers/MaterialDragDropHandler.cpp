@@ -91,8 +91,7 @@ void ezMaterialDragDropHandler::OnDrop(const ezDragDropInfo* pInfo)
   {
     const ezDocumentObject* pComponent = m_pDocument->GetObjectManager()->GetObject(pInfo->m_TargetComponent);
 
-    if (pComponent && (pComponent->GetTypeAccessor().GetType()->IsDerivedFrom<ezMeshComponent>() ||
-                        pComponent->GetTypeAccessor().GetType()->IsDerivedFrom<ezGreyBoxComponent>()))
+    if (pComponent && (pComponent->GetTypeAccessor().GetType()->IsDerivedFrom<ezMeshComponent>() || pComponent->GetTypeAccessor().GetType()->IsDerivedFrom<ezGreyBoxComponent>()))
     {
       m_pDocument->GetCommandHistory()->FinishTemporaryCommands();
       return;

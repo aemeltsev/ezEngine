@@ -20,8 +20,8 @@ template <class RESOURCE_TYPE>
 class ezResourceLock
 {
 public:
-  EZ_ALWAYS_INLINE ezResourceLock(const ezTypedResourceHandle<RESOURCE_TYPE>& hResource, ezResourceAcquireMode mode,
-                 const ezTypedResourceHandle<RESOURCE_TYPE>& hFallbackResource = ezTypedResourceHandle<RESOURCE_TYPE>())
+  EZ_ALWAYS_INLINE ezResourceLock(
+    const ezTypedResourceHandle<RESOURCE_TYPE>& hResource, ezResourceAcquireMode mode, const ezTypedResourceHandle<RESOURCE_TYPE>& hFallbackResource = ezTypedResourceHandle<RESOURCE_TYPE>())
   {
     m_pResource = ezResourceManager::BeginAcquireResource(hResource, mode, hFallbackResource, &m_AcquireResult);
   }
@@ -59,4 +59,3 @@ private:
   ezResourceAcquireResult m_AcquireResult;
   RESOURCE_TYPE* m_pResource;
 };
-

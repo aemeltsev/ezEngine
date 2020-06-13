@@ -1,11 +1,11 @@
-﻿#includde <WindowsMixedRealityPCH.h>
+﻿#includde < WindowsMixedRealityPCH.h>
 #include <WindowsMixedReality/HolographicSpace.h>
+#include <WindowsMixedReality/SpatialAnchor.h>
 #include <WindowsMixedReality/SpatialLocationService.h>
 #include <WindowsMixedReality/SpatialReferenceFrame.h>
-#include <WindowsMixedReality/SpatialAnchor.h>
 
-#include <windows.perception.spatial.h>
 #include <windows.foundation.collections.h>
+#include <windows.perception.spatial.h>
 #include <wrl/event.h>
 
 using namespace ABI::Windows::Foundation::Numerics;
@@ -16,7 +16,8 @@ ezWindowsSpatialLocationService::ezWindowsSpatialLocationService(const ComPtr<IS
   , m_currentLocatability(ezSpatialLocatability::Unavailable)
 {
   using OnLocatabilityChangedFunc = __FITypedEventHandler_2_Windows__CPerception__CSpatial__CSpatialLocator_IInspectable;
-  if (FAILED(m_pSpatialLocator->add_LocatabilityChanged(Callback<OnLocatabilityChangedFunc>(this, &ezWindowsSpatialLocationService::OnLocatabilityChanged).Get(), &m_eventRegistrationLocatabilityChanged)))
+  if (FAILED(
+        m_pSpatialLocator->add_LocatabilityChanged(Callback<OnLocatabilityChangedFunc>(this, &ezWindowsSpatialLocationService::OnLocatabilityChanged).Get(), &m_eventRegistrationLocatabilityChanged)))
   {
     ezLog::Error("Failed to subscribe for locatability changes on spatial locator.");
   }
@@ -40,30 +41,30 @@ HRESULT ezWindowsSpatialLocationService::OnLocatabilityChanged(ISpatialLocator* 
 
   switch (locatability)
   {
-  case SpatialLocatability::SpatialLocatability_Unavailable:
-    m_currentLocatability = ezSpatialLocatability::Unavailable;
-    ezLog::Warning("Spatial locator unavailable, can't place holograms!");
-    break;
+    case SpatialLocatability::SpatialLocatability_Unavailable:
+      m_currentLocatability = ezSpatialLocatability::Unavailable;
+      ezLog::Warning("Spatial locator unavailable, can't place holograms!");
+      break;
 
-  case SpatialLocatability::SpatialLocatability_OrientationOnly:
-    m_currentLocatability = ezSpatialLocatability::OrientationOnly;
-    ezLog::Debug("Spatial locator is orientation only - the system is preparing to use positional tracking.");
-    break;
+    case SpatialLocatability::SpatialLocatability_OrientationOnly:
+      m_currentLocatability = ezSpatialLocatability::OrientationOnly;
+      ezLog::Debug("Spatial locator is orientation only - the system is preparing to use positional tracking.");
+      break;
 
-  case SpatialLocatability::SpatialLocatability_PositionalTrackingActivating:
-    m_currentLocatability = ezSpatialLocatability::PositionalTrackingActivating;
-    ezLog::Debug("Spatial locator is activating positional tracking.");
-    break;
+    case SpatialLocatability::SpatialLocatability_PositionalTrackingActivating:
+      m_currentLocatability = ezSpatialLocatability::PositionalTrackingActivating;
+      ezLog::Debug("Spatial locator is activating positional tracking.");
+      break;
 
-  case SpatialLocatability::SpatialLocatability_PositionalTrackingActive:
-    m_currentLocatability = ezSpatialLocatability::PositionalTrackingActive;
-    ezLog::Debug("Spatial locator fully functional.");
-    break;
+    case SpatialLocatability::SpatialLocatability_PositionalTrackingActive:
+      m_currentLocatability = ezSpatialLocatability::PositionalTrackingActive;
+      ezLog::Debug("Spatial locator fully functional.");
+      break;
 
-  case SpatialLocatability::SpatialLocatability_PositionalTrackingInhibited:
-    m_currentLocatability = ezSpatialLocatability::PositionalTrackingInhibited;
-    ezLog::Warning("Positional tracking is temporarily inhibited. User action may be required in order to restore positional tracking..");
-    break;
+    case SpatialLocatability::SpatialLocatability_PositionalTrackingInhibited:
+      m_currentLocatability = ezSpatialLocatability::PositionalTrackingInhibited;
+      ezLog::Warning("Positional tracking is temporarily inhibited. User action may be required in order to restore positional tracking..");
+      break;
   }
 
   return S_OK;
@@ -176,7 +177,7 @@ ezUniquePtr<ezWindowsSpatialReferenceFrame> ezWindowsSpatialLocationService::Cre
   ezUwpUtils::ConvertVec3(mCurToOrigin * vOriginToDest, vCurToDest);
 
   ezQuat qCurToDest0;
-  qCurToDest0.SetFromMat3((mCurToOrigin *  qOriginToDest.GetAsMat4()).GetRotationalPart());
+  qCurToDest0.SetFromMat3((mCurToOrigin * qOriginToDest.GetAsMat4()).GetRotationalPart());
 
   ezQuat qLocalRot;
   qLocalRot.SetFromAxisAndAngle(ezVec3(0, 1, 0), difference);
@@ -193,7 +194,6 @@ ezUniquePtr<ezWindowsSpatialReferenceFrame> ezWindowsSpatialLocationService::Cre
   }
 
   return EZ_DEFAULT_NEW(ezWindowsSpatialReferenceFrame, pFrame);
-
 }
 
 ezUniquePtr<ezWindowsSpatialAnchor> ezWindowsSpatialLocationService::CreateSpatialAnchor(const ezTransform& offset, const ezWindowsSpatialReferenceFrame* pReferenceFrame /*= nullptr*/)
@@ -247,9 +247,7 @@ void ezWindowsSpatialLocationService::LoadSpatialAnchorMap()
   ComPtr<__FIAsyncOperation_1_Windows__CPerception__CSpatial__CSpatialAnchorStore> pAsyncOp;
   if (SUCCEEDED(manager->RequestStoreAsync(&pAsyncOp)))
   {
-    ezUwpUtils::ezWinRtPutCompleted<SpatialAnchorStore*, ComPtr<ISpatialAnchorStore>>
-      (pAsyncOp, [this](const ComPtr<ISpatialAnchorStore>& pResult)
-    {
+    ezUwpUtils::ezWinRtPutCompleted<SpatialAnchorStore*, ComPtr<ISpatialAnchorStore>>(pAsyncOp, [this](const ComPtr<ISpatialAnchorStore>& pResult) {
       ezLog::Dev("Successfully retrieved spatial anchor storage.");
       m_pStore = pResult;
     });
@@ -286,4 +284,3 @@ ezUniquePtr<ezWindowsSpatialAnchor> ezWindowsSpatialLocationService::LoadPersist
 
   return EZ_DEFAULT_NEW(ezWindowsSpatialAnchor, pSpatialAnchorResult);
 }
-

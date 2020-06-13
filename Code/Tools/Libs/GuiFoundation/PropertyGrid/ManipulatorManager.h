@@ -1,8 +1,8 @@
 #pragma once
 
-#include <GuiFoundation/GuiFoundationDLL.h>
-#include <Foundation/Configuration/Startup.h>
 #include <Foundation/Configuration/Singleton.h>
+#include <Foundation/Configuration/Startup.h>
+#include <GuiFoundation/GuiFoundationDLL.h>
 #include <GuiFoundation/PropertyGrid/PropertyBaseWidget.moc.h>
 #include <ToolsFoundation/Document/DocumentManager.h>
 
@@ -23,7 +23,6 @@ class EZ_GUIFOUNDATION_DLL ezManipulatorManager
   EZ_DECLARE_SINGLETON(ezManipulatorManager);
 
 public:
-
   ezManipulatorManager();
   ~ezManipulatorManager();
 
@@ -61,7 +60,6 @@ private:
 
   void PhantomTypeManagerEventHandler(const ezPhantomRttiManagerEvent& e);
   void DocumentManagerEventHandler(const ezDocumentManager::Event& e);
-  
+
   ezMap<const ezDocument*, Data> m_ActiveManipulator;
 };
-

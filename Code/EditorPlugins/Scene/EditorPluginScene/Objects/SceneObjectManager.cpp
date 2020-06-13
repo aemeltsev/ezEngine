@@ -44,8 +44,7 @@ void ezSceneObjectManager::GetCreateableTypes(ezHybridArray<const ezRTTI*, 32>& 
   }
 }
 
-ezStatus ezSceneObjectManager::InternalCanAdd(
-  const ezRTTI* pRtti, const ezDocumentObject* pParent, const char* szParentProperty, const ezVariant& index) const
+ezStatus ezSceneObjectManager::InternalCanAdd(const ezRTTI* pRtti, const ezDocumentObject* pParent, const char* szParentProperty, const ezVariant& index) const
 {
   if (IsUnderRootProperty("Children", pParent, szParentProperty))
   {
@@ -85,8 +84,7 @@ ezStatus ezSceneObjectManager::InternalCanAdd(
   return ezStatus(EZ_SUCCESS);
 }
 
-ezStatus ezSceneObjectManager::InternalCanMove(
-  const ezDocumentObject* pObject, const ezDocumentObject* pNewParent, const char* szParentProperty, const ezVariant& index) const
+ezStatus ezSceneObjectManager::InternalCanMove(const ezDocumentObject* pObject, const ezDocumentObject* pNewParent, const char* szParentProperty, const ezVariant& index) const
 {
   // code to disallow attaching nodes to a prefab node
   // if (pNewParent != nullptr)
@@ -109,8 +107,7 @@ ezStatus ezSceneObjectManager::InternalCanSelect(const ezDocumentObject* pObject
 {
   if (pObject->GetTypeAccessor().GetType() != ezGetStaticRTTI<ezGameObject>())
   {
-    return ezStatus(
-      ezFmt("Object of type '{0}' is not a 'ezGameObject' and can't be selected.", pObject->GetTypeAccessor().GetType()->GetTypeName()));
+    return ezStatus(ezFmt("Object of type '{0}' is not a 'ezGameObject' and can't be selected.", pObject->GetTypeAccessor().GetType()->GetTypeName()));
   }
   return ezStatus(EZ_SUCCESS);
 }

@@ -2,10 +2,10 @@
 
 #ifdef BUILDSYSTEM_ENABLE_MIXEDREALITY_SUPPORT
 
-#include <WindowsMixedReality/Basics.h>
-#include <Core/Input/DeviceTypes/Controller.h>
-#include <Foundation/Configuration/Singleton.h>
-#include <Foundation/Types/UniquePtr.h>
+#  include <Core/Input/DeviceTypes/Controller.h>
+#  include <Foundation/Configuration/Singleton.h>
+#  include <Foundation/Types/UniquePtr.h>
+#  include <WindowsMixedReality/Basics.h>
 
 class ezCamera;
 struct ezGameApplicationEvent;
@@ -40,8 +40,8 @@ public:
 
   /// whether VR/MR headsets are supported at all.
   ///
-  /// True for all x64 Windows beyond Creator's Update if the headset was setup already. 
-  //bool IsSupported() const;
+  /// True for all x64 Windows beyond Creator's Update if the headset was setup already.
+  // bool IsSupported() const;
 
   /// \brief whether a headset is ready for rendering.
   ///
@@ -73,7 +73,6 @@ public:
 
   // Cameras
 public:
-
   /// \brief Gets list of all cameras.
   ezArrayPtr<ezWindowsMixedRealityCamera*> GetCameras() { return ezMakeArrayPtr(m_cameras); }
 
@@ -89,7 +88,6 @@ public:
 
   // Internal
 public:
-
   /// \brief Called by holographic device.
   ///
   /// Applies deferred camera add/remove and updates camera poses.
@@ -99,7 +97,6 @@ public:
   ABI::Windows::Graphics::Holographic::IHolographicSpace* GetInternalHolographicSpace() { return m_pHolographicSpace.Get(); }
 
 private:
-
   //
   // Initialization
   //

@@ -79,7 +79,7 @@ void ezVisualShaderTypeRegistry::UpdateNodeData()
     {
       UpdateNodeData(it.GetStats().m_sName);
     } while (it.Next().Succeeded());
-    }
+  }
 }
 
 

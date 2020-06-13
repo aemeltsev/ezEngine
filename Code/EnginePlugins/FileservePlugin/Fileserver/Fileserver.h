@@ -1,9 +1,9 @@
 #pragma once
 
 #include <FileservePlugin/Fileserver/ClientContext.h>
-#include <Foundation/Containers/HashTable.h>
-#include <Foundation/Configuration/Singleton.h>
 #include <Foundation/Communication/RemoteInterface.h>
+#include <Foundation/Configuration/Singleton.h>
+#include <Foundation/Containers/HashTable.h>
 #include <Foundation/Types/UniquePtr.h>
 #include <Foundation/Types/Uuid.h>
 
@@ -89,23 +89,22 @@ public:
 
 private:
   void NetworkEventHandler(const ezRemoteEvent& e);
-  ezFileserveClientContext& DetermineClient(ezRemoteMessage &msg);
+  ezFileserveClientContext& DetermineClient(ezRemoteMessage& msg);
   void NetworkMsgHandler(ezRemoteMessage& msg);
-  void HandleMountRequest(ezFileserveClientContext& client, ezRemoteMessage &msg);
-  void HandleUnmountRequest(ezFileserveClientContext& client, ezRemoteMessage &msg);
-  void HandleFileRequest(ezFileserveClientContext& client, ezRemoteMessage &msg);
-  void HandleDeleteFileRequest(ezFileserveClientContext& client, ezRemoteMessage &msg);
-  void HandleUploadFileHeader(ezFileserveClientContext& client, ezRemoteMessage &msg);
-  void HandleUploadFileTransfer(ezFileserveClientContext& client, ezRemoteMessage &msg);
-  void HandleUploadFileFinished(ezFileserveClientContext& client, ezRemoteMessage &msg);
+  void HandleMountRequest(ezFileserveClientContext& client, ezRemoteMessage& msg);
+  void HandleUnmountRequest(ezFileserveClientContext& client, ezRemoteMessage& msg);
+  void HandleFileRequest(ezFileserveClientContext& client, ezRemoteMessage& msg);
+  void HandleDeleteFileRequest(ezFileserveClientContext& client, ezRemoteMessage& msg);
+  void HandleUploadFileHeader(ezFileserveClientContext& client, ezRemoteMessage& msg);
+  void HandleUploadFileTransfer(ezFileserveClientContext& client, ezRemoteMessage& msg);
+  void HandleUploadFileFinished(ezFileserveClientContext& client, ezRemoteMessage& msg);
 
   ezHashTable<ezUInt32, ezFileserveClientContext> m_Clients;
   ezUniquePtr<ezRemoteInterface> m_Network;
-  ezDynamicArray<ezUInt8> m_SendToClient; // ie. 'downloads' from server to client
+  ezDynamicArray<ezUInt8> m_SendToClient;   // ie. 'downloads' from server to client
   ezDynamicArray<ezUInt8> m_SentFromClient; // ie. 'uploads' from client to server
   ezStringBuilder m_sCurFileUpload;
   ezUuid m_FileUploadGuid;
   ezUInt32 m_uiFileUploadSize;
   ezUInt16 m_uiPort = 1042;
 };
-

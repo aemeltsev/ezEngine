@@ -30,7 +30,7 @@ ezLUTAssetDocumentManager::ezLUTAssetDocumentManager()
 
   ezQtImageCache::GetSingleton()->RegisterTypeImage("LUT", QPixmap(":/AssetIcons/LUT.png"));
 
-  //ezQtImageCache::GetSingleton()->RegisterTypeImage("Render Target", QPixmap(":/AssetIcons/Render_Target.png"));
+  // ezQtImageCache::GetSingleton()->RegisterTypeImage("Render Target", QPixmap(":/AssetIcons/Render_Target.png"));
 }
 
 ezLUTAssetDocumentManager::~ezLUTAssetDocumentManager()

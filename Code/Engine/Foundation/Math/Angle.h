@@ -36,7 +36,7 @@ public:
 
   /// \brief Standard constructor, initializing with 0.
   constexpr ezAngle()
-      : m_fRadian(0.0f)
+    : m_fRadian(0.0f)
   {
   } // [tested]
 
@@ -93,7 +93,7 @@ public:
 private:
   /// \brief For internal use only.
   constexpr explicit ezAngle(float fRadian)
-      : m_fRadian(fRadian)
+    : m_fRadian(fRadian)
   {
   }
 
@@ -118,4 +118,3 @@ constexpr ezAngle operator/(ezAngle a, float f); // [tested]
 constexpr ezAngle operator/(float f, ezAngle a); // [tested]
 
 #include <Foundation/Math/Implementation/Angle_inl.h>
-

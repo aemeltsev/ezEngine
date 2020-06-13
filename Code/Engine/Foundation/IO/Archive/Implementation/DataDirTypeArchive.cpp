@@ -25,8 +25,7 @@ EZ_END_SUBSYSTEM_DECLARATION;
 ezDataDirectory::ArchiveType::ArchiveType() = default;
 ezDataDirectory::ArchiveType::~ArchiveType() = default;
 
-ezDataDirectoryType* ezDataDirectory::ArchiveType::Factory(
-  const char* szDataDirectory, const char* szGroup, const char* szRootName, ezFileSystem::DataDirUsage Usage)
+ezDataDirectoryType* ezDataDirectory::ArchiveType::Factory(const char* szDataDirectory, const char* szGroup, const char* szRootName, ezFileSystem::DataDirUsage Usage)
 {
   ArchiveType* pDataDir = EZ_DEFAULT_NEW(ArchiveType);
 

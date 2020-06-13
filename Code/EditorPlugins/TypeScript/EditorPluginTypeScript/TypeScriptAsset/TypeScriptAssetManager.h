@@ -1,10 +1,10 @@
 #pragma once
 
 #include <EditorFramework/Assets/AssetDocumentManager.h>
+#include <EditorFramework/Preferences/Preferences.h>
 #include <Foundation/Time/Timestamp.h>
 #include <Foundation/Types/Status.h>
 #include <TypeScriptPlugin/Transpiler/Transpiler.h>
-#include <EditorFramework/Preferences/Preferences.h>
 
 struct ezGameObjectDocumentEvent;
 

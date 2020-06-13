@@ -59,13 +59,12 @@ public:
   ezExpressionVM();
   ~ezExpressionVM();
 
-  void RegisterFunction(const char* szName, ezExpressionFunction func,
-    ezExpressionValidateGlobalData validationFunc = ezExpressionValidateGlobalData());
+  void RegisterFunction(const char* szName, ezExpressionFunction func, ezExpressionValidateGlobalData validationFunc = ezExpressionValidateGlobalData());
 
   void RegisterDefaultFunctions();
 
-  ezResult Execute(const ezExpressionByteCode& byteCode, ezArrayPtr<const ezExpression::Stream> inputs, ezArrayPtr<ezExpression::Stream> outputs,
-    ezUInt32 uiNumInstances, const ezExpression::GlobalData& globalData = ezExpression::GlobalData());
+  ezResult Execute(const ezExpressionByteCode& byteCode, ezArrayPtr<const ezExpression::Stream> inputs, ezArrayPtr<ezExpression::Stream> outputs, ezUInt32 uiNumInstances,
+    const ezExpression::GlobalData& globalData = ezExpression::GlobalData());
 
 private:
   ezDynamicArray<ezSimdVec4f, ezAlignedAllocatorWrapper> m_Registers;

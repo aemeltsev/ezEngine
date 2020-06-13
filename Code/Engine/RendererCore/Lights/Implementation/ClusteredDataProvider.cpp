@@ -167,8 +167,7 @@ void* ezClusteredDataProvider::UpdateData(const ezRenderViewContext& renderViewC
     // Update Constants
     const ezRectFloat& viewport = renderViewContext.m_pViewData->m_ViewPortRect;
 
-    ezClusteredDataConstants* pConstants =
-      renderViewContext.m_pRenderContext->GetConstantBufferData<ezClusteredDataConstants>(m_Data.m_hConstantBuffer);
+    ezClusteredDataConstants* pConstants = renderViewContext.m_pRenderContext->GetConstantBufferData<ezClusteredDataConstants>(m_Data.m_hConstantBuffer);
     pConstants->DepthSliceScale = s_fDepthSliceScale;
     pConstants->DepthSliceBias = s_fDepthSliceBias;
     pConstants->InvTileSize = ezVec2(NUM_CLUSTERS_X / viewport.width, NUM_CLUSTERS_Y / viewport.height);

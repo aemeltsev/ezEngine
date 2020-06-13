@@ -50,7 +50,7 @@ public:
   void ClearExistingObjects();
 
   ezIPCObjectMirrorEngine m_Mirror;
-  ezWorldRttiConverterContext m_Context; //TODO: Move actual context into the EngineProcessDocumentContext
+  ezWorldRttiConverterContext m_Context; // TODO: Move actual context into the EngineProcessDocumentContext
 
   ezWorld* GetWorld() const { return m_pWorld.Borrow(); }
 

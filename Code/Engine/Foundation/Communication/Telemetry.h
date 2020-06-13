@@ -1,29 +1,28 @@
 #pragma once
 
-#include <Foundation/Logging/Log.h>
+#include <Foundation/Communication/Implementation/TelemetryMessage.h>
 #include <Foundation/Containers/Deque.h>
 #include <Foundation/Containers/HybridArray.h>
-#include <Foundation/Time/Time.h>
-#include <Foundation/Strings/String.h>
 #include <Foundation/Containers/Map.h>
-#include <Foundation/Communication/Implementation/TelemetryMessage.h>
+#include <Foundation/Logging/Log.h>
+#include <Foundation/Strings/String.h>
 #include <Foundation/Threading/Mutex.h>
+#include <Foundation/Time/Time.h>
 
 
 /// \todo document and test (and finish)
 class EZ_FOUNDATION_DLL ezTelemetry
 {
 public:
-
   /// \brief The port over which ezTelemetry will connect.
   static ezUInt16 s_uiPort /* = 1040*/;
 
   /// \brief Defines how the ezTelemetry system was configured.
   enum ConnectionMode
   {
-    None,     ///< Not configured yet, at all.
-    Server,   ///< Set up as a Server, i.e. this is an application that broadcasts information about its current state to one or several Clients.
-    Client,   ///< Set up as a Client, i.e. this is a tool that gathers information from a Server, usually for debugging/inspection use cases.
+    None,   ///< Not configured yet, at all.
+    Server, ///< Set up as a Server, i.e. this is an application that broadcasts information about its current state to one or several Clients.
+    Client, ///< Set up as a Client, i.e. this is a tool that gathers information from a Server, usually for debugging/inspection use cases.
   };
 
   /// \brief Describes how to send messages.
@@ -34,7 +33,7 @@ public:
   };
 
   /// \name Connection Configuration
-  /// @{ 
+  /// @{
 
   /// \brief Starts a connection as a 'Client' to one server.
   ///
@@ -61,7 +60,7 @@ public:
   /// @}
 
   /// \name Sending Data
-  /// @{ 
+  /// @{
 
   static void Broadcast(TransmitMode tm, ezUInt32 uiSystemID, ezUInt32 uiMsgID, const void* pData, ezUInt32 uiDataBytes);
   static void Broadcast(TransmitMode tm, ezUInt32 uiSystemID, ezUInt32 uiMsgID, ezStreamReader& Stream, ezInt32 iDataBytes = -1);
@@ -74,7 +73,7 @@ public:
   /// @}
 
   /// \name Querying State
-  /// @{ 
+  /// @{
 
   /// \brief Returns whether the telemetry system is set up as Server, Client or not initialized at all.
   static ConnectionMode GetConnectionMode() { return s_ConnectionMode; }
@@ -122,13 +121,13 @@ public:
   /// @}
 
   /// \name Processing Messages
-  /// @{ 
+  /// @{
 
   /// \brief Checks whether any message for the system with the given ID exists and returns that.
   ///
   /// If no message for the given system is available, EZ_FAILURE is returned.
   /// This function will not poll the network to check whether new messages arrived.
-  /// Use UpdateNetwork() and RetrieveMessage() in a loop, if you are waiting for a specific message, 
+  /// Use UpdateNetwork() and RetrieveMessage() in a loop, if you are waiting for a specific message,
   /// to continuously update the network state and check whether the desired message has arrived.
   /// However, if you do so, you will be able to deadlock your application, if such a message never arrives.
   /// Also it might fill up other message queues which might lead to messages getting discarded.
@@ -142,7 +141,7 @@ public:
   /// In that case it might also make sense to use GetTelemetryMutex() to lock the entire section while waiting for the message.
   static void UpdateNetwork();
 
-  typedef void(*ProcessMessagesCallback)(void* pPassThrough);
+  typedef void (*ProcessMessagesCallback)(void* pPassThrough);
 
   static void AcceptMessagesForSystem(ezUInt32 uiSystemID, bool bAccept, ProcessMessagesCallback Callback = nullptr, void* pPassThrough = nullptr);
 
@@ -161,17 +160,17 @@ public:
   /// @}
 
   /// \name ezTelemetry Events
-  /// @{ 
+  /// @{
 
   struct TelemetryEventData
   {
     enum EventType
     {
-      ConnectedToClient,        ///< brief Send whenever a new connection to a client has been established.
-      ConnectedToServer,        ///< brief Send whenever a connection to the server has been established.
-      DisconnectedFromClient,   ///< Send every time the connection to a client is dropped
-      DisconnectedFromServer,   ///< Send when the connection to the server has been lost
-      PerFrameUpdate,           ///< Send once per frame, react to this to send per-frame statistics
+      ConnectedToClient,      ///< brief Send whenever a new connection to a client has been established.
+      ConnectedToServer,      ///< brief Send whenever a connection to the server has been established.
+      DisconnectedFromClient, ///< Send every time the connection to a client is dropped
+      DisconnectedFromServer, ///< Send when the connection to the server has been lost
+      PerFrameUpdate,         ///< Send once per frame, react to this to send per-frame statistics
     };
 
     EventType m_EventType;
@@ -180,10 +179,10 @@ public:
   typedef ezEvent<const TelemetryEventData&, ezMutex> ezEventTelemetry;
 
   /// \brief Adds an event handler that is called for every ezTelemetry event.
-  static void AddEventHandler(ezEventTelemetry::Handler handler)    { s_TelemetryEvents.AddEventHandler    (handler); }
+  static void AddEventHandler(ezEventTelemetry::Handler handler) { s_TelemetryEvents.AddEventHandler(handler); }
 
   /// \brief Removes a previously added event handler.
-  static void RemoveEventHandler(ezEventTelemetry::Handler handler) { s_TelemetryEvents.RemoveEventHandler (handler); }
+  static void RemoveEventHandler(ezEventTelemetry::Handler handler) { s_TelemetryEvents.RemoveEventHandler(handler); }
 
   /// @}
 
@@ -226,10 +225,10 @@ private:
 
   struct MessageQueue
   {
-    MessageQueue() 
-    { 
-      m_bAcceptMessages = false; 
-      m_uiMaxQueuedOutgoing = 1000; 
+    MessageQueue()
+    {
+      m_bAcceptMessages = false;
+      m_uiMaxQueuedOutgoing = 1000;
       m_Callback = nullptr;
       m_pPassThrough = nullptr;
     }
@@ -244,7 +243,7 @@ private:
   };
 
   static ezMap<ezUInt64, MessageQueue> s_SystemMessages;
-  
+
   static ezEventTelemetry s_TelemetryEvents;
 
 private:
@@ -252,4 +251,3 @@ private:
   static void StartTelemetryThread();
   static void StopTelemetryThread();
 };
-

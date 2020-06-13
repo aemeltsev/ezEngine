@@ -1,11 +1,11 @@
 #include <CorePCH.h>
 
 #include <Core/Collection/CollectionUtils.h>
-#include <Foundation/IO/OSFile.h>
 #include <Foundation/IO/FileSystem/FileSystem.h>
+#include <Foundation/IO/OSFile.h>
 
-void ezCollectionUtils::AddFiles(ezCollectionResourceDescriptor& collection, const char* szAssetTypeName, const char* szAbsPathToFolder,
-  const char* szFileExtension, const char* szStripPrefix, const char* szPrependPrefix)
+void ezCollectionUtils::AddFiles(
+  ezCollectionResourceDescriptor& collection, const char* szAssetTypeName, const char* szAbsPathToFolder, const char* szFileExtension, const char* szStripPrefix, const char* szPrependPrefix)
 {
 #if EZ_ENABLED(EZ_SUPPORTS_FILE_ITERATORS)
   ezFileSystemIterator fsIt;
@@ -44,8 +44,7 @@ void ezCollectionUtils::AddFiles(ezCollectionResourceDescriptor& collection, con
 }
 
 
-EZ_CORE_DLL void ezCollectionUtils::MergeCollections(
-  ezCollectionResourceDescriptor& result, ezArrayPtr<const ezCollectionResourceDescriptor*> inputCollections)
+EZ_CORE_DLL void ezCollectionUtils::MergeCollections(ezCollectionResourceDescriptor& result, ezArrayPtr<const ezCollectionResourceDescriptor*> inputCollections)
 {
   ezMap<ezString, const ezCollectionEntry*> firstEntryOfID;
 
@@ -69,8 +68,7 @@ EZ_CORE_DLL void ezCollectionUtils::DeDuplicateEntries(ezCollectionResourceDescr
   MergeCollections(result, ezArrayPtr<const ezCollectionResourceDescriptor*>(&firstInput, 1));
 }
 
-void ezCollectionUtils::AddResourceHandle(
-  ezCollectionResourceDescriptor& collection, ezTypelessResourceHandle handle, const char* szAssetTypeName, const char* szAbsFolderpath)
+void ezCollectionUtils::AddResourceHandle(ezCollectionResourceDescriptor& collection, ezTypelessResourceHandle handle, const char* szAssetTypeName, const char* szAbsFolderpath)
 {
   if (!handle.IsValid())
     return;
@@ -94,9 +92,7 @@ void ezCollectionUtils::AddResourceHandle(
     absFilename.MakeCleanPath();
 
     ezFileStats stats;
-    if (!absFilename.IsEmpty()
-      && absFilename.IsAbsolutePath()
-      && ezFileSystem::GetFileStats(absFilename, stats).Succeeded())
+    if (!absFilename.IsEmpty() && absFilename.IsAbsolutePath() && ezFileSystem::GetFileStats(absFilename, stats).Succeeded())
     {
       entry.m_uiFileSize = stats.m_uiFileSize;
     }

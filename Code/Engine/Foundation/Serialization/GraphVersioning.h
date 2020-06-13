@@ -42,10 +42,7 @@ struct ezGraphVersioningHash
     return uiHash;
   }
 
-  EZ_ALWAYS_INLINE static bool Equal(const ezVersionKey& a, const ezVersionKey& b)
-  {
-    return a.m_sType == b.m_sType && a.m_uiTypeVersion == b.m_uiTypeVersion;
-  }
+  EZ_ALWAYS_INLINE static bool Equal(const ezVersionKey& a, const ezVersionKey& b) { return a.m_sType == b.m_sType && a.m_uiTypeVersion == b.m_uiTypeVersion; }
 };
 
 /// \brief A class that overlaps ezReflectedTypeDescriptor with the properties needed for patching.
@@ -123,4 +120,3 @@ private:
   ezDynamicArray<const ezGraphPatch*> m_GraphPatches;
   ezHashTable<ezVersionKey, const ezGraphPatch*, ezGraphVersioningHash> m_NodePatches;
 };
-

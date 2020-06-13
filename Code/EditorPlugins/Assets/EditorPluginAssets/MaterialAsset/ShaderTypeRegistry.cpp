@@ -246,7 +246,7 @@ namespace
       }
     }
   }
-}
+} // namespace
 
 ezShaderTypeRegistry::ezShaderTypeRegistry()
   : m_SingletonRegistrar(this)

@@ -181,8 +181,7 @@ end:
 #endif
 }
 
-void ezSrmRenderComponent::CreateSurfaceRepresentation(const ezUuid& guid, SrmRenderObject& surface, const ezTransform& transform,
-  ezMeshBufferResourceDescriptor&& mb)
+void ezSrmRenderComponent::CreateSurfaceRepresentation(const ezUuid& guid, SrmRenderObject& surface, const ezTransform& transform, ezMeshBufferResourceDescriptor&& mb)
 {
   EZ_LOCK(GetWorld()->GetWriteMarker());
 

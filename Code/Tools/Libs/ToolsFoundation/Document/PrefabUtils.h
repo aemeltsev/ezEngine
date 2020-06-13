@@ -1,9 +1,9 @@
 #pragma once
 
-#include <ToolsFoundation/ToolsFoundationDLL.h>
 #include <Foundation/Serialization/AbstractObjectGraph.h>
-#include <ToolsFoundation/Object/ObjectMetaData.h>
 #include <ToolsFoundation/Document/Document.h>
+#include <ToolsFoundation/Object/ObjectMetaData.h>
+#include <ToolsFoundation/ToolsFoundationDLL.h>
 
 class ezDocumentObject;
 
@@ -31,6 +31,4 @@ public:
   static void Merge(const char* szBase, const char* szLeft, ezDocumentObject* pRight, bool bRightIsNotPartOfPrefab, const ezUuid& PrefabSeed, ezStringBuilder& out_sNewGraph);
 
   static ezString ReadDocumentAsString(const char* szFile);
-
 };
-

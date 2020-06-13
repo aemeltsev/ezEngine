@@ -65,10 +65,7 @@ struct ezHashHelper<HashTableTestDetail::OnlyMovable>
 {
   EZ_ALWAYS_INLINE static ezUInt32 Hash(const HashTableTestDetail::OnlyMovable& value) { return value.hash; }
 
-  EZ_ALWAYS_INLINE static bool Equal(const HashTableTestDetail::OnlyMovable& a, const HashTableTestDetail::OnlyMovable& b)
-  {
-    return a.hash == b.hash;
-  }
+  EZ_ALWAYS_INLINE static bool Equal(const HashTableTestDetail::OnlyMovable& a, const HashTableTestDetail::OnlyMovable& b) { return a.hash == b.hash; }
 };
 
 EZ_CREATE_SIMPLE_TEST(Containers, HashTable)

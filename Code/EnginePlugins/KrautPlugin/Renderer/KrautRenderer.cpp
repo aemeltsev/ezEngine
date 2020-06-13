@@ -36,8 +36,7 @@ void ezKrautRenderer::GetSupportedRenderDataCategories(ezHybridArray<ezRenderDat
   categories.PushBack(ezDefaultRenderDataCategories::Selection);
 }
 
-void ezKrautRenderer::RenderBatch(
-  const ezRenderViewContext& renderViewContext, const ezRenderPipelinePass* pPass, const ezRenderDataBatch& batch) const
+void ezKrautRenderer::RenderBatch(const ezRenderViewContext& renderViewContext, const ezRenderPipelinePass* pPass, const ezRenderDataBatch& batch) const
 {
   ezRenderContext* pRenderContext = renderViewContext.m_pRenderContext;
 
@@ -64,16 +63,13 @@ void ezKrautRenderer::RenderBatch(
   pRenderContext->BindMaterial(pMesh->GetMaterials()[subMesh.m_uiMaterialIndex]);
   pRenderContext->BindMeshBuffer(pMesh->GetMeshBuffer());
 
-  treeConstants.SetTreeData(
-    pRenderData->m_vLeafCenter, renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::Shadow ? 1.0f : 0.0f);
+  treeConstants.SetTreeData(pRenderData->m_vLeafCenter, renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::Shadow ? 1.0f : 0.0f);
 
   const ezVec3 vLodCamPos = renderViewContext.m_pCamera->GetPosition();
 
   const bool bIsShadowView = renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::Shadow;
-  const bool bUpdateMinLod = (renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::Culling ||
-                              renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::Thumbnail ||
-                              renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::MainView ||
-                              renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::EditorView ||
+  const bool bUpdateMinLod = (renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::Culling || renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::Thumbnail ||
+                              renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::MainView || renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::EditorView ||
                               renderViewContext.m_pViewData->m_CameraUsageHint == ezCameraUsageHint::RenderTarget);
 
   for (ezUInt32 uiStartIndex = 0; uiStartIndex < batch.GetCount(); /**/)
@@ -114,8 +110,8 @@ void ezKrautRenderer::RenderBatch(
   }
 }
 
-void ezKrautRenderer::FillPerInstanceData(const ezVec3& vLodCamPos, ezArrayPtr<ezPerInstanceData> instanceData,
-  const ezRenderDataBatch& batch, bool bUpdateMinLod, bool bIsShadowView, ezUInt32 uiStartIndex, ezUInt32& out_uiFilteredCount) const
+void ezKrautRenderer::FillPerInstanceData(const ezVec3& vLodCamPos, ezArrayPtr<ezPerInstanceData> instanceData, const ezRenderDataBatch& batch, bool bUpdateMinLod, bool bIsShadowView,
+  ezUInt32 uiStartIndex, ezUInt32& out_uiFilteredCount) const
 {
   const ezUInt64 uiFrameCount = ezRenderWorld::GetFrameCounter();
   const ezUInt8 uiReadLod = uiFrameCount % 4;
@@ -140,8 +136,7 @@ void ezKrautRenderer::FillPerInstanceData(const ezVec3& vLodCamPos, ezArrayPtr<e
     {
       if (fDistanceSQR >= pRenderData->m_fLodDistanceMinSQR && fDistanceSQR < pRenderData->m_fLodDistanceMaxSQR)
       {
-        pRenderData->m_pTreeLodInfo->m_uiMinLod[uiWriteLod] =
-          ezMath::Min<ezUInt32>(pRenderData->m_pTreeLodInfo->m_uiMinLod[uiWriteLod], pRenderData->m_uiThisLodIndex);
+        pRenderData->m_pTreeLodInfo->m_uiMinLod[uiWriteLod] = ezMath::Min<ezUInt32>(pRenderData->m_pTreeLodInfo->m_uiMinLod[uiWriteLod], pRenderData->m_uiThisLodIndex);
       }
     }
 

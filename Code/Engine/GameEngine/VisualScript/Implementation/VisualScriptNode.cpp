@@ -163,8 +163,7 @@ void ezVisualScriptNode_MessageSender::Execute(ezVisualScriptInstance* pInstance
 
         for (ezUInt32 uiProp = 0; uiProp < properties.GetCount(); ++uiProp)
         {
-          if (properties[uiProp]->GetCategory() == ezPropertyCategory::Member &&
-              properties[uiProp]->GetFlags().IsAnySet(ezPropertyFlags::VarInOut | ezPropertyFlags::VarOut))
+          if (properties[uiProp]->GetCategory() == ezPropertyCategory::Member && properties[uiProp]->GetFlags().IsAnySet(ezPropertyFlags::VarInOut | ezPropertyFlags::VarOut))
           {
             ezAbstractMemberProperty* pAbsMember = static_cast<ezAbstractMemberProperty*>(properties[uiProp]);
 
@@ -252,13 +251,9 @@ EZ_BEGIN_DYNAMIC_REFLECTED_TYPE(ezVisualScriptNode_FunctionCall, 1, ezRTTIDefaul
 EZ_END_DYNAMIC_REFLECTED_TYPE;
 // clang-format on
 
-ezVisualScriptNode_FunctionCall::ezVisualScriptNode_FunctionCall()
-{
-}
+ezVisualScriptNode_FunctionCall::ezVisualScriptNode_FunctionCall() {}
 
-ezVisualScriptNode_FunctionCall::~ezVisualScriptNode_FunctionCall()
-{
-}
+ezVisualScriptNode_FunctionCall::~ezVisualScriptNode_FunctionCall() {}
 
 void ezVisualScriptNode_FunctionCall::Execute(ezVisualScriptInstance* pInstance, ezUInt8 uiExecPin)
 {

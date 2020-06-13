@@ -6,8 +6,7 @@
 #include <RendererCore/Meshes/MeshResource.h>
 #include <RendererCore/Pipeline/RenderData.h>
 
-class EZ_RENDERERCORE_DLL ezVisualizeSkeletonComponentManager
-  : public ezComponentManager<class ezVisualizeSkeletonComponent, ezBlockStorageType::Compact>
+class EZ_RENDERERCORE_DLL ezVisualizeSkeletonComponentManager : public ezComponentManager<class ezVisualizeSkeletonComponent, ezBlockStorageType::Compact>
 {
 public:
   typedef ezComponentManager<ezVisualizeSkeletonComponent, ezBlockStorageType::Compact> SUPER;

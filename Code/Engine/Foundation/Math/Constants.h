@@ -54,7 +54,7 @@ namespace ezMath
   /// \brief Returns the number of bits in the given type. Mostly useful for unsigned integer types.
   template <typename TYPE>
   constexpr ezUInt32 NumBits();
-}
+} // namespace ezMath
 
 
 #include <Foundation/Math/Implementation/Constants_inl.h>

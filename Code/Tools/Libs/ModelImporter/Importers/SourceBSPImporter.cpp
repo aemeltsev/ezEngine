@@ -142,16 +142,16 @@ namespace SourceBSP
     float z;
 
     Vertex_t()
-        : x(0)
-        , y(0)
-        , z(0)
+      : x(0)
+      , y(0)
+      , z(0)
     {
     }
 
     Vertex_t(float _x, float _y, float _z)
-        : x(_x)
-        , y(_y)
-        , z(_z)
+      : x(_x)
+      , y(_y)
+      , z(_z)
     {
     }
 
@@ -332,7 +332,7 @@ namespace SourceBSP
   };
 
   File::File(ezArrayPtr<ezUInt8> fileContent)
-      : m_valid(false)
+    : m_valid(false)
   {
     if (fileContent.GetCount() < static_cast<ezUInt32>(sizeof(Header_t)))
     {
@@ -406,13 +406,12 @@ namespace SourceBSP
   }
 
 
-  void calculateUV(const SourceBSP::Vertex_t& worldPos, const SourceBSP::TexInfo_t& texInfo, const SourceBSP::TexData_t& texData, float& u,
-                   float& v)
+  void calculateUV(const SourceBSP::Vertex_t& worldPos, const SourceBSP::TexInfo_t& texInfo, const SourceBSP::TexData_t& texData, float& u, float& v)
   {
-    u = worldPos.x * texInfo.textureVecsTexelsPerWorldUnits[0][0] + worldPos.y * texInfo.textureVecsTexelsPerWorldUnits[0][1] +
-        worldPos.z * texInfo.textureVecsTexelsPerWorldUnits[0][2] + texInfo.textureVecsTexelsPerWorldUnits[0][3];
-    v = worldPos.x * texInfo.textureVecsTexelsPerWorldUnits[1][0] + worldPos.y * texInfo.textureVecsTexelsPerWorldUnits[1][1] +
-        worldPos.z * texInfo.textureVecsTexelsPerWorldUnits[1][2] + texInfo.textureVecsTexelsPerWorldUnits[1][3];
+    u = worldPos.x * texInfo.textureVecsTexelsPerWorldUnits[0][0] + worldPos.y * texInfo.textureVecsTexelsPerWorldUnits[0][1] + worldPos.z * texInfo.textureVecsTexelsPerWorldUnits[0][2] +
+        texInfo.textureVecsTexelsPerWorldUnits[0][3];
+    v = worldPos.x * texInfo.textureVecsTexelsPerWorldUnits[1][0] + worldPos.y * texInfo.textureVecsTexelsPerWorldUnits[1][1] + worldPos.z * texInfo.textureVecsTexelsPerWorldUnits[1][2] +
+        texInfo.textureVecsTexelsPerWorldUnits[1][3];
 
     u /= texData.width;
     v /= texData.height;
@@ -451,9 +450,8 @@ namespace SourceBSP
 
 
       // Skip triggers, no draw and sky surfaces
-      if ((texInfo.flags & SourceBSP::SURF_NODRAW) || (texInfo.flags & SourceBSP::SURF_SKIP) || (texInfo.flags & SourceBSP::SURF_HINT) ||
-          (texInfo.flags & SourceBSP::SURF_HITBOX) || (texInfo.flags & SourceBSP::SURF_SKY) || (texInfo.flags & SourceBSP::SURF_SKY2D) ||
-          (texInfo.flags & SourceBSP::SURF_TRIGGER))
+      if ((texInfo.flags & SourceBSP::SURF_NODRAW) || (texInfo.flags & SourceBSP::SURF_SKIP) || (texInfo.flags & SourceBSP::SURF_HINT) || (texInfo.flags & SourceBSP::SURF_HITBOX) ||
+          (texInfo.flags & SourceBSP::SURF_SKY) || (texInfo.flags & SourceBSP::SURF_SKY2D) || (texInfo.flags & SourceBSP::SURF_TRIGGER))
         continue;
 
 
@@ -595,15 +593,13 @@ namespace SourceBSP
           uvs[i].Set(u, v, 0.0f);
         }
 
-        ezVec3 xStep_03 = (ezVec3(cornerVertices[3].x, cornerVertices[3].y, cornerVertices[3].z) -
-                           ezVec3(cornerVertices[0].x, cornerVertices[0].y, cornerVertices[0].z));
+        ezVec3 xStep_03 = (ezVec3(cornerVertices[3].x, cornerVertices[3].y, cornerVertices[3].z) - ezVec3(cornerVertices[0].x, cornerVertices[0].y, cornerVertices[0].z));
         xStep_03 /= float(numVerticesPerEdge - 1);
 
         ezVec3 uvStep_03 = uvs[3] - uvs[1];
         uvStep_03 /= float(numVerticesPerEdge - 1);
 
-        ezVec3 xStep_12 = (ezVec3(cornerVertices[2].x, cornerVertices[2].y, cornerVertices[2].z) -
-                           ezVec3(cornerVertices[1].x, cornerVertices[1].y, cornerVertices[1].z));
+        ezVec3 xStep_12 = (ezVec3(cornerVertices[2].x, cornerVertices[2].y, cornerVertices[2].z) - ezVec3(cornerVertices[1].x, cornerVertices[1].y, cornerVertices[1].z));
         xStep_12 /= float(numVerticesPerEdge - 1);
 
         ezVec3 uvStep_12 = uvs[2] - uvs[1];
@@ -620,9 +616,8 @@ namespace SourceBSP
 
             ezUInt32 linearIndex = y * numVerticesPerEdge + x;
 
-            ezVec3 offset = ezVec3(bspFile.dispVertices[displacementInfo.DispVertStart + linearIndex].vector.x,
-                                   bspFile.dispVertices[displacementInfo.DispVertStart + linearIndex].vector.y,
-                                   bspFile.dispVertices[displacementInfo.DispVertStart + linearIndex].vector.z);
+            ezVec3 offset = ezVec3(bspFile.dispVertices[displacementInfo.DispVertStart + linearIndex].vector.x, bspFile.dispVertices[displacementInfo.DispVertStart + linearIndex].vector.y,
+              bspFile.dispVertices[displacementInfo.DispVertStart + linearIndex].vector.z);
             offset *= bspFile.dispVertices[displacementInfo.DispVertStart + linearIndex].m_distance;
 
             currentBase += offset;
@@ -710,7 +705,7 @@ namespace SourceBSP
 
     return EZ_SUCCESS;
   }
-}
+} // namespace SourceBSP
 
 
 namespace ezModelImporter
@@ -777,4 +772,4 @@ namespace ezModelImporter
 
     return outScene;
   }
-}
+} // namespace ezModelImporter

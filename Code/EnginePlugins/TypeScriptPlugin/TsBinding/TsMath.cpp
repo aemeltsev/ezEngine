@@ -665,9 +665,9 @@ void ezTypeScriptBinding::PushVariant(duk_context* pDuk, const ezVariant& value)
       break;
 
       // TODO: implement these types
-      //case ezVariant::Type::Vector4:
-      //case ezVariant::Type::Vector4I:
-      //case ezVariant::Type::Vector4U:
+      // case ezVariant::Type::Vector4:
+      // case ezVariant::Type::Vector4I:
+      // case ezVariant::Type::Vector4U:
 
     default:
       EZ_ASSERT_NOT_IMPLEMENTED;
@@ -783,14 +783,14 @@ ezVariant ezTypeScriptBinding::GetVariant(duk_context* pDuk, ezInt32 iObjIdx, co
     case ezVariant::Type::Matrix4:
       return ezTypeScriptBinding::GetMat4(duk, iObjIdx);
 
-      //case ezVariant::Type::Vector4:
+      // case ezVariant::Type::Vector4:
       //  break;
-      //case ezVariant::Type::Vector4I:
+      // case ezVariant::Type::Vector4I:
       //  break;
-      //case ezVariant::Type::Vector4U:
+      // case ezVariant::Type::Vector4U:
       //  break;
 
-      //case ezVariant::Type::Uuid:
+      // case ezVariant::Type::Uuid:
       //  break;
 
     default:

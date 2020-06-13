@@ -76,8 +76,7 @@ void ezRenderComponent::TriggerLocalBoundsUpdate()
 }
 
 // static
-ezUInt32 ezRenderComponent::GetUniqueIdForRendering(const ezComponent* pComponent, ezUInt32 uiInnerIndex /*= 0*/,
-  ezUInt32 uiInnerIndexShift /*= 24*/)
+ezUInt32 ezRenderComponent::GetUniqueIdForRendering(const ezComponent* pComponent, ezUInt32 uiInnerIndex /*= 0*/, ezUInt32 uiInnerIndexShift /*= 24*/)
 {
   ezUInt32 uniqueId = pComponent->GetUniqueID();
   if (uniqueId == ezInvalidIndex)

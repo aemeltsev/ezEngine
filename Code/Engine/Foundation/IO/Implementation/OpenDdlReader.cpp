@@ -60,8 +60,7 @@ const char* ezOpenDdlReader::CopyString(const ezStringView& string)
   return m_Strings.PeekBack().GetData();
 }
 
-ezOpenDdlReaderElement* ezOpenDdlReader::CreateElement(
-  ezOpenDdlPrimitiveType type, const char* szType, const char* szName, bool bGlobalName)
+ezOpenDdlReaderElement* ezOpenDdlReader::CreateElement(ezOpenDdlPrimitiveType type, const char* szType, const char* szName, bool bGlobalName)
 {
   ezOpenDdlReaderElement* pElement = &m_Elements.ExpandAndGetRef();
   pElement->m_pFirstChild = nullptr;
@@ -339,8 +338,7 @@ const ezOpenDdlReaderElement* ezOpenDdlReaderElement::FindChild(const char* szNa
   return nullptr;
 }
 
-const ezOpenDdlReaderElement* ezOpenDdlReaderElement::FindChildOfType(
-  ezOpenDdlPrimitiveType type, const char* szName, ezUInt32 uiMinNumberOfPrimitives /* = 1*/) const
+const ezOpenDdlReaderElement* ezOpenDdlReaderElement::FindChildOfType(ezOpenDdlPrimitiveType type, const char* szName, ezUInt32 uiMinNumberOfPrimitives /* = 1*/) const
 {
   /// \test This is new
 

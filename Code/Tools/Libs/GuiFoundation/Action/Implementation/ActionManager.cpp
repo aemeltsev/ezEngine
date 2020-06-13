@@ -141,7 +141,7 @@ ezResult ezActionManager::ExecuteAction(const char* szCategory, const char* szAc
 
   if (szCategory == nullptr)
   {
-    sCategory = FindActionCategory(szActionName); 
+    sCategory = FindActionCategory(szActionName);
   }
 
   auto hAction = ezActionManager::GetActionHandle(sCategory, szActionName);

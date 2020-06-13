@@ -11,7 +11,6 @@ class EZ_EDITORFRAMEWORK_DLL ezDragDropHandler : public ezReflectedClass
   EZ_ADD_DYNAMIC_REFLECTION(ezDragDropHandler, ezReflectedClass);
 
 public:
-
   /// \brief Returns whether the last call to BeginDragDropOperation() was successful and a handler is now in effect.
   static bool IsHandlerActive() { return s_pActiveDnD != nullptr; }
 
@@ -39,7 +38,6 @@ public:
 
 
 protected:
-
   /// \brief Used to ask a handler whether it knows how to handle a certain drag & drop situation.
   ///
   /// The return value is a priority. By default CanHandle should return 0 or 1. To override an existing handler, values larger than 1 may be returned to take precedence.

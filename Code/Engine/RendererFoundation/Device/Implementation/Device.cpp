@@ -125,9 +125,8 @@ ezResult ezGALDevice::Init()
   // Fill the capabilities
   FillCapabilitiesPlatform();
 
-  ezLog::Info("Adapter: '{}' - {} VRAM, {} Sys RAM, {} Shared RAM", m_Capabilities.m_sAdapterName,
-    ezArgFileSize(m_Capabilities.m_uiDedicatedVRAM), ezArgFileSize(m_Capabilities.m_uiDedicatedSystemRAM),
-    ezArgFileSize(m_Capabilities.m_uiSharedSystemRAM));
+  ezLog::Info("Adapter: '{}' - {} VRAM, {} Sys RAM, {} Shared RAM", m_Capabilities.m_sAdapterName, ezArgFileSize(m_Capabilities.m_uiDedicatedVRAM),
+    ezArgFileSize(m_Capabilities.m_uiDedicatedSystemRAM), ezArgFileSize(m_Capabilities.m_uiSharedSystemRAM));
 
   if (!m_Capabilities.m_bHardwareAccelerated)
   {
@@ -566,8 +565,7 @@ ezGALBufferHandle ezGALDevice::CreateVertexBuffer(ezUInt32 uiVertexSize, ezUInt3
   return CreateBuffer(desc, pInitialData);
 }
 
-ezGALBufferHandle ezGALDevice::CreateIndexBuffer(
-  ezGALIndexType::Enum IndexType, ezUInt32 uiIndexCount, ezArrayPtr<const ezUInt8> pInitialData)
+ezGALBufferHandle ezGALDevice::CreateIndexBuffer(ezGALIndexType::Enum IndexType, ezUInt32 uiIndexCount, ezArrayPtr<const ezUInt8> pInitialData)
 {
   ezGALBufferCreationDescription desc;
   desc.m_uiStructSize = ezGALIndexType::GetSize(IndexType);
@@ -590,15 +588,13 @@ ezGALBufferHandle ezGALDevice::CreateConstantBuffer(ezUInt32 uiBufferSize)
 }
 
 
-ezGALTextureHandle ezGALDevice::CreateTexture(
-  const ezGALTextureCreationDescription& desc, ezArrayPtr<ezGALSystemMemoryDescription> pInitialData)
+ezGALTextureHandle ezGALDevice::CreateTexture(const ezGALTextureCreationDescription& desc, ezArrayPtr<ezGALSystemMemoryDescription> pInitialData)
 {
   EZ_GALDEVICE_LOCK_AND_CHECK();
 
   /// \todo Platform independent validation (desc width & height < platform maximum, format, etc.)
 
-  if (desc.m_ResourceAccess.IsImmutable() && (pInitialData.IsEmpty() || pInitialData.GetCount() < desc.m_uiMipLevelCount) &&
-      !desc.m_bCreateRenderTarget)
+  if (desc.m_ResourceAccess.IsImmutable() && (pInitialData.IsEmpty() || pInitialData.GetCount() < desc.m_uiMipLevelCount) && !desc.m_bCreateRenderTarget)
   {
     ezLog::Error("Trying to create an immutable texture but not supplying initial data (or not enough data pointers) is not possible!");
     return ezGALTextureHandle();
@@ -676,10 +672,8 @@ ezResult ezGALDevice::ReplaceExisitingNativeObject(ezGALTextureHandle hTexture, 
     }
 
     EZ_VERIFY(pTexture->DeInitPlatform(this).Succeeded(), "DeInitPlatform should never fail.");
-    EZ_VERIFY(pTexture->ReplaceExisitingNativeObject(pExisitingNativeObject).Succeeded(),
-      "Failed to replace native texture, make sure the input is valid.");
-    EZ_VERIFY(pTexture->InitPlatform(this, {}).Succeeded(),
-      "InitPlatform failed on a texture the previously succeded in the same call, is the new native object valid?");
+    EZ_VERIFY(pTexture->ReplaceExisitingNativeObject(pExisitingNativeObject).Succeeded(), "Failed to replace native texture, make sure the input is valid.");
+    EZ_VERIFY(pTexture->InitPlatform(this, {}).Succeeded(), "InitPlatform failed on a texture the previously succeded in the same call, is the new native object valid?");
 
     for (auto it = pTexture->m_ResourceViews.GetIterator(); it.IsValid(); ++it)
     {
@@ -687,8 +681,7 @@ ezResult ezGALDevice::ReplaceExisitingNativeObject(ezGALTextureHandle hTexture, 
 
       if (m_ResourceViews.TryGetValue(it.Value(), pResourceView))
       {
-        EZ_VERIFY(pResourceView->InitPlatform(this).Succeeded(),
-          "InitPlatform failed on a resource view that previously succeded in the same call, is the new native object valid?");
+        EZ_VERIFY(pResourceView->InitPlatform(this).Succeeded(), "InitPlatform failed on a resource view that previously succeded in the same call, is the new native object valid?");
       }
     }
     for (auto it = pTexture->m_RenderTargetViews.GetIterator(); it.IsValid(); ++it)
@@ -697,8 +690,7 @@ ezResult ezGALDevice::ReplaceExisitingNativeObject(ezGALTextureHandle hTexture, 
 
       if (m_RenderTargetViews.TryGetValue(it.Value(), pRenderTargetView))
       {
-        EZ_VERIFY(pRenderTargetView->InitPlatform(this).Succeeded(),
-          "InitPlatform failed on a render target view that previously succeded in the same call, is the new native object valid?");
+        EZ_VERIFY(pRenderTargetView->InitPlatform(this).Succeeded(), "InitPlatform failed on a render target view that previously succeded in the same call, is the new native object valid?");
       }
     }
     for (auto it = pTexture->m_UnorderedAccessViews.GetIterator(); it.IsValid(); ++it)
@@ -707,8 +699,7 @@ ezResult ezGALDevice::ReplaceExisitingNativeObject(ezGALTextureHandle hTexture, 
 
       if (m_UnorderedAccessViews.TryGetValue(it.Value(), pUnorderedAccessView))
       {
-        EZ_VERIFY(pUnorderedAccessView->InitPlatform(this).Succeeded(),
-          "InitPlatform failed on a unordered access view that previously succeded in the same call, is the new native object valid?");
+        EZ_VERIFY(pUnorderedAccessView->InitPlatform(this).Succeeded(), "InitPlatform failed on a unordered access view that previously succeded in the same call, is the new native object valid?");
       }
     }
     return EZ_SUCCESS;
@@ -754,8 +745,7 @@ ezGALTextureHandle ezGALDevice::CreateProxyTexture(ezGALTextureHandle hParentTex
 
   const auto& parentDesc = pParentTexture->GetDescription();
   EZ_ASSERT_DEV(parentDesc.m_Type != ezGALTextureType::Texture2DProxy, "Can't create a proxy texture of a proxy texture.");
-  EZ_ASSERT_DEV(parentDesc.m_Type == ezGALTextureType::TextureCube || parentDesc.m_uiArraySize > 1,
-    "Proxy textures can only be created for cubemaps or array textures.");
+  EZ_ASSERT_DEV(parentDesc.m_Type == ezGALTextureType::TextureCube || parentDesc.m_uiArraySize > 1, "Proxy textures can only be created for cubemaps or array textures.");
 
   ezGALProxyTexture* pProxyTexture = EZ_NEW(&m_Allocator, ezGALProxyTexture, *pParentTexture);
   ezGALTextureHandle hProxyTexture(m_Textures.Insert(pProxyTexture));

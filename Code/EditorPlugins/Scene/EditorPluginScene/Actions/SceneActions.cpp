@@ -323,8 +323,7 @@ void ezSceneAction::Execute(const ezVariant& value)
       ezQtExtractGeometryDlg dlg(nullptr);
       if (dlg.exec() == QDialog::Accepted)
       {
-        m_pSceneDocument->ExportSceneGeometry(dlg.s_sDestinationFile.toUtf8().data(), dlg.s_bOnlySelection, dlg.s_iExtractionMode,
-          dlg.GetCoordinateSystemTransform());
+        m_pSceneDocument->ExportSceneGeometry(dlg.s_sDestinationFile.toUtf8().data(), dlg.s_bOnlySelection, dlg.s_iExtractionMode, dlg.GetCoordinateSystemTransform());
       }
       return;
     }

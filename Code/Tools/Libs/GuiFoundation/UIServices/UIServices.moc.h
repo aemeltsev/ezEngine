@@ -1,13 +1,13 @@
 #pragma once
 
-#include <GuiFoundation/GuiFoundationDLL.h>
-#include <Foundation/Types/Status.h>
 #include <Foundation/Communication/Event.h>
+#include <Foundation/Configuration/Singleton.h>
+#include <Foundation/Strings/FormatString.h>
+#include <Foundation/Time/Time.h>
+#include <Foundation/Types/Status.h>
+#include <GuiFoundation/GuiFoundationDLL.h>
 #include <QApplication>
 #include <QMessageBox>
-#include <Foundation/Configuration/Singleton.h>
-#include <Foundation/Time/Time.h>
-#include <Foundation/Strings/FormatString.h>
 
 class QColorDialog;
 class ezQtColorDialog;
@@ -68,8 +68,7 @@ public:
   static void MessageBoxWarning(const ezFormatString& msg);
 
   /// \brief Shows a question message box and returns which button the user pressed
-  static QMessageBox::StandardButton MessageBoxQuestion(const ezFormatString& msg, QMessageBox::StandardButtons buttons,
-                                                        QMessageBox::StandardButton defaultButton);
+  static QMessageBox::StandardButton MessageBoxQuestion(const ezFormatString& msg, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton);
 
   /// \brief Use this if you need to display a status bar message in any/all documents. Go directly through the document, if you only want to show a message in a single document window.
   static void ShowAllDocumentsTemporaryStatusBarMessage(const ezFormatString& msg, ezTime timeOut);
@@ -120,6 +119,4 @@ private:
   static ezMap<ezString, QImage> s_ImagesCache;
   static ezMap<ezString, QPixmap> s_PixmapsCache;
   static bool s_bHeadless;
-
 };
-

@@ -12,20 +12,16 @@ ezCoordinateSystemConversion::ezCoordinateSystemConversion()
 void ezCoordinateSystemConversion::SetConversion(const ezCoordinateSystem& source, const ezCoordinateSystem& target)
 {
   float fSourceScale = source.m_vForwardDir.GetLengthSquared();
-  EZ_ASSERT_DEV(ezMath::IsEqual(fSourceScale, source.m_vRightDir.GetLengthSquared(), ezMath::DefaultEpsilon<float>()),
-    "Only uniformly scaled coordinate systems are supported");
-  EZ_ASSERT_DEV(ezMath::IsEqual(fSourceScale, source.m_vUpDir.GetLengthSquared(), ezMath::DefaultEpsilon<float>()),
-    "Only uniformly scaled coordinate systems are supported");
+  EZ_ASSERT_DEV(ezMath::IsEqual(fSourceScale, source.m_vRightDir.GetLengthSquared(), ezMath::DefaultEpsilon<float>()), "Only uniformly scaled coordinate systems are supported");
+  EZ_ASSERT_DEV(ezMath::IsEqual(fSourceScale, source.m_vUpDir.GetLengthSquared(), ezMath::DefaultEpsilon<float>()), "Only uniformly scaled coordinate systems are supported");
   ezMat3 mSourceFromId;
   mSourceFromId.SetColumn(0, source.m_vRightDir);
   mSourceFromId.SetColumn(1, source.m_vUpDir);
   mSourceFromId.SetColumn(2, source.m_vForwardDir);
 
   float fTargetScale = target.m_vForwardDir.GetLengthSquared();
-  EZ_ASSERT_DEV(ezMath::IsEqual(fTargetScale, target.m_vRightDir.GetLengthSquared(), ezMath::DefaultEpsilon<float>()),
-    "Only uniformly scaled coordinate systems are supported");
-  EZ_ASSERT_DEV(ezMath::IsEqual(fTargetScale, target.m_vUpDir.GetLengthSquared(), ezMath::DefaultEpsilon<float>()),
-    "Only uniformly scaled coordinate systems are supported");
+  EZ_ASSERT_DEV(ezMath::IsEqual(fTargetScale, target.m_vRightDir.GetLengthSquared(), ezMath::DefaultEpsilon<float>()), "Only uniformly scaled coordinate systems are supported");
+  EZ_ASSERT_DEV(ezMath::IsEqual(fTargetScale, target.m_vUpDir.GetLengthSquared(), ezMath::DefaultEpsilon<float>()), "Only uniformly scaled coordinate systems are supported");
   ezMat3 mTargetFromId;
   mTargetFromId.SetColumn(0, target.m_vRightDir);
   mTargetFromId.SetColumn(1, target.m_vUpDir);
@@ -77,4 +73,3 @@ float ezCoordinateSystemConversion::ConvertTargetLength(float fLength) const
 }
 
 EZ_STATICLINK_FILE(Core, Core_World_Implementation_CoordinateSystem);
-

@@ -63,8 +63,8 @@ public:
   ///   Will be called shortly before the DLL is finally unloaded. All other code has already been notified that the plugin is being unloaded.
   /// \param szPluginDependency1
   ///   Allows to specify other modules that this plugin depends on. These will be automatically loaded and unloaded together with this plugin.
-  ezPlugin(bool bIsReloadable, OnPluginLoadedFunction OnLoadPlugin = nullptr, OnPluginUnloadedFunction OnUnloadPlugin = nullptr,
-    const char* szPluginDependency1 = nullptr, const char* szPluginDependency2 = nullptr, const char* szPluginDependency3 = nullptr, const char* szPluginDependency4 = nullptr, const char* szPluginDependency5 = nullptr);
+  ezPlugin(bool bIsReloadable, OnPluginLoadedFunction OnLoadPlugin = nullptr, OnPluginUnloadedFunction OnUnloadPlugin = nullptr, const char* szPluginDependency1 = nullptr,
+    const char* szPluginDependency2 = nullptr, const char* szPluginDependency3 = nullptr, const char* szPluginDependency4 = nullptr, const char* szPluginDependency5 = nullptr);
 
   /// \brief Returns the name that was used to load the plugin from disk.
   const char* GetPluginName() const { return m_sLoadedFromFile.GetData(); } // [tested]

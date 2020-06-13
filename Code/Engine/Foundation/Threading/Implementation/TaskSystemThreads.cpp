@@ -40,8 +40,7 @@ void ezTaskSystem::SetWorkerThreadCount(ezInt8 iShortTasks, ezInt8 iLongTasks)
   iLongTasks = ezMath::Max<ezInt8>(iLongTasks, 1);
 
   // if nothing has changed, do nothing
-  if (s_ThreadState->m_uiMaxWorkersToUse[ezWorkerThreadType::ShortTasks] == iShortTasks &&
-      s_ThreadState->m_uiMaxWorkersToUse[ezWorkerThreadType::LongTasks] == iLongTasks)
+  if (s_ThreadState->m_uiMaxWorkersToUse[ezWorkerThreadType::ShortTasks] == iShortTasks && s_ThreadState->m_uiMaxWorkersToUse[ezWorkerThreadType::LongTasks] == iLongTasks)
     return;
 
   StopWorkerThreads();

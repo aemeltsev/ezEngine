@@ -56,9 +56,9 @@ public:
   ezStatus GetKeys(const ezDocumentObject* pObject, const char* szProp, ezHybridArray<ezVariant, 16>& out_keys);
   ezStatus GetValues(const ezDocumentObject* pObject, const char* szProp, ezHybridArray<ezVariant, 16>& out_values);
 
-  template<typename T>
+  template <typename T>
   T Get(const ezDocumentObject* pObject, const ezAbstractProperty* pProp, ezVariant index = ezVariant());
-  template<typename T>
+  template <typename T>
   T Get(const ezDocumentObject* pObject, const char* szProp, ezVariant index = ezVariant());
   ezInt32 GetCount(const ezDocumentObject* pObject, const ezAbstractProperty* pProp);
 

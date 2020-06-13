@@ -102,10 +102,7 @@ public:
   ezUInt64 GetRowPitch(ezUInt32 uiMipLevel = 0) const { return ezImageFormat::GetRowPitch(GetImageFormat(), GetWidth(uiMipLevel)); }
 
   /// \brief Returns the offset in bytes between two subsequent depth slices of the given mip level.
-  ezUInt64 GetDepthPitch(ezUInt32 uiMipLevel = 0) const
-  {
-    return ezImageFormat::GetDepthPitch(GetImageFormat(), GetWidth(uiMipLevel), GetHeight(uiMipLevel));
-  }
+  ezUInt64 GetDepthPitch(ezUInt32 uiMipLevel = 0) const { return ezImageFormat::GetDepthPitch(GetImageFormat(), GetWidth(uiMipLevel), GetHeight(uiMipLevel)); }
 
   /// \brief Computes the data size required for an image with the header's format and dimensions.
   ezUInt64 ComputeDataSize() const

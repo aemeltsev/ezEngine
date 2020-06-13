@@ -69,7 +69,9 @@ void ezQtEditorApp::SlotVersionCheckCompleted(bool bNewVersionReleased, bool bFo
   {
     if (m_VersionChecker.IsLatestNewer())
     {
-      ezQtUiServices::GetSingleton()->MessageBoxInformation(ezFmt("<html>A new version is available: {}<br><br>Your version is: {}<br><br>Please check the <A href=\"http://ezengine.net/releases/release-notes.html\">Release Notes</A> for details.</html>", m_VersionChecker.GetKnownLatestVersion(), m_VersionChecker.GetOwnVersion()));
+      ezQtUiServices::GetSingleton()->MessageBoxInformation(ezFmt(
+        "<html>A new version is available: {}<br><br>Your version is: {}<br><br>Please check the <A href=\"http://ezengine.net/releases/release-notes.html\">Release Notes</A> for details.</html>",
+        m_VersionChecker.GetKnownLatestVersion(), m_VersionChecker.GetOwnVersion()));
     }
     else
     {

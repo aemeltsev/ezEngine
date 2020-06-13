@@ -3,8 +3,8 @@
 #include <Core/WorldSerializer/WorldReader.h>
 #include <Core/WorldSerializer/WorldWriter.h>
 #include <GameEngine/Gameplay/PlayerStartPointComponent.h>
-#include <GameEngine/Prefabs/PrefabResource.h>
 #include <GameEngine/Prefabs/PrefabReferenceComponent.h>
+#include <GameEngine/Prefabs/PrefabResource.h>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -87,8 +87,8 @@ const ezPrefabResourceHandle& ezPlayerStartPointComponent::GetPlayerPrefab() con
 
 const ezRangeView<const char*, ezUInt32> ezPlayerStartPointComponent::GetParameters() const
 {
-  return ezRangeView<const char*, ezUInt32>([]() -> ezUInt32 { return 0; }, [this]() -> ezUInt32 { return m_Parameters.GetCount(); },
-    [](ezUInt32& it) { ++it; }, [this](const ezUInt32& it) -> const char* { return m_Parameters.GetKey(it).GetString().GetData(); });
+  return ezRangeView<const char*, ezUInt32>([]() -> ezUInt32 { return 0; }, [this]() -> ezUInt32 { return m_Parameters.GetCount(); }, [](ezUInt32& it) { ++it; },
+    [this](const ezUInt32& it) -> const char* { return m_Parameters.GetKey(it).GetString().GetData(); });
 }
 
 void ezPlayerStartPointComponent::SetParameter(const char* szKey, const ezVariant& value)

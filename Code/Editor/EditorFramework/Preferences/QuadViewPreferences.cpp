@@ -28,16 +28,13 @@ namespace
   {
   public:
     ezSceneViewPreferencesPatch_1_2()
-        : ezGraphPatch("ezSceneViewPreferences", 2)
+      : ezGraphPatch("ezSceneViewPreferences", 2)
     {
     }
-    virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override
-    {
-      context.RenameClass("ezEngineViewPreferences");
-    }
+    virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override { context.RenameClass("ezEngineViewPreferences"); }
   };
   ezSceneViewPreferencesPatch_1_2 g_ezSceneViewPreferencesPatch_1_2;
-}
+} // namespace
 
 // clang-format off
 EZ_BEGIN_DYNAMIC_REFLECTED_TYPE(ezQuadViewPreferencesUser, 1, ezRTTIDefaultAllocator<ezQuadViewPreferencesUser>)
@@ -58,7 +55,7 @@ EZ_END_DYNAMIC_REFLECTED_TYPE;
 // clang-format on
 
 ezQuadViewPreferencesUser::ezQuadViewPreferencesUser()
-    : ezPreferences(Domain::Document, "View")
+  : ezPreferences(Domain::Document, "View")
 {
   m_bQuadView = false;
 

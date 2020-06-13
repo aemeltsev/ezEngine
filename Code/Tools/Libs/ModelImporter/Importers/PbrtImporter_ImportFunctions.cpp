@@ -71,8 +71,7 @@ namespace ezModelImporter
       ezVec3 scale;
       if (PbrtParseHelper::ParseVec3(remainingSceneText, scale).Succeeded())
       {
-        context.PeekActiveTransform().SetGlobalTransform(context.PeekActiveTransform(),
-          ezTransform(ezVec3(0.0f), ezQuat::IdentityQuaternion(), scale));
+        context.PeekActiveTransform().SetGlobalTransform(context.PeekActiveTransform(), ezTransform(ezVec3(0.0f), ezQuat::IdentityQuaternion(), scale));
       }
       else
         ezLog::Error("Failed parsing Scale transform command.");
@@ -83,8 +82,7 @@ namespace ezModelImporter
       float values[9];
       if (PbrtParseHelper::ParseFloats(remainingSceneText, ezMakeArrayPtr(values), 9).Succeeded())
       {
-        ezMat4 lookAt = ezGraphicsUtils::CreateLookAtViewMatrix(ezVec3(values[0], values[1], values[2]), ezVec3(values[3], values[4], values[5]),
-          ezVec3(values[6], values[7], values[8]));
+        ezMat4 lookAt = ezGraphicsUtils::CreateLookAtViewMatrix(ezVec3(values[0], values[1], values[2]), ezVec3(values[3], values[4], values[5]), ezVec3(values[6], values[7], values[8]));
         ezTransform tLookAt;
         tLookAt.SetFromMat4(lookAt);
         context.PeekActiveTransform().SetGlobalTransform(context.PeekActiveTransform(), tLookAt);
@@ -93,10 +91,7 @@ namespace ezModelImporter
         ezLog::Error("Failed parsing LookAt transform command.");
     }
 
-    ezResult ParseMat4(ezStringView& remainingSceneText, ezMat4& outMat)
-    {
-      return PbrtParseHelper::ParseFloats(remainingSceneText, ezArrayPtr<float>(&outMat.m_fElementsCM[0], 16), 16);
-    }
+    ezResult ParseMat4(ezStringView& remainingSceneText, ezMat4& outMat) { return PbrtParseHelper::ParseFloats(remainingSceneText, ezArrayPtr<float>(&outMat.m_fElementsCM[0], 16), 16); }
 
     void Transform(ParseContext& context, ezStringView& remainingSceneText)
     {
@@ -343,8 +338,8 @@ namespace ezModelImporter
       }
     }
 
-    void ReadMaterialParameter(ParseContext& context, SemanticHint::Enum semantic, const char* materialParameter,
-      ezModelImporter::Material& material, ezArrayPtr<Parameter> parameters, ezVariant defaultValue)
+    void ReadMaterialParameter(
+      ParseContext& context, SemanticHint::Enum semantic, const char* materialParameter, ezModelImporter::Material& material, ezArrayPtr<Parameter> parameters, ezVariant defaultValue)
     {
       for (const Parameter& param : parameters)
       {
@@ -369,8 +364,7 @@ namespace ezModelImporter
         material.m_Properties.PushBack(Property(semantic, materialParameter, defaultValue));
     }
 
-    ezUniquePtr<ezModelImporter::Material> PareMaterialImpl(ezStringView type, ezArrayPtr<Parameter> parameters, ParseContext& context,
-      ezModelImporter::Scene& outScene)
+    ezUniquePtr<ezModelImporter::Material> PareMaterialImpl(ezStringView type, ezArrayPtr<Parameter> parameters, ParseContext& context, ezModelImporter::Scene& outScene)
     {
       ezUniquePtr<ezModelImporter::Material> newMaterial = EZ_DEFAULT_NEW(ezModelImporter::Material);
 
@@ -470,12 +464,11 @@ namespace ezModelImporter
       else if (type.IsEqual_NoCase("subsurface"))
       {
         ReadMaterialParameter(context, SemanticHint::UNKNOWN, "name", *newMaterial, parameters,
-          ezVariant()); // Name of measured subsurface scattering coefficients. See the file src/core/volume.cpp in the
-                        // pbrt distribution for all of the measurements that are available.
-        ReadMaterialParameter(context, SemanticHint::UNKNOWN, "sigma_a", *newMaterial, parameters,
-          ezVec3(0.0011f, 0.0024f, 0.014f)); // Absorption coefficient of the volume, measured in mm^-1.
-        ReadMaterialParameter(context, SemanticHint::UNKNOWN, "sigma_prime_s", *newMaterial, parameters,
-          ezVec3(2.55f, 3.12f, 3.77f)); // Reduced scattering coefficient of the volume, measured in mm^-1.
+          ezVariant());                                                                                                               // Name of measured subsurface scattering coefficients. See the file src/core/volume.cpp in the
+                                                                                                                                      // pbrt distribution for all of the measurements that are available.
+        ReadMaterialParameter(context, SemanticHint::UNKNOWN, "sigma_a", *newMaterial, parameters, ezVec3(0.0011f, 0.0024f, 0.014f)); // Absorption coefficient of the volume, measured in mm^-1.
+        ReadMaterialParameter(
+          context, SemanticHint::UNKNOWN, "sigma_prime_s", *newMaterial, parameters, ezVec3(2.55f, 3.12f, 3.77f)); // Reduced scattering coefficient of the volume, measured in mm^-1.
         ReadMaterialParameter(context, SemanticHint::UNKNOWN, "scale", *newMaterial, parameters,
           1.0f); // Scale factor that is applied to sigma_a and sigma_prime_s. This is particularly useful when the
                  // scene is not measured in mm and the coefficients need to be scaled accordingly. For example, if the
@@ -507,8 +500,7 @@ namespace ezModelImporter
         ReadMaterialParameter(context, SemanticHint::REFRACTIONINDEX, "index", *newMaterial, parameters,
           0.1f); // Index of refraction of the surface. This value is used in both the microfacet model for specular
                  // reflection as well as for computing a Fresnel reflection term for perfect specular reflection.
-        ReadMaterialParameter(
-          context, SemanticHint::OPACITY, "opacity", *newMaterial, parameters,
+        ReadMaterialParameter(context, SemanticHint::OPACITY, "opacity", *newMaterial, parameters,
           1.0f); // The opacity of the surface.Note that when less than one, the uber material transmits light without refracting it.
       }
 
@@ -571,14 +563,12 @@ namespace ezModelImporter
       context.PushActiveMaterial(outScene.AddMaterial(std::move(newMaterial)));
     }
 
-    void MakeNamedMaterial(ezStringView type, ezArrayPtr<Pbrt::Parameter> parameters, Pbrt::ParseContext& context,
-      ezModelImporter::Scene& outScene)
+    void MakeNamedMaterial(ezStringView type, ezArrayPtr<Pbrt::Parameter> parameters, Pbrt::ParseContext& context, ezModelImporter::Scene& outScene)
     {
       // "type" is name and the first parameter is the type.
       ezString name = type;
       ezString materialType;
-      if (parameters.IsEmpty() || parameters[0].type != ParamType::STRING || parameters[0].data.IsEmpty() ||
-          parameters[0].name.Compare_NoCase("type"))
+      if (parameters.IsEmpty() || parameters[0].type != ParamType::STRING || parameters[0].data.IsEmpty() || parameters[0].name.Compare_NoCase("type"))
       {
         ezLog::Warning("PBRT make named material '{0}' should have a type parameter.",
           type); // This sometimes happens and need to handle that.
@@ -594,8 +584,7 @@ namespace ezModelImporter
       context.AddNamedMaterial(name, outScene.AddMaterial(std::move(newMaterial)));
     }
 
-    void NamedMaterial(ezStringView type, ezArrayPtr<Pbrt::Parameter> parameters, Pbrt::ParseContext& context,
-      ezModelImporter::Scene& outScene)
+    void NamedMaterial(ezStringView type, ezArrayPtr<Pbrt::Parameter> parameters, Pbrt::ParseContext& context, ezModelImporter::Scene& outScene)
     {
       ezString materialName(type);
       if (context.MakeNamedMaterialActive(materialName).Failed())
@@ -628,8 +617,7 @@ namespace ezModelImporter
         }
 
         // Can't load "scale" and similar texture correctly, but if they contain a txture reference, we can try to use that.
-        else if ((param.name.IsEqual_NoCase("tex1") || param.name.IsEqual_NoCase("tex2")) && param.type == ParamType::TEXTURE &&
-                 !param.data.IsEmpty())
+        else if ((param.name.IsEqual_NoCase("tex1") || param.name.IsEqual_NoCase("tex2")) && param.type == ParamType::TEXTURE && !param.data.IsEmpty())
         {
           filename = context.LookUpTextureFilename(param.data[0].Get<ezString>());
         }
@@ -645,8 +633,7 @@ namespace ezModelImporter
       }
     }
 
-    void ObjectBegin(ezStringView type, ezArrayPtr<Pbrt::Parameter> parameters, Pbrt::ParseContext& context,
-      ezModelImporter::Scene& outScene)
+    void ObjectBegin(ezStringView type, ezArrayPtr<Pbrt::Parameter> parameters, Pbrt::ParseContext& context, ezModelImporter::Scene& outScene)
     {
       ezString objectName(type);
       if (parameters.GetCount() != 0)
@@ -655,8 +642,7 @@ namespace ezModelImporter
       context.ObjectBegin(objectName);
     }
 
-    void ObjectInstance(ezStringView type, ezArrayPtr<Pbrt::Parameter> parameters, Pbrt::ParseContext& context,
-      ezModelImporter::Scene& outScene)
+    void ObjectInstance(ezStringView type, ezArrayPtr<Pbrt::Parameter> parameters, Pbrt::ParseContext& context, ezModelImporter::Scene& outScene)
     {
       ezString objectName(type);
       if (parameters.GetCount() != 0)

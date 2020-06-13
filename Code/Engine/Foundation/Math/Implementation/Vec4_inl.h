@@ -26,7 +26,7 @@ template <typename Type>
 EZ_FORCE_INLINE const ezVec2Template<Type> ezVec3Template<Type>::GetAsVec2() const
 {
   // don't assert here, as the 3rd and 4th component may be NaN when this is fine, e.g. during interop with the SIMD classes
-  //EZ_NAN_ASSERT(this);
+  // EZ_NAN_ASSERT(this);
 
   return ezVec2Template<Type>(x, y);
 }
@@ -43,7 +43,7 @@ template <typename Type>
 EZ_FORCE_INLINE const ezVec4Template<Type> ezVec3Template<Type>::GetAsPositionVec4() const
 {
   // don't assert here, as the 4th component may be NaN when this is fine, e.g. during interop with the SIMD classes
-  //EZ_NAN_ASSERT(this);
+  // EZ_NAN_ASSERT(this);
 
   return ezVec4Template<Type>(x, y, z, 1);
 }
@@ -52,7 +52,7 @@ template <typename Type>
 EZ_FORCE_INLINE const ezVec4Template<Type> ezVec3Template<Type>::GetAsDirectionVec4() const
 {
   // don't assert here, as the 4th component may be NaN when this is fine, e.g. during interop with the SIMD classes
-  //EZ_NAN_ASSERT(this);
+  // EZ_NAN_ASSERT(this);
 
   return ezVec4Template<Type>(x, y, z, 0);
 }
@@ -94,7 +94,7 @@ template <typename Type>
 EZ_FORCE_INLINE const ezVec2Template<Type> ezVec4Template<Type>::GetAsVec2() const
 {
   // don't assert here, as the 4th component may be NaN when this is fine, e.g. during interop with the SIMD classes
-  //EZ_NAN_ASSERT(this);
+  // EZ_NAN_ASSERT(this);
 
   return ezVec2Template<Type>(x, y);
 }
@@ -103,7 +103,7 @@ template <typename Type>
 EZ_FORCE_INLINE const ezVec3Template<Type> ezVec4Template<Type>::GetAsVec3() const
 {
   // don't assert here, as the 4th component may be NaN when this is fine, e.g. during interop with the SIMD classes
-  //EZ_NAN_ASSERT(this);
+  // EZ_NAN_ASSERT(this);
 
   return ezVec3Template<Type>(x, y, z);
 }
@@ -209,10 +209,7 @@ inline bool ezVec4Template<Type>::IsZero(Type fEpsilon) const
 {
   EZ_NAN_ASSERT(this);
 
-  return (ezMath::IsZero(x, fEpsilon) &&
-          ezMath::IsZero(y, fEpsilon) &&
-          ezMath::IsZero(z, fEpsilon) &&
-          ezMath::IsZero(w, fEpsilon));
+  return (ezMath::IsZero(x, fEpsilon) && ezMath::IsZero(y, fEpsilon) && ezMath::IsZero(z, fEpsilon) && ezMath::IsZero(w, fEpsilon));
 }
 
 template <typename Type>
@@ -424,10 +421,7 @@ inline bool ezVec4Template<Type>::IsEqual(const ezVec4Template<Type>& rhs, Type 
   EZ_NAN_ASSERT(this);
   EZ_NAN_ASSERT(&rhs);
 
-  return (ezMath::IsEqual(x, rhs.x, fEpsilon) &&
-          ezMath::IsEqual(y, rhs.y, fEpsilon) &&
-          ezMath::IsEqual(z, rhs.z, fEpsilon) &&
-          ezMath::IsEqual(w, rhs.w, fEpsilon));
+  return (ezMath::IsEqual(x, rhs.x, fEpsilon) && ezMath::IsEqual(y, rhs.y, fEpsilon) && ezMath::IsEqual(z, rhs.z, fEpsilon) && ezMath::IsEqual(w, rhs.w, fEpsilon));
 }
 
 template <typename Type>

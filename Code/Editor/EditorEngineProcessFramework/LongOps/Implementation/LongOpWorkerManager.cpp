@@ -87,8 +87,7 @@ void ezLongOpWorkerManager::LaunchWorkerOperation(WorkerOpInfo& opInfo, ezStream
 {
   opInfo.m_Progress.SetCompletion(0.0f);
   opInfo.m_Progress.m_pUserData = &opInfo;
-  opInfo.m_Progress.m_Events.AddEventHandler(
-    ezMakeDelegate(&ezLongOpWorkerManager::WorkerProgressBarEventHandler, this), opInfo.m_ProgressSubscription);
+  opInfo.m_Progress.m_Events.AddEventHandler(ezMakeDelegate(&ezLongOpWorkerManager::WorkerProgressBarEventHandler, this), opInfo.m_ProgressSubscription);
 
   SendProgress(opInfo);
 

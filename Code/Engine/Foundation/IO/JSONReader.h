@@ -19,10 +19,7 @@ public:
   ezResult Parse(ezStreamReader& pInput, ezUInt32 uiFirstLineOffset = 0);
 
   /// \brief Returns the top-level object of the JSON document.
-  const ezVariantDictionary& GetTopLevelObject() const
-  {
-    return m_Stack.PeekBack().m_Dictionary;
-  }
+  const ezVariantDictionary& GetTopLevelObject() const { return m_Stack.PeekBack().m_Dictionary; }
 
 private:
   /// \brief This function can be overridden to skip certain variables, however the overriding function must still call this.
@@ -74,4 +71,3 @@ protected:
   bool m_bParsingError;
   ezString m_sLastName;
 };
-

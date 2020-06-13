@@ -111,8 +111,7 @@ negative, internally the absolute value is used. Distance, acceleration, max vel
 "in seconds". The returned value is 0, if time is negative. It is clamped to fDistanceInMeters, if time is too big.
 */
 
-float CalculateAcceleratedMovement(
-  float fDistanceInMeters, float fAcceleration, float fMaxVelocity, float fDeceleration, ezTime& fTimeSinceStartInSec)
+float CalculateAcceleratedMovement(float fDistanceInMeters, float fAcceleration, float fMaxVelocity, float fDeceleration, ezTime& fTimeSinceStartInSec)
 {
   // linear motion, if no acceleration or deceleration is present
   if ((fAcceleration <= 0.0f) && (fDeceleration <= 0.0f))
@@ -224,10 +223,7 @@ public:
   {
   }
 
-  virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override
-  {
-    pNode->RenameProperty("RunAtStartup", "Running");
-  }
+  virtual void Patch(ezGraphPatchContext& context, ezAbstractObjectGraph* pGraph, ezAbstractObjectNode* pNode) const override { pNode->RenameProperty("RunAtStartup", "Running"); }
 };
 
 ezTransformComponentPatch_2_3 g_ezTransformComponentPatch_2_3;

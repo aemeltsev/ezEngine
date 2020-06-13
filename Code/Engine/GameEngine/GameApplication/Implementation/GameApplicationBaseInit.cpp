@@ -139,8 +139,8 @@ void ezGameApplicationBase::Init_FileSystem_ConfigureDataDirs()
     for (ezUInt32 i = appFileSystemConfig.m_DataDirs.GetCount(); i > 0; --i)
     {
       const ezString name = appFileSystemConfig.m_DataDirs[i - 1].m_sRootName;
-      if (name.IsEqual_NoCase(":") || name.IsEqual_NoCase("bin") || name.IsEqual_NoCase("shadercache") || name.IsEqual_NoCase("appdata") ||
-          name.IsEqual_NoCase("base") || name.IsEqual_NoCase("project") || name.IsEqual_NoCase("plugins"))
+      if (name.IsEqual_NoCase(":") || name.IsEqual_NoCase("bin") || name.IsEqual_NoCase("shadercache") || name.IsEqual_NoCase("appdata") || name.IsEqual_NoCase("base") ||
+          name.IsEqual_NoCase("project") || name.IsEqual_NoCase("plugins"))
       {
         appFileSystemConfig.m_DataDirs.RemoveAtAndCopy(i - 1);
       }
@@ -242,7 +242,7 @@ void ezGameApplicationBase::Deinit_ShutdownLogging()
 #if EZ_ENABLED(EZ_COMPILE_FOR_DEVELOPMENT)
   if (!ezCommandLineUtils::GetGlobalInstance()->GetBoolOption("-disableConsoleOutput", false))
   {
-  ezGlobalLog::RemoveLogWriter(ezLogWriter::Console::LogMessageHandler);
+    ezGlobalLog::RemoveLogWriter(ezLogWriter::Console::LogMessageHandler);
   }
   ezGlobalLog::RemoveLogWriter(ezLogWriter::VisualStudio::LogMessageHandler);
 #endif

@@ -89,8 +89,7 @@ EZ_ALWAYS_INLINE ezUInt32 ezHybridStringBase<Size>::GetCharacterCount() const
 template <ezUInt16 Size>
 void ezHybridStringBase<Size>::operator=(const char* szString)
 {
-  EZ_ASSERT_DEBUG(szString < m_Data.GetData() || szString >= m_Data.GetData() + m_Data.GetCount(),
-    "Can't assign string a value that points to ourself!");
+  EZ_ASSERT_DEBUG(szString < m_Data.GetData() || szString >= m_Data.GetData() + m_Data.GetCount(), "Can't assign string a value that points to ourself!");
 
   ezUInt32 uiElementCount = 0;
   ezStringUtils::GetCharacterAndElementCount(szString, m_uiCharacterCount, uiElementCount);
@@ -128,8 +127,7 @@ void ezHybridStringBase<Size>::operator=(const wchar_t* szString)
 template <ezUInt16 Size>
 void ezHybridStringBase<Size>::operator=(const ezStringView& rhs)
 {
-  EZ_ASSERT_DEBUG(rhs.GetStartPointer() < m_Data.GetData() || rhs.GetStartPointer() >= m_Data.GetData() + m_Data.GetCount(),
-    "Can't assign string a value that points to ourself!");
+  EZ_ASSERT_DEBUG(rhs.GetStartPointer() < m_Data.GetData() || rhs.GetStartPointer() >= m_Data.GetData() + m_Data.GetCount(), "Can't assign string a value that points to ourself!");
 
   m_Data.SetCountUninitialized(rhs.GetElementCount() + 1);
   ezStringUtils::Copy(&m_Data[0], m_Data.GetCount(), rhs.GetStartPointer(), rhs.GetEndPointer());
@@ -139,8 +137,7 @@ void ezHybridStringBase<Size>::operator=(const ezStringView& rhs)
 template <ezUInt16 Size>
 ezStringView ezHybridStringBase<Size>::GetSubString(ezUInt32 uiFirstCharacter, ezUInt32 uiNumCharacters) const
 {
-  EZ_ASSERT_DEV(uiFirstCharacter + uiNumCharacters <= m_uiCharacterCount,
-    "The string only has {0} characters, cannot get a sub-string up to character {1}.", m_uiCharacterCount,
+  EZ_ASSERT_DEV(uiFirstCharacter + uiNumCharacters <= m_uiCharacterCount, "The string only has {0} characters, cannot get a sub-string up to character {1}.", m_uiCharacterCount,
     uiFirstCharacter + uiNumCharacters);
 
   const char* szStart = GetData();
@@ -161,8 +158,7 @@ ezStringView ezHybridStringBase<Size>::GetFirst(ezUInt32 uiNumCharacters) const
 template <ezUInt16 Size>
 ezStringView ezHybridStringBase<Size>::GetLast(ezUInt32 uiNumCharacters) const
 {
-  EZ_ASSERT_DEV(uiNumCharacters < m_uiCharacterCount, "The string only contains {0} characters, cannot return the last {1} characters.",
-    m_uiCharacterCount, uiNumCharacters);
+  EZ_ASSERT_DEV(uiNumCharacters < m_uiCharacterCount, "The string only contains {0} characters, cannot return the last {1} characters.", m_uiCharacterCount, uiNumCharacters);
   return GetSubString(m_uiCharacterCount - uiNumCharacters, uiNumCharacters);
 }
 

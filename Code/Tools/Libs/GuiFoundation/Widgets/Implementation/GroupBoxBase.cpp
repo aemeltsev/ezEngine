@@ -10,7 +10,7 @@
 #include <QStyleOptionToolButton>
 
 ezQtGroupBoxBase::ezQtGroupBoxBase(QWidget* pParent, bool bCollapsible)
-    : QWidget(pParent)
+  : QWidget(pParent)
 {
   m_bCollapsible = bCollapsible;
 }
@@ -76,8 +76,7 @@ void ezQtGroupBoxBase::DrawHeader(QPainter& p, const QRect& rect)
     QRect iconRect = remainingRect;
     iconRect.setWidth(iconRect.height() / 2);
     bool bCollapsed = GetCollapseState();
-    QIcon collapseIcon = bCollapsed ? ezQtUiServices::GetCachedIconResource(":/GuiFoundation/Icons/groupClosed.png")
-                                    : ezQtUiServices::GetCachedIconResource(":/GuiFoundation/Icons/groupOpen.png");
+    QIcon collapseIcon = bCollapsed ? ezQtUiServices::GetCachedIconResource(":/GuiFoundation/Icons/groupClosed.png") : ezQtUiServices::GetCachedIconResource(":/GuiFoundation/Icons/groupOpen.png");
     collapseIcon.paint(&p, iconRect);
     remainingRect.adjust(iconRect.width() + Spacing, 0, 0, 0);
   }

@@ -33,11 +33,9 @@ class EZ_FOUNDATION_DLL ezRTTI : public ezEnumerable<ezRTTI>
 
 public:
   /// \brief The constructor requires all the information about the type that this object represents.
-  ezRTTI(const char* szName, const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion, ezUInt32 uiVariantType,
-    ezBitflags<ezTypeFlags> flags, ezRTTIAllocator* pAllocator, ezArrayPtr<ezAbstractProperty*> properties,
-    ezArrayPtr<ezAbstractProperty*> functions, ezArrayPtr<ezPropertyAttribute*> attributes,
-    ezArrayPtr<ezAbstractMessageHandler*> messageHandlers, ezArrayPtr<ezMessageSenderInfo> messageSenders,
-    const ezRTTI* (*fnVerifyParent)());
+  ezRTTI(const char* szName, const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion, ezUInt32 uiVariantType, ezBitflags<ezTypeFlags> flags, ezRTTIAllocator* pAllocator,
+    ezArrayPtr<ezAbstractProperty*> properties, ezArrayPtr<ezAbstractProperty*> functions, ezArrayPtr<ezPropertyAttribute*> attributes, ezArrayPtr<ezAbstractMessageHandler*> messageHandlers,
+    ezArrayPtr<ezMessageSenderInfo> messageSenders, const ezRTTI* (*fnVerifyParent)());
 
 
   ~ezRTTI();
@@ -150,8 +148,7 @@ protected:
   ezArrayPtr<ezAbstractProperty*> m_Properties;
   ezArrayPtr<ezAbstractFunctionProperty*> m_Functions;
   ezArrayPtr<ezPropertyAttribute*> m_Attributes;
-  void UpdateType(const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion, ezUInt32 uiVariantType,
-    ezBitflags<ezTypeFlags> flags);
+  void UpdateType(const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion, ezUInt32 uiVariantType, ezBitflags<ezTypeFlags> flags);
   void RegisterType(ezRTTI* pType);
   void UnregisterType(ezRTTI* pType);
 
@@ -175,8 +172,7 @@ protected:
   const ezRTTI* (*m_fnVerifyParent)();
 
   ezArrayPtr<ezAbstractMessageHandler*> m_MessageHandlers;
-  ezDynamicArray<ezAbstractMessageHandler*, ezStaticAllocatorWrapper>
-    m_DynamicMessageHandlers; // do not track this data, it won't be deallocated before shutdown
+  ezDynamicArray<ezAbstractMessageHandler*, ezStaticAllocatorWrapper> m_DynamicMessageHandlers; // do not track this data, it won't be deallocated before shutdown
 
   ezArrayPtr<ezMessageSenderInfo> m_MessageSenders;
 
@@ -294,8 +290,5 @@ private:
     return ezInternal::NewInstance<void>(nullptr, pAllocator);
   }
 
-  ezInternal::NewInstance<void> CloneImpl(const void* pObject, ezAllocatorBase* pAllocator, ezTraitInt<1>)
-  {
-    return EZ_NEW(pAllocator, CLASS, *static_cast<const CLASS*>(pObject));
-  }
+  ezInternal::NewInstance<void> CloneImpl(const void* pObject, ezAllocatorBase* pAllocator, ezTraitInt<1>) { return EZ_NEW(pAllocator, CLASS, *static_cast<const CLASS*>(pObject)); }
 };

@@ -15,8 +15,8 @@ EZ_ALWAYS_INLINE ezQuatTemplate<Type>::ezQuatTemplate()
 
 template <typename Type>
 EZ_ALWAYS_INLINE ezQuatTemplate<Type>::ezQuatTemplate(Type X, Type Y, Type Z, Type W)
-    : v(X, Y, Z)
-    , w(W)
+  : v(X, Y, Z)
+  , w(W)
 {
 }
 
@@ -140,12 +140,10 @@ bool ezQuatTemplate<Type>::IsEqualRotation(const ezQuatTemplate<Type>& qOther, f
   if (qOther.GetRotationAxisAndAngle(vA2, A2) == EZ_FAILURE)
     return false;
 
-  if ((A1.IsEqualSimple(A2, ezAngle::Degree(fEpsilon))) &&
-      (vA1.IsEqual(vA2, fEpsilon)))
+  if ((A1.IsEqualSimple(A2, ezAngle::Degree(fEpsilon))) && (vA1.IsEqual(vA2, fEpsilon)))
     return true;
 
-  if ((A1.IsEqualSimple(-A2, ezAngle::Degree(fEpsilon))) &&
-      (vA1.IsEqual(-vA2, fEpsilon)))
+  if ((A1.IsEqualSimple(-A2, ezAngle::Degree(fEpsilon))) && (vA1.IsEqual(-vA2, fEpsilon)))
     return true;
 
   return false;
@@ -293,8 +291,8 @@ void ezQuatTemplate<Type>::SetShortestRotation(const ezVec3Template<Type>& vDirF
     return;
   }
   else
-      // if both vectors are opposing
-      if (ezMath::IsEqual(fDot, (Type)-1, (Type)0.0001))
+    // if both vectors are opposing
+    if (ezMath::IsEqual(fDot, (Type)-1, (Type)0.0001))
   {
     // find an axis, that is not identical and not opposing, ezVec3Template::Cross-product to find perpendicular vector, rotate around that
     if (ezMath::Abs(v0.Dot(ezVec3Template<Type>(1, 0, 0))) < (Type)0.8)
@@ -437,4 +435,3 @@ void ezQuatTemplate<Type>::SetFromEulerAngles(const ezAngle& x, const ezAngle& y
   v.y = (float)(cy * cr * sp + sy * sr * cp);
   v.z = (float)(sy * cr * cp - cy * sr * sp);
 }
-

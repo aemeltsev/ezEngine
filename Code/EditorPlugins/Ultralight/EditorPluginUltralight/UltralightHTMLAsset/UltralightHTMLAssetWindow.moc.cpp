@@ -9,10 +9,9 @@
 #include <QLayout>
 
 ezUltralightHTMLAssetDocumentWindow::ezUltralightHTMLAssetDocumentWindow(ezDocument* pDocument)
-    : ezQtDocumentWindow(pDocument)
+  : ezQtDocumentWindow(pDocument)
 {
-  GetDocument()->GetObjectManager()->m_PropertyEvents.AddEventHandler(
-      ezMakeDelegate(&ezUltralightHTMLAssetDocumentWindow::PropertyEventHandler, this));
+  GetDocument()->GetObjectManager()->m_PropertyEvents.AddEventHandler(ezMakeDelegate(&ezUltralightHTMLAssetDocumentWindow::PropertyEventHandler, this));
 
   // Menu Bar
   {
@@ -64,8 +63,7 @@ ezUltralightHTMLAssetDocumentWindow::ezUltralightHTMLAssetDocumentWindow(ezDocum
 
 ezUltralightHTMLAssetDocumentWindow::~ezUltralightHTMLAssetDocumentWindow()
 {
-  GetDocument()->GetObjectManager()->m_PropertyEvents.RemoveEventHandler(
-      ezMakeDelegate(&ezUltralightHTMLAssetDocumentWindow::PropertyEventHandler, this));
+  GetDocument()->GetObjectManager()->m_PropertyEvents.RemoveEventHandler(ezMakeDelegate(&ezUltralightHTMLAssetDocumentWindow::PropertyEventHandler, this));
 }
 
 void ezUltralightHTMLAssetDocumentWindow::UpdatePreview()

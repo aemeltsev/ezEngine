@@ -283,14 +283,12 @@ void ezPxCharacterControllerComponent::Update()
         if (hSurface.IsValid())
         {
           const bool bRun = (m_InputStateBits & InputStateBits::Run) != 0;
-          if (!bRun && m_fAccumulatedWalkDistance >= m_fWalkInteractionDistance ||
-              bRun && m_fAccumulatedWalkDistance >= m_fRunInteractionDistance)
+          if (!bRun && m_fAccumulatedWalkDistance >= m_fWalkInteractionDistance || bRun && m_fAccumulatedWalkDistance >= m_fRunInteractionDistance)
           {
             m_fAccumulatedWalkDistance = 0.0f;
 
             ezResourceLock<ezSurfaceResource> pSurface(hSurface, ezResourceAcquireMode::AllowLoadingFallback);
-            pSurface->InteractWithSurface(GetWorld(), ezGameObjectHandle(), castResult.m_vPosition, castResult.m_vNormal, ezVec3(0, 0, 1),
-              m_sWalkSurfaceInteraction, &GetOwner()->GetTeamID());
+            pSurface->InteractWithSurface(GetWorld(), ezGameObjectHandle(), castResult.m_vPosition, castResult.m_vNormal, ezVec3(0, 0, 1), m_sWalkSurfaceInteraction, &GetOwner()->GetTeamID());
           }
         }
       }
@@ -385,11 +383,9 @@ const char* ezPxCharacterControllerComponent::GetFallbackWalkSurfaceFile() const
 
 void ezPxCharacterControllerComponent::MoveCharacter(ezMsgMoveCharacterController& msg)
 {
-  const float fDistanceToMove = ezMath::Max(ezMath::Abs((float)(msg.m_fMoveForwards - msg.m_fMoveBackwards)),
-    ezMath::Abs((float)(msg.m_fStrafeRight - msg.m_fStrafeLeft)));
+  const float fDistanceToMove = ezMath::Max(ezMath::Abs((float)(msg.m_fMoveForwards - msg.m_fMoveBackwards)), ezMath::Abs((float)(msg.m_fStrafeRight - msg.m_fStrafeLeft)));
 
-  m_vRelativeMoveDirection +=
-    ezVec3((float)(msg.m_fMoveForwards - msg.m_fMoveBackwards), (float)(msg.m_fStrafeRight - msg.m_fStrafeLeft), 0);
+  m_vRelativeMoveDirection += ezVec3((float)(msg.m_fMoveForwards - msg.m_fMoveBackwards), (float)(msg.m_fStrafeRight - msg.m_fStrafeLeft), 0);
   m_vRelativeMoveDirection.NormalizeIfNotZero(ezVec3::ZeroVector());
   m_vRelativeMoveDirection *= fDistanceToMove;
 

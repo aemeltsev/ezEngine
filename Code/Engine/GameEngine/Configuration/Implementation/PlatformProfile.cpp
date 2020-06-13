@@ -65,8 +65,7 @@ void ezPlatformProfile::AddMissingConfigs()
   for (auto pRtti = ezRTTI::GetFirstInstance(); pRtti != nullptr; pRtti = pRtti->GetNextInstance())
   {
     // find all types derived from ezProfileConfigData
-    if (!pRtti->GetTypeFlags().IsAnySet(ezTypeFlags::Abstract) && pRtti->IsDerivedFrom<ezProfileConfigData>() &&
-        pRtti->GetAllocator()->CanAllocate())
+    if (!pRtti->GetTypeFlags().IsAnySet(ezTypeFlags::Abstract) && pRtti->IsDerivedFrom<ezProfileConfigData>() && pRtti->GetAllocator()->CanAllocate())
     {
       bool bHasTypeAlready = false;
 
@@ -92,9 +91,8 @@ void ezPlatformProfile::AddMissingConfigs()
   }
 
   // sort all configs alphabetically
-  m_Configs.Sort([](const ezProfileConfigData* lhs, const ezProfileConfigData* rhs) -> bool {
-    return ezStringUtils::Compare(lhs->GetDynamicRTTI()->GetTypeName(), rhs->GetDynamicRTTI()->GetTypeName()) < 0;
-  });
+  m_Configs.Sort(
+    [](const ezProfileConfigData* lhs, const ezProfileConfigData* rhs) -> bool { return ezStringUtils::Compare(lhs->GetDynamicRTTI()->GetTypeName(), rhs->GetDynamicRTTI()->GetTypeName()) < 0; });
 }
 
 const ezProfileConfigData* ezPlatformProfile::GetTypeConfig(const ezRTTI* pRtti) const
@@ -160,4 +158,3 @@ ezResult ezPlatformProfile::LoadForRuntime(const char* szFile)
 
 
 EZ_STATICLINK_FILE(GameEngine, GameEngine_Configuration_Implementation_PlatformProfile);
-

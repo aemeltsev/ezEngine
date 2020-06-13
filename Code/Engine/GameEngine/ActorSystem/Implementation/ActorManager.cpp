@@ -161,8 +161,7 @@ void ezActorManager::AddApiService(ezUniquePtr<ezActorApiService>&& pApiService)
   for (auto& pExisting : m_pImpl->m_AllApiServices)
   {
     EZ_ASSERT_ALWAYS(
-      pApiService->GetDynamicRTTI() != pExisting->GetDynamicRTTI() || pExisting->m_State == ezActorApiService::State::QueuedForDestruction,
-      "An actor API service of this type has already been added");
+      pApiService->GetDynamicRTTI() != pExisting->GetDynamicRTTI() || pExisting->m_State == ezActorApiService::State::QueuedForDestruction, "An actor API service of this type has already been added");
   }
 
   m_pImpl->m_AllApiServices.PushBack(std::move(pApiService));
@@ -332,4 +331,3 @@ void ezActorManager::Update()
 
 
 EZ_STATICLINK_FILE(GameEngine, GameEngine_ActorSystem_Implementation_ActorManager);
-

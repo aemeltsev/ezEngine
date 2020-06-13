@@ -212,14 +212,10 @@ namespace ezInternal
   {
     struct Helper
     {
-      EZ_ALWAYS_INLINE static ezVisitorExecution::Enum Visit(ezGameObject::TransformationData* pData, void* pUserData)
-      {
-        return (*static_cast<VisitorFunc*>(pUserData))(pData->m_pObject);
-      }
+      EZ_ALWAYS_INLINE static ezVisitorExecution::Enum Visit(ezGameObject::TransformationData* pData, void* pUserData) { return (*static_cast<VisitorFunc*>(pUserData))(pData->m_pObject); }
     };
 
-    const ezUInt32 uiMaxHierarchyLevel =
-      ezMath::Max(m_Hierarchies[HierarchyType::Static].m_Data.GetCount(), m_Hierarchies[HierarchyType::Dynamic].m_Data.GetCount());
+    const ezUInt32 uiMaxHierarchyLevel = ezMath::Max(m_Hierarchies[HierarchyType::Static].m_Data.GetCount(), m_Hierarchies[HierarchyType::Dynamic].m_Data.GetCount());
 
     for (ezUInt32 uiHierarchyLevel = 0; uiHierarchyLevel < uiMaxHierarchyLevel; ++uiHierarchyLevel)
     {
@@ -311,8 +307,7 @@ namespace ezInternal
     {
       EZ_ALWAYS_INLINE static ezVisitorExecution::Enum Visit(ezGameObject::TransformationData* pData, void* pUserData)
       {
-        WorldData::UpdateGlobalTransformAndSpatialData(pData, static_cast<UserData*>(pUserData)->m_fInvDt,
-          *static_cast<UserData*>(pUserData)->m_pSpatialSystem);
+        WorldData::UpdateGlobalTransformAndSpatialData(pData, static_cast<UserData*>(pUserData)->m_fInvDt, *static_cast<UserData*>(pUserData)->m_pSpatialSystem);
         return ezVisitorExecution::Continue;
       }
     };
@@ -321,8 +316,7 @@ namespace ezInternal
     {
       EZ_ALWAYS_INLINE static ezVisitorExecution::Enum Visit(ezGameObject::TransformationData* pData, void* pUserData)
       {
-        WorldData::UpdateGlobalTransformWithParentAndSpatialData(pData, static_cast<UserData*>(pUserData)->m_fInvDt,
-          *static_cast<UserData*>(pUserData)->m_pSpatialSystem);
+        WorldData::UpdateGlobalTransformWithParentAndSpatialData(pData, static_cast<UserData*>(pUserData)->m_fInvDt, *static_cast<UserData*>(pUserData)->m_pSpatialSystem);
         return ezVisitorExecution::Continue;
       }
     };

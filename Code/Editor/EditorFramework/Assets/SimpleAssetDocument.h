@@ -95,10 +95,7 @@ template <typename ObjectProperties>
 class ezSimpleDocumentObjectManager : public ezDocumentObjectManager
 {
 public:
-  virtual void GetCreateableTypes(ezHybridArray<const ezRTTI*, 32>& Types) const override
-  {
-    Types.PushBack(ezGetStaticRTTI<ObjectProperties>());
-  }
+  virtual void GetCreateableTypes(ezHybridArray<const ezRTTI*, 32>& Types) const override { Types.PushBack(ezGetStaticRTTI<ObjectProperties>()); }
 };
 
 template <typename PropertyType, typename BaseClass = ezAssetDocument>
@@ -121,20 +118,11 @@ public:
     m_ObjectMirror.DeInit();
   }
 
-  const PropertyType* GetProperties() const
-  {
-    return static_cast<const PropertyType*>(m_ObjectMirror.GetNativeObjectPointer(this->GetObjectManager()->GetRootObject()->GetChildren()[0]));
-  }
+  const PropertyType* GetProperties() const { return static_cast<const PropertyType*>(m_ObjectMirror.GetNativeObjectPointer(this->GetObjectManager()->GetRootObject()->GetChildren()[0])); }
 
-  PropertyType* GetProperties()
-  {
-    return static_cast<PropertyType*>(m_ObjectMirror.GetNativeObjectPointer(this->GetObjectManager()->GetRootObject()->GetChildren()[0]));
-  }
+  PropertyType* GetProperties() { return static_cast<PropertyType*>(m_ObjectMirror.GetNativeObjectPointer(this->GetObjectManager()->GetRootObject()->GetChildren()[0])); }
 
-  ezDocumentObject* GetPropertyObject()
-  {
-    return this->GetObjectManager()->GetRootObject()->GetChildren()[0];
-  }
+  ezDocumentObject* GetPropertyObject() { return this->GetObjectManager()->GetRootObject()->GetChildren()[0]; }
 
 protected:
   virtual void InitializeAfterLoading(bool bFirstTimeCreation) override
@@ -218,10 +206,7 @@ private:
   }
 
 protected:
-  virtual ezDocumentInfo* CreateDocumentInfo() override
-  {
-    return EZ_DEFAULT_NEW(ezAssetDocumentInfo);
-  }
+  virtual ezDocumentInfo* CreateDocumentInfo() override { return EZ_DEFAULT_NEW(ezAssetDocumentInfo); }
 
   ezDocumentObjectMirror m_ObjectMirror;
   ezRttiConverterContext m_Context;

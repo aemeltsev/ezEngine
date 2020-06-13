@@ -1,7 +1,7 @@
 #pragma once
 
-#include <RendererCore/Pipeline/RenderPipelinePass.h>
 #include <RendererCore/Declarations.h>
+#include <RendererCore/Pipeline/RenderPipelinePass.h>
 #include <RendererCore/Shader/ConstantBufferStorage.h>
 #include <RendererCore/Shader/ShaderResource.h>
 
@@ -17,11 +17,10 @@ public:
   ezSeparatedBilateralBlurPass();
   ~ezSeparatedBilateralBlurPass();
 
-  virtual bool GetRenderTargetDescriptions(const ezView& view, const ezArrayPtr<ezGALTextureCreationDescription* const> inputs,
-    ezArrayPtr<ezGALTextureCreationDescription> outputs) override;
+  virtual bool GetRenderTargetDescriptions(const ezView& view, const ezArrayPtr<ezGALTextureCreationDescription* const> inputs, ezArrayPtr<ezGALTextureCreationDescription> outputs) override;
 
-  virtual void Execute(const ezRenderViewContext& renderViewContext, const ezArrayPtr<ezRenderPipelinePassConnection* const> inputs,
-    const ezArrayPtr<ezRenderPipelinePassConnection* const> outputs) override;
+  virtual void Execute(
+    const ezRenderViewContext& renderViewContext, const ezArrayPtr<ezRenderPipelinePassConnection* const> inputs, const ezArrayPtr<ezRenderPipelinePassConnection* const> outputs) override;
 
   void SetRadius(ezUInt32 uiRadius);
   ezUInt32 GetRadius() const;
@@ -43,4 +42,3 @@ protected:
   ezConstantBufferStorageHandle m_hBilateralBlurCB;
   ezShaderResourceHandle m_hShader;
 };
-

@@ -12,8 +12,7 @@ bool IsArrayView(const ezGALTextureCreationDescription& texDesc, const ezGALUnor
   return texDesc.m_uiArraySize > 1 || viewDesc.m_uiFirstArraySlice > 0;
 }
 
-ezGALUnorderedAccessViewDX11::ezGALUnorderedAccessViewDX11(
-  ezGALResourceBase* pResource, const ezGALUnorderedAccessViewCreationDescription& Description)
+ezGALUnorderedAccessViewDX11::ezGALUnorderedAccessViewDX11(ezGALResourceBase* pResource, const ezGALUnorderedAccessViewCreationDescription& Description)
   : ezGALUnorderedAccessView(pResource, Description)
   , m_pDXUnorderedAccessView(nullptr)
 {

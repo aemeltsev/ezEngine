@@ -256,8 +256,7 @@ void ezPxCharacterProxyComponent::OnSimulationStarted()
   cd.stepOffset = m_fMaxStepHeight;
   cd.reportCallback = &(m_Data->m_HitCallback);
   cd.behaviorCallback = &(m_Data->m_BehaviorCallback);
-  cd.nonWalkableMode = m_bForceSlopeSliding ? PxControllerNonWalkableMode::ePREVENT_CLIMBING_AND_FORCE_SLIDING
-                                            : PxControllerNonWalkableMode::ePREVENT_CLIMBING;
+  cd.nonWalkableMode = m_bForceSlopeSliding ? PxControllerNonWalkableMode::ePREVENT_CLIMBING_AND_FORCE_SLIDING : PxControllerNonWalkableMode::ePREVENT_CLIMBING;
   cd.material = ezPhysX::GetSingleton()->GetDefaultMaterial();
 
   ezPxUserData* pUserData = nullptr;
@@ -316,8 +315,7 @@ ezBitflags<ezPxCharacterCollisionFlags> ezPxCharacterProxyComponent::Move(const 
     const float fElapsedTime = (float)GetWorld()->GetClock().GetTimeDiff().GetSeconds();
 
     EZ_PX_WRITE_LOCK(*(m_pController->getScene()));
-    PxControllerCollisionFlags collisionFlags =
-      m_pController->move(ezPxConversionUtils::ToVec3(vMotion), 0.0f, fElapsedTime, m_Data->m_ControllerFilter);
+    PxControllerCollisionFlags collisionFlags = m_pController->move(ezPxConversionUtils::ToVec3(vMotion), 0.0f, fElapsedTime, m_Data->m_ControllerFilter);
 
     ezVec3 vNewPos = ezPxConversionUtils::ToVec3(m_pController->getPosition());
     pOwner->SetGlobalPosition(vNewPos);
@@ -341,8 +339,7 @@ ezBitflags<ezPxCharacterCollisionFlags> ezPxCharacterProxyComponent::Move(const 
 
         // make sure the character controller does not overlap with anything when standing up
         ezPhysXWorldModule* pModule = GetWorld()->GetOrCreateModule<ezPhysXWorldModule>();
-        if (!pModule->OverlapTestCapsule(m_fCapsuleRadius, m_fCapsuleHeight, t,
-              ezPhysicsQueryParameters(m_uiCollisionLayer, ezPhysicsShapeType::Static | ezPhysicsShapeType::Dynamic, GetShapeId())))
+        if (!pModule->OverlapTestCapsule(m_fCapsuleRadius, m_fCapsuleHeight, t, ezPhysicsQueryParameters(m_uiCollisionLayer, ezPhysicsShapeType::Static | ezPhysicsShapeType::Dynamic, GetShapeId())))
         {
           m_bIsCrouching = false;
           m_pController->resize(m_fCapsuleHeight);

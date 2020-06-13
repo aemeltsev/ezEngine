@@ -128,7 +128,8 @@ void ezMoveToComponent::Update()
 
   const ezVec3 vDir = vDiff / fRemainingLength;
 
-  m_fCurTranslationSpeed = CalculateNewSpeed(fRemainingLength, m_fCurTranslationSpeed, m_fMaxTranslationSpeed, m_fTranslationAcceleration, m_fTranslationDeceleration, GetWorld()->GetClock().GetTimeDiff().GetSeconds());
+  m_fCurTranslationSpeed =
+    CalculateNewSpeed(fRemainingLength, m_fCurTranslationSpeed, m_fMaxTranslationSpeed, m_fTranslationAcceleration, m_fTranslationDeceleration, GetWorld()->GetClock().GetTimeDiff().GetSeconds());
 
   const float fTravelDist = ezMath::Min<float>(fRemainingLength, m_fCurTranslationSpeed * GetWorld()->GetClock().GetTimeDiff().GetSeconds());
 
@@ -137,4 +138,3 @@ void ezMoveToComponent::Update()
 
 
 EZ_STATICLINK_FILE(GameEngine, GameEngine_Animation_Implementation_MoveToComponent);
-

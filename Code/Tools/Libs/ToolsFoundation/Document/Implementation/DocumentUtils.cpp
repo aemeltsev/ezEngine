@@ -1,7 +1,7 @@
 #include <ToolsFoundationPCH.h>
 
-#include <ToolsFoundation/Document/DocumentUtils.h>
 #include <ToolsFoundation/Document/DocumentManager.h>
+#include <ToolsFoundation/Document/DocumentUtils.h>
 
 ezStatus ezDocumentUtils::IsValidSaveLocationForDocument(const char* szDocument, const ezDocumentTypeDescriptor** out_pTypeDesc)
 {
@@ -9,8 +9,7 @@ ezStatus ezDocumentUtils::IsValidSaveLocationForDocument(const char* szDocument,
   if (ezDocumentManager::FindDocumentTypeFromPath(szDocument, true, pTypeDesc).Failed())
   {
     ezStringBuilder sTemp;
-    sTemp.Format("The selected file extension '{0}' is not registered with any known type.\nCannot create file '{1}'",
-      ezPathUtils::GetFileExtension(szDocument), szDocument);
+    sTemp.Format("The selected file extension '{0}' is not registered with any known type.\nCannot create file '{1}'", ezPathUtils::GetFileExtension(szDocument), szDocument);
     return ezStatus(sTemp.GetData());
   }
 

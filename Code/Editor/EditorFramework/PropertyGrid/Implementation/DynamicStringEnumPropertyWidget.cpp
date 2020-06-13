@@ -22,8 +22,7 @@ ezQtDynamicStringEnumPropertyWidget::ezQtDynamicStringEnumPropertyWidget()
 
 void ezQtDynamicStringEnumPropertyWidget::OnInit()
 {
-  EZ_ASSERT_DEV(m_pProp->GetAttributeByType<ezDynamicStringEnumAttribute>() != nullptr,
-    "ezQtDynamicStringEnumPropertyWidget was created without a ezDynamicStringEnumAttribute!");
+  EZ_ASSERT_DEV(m_pProp->GetAttributeByType<ezDynamicStringEnumAttribute>() != nullptr, "ezQtDynamicStringEnumPropertyWidget was created without a ezDynamicStringEnumAttribute!");
 
   const ezDynamicStringEnumAttribute* pAttr = m_pProp->GetAttributeByType<ezDynamicStringEnumAttribute>();
 

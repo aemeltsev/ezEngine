@@ -38,4 +38,3 @@ protected:
   /// Can be used to get stream pointers in UpdateStreamBindings();
   ezProcessingStreamGroup* m_pStreamGroup;
 };
-

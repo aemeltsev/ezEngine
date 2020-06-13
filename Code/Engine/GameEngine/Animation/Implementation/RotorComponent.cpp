@@ -5,8 +5,7 @@
 #include <Foundation/Serialization/AbstractObjectGraph.h>
 #include <GameEngine/Animation/RotorComponent.h>
 
-float CalculateAcceleratedMovement(
-  float fDistanceInMeters, float fAcceleration, float fMaxVelocity, float fDeceleration, ezTime& fTimeSinceStartInSec);
+float CalculateAcceleratedMovement(float fDistanceInMeters, float fAcceleration, float fMaxVelocity, float fDeceleration, ezTime& fTimeSinceStartInSec);
 
 // clang-format off
 EZ_BEGIN_COMPONENT_TYPE(ezRotorComponent, 3, ezComponentMode::Dynamic)
@@ -29,8 +28,7 @@ ezRotorComponent::~ezRotorComponent() = default;
 
 void ezRotorComponent::Update()
 {
-  if (m_Flags.IsAnySet(ezTransformComponentFlags::Running) &&
-      m_fAnimationSpeed > 0.0f)
+  if (m_Flags.IsAnySet(ezTransformComponentFlags::Running) && m_fAnimationSpeed > 0.0f)
   {
     if (m_Flags.IsAnySet(ezTransformComponentFlags::AnimationReversed))
       m_AnimationTime -= GetWorld()->GetClock().GetTimeDiff();
@@ -39,8 +37,7 @@ void ezRotorComponent::Update()
 
     if (m_iDegreeToRotate > 0)
     {
-      const float fNewDistance =
-        CalculateAcceleratedMovement((float)m_iDegreeToRotate, m_fAcceleration, m_fAnimationSpeed, m_fDeceleration, m_AnimationTime);
+      const float fNewDistance = CalculateAcceleratedMovement((float)m_iDegreeToRotate, m_fAcceleration, m_fAnimationSpeed, m_fDeceleration, m_AnimationTime);
 
       ezQuat qRotation;
       qRotation.SetFromAxisAndAngle(m_vRotationAxis, ezAngle::Degree(fNewDistance));

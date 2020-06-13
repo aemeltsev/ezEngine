@@ -158,8 +158,7 @@ void ezPxStaticActorComponent::OnSimulationStarted()
     }
     else
     {
-      ezLog::Warning("ezPxStaticActorComponent: Collision mesh resource is valid, but it contains no triangle mesh ('{0}' - '{1}')",
-        pMesh->GetResourceID(), pMesh->GetResourceDescription());
+      ezLog::Warning("ezPxStaticActorComponent: Collision mesh resource is valid, but it contains no triangle mesh ('{0}' - '{1}')", pMesh->GetResourceID(), pMesh->GetResourceDescription());
     }
   }
 
@@ -190,8 +189,7 @@ void ezPxStaticActorComponent::OnMsgExtractGeometry(ezMsgExtractGeometry& msg) c
   if (!m_bIncludeInNavmesh)
     return;
 
-  if (msg.m_Mode != ezWorldGeoExtractionUtil::ExtractionMode::CollisionMesh &&
-      msg.m_Mode != ezWorldGeoExtractionUtil::ExtractionMode::NavMeshGeneration)
+  if (msg.m_Mode != ezWorldGeoExtractionUtil::ExtractionMode::CollisionMesh && msg.m_Mode != ezWorldGeoExtractionUtil::ExtractionMode::NavMeshGeneration)
     return;
 
   if (m_hCollisionMesh.IsValid())

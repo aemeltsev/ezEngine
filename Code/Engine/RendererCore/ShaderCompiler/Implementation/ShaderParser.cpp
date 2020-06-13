@@ -94,8 +94,7 @@ namespace
     }
 
     auto& dataView = Tokens[uiCurToken]->m_DataView;
-    if (Tokens[uiCurToken]->m_iType == ezTokenType::Identifier &&
-        ezStringUtils::IsValidIdentifierName(dataView.GetStartPointer(), dataView.GetEndPointer()))
+    if (Tokens[uiCurToken]->m_iType == ezTokenType::Identifier && ezStringUtils::IsValidIdentifierName(dataView.GetStartPointer(), dataView.GetEndPointer()))
     {
       // complex type constructor
       const ezRTTI* pType = nullptr;
@@ -339,8 +338,7 @@ namespace
 } // namespace
 
 // static
-void ezShaderParser::ParseMaterialParameterSection(
-  ezStreamReader& stream, ezHybridArray<ParameterDefinition, 16>& out_Parameter, ezHybridArray<EnumDefinition, 4>& out_EnumDefinitions)
+void ezShaderParser::ParseMaterialParameterSection(ezStreamReader& stream, ezHybridArray<ParameterDefinition, 16>& out_Parameter, ezHybridArray<EnumDefinition, 4>& out_EnumDefinitions)
 {
   ezString sContent;
   sContent.ReadAll(stream);
@@ -381,8 +379,7 @@ void ezShaderParser::ParseMaterialParameterSection(
 }
 
 // static
-void ezShaderParser::ParsePermutationSection(
-  ezStreamReader& stream, ezHybridArray<ezHashedString, 16>& out_PermVars, ezHybridArray<ezPermutationVar, 16>& out_FixedPermVars)
+void ezShaderParser::ParsePermutationSection(ezStreamReader& stream, ezHybridArray<ezHashedString, 16>& out_PermVars, ezHybridArray<ezPermutationVar, 16>& out_FixedPermVars)
 {
   ezString sContent;
   sContent.ReadAll(stream);
@@ -396,8 +393,7 @@ void ezShaderParser::ParsePermutationSection(
 }
 
 // static
-void ezShaderParser::ParsePermutationSection(
-  ezStringView s, ezHybridArray<ezHashedString, 16>& out_PermVars, ezHybridArray<ezPermutationVar, 16>& out_FixedPermVars)
+void ezShaderParser::ParsePermutationSection(ezStringView s, ezHybridArray<ezHashedString, 16>& out_PermVars, ezHybridArray<ezPermutationVar, 16>& out_FixedPermVars)
 {
   out_PermVars.Clear();
   out_FixedPermVars.Clear();

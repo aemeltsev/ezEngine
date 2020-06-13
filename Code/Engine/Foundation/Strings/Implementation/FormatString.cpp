@@ -55,8 +55,7 @@ ezStringView BuildString(char* tmp, ezUInt32 uiLength, ezInt32 arg)
 ezStringView BuildString(char* tmp, ezUInt32 uiLength, const ezArgU& arg)
 {
   ezUInt32 writepos = 0;
-  ezStringUtils::OutputFormattedUInt(
-    tmp, uiLength, writepos, arg.m_Value, arg.m_uiWidth, arg.m_bPadWithZeros, arg.m_uiBase, arg.m_bUpperCase);
+  ezStringUtils::OutputFormattedUInt(tmp, uiLength, writepos, arg.m_Value, arg.m_uiWidth, arg.m_bPadWithZeros, arg.m_uiBase, arg.m_bUpperCase);
   tmp[writepos] = '\0';
   return ezStringView(tmp, tmp + writepos);
 }
@@ -77,8 +76,7 @@ ezStringView BuildString(char* tmp, ezUInt32 uiLength, ezUInt32 arg)
 ezStringView BuildString(char* tmp, ezUInt32 uiLength, const ezArgF& arg)
 {
   ezUInt32 writepos = 0;
-  ezStringUtils::OutputFormattedFloat(
-    tmp, uiLength, writepos, arg.m_Value, arg.m_uiWidth, arg.m_bPadWithZeros, arg.m_iPrecision, arg.m_bScientific);
+  ezStringUtils::OutputFormattedFloat(tmp, uiLength, writepos, arg.m_Value, arg.m_uiWidth, arg.m_bPadWithZeros, arg.m_iPrecision, arg.m_bScientific);
   tmp[writepos] = '\0';
   return ezStringView(tmp, tmp + writepos);
 }
@@ -204,7 +202,7 @@ ezStringView BuildString(char* tmp, ezUInt32 uiLength, const ezTime& arg)
   if (fAbsSec < 0.000001)
   {
     ezStringUtils::OutputFormattedFloat(tmp, uiLength - 5, writepos, arg.GetNanoseconds(), 1, false, 1, false, true);
-    //tmp[writepos++] = ' ';
+    // tmp[writepos++] = ' ';
     tmp[writepos++] = 'n';
     tmp[writepos++] = 's';
   }
@@ -212,7 +210,7 @@ ezStringView BuildString(char* tmp, ezUInt32 uiLength, const ezTime& arg)
   {
     ezStringUtils::OutputFormattedFloat(tmp, uiLength - 5, writepos, arg.GetMicroseconds(), 1, false, 1, false, true);
 
-    //tmp[writepos++] = ' ';
+    // tmp[writepos++] = ' ';
     // Utf-8 representation of the microsecond (us) sign
     tmp[writepos++] = (char)0xC2;
     tmp[writepos++] = (char)0xB5;
@@ -222,7 +220,7 @@ ezStringView BuildString(char* tmp, ezUInt32 uiLength, const ezTime& arg)
   {
     ezStringUtils::OutputFormattedFloat(tmp, uiLength - 5, writepos, arg.GetMilliseconds(), 1, false, 1, false, true);
 
-    //tmp[writepos++] = ' ';
+    // tmp[writepos++] = ' ';
     tmp[writepos++] = 'm';
     tmp[writepos++] = 's';
   }
@@ -230,7 +228,7 @@ ezStringView BuildString(char* tmp, ezUInt32 uiLength, const ezTime& arg)
   {
     ezStringUtils::OutputFormattedFloat(tmp, uiLength - 5, writepos, arg.GetSeconds(), 1, false, 1, false, true);
 
-    //tmp[writepos++] = ' ';
+    // tmp[writepos++] = ' ';
     tmp[writepos++] = 's';
     tmp[writepos++] = 'e';
     tmp[writepos++] = 'c';
@@ -329,8 +327,8 @@ ezStringView ezArgSensitive::BuildString_SensitiveUserData_Hash(char* tmp, ezUIn
 ezStringView BuildString(char* tmp, ezUInt32 uiLength, const ezArgErrorCode& arg)
 {
   LPVOID lpMsgBuf = nullptr;
-  if (FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, nullptr, arg.m_ErrorCode,
-        MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), (LPWSTR)&lpMsgBuf, 0, nullptr) == 0)
+  if (FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, nullptr, arg.m_ErrorCode, MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
+        (LPWSTR)&lpMsgBuf, 0, nullptr) == 0)
   {
     DWORD err = GetLastError();
     ezStringUtils::snprintf(tmp, uiLength, "%i (FormatMessageW failed with error code %i)", arg.m_ErrorCode, err);

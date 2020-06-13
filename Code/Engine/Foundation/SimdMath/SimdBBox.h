@@ -14,7 +14,6 @@ public:
   ezSimdBBox(const ezSimdVec4f& vMin, const ezSimdVec4f& vMax); // [tested]
 
 public:
-
   /// \brief Resets the box to an invalid state. ExpandToInclude can then be used to make it into a bounding box for objects.
   void SetInvalid(); // [tested]
 
@@ -100,4 +99,3 @@ public:
 };
 
 #include <Foundation/SimdMath/Implementation/SimdBBox_inl.h>
-

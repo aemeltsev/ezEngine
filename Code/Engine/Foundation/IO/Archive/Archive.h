@@ -83,10 +83,7 @@ struct ezHashHelper<ezArchiveStoredString>
   EZ_ALWAYS_INLINE static ezUInt32 Hash(const ezArchiveStoredString& hs) { return hs.m_uiLowerCaseHash; }
   EZ_ALWAYS_INLINE static ezUInt32 Hash(const ezArchiveLookupString& hs) { return hs.m_uiLowerCaseHash; }
 
-  EZ_ALWAYS_INLINE static bool Equal(const ezArchiveStoredString& a, const ezArchiveStoredString& b)
-  {
-    return a.m_uiSrcStringOffset == b.m_uiSrcStringOffset;
-  }
+  EZ_ALWAYS_INLINE static bool Equal(const ezArchiveStoredString& a, const ezArchiveStoredString& b) { return a.m_uiSrcStringOffset == b.m_uiSrcStringOffset; }
 
   EZ_ALWAYS_INLINE static bool Equal(const ezArchiveStoredString& a, const ezArchiveLookupString& b)
   {

@@ -13,6 +13,7 @@ ezCopyOnBroadcastEvent<const ezPhantomRttiManagerEvent&> ezPhantomRttiManager::s
 ezHashTable<const char*, ezPhantomRTTI*> ezPhantomRttiManager::m_NameToPhantom;
 
 // clang-format off
+// 
 EZ_BEGIN_SUBSYSTEM_DECLARATION(ToolsFoundation, ReflectedTypeManager)
 
   BEGIN_SUBSYSTEM_DEPENDENCIES
@@ -54,8 +55,8 @@ const ezRTTI* ezPhantomRttiManager::RegisterType(ezReflectedTypeDescriptor& desc
 
   if (pPhantom == nullptr)
   {
-    pPhantom = EZ_DEFAULT_NEW(ezPhantomRTTI, desc.m_sTypeName.GetData(), ezRTTI::FindTypeByName(desc.m_sParentTypeName), desc.m_uiTypeSize,
-      desc.m_uiTypeVersion, ezVariantType::Invalid, desc.m_Flags, desc.m_sPluginName.GetData());
+    pPhantom = EZ_DEFAULT_NEW(ezPhantomRTTI, desc.m_sTypeName.GetData(), ezRTTI::FindTypeByName(desc.m_sParentTypeName), desc.m_uiTypeSize, desc.m_uiTypeVersion, ezVariantType::Invalid, desc.m_Flags,
+      desc.m_sPluginName.GetData());
 
     pPhantom->SetProperties(desc.m_Properties);
     pPhantom->SetAttributes(desc.m_Attributes);

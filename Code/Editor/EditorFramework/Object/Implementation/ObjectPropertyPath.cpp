@@ -6,9 +6,8 @@
 #include <ToolsFoundation/Object/DocumentObjectVisitor.h>
 #include <ToolsFoundation/Object/ObjectAccessorBase.h>
 
-ezStatus ezObjectPropertyPath::CreatePath(const ezObjectPropertyPathContext& context, const ezPropertyReference& prop,
-                                          ezStringBuilder& sObjectSearchSequence, ezStringBuilder& sComponentType,
-                                          ezStringBuilder& sPropertyPath)
+ezStatus ezObjectPropertyPath::CreatePath(
+  const ezObjectPropertyPathContext& context, const ezPropertyReference& prop, ezStringBuilder& sObjectSearchSequence, ezStringBuilder& sComponentType, ezStringBuilder& sPropertyPath)
 {
   EZ_ASSERT_DEV(context.m_pAccessor && context.m_pContextObject && !context.m_sRootProperty.IsEmpty(), "All context fields must be valid.");
   const ezRTTI* pObjType = ezGetStaticRTTI<ezGameObject>();
@@ -67,8 +66,7 @@ ezStatus ezObjectPropertyPath::CreatePath(const ezObjectPropertyPathContext& con
       sObjectSearchSequence.Clear();
       sComponentType.Clear();
       sPropertyPath.Clear();
-      return ezStatus(
-          ezFmt("Only ezGameObject objects should be found in the hierarchy, found '{0}' instead.", pObject->GetType()->GetTypeName()));
+      return ezStatus(ezFmt("Only ezGameObject objects should be found in the hierarchy, found '{0}' instead.", pObject->GetType()->GetTypeName()));
     }
 
     pObject = pObject->GetParent();
@@ -76,8 +74,7 @@ ezStatus ezObjectPropertyPath::CreatePath(const ezObjectPropertyPathContext& con
   return ezStatus(EZ_SUCCESS);
 }
 
-ezStatus ezObjectPropertyPath::CreatePropertyPath(const ezObjectPropertyPathContext& context, const ezPropertyReference& prop,
-                                                  ezStringBuilder& out_sPropertyPath)
+ezStatus ezObjectPropertyPath::CreatePropertyPath(const ezObjectPropertyPathContext& context, const ezPropertyReference& prop, ezStringBuilder& out_sPropertyPath)
 {
   EZ_ASSERT_DEV(context.m_pAccessor && context.m_pContextObject && !context.m_sRootProperty.IsEmpty(), "All context fields must be valid.");
   const ezDocumentObject* pObject = context.m_pAccessor->GetObjectManager()->GetObject(prop.m_Object);
@@ -100,8 +97,8 @@ ezStatus ezObjectPropertyPath::CreatePropertyPath(const ezObjectPropertyPathCont
   return ezStatus(EZ_SUCCESS);
 }
 
-ezStatus ezObjectPropertyPath::ResolvePath(const ezObjectPropertyPathContext& context, ezHybridArray<ezPropertyReference, 1>& keys,
-                                           const char* szObjectSearchSequence, const char* szComponentType, const char* szPropertyPath)
+ezStatus ezObjectPropertyPath::ResolvePath(
+  const ezObjectPropertyPathContext& context, ezHybridArray<ezPropertyReference, 1>& keys, const char* szObjectSearchSequence, const char* szComponentType, const char* szPropertyPath)
 {
   EZ_ASSERT_DEV(context.m_pAccessor && context.m_pContextObject && !context.m_sRootProperty.IsEmpty(), "All context fields must be valid.");
   keys.Clear();
@@ -178,8 +175,7 @@ ezStatus ezObjectPropertyPath::ResolvePath(const ezObjectPropertyPathContext& co
   return ezStatus(EZ_SUCCESS);
 }
 
-ezStatus ezObjectPropertyPath::ResolvePropertyPath(const ezObjectPropertyPathContext& context, const char* szPropertyPath,
-                                                   ezPropertyReference& out_key)
+ezStatus ezObjectPropertyPath::ResolvePropertyPath(const ezObjectPropertyPathContext& context, const char* szPropertyPath, ezPropertyReference& out_key)
 {
   EZ_ASSERT_DEV(context.m_pAccessor && context.m_pContextObject && szPropertyPath != nullptr, "All context fields must be valid.");
   const ezDocumentObject* pObject = context.m_pContextObject;
@@ -217,8 +213,7 @@ ezStatus ezObjectPropertyPath::ResolvePropertyPath(const ezObjectPropertyPathCon
     if (const ezExposedParametersAttribute* pAttrib = pProperty->GetAttributeByType<ezExposedParametersAttribute>())
     {
       const ezAbstractProperty* pParameterSourceProp = pObject->GetType()->FindPropertyByName(pAttrib->GetParametersSource());
-      EZ_ASSERT_DEV(pParameterSourceProp, "The exposed parameter source '{0}' does not exist on type '{1}'", pAttrib->GetParametersSource(),
-                    pObject->GetType()->GetTypeName());
+      EZ_ASSERT_DEV(pParameterSourceProp, "The exposed parameter source '{0}' does not exist on type '{1}'", pAttrib->GetParametersSource(), pObject->GetType()->GetTypeName());
       ezExposedParameterCommandAccessor proxy(context.m_pAccessor, pProperty, pParameterSourceProp);
       res = proxy.GetValue(pObject, pProperty, value, index);
     }
@@ -246,16 +241,14 @@ ezStatus ezObjectPropertyPath::ResolvePropertyPath(const ezObjectPropertyPathCon
       }
       else
       {
-        return ezStatus(ezFmt("Property '{0}' of type '{1}' is not an object and can't be traversed further.", pProperty->GetPropertyName(),
-                              pProperty->GetSpecificType()->GetTypeName()));
+        return ezStatus(ezFmt("Property '{0}' of type '{1}' is not an object and can't be traversed further.", pProperty->GetPropertyName(), pProperty->GetSpecificType()->GetTypeName()));
       }
     }
   }
   return ezStatus(EZ_FAILURE);
 }
 
-ezStatus ezObjectPropertyPath::PrependProperty(const ezDocumentObject* pObject, const ezAbstractProperty* pProperty, ezVariant index,
-                                               ezStringBuilder& out_sPropertyPath)
+ezStatus ezObjectPropertyPath::PrependProperty(const ezDocumentObject* pObject, const ezAbstractProperty* pProperty, ezVariant index, ezStringBuilder& out_sPropertyPath)
 {
   switch (pProperty->GetCategory())
   {
@@ -275,8 +268,7 @@ ezStatus ezObjectPropertyPath::PrependProperty(const ezDocumentObject* pObject, 
       return ezStatus(EZ_SUCCESS);
     }
     default:
-      return ezStatus(ezFmt("The property '{0}' of category '{1}' which is not supported in property paths", pProperty->GetPropertyName(),
-                            pProperty->GetCategory()));
+      return ezStatus(ezFmt("The property '{0}' of category '{1}' which is not supported in property paths", pProperty->GetPropertyName(), pProperty->GetCategory()));
   }
 }
 

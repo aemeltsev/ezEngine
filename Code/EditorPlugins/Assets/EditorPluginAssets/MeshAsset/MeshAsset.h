@@ -1,9 +1,9 @@
 #pragma once
 
+#include <EditorFramework/Assets/AssetDocumentGenerator.h>
 #include <EditorFramework/Assets/SimpleAssetDocument.h>
 #include <EditorPluginAssets/MeshAsset/MeshAssetObjects.h>
 #include <ModelImporter/Declarations.h>
-#include <EditorFramework/Assets/AssetDocumentGenerator.h>
 
 class ezMeshResourceDescriptor;
 class ezGeometry;
@@ -15,7 +15,7 @@ namespace ezModelImporter
   class Mesh;
   class Scene;
   struct TextureReference;
-}
+} // namespace ezModelImporter
 
 class ezMeshAssetDocument : public ezSimpleAssetDocument<ezMeshAssetProperties>
 {
@@ -25,15 +25,15 @@ public:
   ezMeshAssetDocument(const char* szDocumentPath);
 
 protected:
-  virtual ezStatus InternalTransformAsset(ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags) override;
+  virtual ezStatus InternalTransformAsset(
+    ezStreamWriter& stream, const char* szOutputTag, const ezPlatformProfile* pAssetProfile, const ezAssetFileHeader& AssetHeader, ezBitflags<ezTransformFlags> transformFlags) override;
 
   void CreateMeshFromGeom(ezMeshAssetProperties* pProp, ezMeshResourceDescriptor& desc);
-  ezStatus CreateMeshFromFile(ezMeshAssetProperties* pProp, ezMeshResourceDescriptor &desc);
+  ezStatus CreateMeshFromFile(ezMeshAssetProperties* pProp, ezMeshResourceDescriptor& desc);
 
   virtual ezStatus InternalCreateThumbnail(const ThumbnailInfo& ThumbnailInfo) override;
 
   virtual void UpdateAssetDocumentInfo(ezAssetDocumentInfo* pInfo) const override;
-
 };
 
 //////////////////////////////////////////////////////////////////////////

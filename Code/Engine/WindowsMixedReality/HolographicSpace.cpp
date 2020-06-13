@@ -1,14 +1,14 @@
-﻿#includde <WindowsMixedRealityPCH.h>
+﻿#includde < WindowsMixedRealityPCH.h>
+#include <Foundation/Configuration/CVar.h>
+#include <WindowsMixedReality/Graphics/MixedRealityCamera.h>
 #include <WindowsMixedReality/HolographicSpace.h>
 #include <WindowsMixedReality/SpatialLocationService.h>
 #include <WindowsMixedReality/SpatialReferenceFrame.h>
-#include <WindowsMixedReality/Graphics/MixedRealityCamera.h>
-#include <Foundation/Configuration/CVar.h>
 //#include <GameEngine/GameApplication/GameApplication.h>
+#include <Core/Graphics/Camera.h>
+#include <RendererDX11/Device/DeviceDX11.h>
 #include <RendererFoundation/Descriptors/Descriptors.h>
 #include <WindowsMixedReality/Graphics/MixedRealityDX11Device.h>
-#include <RendererDX11/Device/DeviceDX11.h>
-#include <Core/Graphics/Camera.h>
 
 #include <windows.graphics.holographic.h>
 #include <windows.system.profile.h>
@@ -305,8 +305,7 @@ ezResult ezWindowsHolographicSpace::UpdateCameraPoses(const ComPtr<ABI::Windows:
 
   // Update camera our cameras.
   using IPose = ABI::Windows::Graphics::Holographic::IHolographicCameraPose;
-  ezUwpUtils::ezWinRtIterateIVectorView<IPose*>(pCameraPoses, [this, &pHolographicFrame](UINT, IPose* pPose)
-  {
+  ezUwpUtils::ezWinRtIterateIVectorView<IPose*>(pCameraPoses, [this, &pHolographicFrame](UINT, IPose* pPose) {
     ComPtr<ABI::Windows::Graphics::Holographic::IHolographicCamera> pCurrentHoloCamera;
     if (FAILED(pPose->get_HolographicCamera(pCurrentHoloCamera.GetAddressOf())))
       return true;
@@ -330,7 +329,8 @@ ezResult ezWindowsHolographicSpace::UpdateCameraPoses(const ComPtr<ABI::Windows:
   return EZ_SUCCESS;
 }
 
-HRESULT ezWindowsHolographicSpace::OnCameraAdded(ABI::Windows::Graphics::Holographic::IHolographicSpace* holographicSpace, ABI::Windows::Graphics::Holographic::IHolographicSpaceCameraAddedEventArgs* args)
+HRESULT ezWindowsHolographicSpace::OnCameraAdded(
+  ABI::Windows::Graphics::Holographic::IHolographicSpace* holographicSpace, ABI::Windows::Graphics::Holographic::IHolographicSpaceCameraAddedEventArgs* args)
 {
   ezLock<ezMutex> lock(m_cameraQueueMutex);
 
@@ -341,7 +341,8 @@ HRESULT ezWindowsHolographicSpace::OnCameraAdded(ABI::Windows::Graphics::Hologra
   return S_OK;
 }
 
-HRESULT ezWindowsHolographicSpace::OnCameraRemoved(ABI::Windows::Graphics::Holographic::IHolographicSpace* holographicSpace, ABI::Windows::Graphics::Holographic::IHolographicSpaceCameraRemovedEventArgs* args)
+HRESULT ezWindowsHolographicSpace::OnCameraRemoved(
+  ABI::Windows::Graphics::Holographic::IHolographicSpace* holographicSpace, ABI::Windows::Graphics::Holographic::IHolographicSpaceCameraRemovedEventArgs* args)
 {
   ezLock<ezMutex> lock(m_cameraQueueMutex);
 
@@ -373,6 +374,3 @@ const ezWindowsSpatialReferenceFrame* ezWindowsHolographicSpace::GetDefaultRefer
 {
   return m_pDefaultReferenceFrame.Borrow();
 }
-
-
-

@@ -6,8 +6,7 @@
 #include <Foundation/IO/OSFile.h>
 #include <Foundation/Logging/Log.h>
 
-void ezArchiveBuilder::AddFolder(const char* szAbsFolderPath,
-  ezArchiveCompressionMode defaultMode /*= ezArchiveCompressionMode::Uncompressed*/, InclusionCallback callback /*= InclusionCallback()*/)
+void ezArchiveBuilder::AddFolder(const char* szAbsFolderPath, ezArchiveCompressionMode defaultMode /*= ezArchiveCompressionMode::Uncompressed*/, InclusionCallback callback /*= InclusionCallback()*/)
 {
 #if EZ_ENABLED(EZ_SUPPORTS_FILE_ITERATORS)
   ezFileSystemIterator fileIt;
@@ -91,8 +90,7 @@ ezResult ezArchiveBuilder::WriteArchive(ezStreamWriter& stream) const
     const SourceEntry& e = m_Entries[i];
 
     const ezUInt32 uiPathStringOffset = toc.m_AllPathStrings.GetCount();
-    toc.m_AllPathStrings.PushBackRange(
-      ezArrayPtr<const ezUInt8>(reinterpret_cast<const ezUInt8*>(e.m_sRelTargetPath.GetData()), e.m_sRelTargetPath.GetElementCount() + 1));
+    toc.m_AllPathStrings.PushBackRange(ezArrayPtr<const ezUInt8>(reinterpret_cast<const ezUInt8*>(e.m_sRelTargetPath.GetData()), e.m_sRelTargetPath.GetElementCount() + 1));
 
     sHashablePath = e.m_sRelTargetPath;
     sHashablePath.ToLower();
@@ -102,8 +100,8 @@ ezResult ezArchiveBuilder::WriteArchive(ezStreamWriter& stream) const
     if (!WriteNextFileCallback(i + 1, uiNumEntries, e.m_sAbsSourcePath))
       return EZ_FAILURE;
 
-    EZ_SUCCEED_OR_RETURN(ezArchiveUtils::WriteEntryOptimal(stream, e.m_sAbsSourcePath, uiPathStringOffset, e.m_CompressionMode,
-      toc.m_Entries.ExpandAndGetRef(), uiStreamSize, ezMakeDelegate(&ezArchiveBuilder::WriteFileProgressCallback, this)));
+    EZ_SUCCEED_OR_RETURN(ezArchiveUtils::WriteEntryOptimal(
+      stream, e.m_sAbsSourcePath, uiPathStringOffset, e.m_CompressionMode, toc.m_Entries.ExpandAndGetRef(), uiStreamSize, ezMakeDelegate(&ezArchiveBuilder::WriteFileProgressCallback, this)));
   }
 
   EZ_SUCCEED_OR_RETURN(ezArchiveUtils::AppendTOC(stream, toc));

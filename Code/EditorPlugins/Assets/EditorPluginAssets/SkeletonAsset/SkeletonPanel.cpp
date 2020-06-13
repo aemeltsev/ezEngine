@@ -12,7 +12,7 @@
 #include <RendererCore/AnimationSystem/EditableSkeleton.h>
 
 ezQtSkeletonPanel::ezQtSkeletonPanel(QWidget* pParent, ezSkeletonAssetDocument* pDocument)
-    : ezQtDocumentPanel(pParent)
+  : ezQtDocumentPanel(pParent)
 {
   m_pSkeletonDocument = pDocument;
 
@@ -24,8 +24,7 @@ ezQtSkeletonPanel::ezQtSkeletonPanel(QWidget* pParent, ezSkeletonAssetDocument* 
   m_pMainWidget->setContentsMargins(0, 0, 0, 0);
   m_pMainWidget->layout()->setContentsMargins(0, 0, 0, 0);
   m_pFilterWidget = new ezQtSearchWidget(this);
-  connect(m_pFilterWidget, &ezQtSearchWidget::textChanged, this,
-          [this](const QString& text) { m_pTreeWidget->GetProxyFilterModel()->SetFilterText(text); });
+  connect(m_pFilterWidget, &ezQtSearchWidget::textChanged, this, [this](const QString& text) { m_pTreeWidget->GetProxyFilterModel()->SetFilterText(text); });
 
   m_pMainWidget->layout()->addWidget(m_pFilterWidget);
 

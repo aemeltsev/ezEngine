@@ -1,7 +1,7 @@
 #pragma once
 
-#include <EditorFramework/EditorFrameworkDLL.h>
 #include <EditorEngineProcessFramework/IPC/ProcessCommunicationChannel.h>
+#include <EditorFramework/EditorFrameworkDLL.h>
 
 class QStringList;
 class QProcess;
@@ -31,6 +31,4 @@ public:
   void TryConnect();
 
 private:
-
 };
-

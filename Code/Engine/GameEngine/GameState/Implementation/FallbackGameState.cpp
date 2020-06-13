@@ -36,8 +36,7 @@ ezResult ezFallbackGameState::SpawnPlayer(const ezTransform* pStartPosition)
   if (m_pMainWorld && pStartPosition)
   {
     m_iActiveCameraComponentIndex = -1; // set free camera
-    m_MainCamera.LookAt(pStartPosition->m_vPosition, pStartPosition->m_vPosition + pStartPosition->m_qRotation * ezVec3(1, 0, 0),
-      pStartPosition->m_qRotation * ezVec3(0, 0, 1));
+    m_MainCamera.LookAt(pStartPosition->m_vPosition, pStartPosition->m_vPosition + pStartPosition->m_qRotation * ezVec3(1, 0, 0), pStartPosition->m_qRotation * ezVec3(0, 0, 1));
   }
 
   return EZ_FAILURE;

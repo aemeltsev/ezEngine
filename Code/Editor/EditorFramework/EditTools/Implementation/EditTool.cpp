@@ -8,8 +8,7 @@ EZ_END_DYNAMIC_REFLECTED_TYPE;
 
 ezGameObjectEditTool::ezGameObjectEditTool() {}
 
-void ezGameObjectEditTool::ConfigureTool(ezGameObjectDocument* pDocument, ezQtGameObjectDocumentWindow* pWindow,
-                                         ezGameObjectGizmoInterface* pInterface)
+void ezGameObjectEditTool::ConfigureTool(ezGameObjectDocument* pDocument, ezQtGameObjectDocumentWindow* pWindow, ezGameObjectGizmoInterface* pInterface)
 {
   m_pDocument = pDocument;
   m_pWindow = pWindow;

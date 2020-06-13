@@ -248,8 +248,7 @@ bool ezQtDataWidget::SaveToFile(TransferDataObject& item, const char* szFile)
   QFile FileOut(szFile);
   if (!FileOut.open(QIODevice::WriteOnly))
   {
-    QMessageBox::warning(this, QLatin1String("Error writing to file"), QLatin1String("Could not open the specified file for writing."),
-      QMessageBox::Ok, QMessageBox::Ok);
+    QMessageBox::warning(this, QLatin1String("Error writing to file"), QLatin1String("Could not open the specified file for writing."), QMessageBox::Ok, QMessageBox::Ok);
     return false;
   }
 
@@ -271,8 +270,7 @@ void ezQtDataWidget::on_ButtonSave_clicked()
 
   if (!pItem)
   {
-    QMessageBox::information(
-      this, QLatin1String("ezInspector"), QLatin1String("No valid item selected."), QMessageBox::Ok, QMessageBox::Ok);
+    QMessageBox::information(this, QLatin1String("ezInspector"), QLatin1String("No valid item selected."), QMessageBox::Ok, QMessageBox::Ok);
     return;
   }
 
@@ -303,8 +301,7 @@ void ezQtDataWidget::on_ButtonOpen_clicked()
 
   if (!pItem)
   {
-    QMessageBox::information(
-      this, QLatin1String("ezInspector"), QLatin1String("No valid item selected."), QMessageBox::Ok, QMessageBox::Ok);
+    QMessageBox::information(this, QLatin1String("ezInspector"), QLatin1String("No valid item selected."), QMessageBox::Ok, QMessageBox::Ok);
     return;
   }
 
@@ -317,7 +314,6 @@ void ezQtDataWidget::on_ButtonOpen_clicked()
   SaveToFile(*pItem, pItem->m_sFileName.GetData());
 
   if (!QDesktopServices::openUrl(QUrl(pItem->m_sFileName.GetData())))
-    QMessageBox::information(this, QLatin1String("ezInspector"),
-      QLatin1String("Could not open the file. There is probably no application registered to handle this file type."), QMessageBox::Ok,
-      QMessageBox::Ok);
+    QMessageBox::information(
+      this, QLatin1String("ezInspector"), QLatin1String("Could not open the file. There is probably no application registered to handle this file type."), QMessageBox::Ok, QMessageBox::Ok);
 }

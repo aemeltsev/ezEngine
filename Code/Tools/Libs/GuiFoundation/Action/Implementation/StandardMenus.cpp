@@ -95,16 +95,10 @@ EZ_END_DYNAMIC_REFLECTED_TYPE;
 struct ezComparePanels
 {
   /// \brief Returns true if a is less than b
-  EZ_ALWAYS_INLINE bool Less(const ezDynamicMenuAction::Item& p1, const ezDynamicMenuAction::Item& p2) const
-  {
-    return p1.m_sDisplay < p2.m_sDisplay;
-  }
+  EZ_ALWAYS_INLINE bool Less(const ezDynamicMenuAction::Item& p1, const ezDynamicMenuAction::Item& p2) const { return p1.m_sDisplay < p2.m_sDisplay; }
 
   /// \brief Returns true if a is equal to b
-  EZ_ALWAYS_INLINE bool Equal(const ezDynamicMenuAction::Item& p1, const ezDynamicMenuAction::Item& p2) const
-  {
-    return p1.m_sDisplay == p2.m_sDisplay;
-  }
+  EZ_ALWAYS_INLINE bool Equal(const ezDynamicMenuAction::Item& p1, const ezDynamicMenuAction::Item& p2) const { return p1.m_sDisplay == p2.m_sDisplay; }
 };
 
 
@@ -118,8 +112,7 @@ void ezApplicationPanelsMenuAction::GetEntries(ezHybridArray<ezDynamicMenuAction
     item.m_sDisplay = pPanel->windowTitle().toUtf8().data();
     item.m_UserValue = pPanel;
     item.m_Icon = pPanel->icon();
-    item.m_CheckState =
-      pPanel->isClosed() ? ezDynamicMenuAction::Item::CheckMark::Unchecked : ezDynamicMenuAction::Item::CheckMark::Checked;
+    item.m_CheckState = pPanel->isClosed() ? ezDynamicMenuAction::Item::CheckMark::Unchecked : ezDynamicMenuAction::Item::CheckMark::Checked;
 
     out_Entries.PushBack(item);
   }

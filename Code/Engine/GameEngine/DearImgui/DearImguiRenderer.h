@@ -2,14 +2,14 @@
 
 #ifdef BUILDSYSTEM_ENABLE_IMGUI_SUPPORT
 
-#include <Core/ResourceManager/ResourceHandle.h>
-#include <Foundation/Math/Rect.h>
-#include <GameEngine/GameEngineDLL.h>
-#include <Imgui/imgui.h>
-#include <RendererCore/Meshes/MeshBufferResource.h>
-#include <RendererCore/Pipeline/Extractor.h>
-#include <RendererCore/Pipeline/RenderData.h>
-#include <RendererCore/Pipeline/Renderer.h>
+#  include <Core/ResourceManager/ResourceHandle.h>
+#  include <Foundation/Math/Rect.h>
+#  include <GameEngine/GameEngineDLL.h>
+#  include <Imgui/imgui.h>
+#  include <RendererCore/Meshes/MeshBufferResource.h>
+#  include <RendererCore/Pipeline/Extractor.h>
+#  include <RendererCore/Pipeline/RenderData.h>
+#  include <RendererCore/Pipeline/Renderer.h>
 
 class ezRenderDataBatch;
 typedef ezTypedResourceHandle<class ezShaderResource> ezShaderResourceHandle;
@@ -49,8 +49,7 @@ class EZ_GAMEENGINE_DLL ezImguiExtractor : public ezExtractor
 public:
   ezImguiExtractor(const char* szName = "ImguiExtractor");
 
-  virtual void Extract(
-    const ezView& view, const ezDynamicArray<const ezGameObject*>& visibleObjects, ezExtractedRenderData& extractedRenderData) override;
+  virtual void Extract(const ezView& view, const ezDynamicArray<const ezGameObject*>& visibleObjects, ezExtractedRenderData& extractedRenderData) override;
 };
 
 class EZ_GAMEENGINE_DLL ezImguiRenderer : public ezRenderer
@@ -64,8 +63,7 @@ public:
 
   virtual void GetSupportedRenderDataTypes(ezHybridArray<const ezRTTI*, 8>& types) const override;
   virtual void GetSupportedRenderDataCategories(ezHybridArray<ezRenderData::Category, 8>& categories) const override;
-  virtual void RenderBatch(
-    const ezRenderViewContext& renderContext, const ezRenderPipelinePass* pPass, const ezRenderDataBatch& batch) const override;
+  virtual void RenderBatch(const ezRenderViewContext& renderContext, const ezRenderPipelinePass* pPass, const ezRenderDataBatch& batch) const override;
 
 protected:
   void SetupRenderer();

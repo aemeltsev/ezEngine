@@ -200,8 +200,7 @@ void RtsGameState::SelectUnits()
 
   if (pSelected != nullptr)
   {
-    if (ezInputManager::GetInputSlotState(ezInputSlot_KeyLeftCtrl) == ezKeyState::Down ||
-        ezInputManager::GetInputSlotState(ezInputSlot_KeyRightCtrl) == ezKeyState::Down)
+    if (ezInputManager::GetInputSlotState(ezInputSlot_KeyLeftCtrl) == ezKeyState::Down || ezInputManager::GetInputSlotState(ezInputSlot_KeyRightCtrl) == ezKeyState::Down)
     {
       m_SelectedUnits.ToggleSelection(pSelected->GetHandle());
     }
@@ -304,7 +303,9 @@ ezResult RtsGameState::ComputePickingRay()
 
   const auto& vp = pView->GetViewport();
 
-  if (ezGraphicsUtils::ConvertScreenPosToWorldPos(pView->GetInverseViewProjectionMatrix(ezCameraEye::Left), (ezUInt32)vp.x, (ezUInt32)vp.y, (ezUInt32)vp.width, (ezUInt32)vp.height, ezVec3((float)m_MouseInputState.m_MousePos.x, (float)m_MouseInputState.m_MousePos.y, 0), m_vCurrentPickingRayStart, &m_vCurrentPickingRayDir).Failed())
+  if (ezGraphicsUtils::ConvertScreenPosToWorldPos(pView->GetInverseViewProjectionMatrix(ezCameraEye::Left), (ezUInt32)vp.x, (ezUInt32)vp.y, (ezUInt32)vp.width, (ezUInt32)vp.height,
+        ezVec3((float)m_MouseInputState.m_MousePos.x, (float)m_MouseInputState.m_MousePos.y, 0), m_vCurrentPickingRayStart, &m_vCurrentPickingRayDir)
+        .Failed())
     return EZ_FAILURE;
 
   return EZ_SUCCESS;

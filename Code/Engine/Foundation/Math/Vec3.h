@@ -105,8 +105,7 @@ public:
 
   /// \brief Tries to normalize this vector. If the vector is too close to zero, EZ_FAILURE is returned and the vector is set to the given
   /// fallback value.
-  ezResult NormalizeIfNotZero(
-    const ezVec3Template<Type>& vFallback = ezVec3Template(1, 0, 0), Type fEpsilon = ezMath::SmallEpsilon<Type>()); // [tested]
+  ezResult NormalizeIfNotZero(const ezVec3Template<Type>& vFallback = ezVec3Template(1, 0, 0), Type fEpsilon = ezMath::SmallEpsilon<Type>()); // [tested]
 
   /// \brief Returns, whether this vector is (0, 0, 0).
   bool IsZero() const; // [tested]
@@ -227,7 +226,6 @@ public:
   /// \note If you are going to do this many times with the same axis, rather than calling this function, instead manually
   /// do what this function does (see inline code) and only compute the quaternion once.
   static ezVec3Template<Type> CreateRandomDeviation(ezRandom& rng, const ezAngle& maxDeviation, const ezVec3& vNormal); // [tested]
-
 };
 
 // *** Operators ***

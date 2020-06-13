@@ -144,13 +144,11 @@ public:
       {
         pNode->ChangeProperty("Usage", (ezInt32)ezTexConvUsage::Auto);
       }
-      else if (pUsage->m_Value.Get<ezString>() == "ezTextureCubeUsageEnum::Other_sRGB" ||
-               pUsage->m_Value.Get<ezString>() == "ezTextureCubeUsageEnum::Skybox")
+      else if (pUsage->m_Value.Get<ezString>() == "ezTextureCubeUsageEnum::Other_sRGB" || pUsage->m_Value.Get<ezString>() == "ezTextureCubeUsageEnum::Skybox")
       {
         pNode->ChangeProperty("Usage", (ezInt32)ezTexConvUsage::Color);
       }
-      else if (pUsage->m_Value.Get<ezString>() == "ezTextureCubeUsageEnum::Other_Linear" ||
-               pUsage->m_Value.Get<ezString>() == "ezTextureCubeUsageEnum::LookupTable")
+      else if (pUsage->m_Value.Get<ezString>() == "ezTextureCubeUsageEnum::Other_Linear" || pUsage->m_Value.Get<ezString>() == "ezTextureCubeUsageEnum::LookupTable")
       {
         pNode->ChangeProperty("Usage", (ezInt32)ezTexConvUsage::Linear);
       }

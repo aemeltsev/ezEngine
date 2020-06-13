@@ -16,9 +16,8 @@ EZ_FOUNDATION_INTERNAL_HEADER
 #  include <tchar.h>
 #  include <werapi.h>
 
-typedef BOOL(WINAPI* MINIDUMPWRITEDUMP)(HANDLE hProcess, DWORD ProcessId, HANDLE hFile, MINIDUMP_TYPE DumpType,
-  PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam, PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam,
-  PMINIDUMP_CALLBACK_INFORMATION CallbackParam);
+typedef BOOL(WINAPI* MINIDUMPWRITEDUMP)(HANDLE hProcess, DWORD ProcessId, HANDLE hFile, MINIDUMP_TYPE DumpType, PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam,
+  PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam, PMINIDUMP_CALLBACK_INFORMATION CallbackParam);
 
 ezMinWindows::HANDLE ezMiniDumpUtils::GetProcessHandleWithNecessaryRights(ezUInt32 uiProcessID)
 {
@@ -84,8 +83,7 @@ ezStatus ezMiniDumpUtils::WriteProcessMiniDump(const char* szDumpFile, ezUInt32 
   exceptionParam.ExceptionPointers = pExceptionInfo;
   exceptionParam.ClientPointers = TRUE;
 
-  if (MiniDumpWriteDumpFunc(hProcess, uiProcessID, hFile, (MINIDUMP_TYPE)dumpType, pExceptionInfo != nullptr ? &exceptionParam : nullptr,
-        nullptr, nullptr) == FALSE)
+  if (MiniDumpWriteDumpFunc(hProcess, uiProcessID, hFile, (MINIDUMP_TYPE)dumpType, pExceptionInfo != nullptr ? &exceptionParam : nullptr, nullptr, nullptr) == FALSE)
   {
     return ezStatus(ezFmt("Writing dump file failed: '{}'.", ezArgErrorCode(GetLastError())));
   }

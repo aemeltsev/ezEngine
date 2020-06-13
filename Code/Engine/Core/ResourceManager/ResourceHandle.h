@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Core/CoreDLL.h>
+#include <Core/ResourceManager/Implementation/Declarations.h>
 #include <Foundation/Reflection/Reflection.h>
 #include <Foundation/Strings/String.h>
-#include <Core/ResourceManager/Implementation/Declarations.h>
 
 /// \brief If this is set to EZ_ON, stack traces are recorded for every resource handle.
 ///
@@ -151,8 +151,7 @@ public:
   ezTypedResourceHandle(const ezTypedResourceHandle<BaseOrDerivedType>& rhs)
     : m_Typeless(rhs.m_Typeless)
   {
-    static_assert(std::is_base_of<ResourceType, BaseOrDerivedType>::value || std::is_base_of<BaseOrDerivedType, ResourceType>::value,
-      "Only related types can be assigned to handles of this type");
+    static_assert(std::is_base_of<ResourceType, BaseOrDerivedType>::value || std::is_base_of<BaseOrDerivedType, ResourceType>::value, "Only related types can be assigned to handles of this type");
 
 #if EZ_ENABLED(EZ_COMPILE_FOR_DEBUG)
     if (std::is_base_of<BaseOrDerivedType, ResourceType>::value)
@@ -225,10 +224,7 @@ private:
 template <typename T>
 struct ezHashHelper<ezTypedResourceHandle<T>>
 {
-  EZ_ALWAYS_INLINE static ezUInt32 Hash(const ezTypedResourceHandle<T>& value)
-  {
-    return value.GetResourceIDHash();
-  }
+  EZ_ALWAYS_INLINE static ezUInt32 Hash(const ezTypedResourceHandle<T>& value) { return value.GetResourceIDHash(); }
 
   EZ_ALWAYS_INLINE static bool Equal(const ezTypedResourceHandle<T>& a, const ezTypedResourceHandle<T>& b) { return a == b; }
 };

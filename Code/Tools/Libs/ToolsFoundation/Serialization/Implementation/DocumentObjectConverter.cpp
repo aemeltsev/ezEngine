@@ -21,8 +21,7 @@ ezAbstractObjectNode* ezDocumentObjectConverterWriter::AddObjectToGraph(const ez
   return pNode;
 }
 
-void ezDocumentObjectConverterWriter::AddProperty(ezAbstractObjectNode* pNode, const ezAbstractProperty* pProp,
-  const ezDocumentObject* pObject)
+void ezDocumentObjectConverterWriter::AddProperty(ezAbstractObjectNode* pNode, const ezAbstractProperty* pProp, const ezDocumentObject* pObject)
 {
   if (m_Filter.IsValid() && !m_Filter(pProp))
     return;
@@ -53,8 +52,7 @@ void ezDocumentObjectConverterWriter::AddProperty(ezAbstractObjectNode* pNode, c
         if (pProp->GetFlags().IsAnySet(ezPropertyFlags::IsEnum | ezPropertyFlags::Bitflags))
         {
           ezStringBuilder sTemp;
-          ezReflectionUtils::EnumerationToString(
-            pPropType, pObject->GetTypeAccessor().GetValue(pProp->GetPropertyName()).ConvertTo<ezInt64>(), sTemp);
+          ezReflectionUtils::EnumerationToString(pPropType, pObject->GetTypeAccessor().GetValue(pProp->GetPropertyName()).ConvertTo<ezInt64>(), sTemp);
           pNode->AddProperty(pProp->GetPropertyName(), sTemp.GetData());
         }
         else if (pProp->GetFlags().IsSet(ezPropertyFlags::StandardType))
@@ -136,16 +134,14 @@ void ezDocumentObjectConverterWriter::AddProperties(ezAbstractObjectNode* pNode,
 
 ezAbstractObjectNode* ezDocumentObjectConverterWriter::AddSubObjectToGraph(const ezDocumentObject* pObject, const char* szNodeName)
 {
-  ezAbstractObjectNode* pNode =
-    m_pGraph->AddNode(pObject->GetGuid(), pObject->GetType()->GetTypeName(), pObject->GetType()->GetTypeVersion(), szNodeName);
+  ezAbstractObjectNode* pNode = m_pGraph->AddNode(pObject->GetGuid(), pObject->GetType()->GetTypeName(), pObject->GetType()->GetTypeVersion(), szNodeName);
   AddProperties(pNode, pObject);
   return pNode;
 }
 
 
 
-ezDocumentObjectConverterReader::ezDocumentObjectConverterReader(const ezAbstractObjectGraph* pGraph, ezDocumentObjectManager* pManager,
-  Mode mode)
+ezDocumentObjectConverterReader::ezDocumentObjectConverterReader(const ezAbstractObjectGraph* pGraph, ezDocumentObjectManager* pManager, Mode mode)
 {
   m_pManager = pManager;
   m_pGraph = pGraph;
@@ -173,12 +169,10 @@ ezDocumentObject* ezDocumentObjectConverterReader::CreateObjectFromNode(const ez
   return pObject;
 }
 
-void ezDocumentObjectConverterReader::AddObject(ezDocumentObject* pObject, ezDocumentObject* pParent, const char* szParentProperty,
-  ezVariant index)
+void ezDocumentObjectConverterReader::AddObject(ezDocumentObject* pObject, ezDocumentObject* pParent, const char* szParentProperty, ezVariant index)
 {
   EZ_ASSERT_DEV(pObject && pParent, "Need to have valid objects to add them to the document");
-  if (m_Mode == ezDocumentObjectConverterReader::Mode::CreateAndAddToDocument &&
-      pParent->GetDocumentObjectManager()->GetObject(pParent->GetGuid()))
+  if (m_Mode == ezDocumentObjectConverterReader::Mode::CreateAndAddToDocument && pParent->GetDocumentObjectManager()->GetObject(pParent->GetGuid()))
   {
     m_pManager->AddObject(pObject, pParent, szParentProperty, index);
   }
@@ -204,8 +198,7 @@ void ezDocumentObjectConverterReader::ApplyPropertiesToObject(const ezAbstractOb
   }
 }
 
-void ezDocumentObjectConverterReader::ApplyDiffToObject(ezObjectAccessorBase* pObjectAccessor, const ezDocumentObject* pObject,
-  ezDeque<ezAbstractGraphDiffOperation>& diff)
+void ezDocumentObjectConverterReader::ApplyDiffToObject(ezObjectAccessorBase* pObjectAccessor, const ezDocumentObject* pObject, ezDeque<ezAbstractGraphDiffOperation>& diff)
 {
   ezHybridArray<ezAbstractGraphDiffOperation*, 4> change;
 
@@ -231,9 +224,8 @@ void ezDocumentObjectConverterReader::ApplyDiffToObject(ezObjectAccessorBase* pO
   }
 }
 
-void ezDocumentObjectConverterReader::ApplyDiff(ezObjectAccessorBase* pObjectAccessor, const ezDocumentObject* pObject,
-  ezAbstractProperty* pProp, ezAbstractGraphDiffOperation& op,
-  ezDeque<ezAbstractGraphDiffOperation>& diff)
+void ezDocumentObjectConverterReader::ApplyDiff(
+  ezObjectAccessorBase* pObjectAccessor, const ezDocumentObject* pObject, ezAbstractProperty* pProp, ezAbstractGraphDiffOperation& op, ezDeque<ezAbstractGraphDiffOperation>& diff)
 {
   ezStringBuilder sTemp;
 
@@ -306,8 +298,7 @@ void ezDocumentObjectConverterReader::ApplyDiff(ezObjectAccessorBase* pObjectAcc
     {
       const ezVariantArray& values = op.m_Value.Get<ezVariantArray>();
       ezInt32 iCurrentCount = pObjectAccessor->GetCount(pObject, pProp);
-      if (pProp->GetFlags().IsAnySet(ezPropertyFlags::StandardType | ezPropertyFlags::Pointer) &&
-          !pProp->GetFlags().IsSet(ezPropertyFlags::PointerOwner))
+      if (pProp->GetFlags().IsAnySet(ezPropertyFlags::StandardType | ezPropertyFlags::Pointer) && !pProp->GetFlags().IsSet(ezPropertyFlags::PointerOwner))
       {
         for (ezUInt32 i = 0; i < values.GetCount(); ++i)
         {
@@ -355,8 +346,7 @@ void ezDocumentObjectConverterReader::ApplyDiff(ezObjectAccessorBase* pObjectAcc
       ezHybridArray<ezVariant, 16> keys;
       EZ_VERIFY(pObjectAccessor->GetKeys(pObject, pProp, keys).Succeeded(), "Property is not a map, getting keys failed.");
 
-      if (pProp->GetFlags().IsAnySet(ezPropertyFlags::StandardType | ezPropertyFlags::Pointer) &&
-          !pProp->GetFlags().IsSet(ezPropertyFlags::PointerOwner))
+      if (pProp->GetFlags().IsAnySet(ezPropertyFlags::StandardType | ezPropertyFlags::Pointer) && !pProp->GetFlags().IsSet(ezPropertyFlags::PointerOwner))
       {
         for (const ezVariant& key : keys)
         {
@@ -409,8 +399,7 @@ void ezDocumentObjectConverterReader::ApplyDiff(ezObjectAccessorBase* pObjectAcc
   }
 }
 
-void ezDocumentObjectConverterReader::ApplyProperty(ezDocumentObject* pObject, ezAbstractProperty* pProp,
-  const ezAbstractObjectNode::Property* pSource)
+void ezDocumentObjectConverterReader::ApplyProperty(ezDocumentObject* pObject, ezAbstractProperty* pProp, const ezAbstractObjectNode::Property* pSource)
 {
   ezStringBuilder sTemp;
 
@@ -466,8 +455,7 @@ void ezDocumentObjectConverterReader::ApplyProperty(ezDocumentObject* pObject, e
     {
       const ezVariantArray& array = pSource->m_Value.Get<ezVariantArray>();
       const ezInt32 iCurrentCount = pObject->GetTypeAccessor().GetCount(pProp->GetPropertyName());
-      if (pProp->GetFlags().IsAnySet(ezPropertyFlags::StandardType | ezPropertyFlags::Pointer) &&
-          !pProp->GetFlags().IsSet(ezPropertyFlags::PointerOwner))
+      if (pProp->GetFlags().IsAnySet(ezPropertyFlags::StandardType | ezPropertyFlags::Pointer) && !pProp->GetFlags().IsSet(ezPropertyFlags::PointerOwner))
       {
         for (ezUInt32 i = 0; i < array.GetCount(); ++i)
         {
@@ -527,8 +515,7 @@ void ezDocumentObjectConverterReader::ApplyProperty(ezDocumentObject* pObject, e
       ezHybridArray<ezVariant, 16> keys;
       pObject->GetTypeAccessor().GetKeys(pProp->GetPropertyName(), keys);
 
-      if (pProp->GetFlags().IsAnySet(ezPropertyFlags::StandardType | ezPropertyFlags::Pointer) &&
-          !pProp->GetFlags().IsSet(ezPropertyFlags::PointerOwner))
+      if (pProp->GetFlags().IsAnySet(ezPropertyFlags::StandardType | ezPropertyFlags::Pointer) && !pProp->GetFlags().IsSet(ezPropertyFlags::PointerOwner))
       {
         for (const ezVariant& key : keys)
         {

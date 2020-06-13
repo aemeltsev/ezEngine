@@ -26,24 +26,14 @@ namespace
   static float s_fDepthSliceScale = (NUM_CLUSTERS_Z - 1) / (ezMath::Log2(s_fMaxLightDistance) - ezMath::Log2(s_fMinLightDistance));
   static float s_fDepthSliceBias = -s_fDepthSliceScale * ezMath::Log2(s_fMinLightDistance) + 1.0f;
 
-  EZ_ALWAYS_INLINE float GetDepthFromSliceIndex(ezUInt32 uiSliceIndex)
-  {
-    return ezMath::Pow(2.0f, (uiSliceIndex - s_fDepthSliceBias + 1.0f) / s_fDepthSliceScale);
-  }
+  EZ_ALWAYS_INLINE float GetDepthFromSliceIndex(ezUInt32 uiSliceIndex) { return ezMath::Pow(2.0f, (uiSliceIndex - s_fDepthSliceBias + 1.0f) / s_fDepthSliceScale); }
 
-  EZ_ALWAYS_INLINE ezUInt32 GetSliceIndexFromDepth(float fLinearDepth)
-  {
-    return ezMath::Clamp((ezInt32)(ezMath::Log2(fLinearDepth) * s_fDepthSliceScale + s_fDepthSliceBias), 0, NUM_CLUSTERS_Z - 1);
-  }
+  EZ_ALWAYS_INLINE ezUInt32 GetSliceIndexFromDepth(float fLinearDepth) { return ezMath::Clamp((ezInt32)(ezMath::Log2(fLinearDepth) * s_fDepthSliceScale + s_fDepthSliceBias), 0, NUM_CLUSTERS_Z - 1); }
 
-  EZ_ALWAYS_INLINE ezUInt32 GetClusterIndexFromCoord(ezUInt32 x, ezUInt32 y, ezUInt32 z)
-  {
-    return z * NUM_CLUSTERS_XY + y * NUM_CLUSTERS_X + x;
-  }
+  EZ_ALWAYS_INLINE ezUInt32 GetClusterIndexFromCoord(ezUInt32 x, ezUInt32 y, ezUInt32 z) { return z * NUM_CLUSTERS_XY + y * NUM_CLUSTERS_X + x; }
 
   // in order: tlf, trf, blf, brf, tln, trn, bln, brn
-  EZ_FORCE_INLINE void GetClusterCornerPoints(const ezCamera& camera, float fZf, float fZn, float fTanFovX, float fTanFovY, ezInt32 x,
-    ezInt32 y, ezInt32 z, ezVec3* out_pCorners)
+  EZ_FORCE_INLINE void GetClusterCornerPoints(const ezCamera& camera, float fZf, float fZn, float fTanFovX, float fTanFovY, ezInt32 x, ezInt32 y, ezInt32 z, ezVec3* out_pCorners)
   {
     const ezVec3& pos = camera.GetPosition();
     const ezVec3& dirForward = camera.GetDirForwards();
@@ -204,8 +194,7 @@ namespace
   }
 
 
-  EZ_FORCE_INLINE ezSimdBBox GetScreenSpaceBounds(const ezSimdBSphere& sphere, const ezSimdMat4f& viewMatrix,
-    const ezSimdMat4f& projectionMatrix)
+  EZ_FORCE_INLINE ezSimdBBox GetScreenSpaceBounds(const ezSimdBSphere& sphere, const ezSimdMat4f& viewMatrix, const ezSimdMat4f& projectionMatrix)
   {
     ezSimdVec4f viewSpaceCenter = viewMatrix.TransformPosition(sphere.GetCenter());
     ezSimdFloat depth = viewSpaceCenter.z();
@@ -246,8 +235,7 @@ namespace
   }
 
   template <typename Cluster, typename IntersectionFunc>
-  EZ_FORCE_INLINE void FillCluster(const ezSimdBBox& screenSpaceBounds, ezUInt32 uiBlockIndex, ezUInt32 uiMask, Cluster* clusters,
-    IntersectionFunc func)
+  EZ_FORCE_INLINE void FillCluster(const ezSimdBBox& screenSpaceBounds, ezUInt32 uiBlockIndex, ezUInt32 uiMask, Cluster* clusters, IntersectionFunc func)
   {
     ezSimdVec4f scale = ezSimdVec4f(0.5f * NUM_CLUSTERS_X, -0.5f * NUM_CLUSTERS_Y, 1.0f, 1.0f);
     ezSimdVec4f bias = ezSimdVec4f(0.5f * NUM_CLUSTERS_X, 0.5f * NUM_CLUSTERS_Y, 0.0f, 0.0f);
@@ -287,16 +275,15 @@ namespace
   }
 
   template <typename Cluster>
-  void RasterizePointLight(const ezSimdBSphere& pointLightSphere, ezUInt32 uiLightIndex, const ezSimdMat4f& viewMatrix,
-    const ezSimdMat4f& projectionMatrix, Cluster* clusters, ezSimdBSphere* clusterBoundingSpheres)
+  void RasterizePointLight(
+    const ezSimdBSphere& pointLightSphere, ezUInt32 uiLightIndex, const ezSimdMat4f& viewMatrix, const ezSimdMat4f& projectionMatrix, Cluster* clusters, ezSimdBSphere* clusterBoundingSpheres)
   {
     ezSimdBBox screenSpaceBounds = GetScreenSpaceBounds(pointLightSphere, viewMatrix, projectionMatrix);
 
     const ezUInt32 uiBlockIndex = uiLightIndex / 32;
     const ezUInt32 uiMask = 1 << (uiLightIndex - uiBlockIndex * 32);
 
-    FillCluster(screenSpaceBounds, uiBlockIndex, uiMask, clusters,
-      [&](ezUInt32 uiClusterIndex) { return pointLightSphere.Overlaps(clusterBoundingSpheres[uiClusterIndex]); });
+    FillCluster(screenSpaceBounds, uiBlockIndex, uiMask, clusters, [&](ezUInt32 uiClusterIndex) { return pointLightSphere.Overlaps(clusterBoundingSpheres[uiClusterIndex]); });
   }
 
   struct BoundingCone
@@ -308,8 +295,8 @@ namespace
   };
 
   template <typename Cluster>
-  void RasterizeSpotLight(const BoundingCone& spotLightCone, ezUInt32 uiLightIndex, const ezSimdMat4f& viewMatrix,
-    const ezSimdMat4f& projectionMatrix, Cluster* clusters, ezSimdBSphere* clusterBoundingSpheres)
+  void RasterizeSpotLight(
+    const BoundingCone& spotLightCone, ezUInt32 uiLightIndex, const ezSimdMat4f& viewMatrix, const ezSimdMat4f& projectionMatrix, Cluster* clusters, ezSimdBSphere* clusterBoundingSpheres)
   {
     ezSimdVec4f position = spotLightCone.m_PositionAndRange;
     ezSimdFloat range = spotLightCone.m_PositionAndRange.w();
@@ -367,8 +354,7 @@ namespace
   }
 
   template <typename Cluster>
-  void RasterizeDecal(const ezDecalRenderData* pDecalRenderData, ezUInt32 uiDecalIndex, const ezSimdMat4f& viewProjectionMatrix,
-    Cluster* clusters, ezSimdBSphere* clusterBoundingSpheres)
+  void RasterizeDecal(const ezDecalRenderData* pDecalRenderData, ezUInt32 uiDecalIndex, const ezSimdMat4f& viewProjectionMatrix, Cluster* clusters, ezSimdBSphere* clusterBoundingSpheres)
   {
     ezSimdMat4f decalToWorld = ezSimdConversion::ToTransform(pDecalRenderData->m_GlobalTransform).GetAsMat4();
     ezSimdMat4f worldToDecal = decalToWorld.GetInverse();

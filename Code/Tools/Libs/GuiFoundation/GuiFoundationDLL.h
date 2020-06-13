@@ -1,19 +1,19 @@
 #pragma once
 
 #include <Foundation/Basics.h>
-#include <ToolsFoundation/ToolsFoundationDLL.h>
 #include <Foundation/Types/Uuid.h>
 #include <QMetaType>
+#include <ToolsFoundation/ToolsFoundationDLL.h>
 
 // Configure the DLL Import/Export Define
 #if EZ_ENABLED(EZ_COMPILE_ENGINE_AS_DLL)
-  #ifdef BUILDSYSTEM_BUILDING_GUIFOUNDATION_LIB
-    #define EZ_GUIFOUNDATION_DLL __declspec(dllexport)
-  #else
-    #define EZ_GUIFOUNDATION_DLL __declspec(dllimport)
-  #endif
+#  ifdef BUILDSYSTEM_BUILDING_GUIFOUNDATION_LIB
+#    define EZ_GUIFOUNDATION_DLL __declspec(dllexport)
+#  else
+#    define EZ_GUIFOUNDATION_DLL __declspec(dllimport)
+#  endif
 #else
-  #define EZ_GUIFOUNDATION_DLL
+#  define EZ_GUIFOUNDATION_DLL
 #endif
 
 class QWidget;

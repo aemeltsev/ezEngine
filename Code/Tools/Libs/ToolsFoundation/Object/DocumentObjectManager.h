@@ -70,10 +70,7 @@ struct ezDocumentObjectStructureEvent
 
 struct ezDocumentObjectPropertyEvent
 {
-  ezDocumentObjectPropertyEvent()
-  {
-    m_pObject = nullptr;
-  }
+  ezDocumentObjectPropertyEvent() { m_pObject = nullptr; }
   ezVariant getInsertIndex() const;
 
   enum class Type
@@ -95,10 +92,7 @@ struct ezDocumentObjectPropertyEvent
 
 struct ezDocumentObjectEvent
 {
-  ezDocumentObjectEvent()
-  {
-    m_pObject = nullptr;
-  }
+  ezDocumentObjectEvent() { m_pObject = nullptr; }
 
   enum class Type
   {

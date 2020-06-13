@@ -21,7 +21,7 @@
     }                                                                                                                       \
   } while (false)
 
-#define XR_SUCCEED_OR_CLEANUP_LOG(code, cleanup)                                                                     \
+#define XR_SUCCEED_OR_CLEANUP_LOG(code, cleanup)                                                                            \
   do                                                                                                                        \
   {                                                                                                                         \
     auto s = (code);                                                                                                        \

@@ -119,8 +119,8 @@ ezVec3 ezRcAgentComponent::GetTargetPosition() const
   return m_vTargetPosition;
 }
 
-ezResult ezRcAgentComponent::FindNavMeshPolyAt(const ezVec3& vPosition, dtPolyRef& out_PolyRef, ezVec3* out_vAdjustedPosition /*= nullptr*/,
-  float fPlaneEpsilon /*= 0.01f*/, float fHeightEpsilon /*= 1.0f*/) const
+ezResult ezRcAgentComponent::FindNavMeshPolyAt(
+  const ezVec3& vPosition, dtPolyRef& out_PolyRef, ezVec3* out_vAdjustedPosition /*= nullptr*/, float fPlaneEpsilon /*= 0.01f*/, float fHeightEpsilon /*= 1.0f*/) const
 {
   ezRcPos rcPos = vPosition;
   ezVec3 vSize(fPlaneEpsilon, fHeightEpsilon, fPlaneEpsilon);
@@ -130,8 +130,8 @@ ezResult ezRcAgentComponent::FindNavMeshPolyAt(const ezVec3& vPosition, dtPolyRe
   if (dtStatusFailed(m_pQuery->findNearestPoly(rcPos, &vSize.x, &m_QueryFilter, &out_PolyRef, resultPos)))
     return EZ_FAILURE;
 
-  if (!ezMath::IsEqual(vPosition.x, resultPos.m_Pos[0], fPlaneEpsilon) ||
-      !ezMath::IsEqual(vPosition.y, resultPos.m_Pos[2], fPlaneEpsilon) || !ezMath::IsEqual(vPosition.z, resultPos.m_Pos[1], fHeightEpsilon))
+  if (!ezMath::IsEqual(vPosition.x, resultPos.m_Pos[0], fPlaneEpsilon) || !ezMath::IsEqual(vPosition.y, resultPos.m_Pos[2], fPlaneEpsilon) ||
+      !ezMath::IsEqual(vPosition.z, resultPos.m_Pos[1], fHeightEpsilon))
     return EZ_FAILURE;
 
   if (out_vAdjustedPosition != nullptr)
@@ -153,8 +153,7 @@ ezResult ezRcAgentComponent::ComputePathCorridor(dtPolyRef startPoly, dtPolyRef 
 
   // make enough room
   m_PathCorridor.SetCountUninitialized(256);
-  if (dtStatusFailed(m_pQuery->findPath(startPoly, endPoly, rcStart, rcEnd, &m_QueryFilter, m_PathCorridor.GetData(), &iPathCorridorLength,
-        (int)m_PathCorridor.GetCount())) ||
+  if (dtStatusFailed(m_pQuery->findPath(startPoly, endPoly, rcStart, rcEnd, &m_QueryFilter, m_PathCorridor.GetData(), &iPathCorridorLength, (int)m_PathCorridor.GetCount())) ||
       iPathCorridorLength <= 0)
   {
     m_PathCorridor.Clear();
@@ -596,8 +595,7 @@ void ezRcAgentComponentManager::Deinitialize()
 
 void ezRcAgentComponentManager::ResourceEventHandler(const ezResourceEvent& e)
 {
-  if (e.m_Type == ezResourceEvent::Type::ResourceContentUnloading &&
-      e.m_pResource->GetDynamicRTTI()->IsDerivedFrom<ezRecastNavMeshResource>())
+  if (e.m_Type == ezResourceEvent::Type::ResourceContentUnloading && e.m_pResource->GetDynamicRTTI()->IsDerivedFrom<ezRecastNavMeshResource>())
   {
     for (auto it = this->m_ComponentStorage.GetIterator(); it.IsValid(); ++it)
     {

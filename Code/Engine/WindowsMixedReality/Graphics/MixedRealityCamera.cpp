@@ -1,4 +1,4 @@
-﻿#includde <WindowsMixedRealityPCH.h>
+﻿#includde < WindowsMixedRealityPCH.h>
 #include <WindowsMixedReality/Graphics/MixedRealityCamera.h>
 #include <WindowsMixedReality/Graphics/MixedRealitySwapChainDX11.h>
 #include <WindowsMixedReality/SpatialReferenceFrame.h>
@@ -74,7 +74,7 @@ bool ezWindowsMixedRealityCamera::IsStereoscopic() const
 
 ezResult ezWindowsMixedRealityCamera::GetViewTransforms(const ezWindowsSpatialReferenceFrame& referenceFrame, ezMat4& leftTransform, ezMat4& rightTransform)
 {
-  if(!m_pCurrentPose)
+  if (!m_pCurrentPose)
     return EZ_FAILURE;
 
   ComPtr<ABI::Windows::Perception::Spatial::ISpatialCoordinateSystem> pCoordinateSystem;
@@ -83,7 +83,7 @@ ezResult ezWindowsMixedRealityCamera::GetViewTransforms(const ezWindowsSpatialRe
   ComPtr<ABI::Windows::Foundation::__FIReference_1_Windows__CGraphics__CHolographic__CHolographicStereoTransform_t> pStereoTransform;
   EZ_HRESULT_TO_FAILURE_LOG(m_pCurrentPose->TryGetViewTransform(pCoordinateSystem.Get(), &pStereoTransform));
   if (!pStereoTransform)
-    return EZ_FAILURE;   // Not a real failure since TryGetViewTransform may just not have a new transform ready for us.
+    return EZ_FAILURE; // Not a real failure since TryGetViewTransform may just not have a new transform ready for us.
 
   ABI::Windows::Graphics::Holographic::HolographicStereoTransform stereoTransform;
   EZ_HRESULT_TO_FAILURE_LOG(pStereoTransform->get_Value(&stereoTransform));
@@ -108,8 +108,8 @@ ezResult ezWindowsMixedRealityCamera::GetViewTransforms(const ezWindowsSpatialRe
   return EZ_SUCCESS;
 }
 
-HRESULT ezWindowsMixedRealityCamera::UpdatePose(ABI::Windows::Graphics::Holographic::IHolographicCameraPose* pPose,
-                                               ABI::Windows::Graphics::Holographic::IHolographicCameraRenderingParameters* pRenderingParameters)
+HRESULT ezWindowsMixedRealityCamera::UpdatePose(
+  ABI::Windows::Graphics::Holographic::IHolographicCameraPose* pPose, ABI::Windows::Graphics::Holographic::IHolographicCameraRenderingParameters* pRenderingParameters)
 {
   m_pCurrentPose = pPose;
 
@@ -145,6 +145,3 @@ HRESULT ezWindowsMixedRealityCamera::UpdatePose(ABI::Windows::Graphics::Holograp
 
   return S_OK;
 }
-
-
-

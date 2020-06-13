@@ -46,10 +46,7 @@ ezSimdVec4f ezSimdPerlinNoise::NoiseZeroToOne(const ezSimdVec4f& inX, const ezSi
 
 namespace
 {
-  EZ_FORCE_INLINE ezSimdVec4f Fade(const ezSimdVec4f& t)
-  {
-    return t.CompMul(t).CompMul(t).CompMul(t.CompMul(t * 6.0f - ezSimdVec4f(15.0f)) + ezSimdVec4f(10.0f));
-  }
+  EZ_FORCE_INLINE ezSimdVec4f Fade(const ezSimdVec4f& t) { return t.CompMul(t).CompMul(t).CompMul(t.CompMul(t * 6.0f - ezSimdVec4f(15.0f)) + ezSimdVec4f(10.0f)); }
 
   EZ_FORCE_INLINE ezSimdVec4f Grad(ezSimdVec4i hash, const ezSimdVec4f& x, const ezSimdVec4f& y, const ezSimdVec4f& z)
   {
@@ -60,10 +57,7 @@ namespace
     return ezSimdVec4f::Select((h & ezSimdVec4i(1)) == ezSimdVec4i::ZeroVector(), u, -u) + ezSimdVec4f::Select((h & ezSimdVec4i(2)) == ezSimdVec4i::ZeroVector(), v, -v);
   }
 
-  EZ_ALWAYS_INLINE ezSimdVec4f Lerp(const ezSimdVec4f& t, const ezSimdVec4f& a, const ezSimdVec4f& b)
-  {
-    return ezSimdVec4f::Lerp(a, b, t);
-  }
+  EZ_ALWAYS_INLINE ezSimdVec4f Lerp(const ezSimdVec4f& t, const ezSimdVec4f& a, const ezSimdVec4f& b) { return ezSimdVec4f::Lerp(a, b, t); }
 
 } // namespace
 
@@ -125,4 +119,3 @@ ezSimdVec4f ezSimdPerlinNoise::Noise(const ezSimdVec4f& inX, const ezSimdVec4f& 
 
 
 EZ_STATICLINK_FILE(Foundation, Foundation_SimdMath_Implementation_SimdNoise);
-

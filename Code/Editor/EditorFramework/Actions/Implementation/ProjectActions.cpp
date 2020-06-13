@@ -158,9 +158,9 @@ void ezProjectActions::MapActions(const char* szMapping)
 
   pMap->MapAction(s_hProjectCategory, "Menu.Editor", 2.0f);
   pMap->MapAction(s_hOpenDashboard, "Menu.Editor/ProjectCategory", 0.5f);
-  //pMap->MapAction(s_hCreateProject, "Menu.Editor/ProjectCategory", 1.0f); // use dashboard
-  //pMap->MapAction(s_hOpenProject, "Menu.Editor/ProjectCategory", 2.0f);   // use dashboard
-  //pMap->MapAction(s_hRecentProjects, "Menu.Editor/ProjectCategory", 3.0f);// use dashboard
+  // pMap->MapAction(s_hCreateProject, "Menu.Editor/ProjectCategory", 1.0f); // use dashboard
+  // pMap->MapAction(s_hOpenProject, "Menu.Editor/ProjectCategory", 2.0f);   // use dashboard
+  // pMap->MapAction(s_hRecentProjects, "Menu.Editor/ProjectCategory", 3.0f);// use dashboard
   pMap->MapAction(s_hCloseProject, "Menu.Editor/ProjectCategory", 4.0f);
   pMap->MapAction(s_hProjectSettingsMenu, "Menu.Editor/ProjectCategory", 1000.0f);
 
@@ -374,11 +374,10 @@ ezProjectAction::ezProjectAction(const ezActionContext& context, const char* szN
       break;
   }
 
-  if (m_ButtonType == ButtonType::CloseProject || m_ButtonType == ButtonType::DataDirectories || m_ButtonType == ButtonType::WindowConfig ||
-      m_ButtonType == ButtonType::ImportAsset || m_ButtonType == ButtonType::EnginePlugins || m_ButtonType == ButtonType::TagsDialog ||
-      m_ButtonType == ButtonType::ReloadEngine || m_ButtonType == ButtonType::ReloadResources ||
-      m_ButtonType == ButtonType::LaunchFileserve || m_ButtonType == ButtonType::LaunchInspector || m_ButtonType == ButtonType::OpenVsCode ||
-      m_ButtonType == ButtonType::InputConfig || m_ButtonType == ButtonType::AssetProfiles)
+  if (m_ButtonType == ButtonType::CloseProject || m_ButtonType == ButtonType::DataDirectories || m_ButtonType == ButtonType::WindowConfig || m_ButtonType == ButtonType::ImportAsset ||
+      m_ButtonType == ButtonType::EnginePlugins || m_ButtonType == ButtonType::TagsDialog || m_ButtonType == ButtonType::ReloadEngine || m_ButtonType == ButtonType::ReloadResources ||
+      m_ButtonType == ButtonType::LaunchFileserve || m_ButtonType == ButtonType::LaunchInspector || m_ButtonType == ButtonType::OpenVsCode || m_ButtonType == ButtonType::InputConfig ||
+      m_ButtonType == ButtonType::AssetProfiles)
   {
     SetEnabled(ezToolsProject::IsProjectOpen());
 
@@ -388,11 +387,10 @@ ezProjectAction::ezProjectAction(const ezActionContext& context, const char* szN
 
 ezProjectAction::~ezProjectAction()
 {
-  if (m_ButtonType == ButtonType::CloseProject || m_ButtonType == ButtonType::DataDirectories || m_ButtonType == ButtonType::WindowConfig ||
-      m_ButtonType == ButtonType::ImportAsset || m_ButtonType == ButtonType::EnginePlugins || m_ButtonType == ButtonType::TagsDialog ||
-      m_ButtonType == ButtonType::ReloadEngine || m_ButtonType == ButtonType::ReloadResources ||
-      m_ButtonType == ButtonType::LaunchFileserve || m_ButtonType == ButtonType::LaunchInspector || m_ButtonType == ButtonType::OpenVsCode ||
-      m_ButtonType == ButtonType::InputConfig || m_ButtonType == ButtonType::AssetProfiles)
+  if (m_ButtonType == ButtonType::CloseProject || m_ButtonType == ButtonType::DataDirectories || m_ButtonType == ButtonType::WindowConfig || m_ButtonType == ButtonType::ImportAsset ||
+      m_ButtonType == ButtonType::EnginePlugins || m_ButtonType == ButtonType::TagsDialog || m_ButtonType == ButtonType::ReloadEngine || m_ButtonType == ButtonType::ReloadResources ||
+      m_ButtonType == ButtonType::LaunchFileserve || m_ButtonType == ButtonType::LaunchInspector || m_ButtonType == ButtonType::OpenVsCode || m_ButtonType == ButtonType::InputConfig ||
+      m_ButtonType == ButtonType::AssetProfiles)
   {
     ezToolsProject::s_Events.RemoveEventHandler(ezMakeDelegate(&ezProjectAction::ProjectEventHandler, this));
   }
@@ -562,8 +560,7 @@ void ezProjectAction::Execute(const ezVariant& value)
         profilingData.Write(fileWriter);
 
         ezLog::Info("Profiling capture saved to '{0}'.", fileWriter.GetFilePathAbsolute().GetData());
-        ezQtUiServices::GetSingleton()->ShowAllDocumentsTemporaryStatusBarMessage(
-          ezFmt("Profiling capture saved to '{0}'.", fileWriter.GetFilePathAbsolute().GetData()), ezTime::Seconds(5.0));
+        ezQtUiServices::GetSingleton()->ShowAllDocumentsTemporaryStatusBarMessage(ezFmt("Profiling capture saved to '{0}'.", fileWriter.GetFilePathAbsolute().GetData()), ezTime::Seconds(5.0));
       }
       else
       {

@@ -80,8 +80,7 @@ ezResult ezRecastNavMeshBuilder::ExtractWorldGeometry(const ezWorld& world, ezWo
   return EZ_SUCCESS;
 }
 
-ezResult ezRecastNavMeshBuilder::Build(const ezRecastConfig& config, const ezWorldGeoExtractionUtil::Geometry& geo,
-  ezRecastNavMeshResourceDescriptor& out_NavMeshDesc, ezProgress& progress)
+ezResult ezRecastNavMeshBuilder::Build(const ezRecastConfig& config, const ezWorldGeoExtractionUtil::Geometry& geo, ezRecastNavMeshResourceDescriptor& out_NavMeshDesc, ezProgress& progress)
 {
   EZ_LOG_BLOCK("ezRecastNavMeshBuilder::Build");
 
@@ -288,14 +287,12 @@ ezResult ezRecastNavMeshBuilder::BuildRecastPolyMesh(const ezRecastConfig& confi
     return EZ_FAILURE;
 
   // TODO Instead of this, it should use area IDs and then clear the non-walkable triangles
-  rcMarkWalkableTriangles(
-    pContext, cfg.walkableSlopeAngle, pVertices, m_Vertices.GetCount(), pTriangles, m_Triangles.GetCount(), m_TriangleAreaIDs.GetData());
+  rcMarkWalkableTriangles(pContext, cfg.walkableSlopeAngle, pVertices, m_Vertices.GetCount(), pTriangles, m_Triangles.GetCount(), m_TriangleAreaIDs.GetData());
 
   if (!pgRange.BeginNextStep("Rasterize Triangles"))
     return EZ_FAILURE;
 
-  if (!rcRasterizeTriangles(pContext, pVertices, m_Vertices.GetCount(), pTriangles, m_TriangleAreaIDs.GetData(), m_Triangles.GetCount(),
-        *heightfield, cfg.walkableClimb))
+  if (!rcRasterizeTriangles(pContext, pVertices, m_Vertices.GetCount(), pTriangles, m_TriangleAreaIDs.GetData(), m_Triangles.GetCount(), *heightfield, cfg.walkableClimb))
   {
     pContext->log(RC_LOG_ERROR, "Could not rasterize triangles");
     return EZ_FAILURE;

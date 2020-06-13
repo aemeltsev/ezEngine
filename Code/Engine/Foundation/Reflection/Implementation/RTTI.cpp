@@ -32,10 +32,9 @@ EZ_BEGIN_SUBSYSTEM_DECLARATION(Foundation, Reflection)
 EZ_END_SUBSYSTEM_DECLARATION;
 // clang-format on
 
-ezRTTI::ezRTTI(const char* szName, const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion, ezUInt32 uiVariantType,
-  ezBitflags<ezTypeFlags> flags, ezRTTIAllocator* pAllocator, ezArrayPtr<ezAbstractProperty*> properties,
-  ezArrayPtr<ezAbstractProperty*> functions, ezArrayPtr<ezPropertyAttribute*> attributes,
-  ezArrayPtr<ezAbstractMessageHandler*> messageHandlers, ezArrayPtr<ezMessageSenderInfo> messageSenders, const ezRTTI* (*fnVerifyParent)())
+ezRTTI::ezRTTI(const char* szName, const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion, ezUInt32 uiVariantType, ezBitflags<ezTypeFlags> flags, ezRTTIAllocator* pAllocator,
+  ezArrayPtr<ezAbstractProperty*> properties, ezArrayPtr<ezAbstractProperty*> functions, ezArrayPtr<ezPropertyAttribute*> attributes, ezArrayPtr<ezAbstractMessageHandler*> messageHandlers,
+  ezArrayPtr<ezMessageSenderInfo> messageSenders, const ezRTTI* (*fnVerifyParent)())
 {
   UpdateType(pParentType, uiTypeSize, uiTypeVersion, uiVariantType, flags);
 
@@ -143,10 +142,8 @@ void ezRTTI::VerifyCorrectness() const
 {
   if (m_fnVerifyParent != nullptr)
   {
-    EZ_ASSERT_DEV(m_fnVerifyParent() == m_pParentType,
-      "Type '{0}': The given parent type '{1}' does not match the actual parent type '{2}'", m_szTypeName,
-      (m_pParentType != nullptr) ? m_pParentType->GetTypeName() : "null",
-      (m_fnVerifyParent() != nullptr) ? m_fnVerifyParent()->GetTypeName() : "null");
+    EZ_ASSERT_DEV(m_fnVerifyParent() == m_pParentType, "Type '{0}': The given parent type '{1}' does not match the actual parent type '{2}'", m_szTypeName,
+      (m_pParentType != nullptr) ? m_pParentType->GetTypeName() : "null", (m_fnVerifyParent() != nullptr) ? m_fnVerifyParent()->GetTypeName() : "null");
   }
 
   {
@@ -161,8 +158,7 @@ void ezRTTI::VerifyCorrectness() const
         const bool bNewProperty = !Known.Find(pInstance->m_Properties[i]->GetPropertyName()).IsValid();
         Known.Insert(pInstance->m_Properties[i]->GetPropertyName());
 
-        EZ_ASSERT_DEV(bNewProperty, "{0}: The property with name '{1}' is already defined in type '{2}'.", m_szTypeName,
-          pInstance->m_Properties[i]->GetPropertyName(), pInstance->GetTypeName());
+        EZ_ASSERT_DEV(bNewProperty, "{0}: The property with name '{1}' is already defined in type '{2}'.", m_szTypeName, pInstance->m_Properties[i]->GetPropertyName(), pInstance->GetTypeName());
       }
 
       pInstance = pInstance->m_pParentType;
@@ -189,8 +185,7 @@ void ezRTTI::VerifyCorrectnessForAllTypes()
 }
 
 
-void ezRTTI::UpdateType(
-  const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion, ezUInt32 uiVariantType, ezBitflags<ezTypeFlags> flags)
+void ezRTTI::UpdateType(const ezRTTI* pParentType, ezUInt32 uiTypeSize, ezUInt32 uiTypeVersion, ezUInt32 uiVariantType, ezBitflags<ezTypeFlags> flags)
 {
   m_pParentType = pParentType;
   m_uiVariantType = uiVariantType;
@@ -355,9 +350,7 @@ const ezDynamicArray<const ezRTTI*>& ezRTTI::GetAllTypesDerivedFrom(const ezRTTI
 
   if (bSortByName)
   {
-    out_DerivedTypes.Sort([](const ezRTTI* r1, const ezRTTI* r2) -> bool {
-      return ezStringUtils::Compare(r1->GetTypeName(), r2->GetTypeName()) < 0;
-    });
+    out_DerivedTypes.Sort([](const ezRTTI* r1, const ezRTTI* r2) -> bool { return ezStringUtils::Compare(r1->GetTypeName(), r2->GetTypeName()) < 0; });
   }
 
   return out_DerivedTypes;
@@ -418,8 +411,8 @@ static bool IsValidIdentifierName(const char* szIdentifier)
 
 void ezRTTI::SanityCheckType(ezRTTI* pType)
 {
-  EZ_ASSERT_DEV(pType->GetTypeFlags().IsSet(ezTypeFlags::StandardType) + pType->GetTypeFlags().IsSet(ezTypeFlags::IsEnum) +
-                    pType->GetTypeFlags().IsSet(ezTypeFlags::Bitflags) + pType->GetTypeFlags().IsSet(ezTypeFlags::Class) ==
+  EZ_ASSERT_DEV(pType->GetTypeFlags().IsSet(ezTypeFlags::StandardType) + pType->GetTypeFlags().IsSet(ezTypeFlags::IsEnum) + pType->GetTypeFlags().IsSet(ezTypeFlags::Bitflags) +
+                    pType->GetTypeFlags().IsSet(ezTypeFlags::Class) ==
                   1,
     "Types are mutually exclusive!");
 
@@ -439,8 +432,8 @@ void ezRTTI::SanityCheckType(ezRTTI* pType)
 
     if (pProp->GetCategory() != ezPropertyCategory::Function)
     {
-      EZ_ASSERT_DEV(pProp->GetFlags().IsSet(ezPropertyFlags::StandardType) + pProp->GetFlags().IsSet(ezPropertyFlags::IsEnum) +
-                        pProp->GetFlags().IsSet(ezPropertyFlags::Bitflags) + pProp->GetFlags().IsSet(ezPropertyFlags::Class) <=
+      EZ_ASSERT_DEV(pProp->GetFlags().IsSet(ezPropertyFlags::StandardType) + pProp->GetFlags().IsSet(ezPropertyFlags::IsEnum) + pProp->GetFlags().IsSet(ezPropertyFlags::Bitflags) +
+                        pProp->GetFlags().IsSet(ezPropertyFlags::Class) <=
                       1,
         "Types are mutually exclusive!");
     }
@@ -454,9 +447,7 @@ void ezRTTI::SanityCheckType(ezRTTI* pType)
       break;
       case ezPropertyCategory::Member:
       {
-        EZ_ASSERT_DEV(
-          pProp->GetFlags().IsSet(ezPropertyFlags::StandardType) == pSpecificType->GetTypeFlags().IsSet(ezTypeFlags::StandardType),
-          "Property-Type missmatch!");
+        EZ_ASSERT_DEV(pProp->GetFlags().IsSet(ezPropertyFlags::StandardType) == pSpecificType->GetTypeFlags().IsSet(ezTypeFlags::StandardType), "Property-Type missmatch!");
         EZ_ASSERT_DEV(pProp->GetFlags().IsSet(ezPropertyFlags::IsEnum) == pSpecificType->GetTypeFlags().IsSet(ezTypeFlags::IsEnum),
           "Property-Type missmatch! Use EZ_BEGIN_STATIC_REFLECTED_ENUM for type and EZ_ENUM_MEMBER_PROPERTY / "
           "EZ_ENUM_ACCESSOR_PROPERTY for property.");
@@ -471,9 +462,7 @@ void ezRTTI::SanityCheckType(ezRTTI* pType)
       case ezPropertyCategory::Set:
       case ezPropertyCategory::Map:
       {
-        EZ_ASSERT_DEV(
-          pProp->GetFlags().IsSet(ezPropertyFlags::StandardType) == pSpecificType->GetTypeFlags().IsSet(ezTypeFlags::StandardType),
-          "Property-Type missmatch!");
+        EZ_ASSERT_DEV(pProp->GetFlags().IsSet(ezPropertyFlags::StandardType) == pSpecificType->GetTypeFlags().IsSet(ezTypeFlags::StandardType), "Property-Type missmatch!");
         EZ_ASSERT_DEV(pProp->GetFlags().IsSet(ezPropertyFlags::Class) == pSpecificType->GetTypeFlags().IsSet(ezTypeFlags::Class),
           "If ezPropertyFlags::Class is set, the property type must be ezTypeFlags::Class and vise versa.");
       }

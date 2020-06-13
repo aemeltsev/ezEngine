@@ -56,23 +56,22 @@ struct EZ_FOUNDATION_DLL ezEndianHelper
   /// \brief Returns a single switched quad word (64 bit value).
   static EZ_ALWAYS_INLINE ezUInt64 Switch(ezUInt64 uiQWord) // [tested]
   {
-    return (((uiQWord & 0xFF) << 56) | ((uiQWord & 0xFF00) << 40) | ((uiQWord & 0xFF0000) << 24) | ((uiQWord & 0xFF000000) << 8) |
-            ((uiQWord & 0xFF00000000) >> 8) | ((uiQWord & 0xFF0000000000) >> 24) | ((uiQWord & 0xFF000000000000) >> 40) |
-            ((uiQWord & 0xFF00000000000000) >> 56));
+    return (((uiQWord & 0xFF) << 56) | ((uiQWord & 0xFF00) << 40) | ((uiQWord & 0xFF0000) << 24) | ((uiQWord & 0xFF000000) << 8) | ((uiQWord & 0xFF00000000) >> 8) |
+            ((uiQWord & 0xFF0000000000) >> 24) | ((uiQWord & 0xFF000000000000) >> 40) | ((uiQWord & 0xFF00000000000000) >> 56));
   }
 
   /// \brief Switches a value in place (template accepts pointers for 2, 4 & 8 byte data types)
   template <typename T>
   static void SwitchInPlace(T* pValue) // [tested]
   {
-    EZ_CHECK_AT_COMPILETIME_MSG((sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8),
-                                "Switch in place only works for type equivalents of ezUInt16, ezUInt32, ezUInt64!");
+    EZ_CHECK_AT_COMPILETIME_MSG((sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8), "Switch in place only works for type equivalents of ezUInt16, ezUInt32, ezUInt64!");
 
     if (sizeof(T) == 2)
     {
       struct TAnd16BitUnion
       {
-        union {
+        union
+        {
           ezUInt16 BitValue;
           T TValue;
         };
@@ -88,7 +87,8 @@ struct EZ_FOUNDATION_DLL ezEndianHelper
     {
       struct TAnd32BitUnion
       {
-        union {
+        union
+        {
           ezUInt32 BitValue;
           T TValue;
         };
@@ -104,7 +104,8 @@ struct EZ_FOUNDATION_DLL ezEndianHelper
     {
       struct TAnd64BitUnion
       {
-        union {
+        union
+        {
           ezUInt64 BitValue;
           T TValue;
         };
@@ -120,7 +121,9 @@ struct EZ_FOUNDATION_DLL ezEndianHelper
 
 #if EZ_ENABLED(EZ_PLATFORM_LITTLE_ENDIAN)
 
-  static EZ_ALWAYS_INLINE void LittleEndianToNative(ezUInt16* pWords, ezUInt32 uiCount) {}
+  static EZ_ALWAYS_INLINE void LittleEndianToNative(ezUInt16* pWords, ezUInt32 uiCount)
+  {
+  }
 
   static EZ_ALWAYS_INLINE void NativeToLittleEndian(ezUInt16* pWords, ezUInt32 uiCount) {}
 
@@ -146,7 +149,10 @@ struct EZ_FOUNDATION_DLL ezEndianHelper
 
 #elif EZ_ENABLED(EZ_PLATFORM_BIG_ENDIAN)
 
-  static EZ_ALWAYS_INLINE void LittleEndianToNative(ezUInt16* pWords, ezUInt32 uiCount) { SwitchWords(pWords, uiCount); }
+  static EZ_ALWAYS_INLINE void LittleEndianToNative(ezUInt16* pWords, ezUInt32 uiCount)
+  {
+    SwitchWords(pWords, uiCount);
+  }
 
   static EZ_ALWAYS_INLINE void NativeToLittleEndian(ezUInt16* pWords, ezUInt32 uiCount) { SwitchWords(pWords, uiCount); }
 
@@ -205,4 +211,3 @@ struct EZ_FOUNDATION_DLL ezEndianHelper
     SwitchStructs(static_cast<void*>(pDataPointer), szFormat, sizeof(T), uiCount);
   }
 };
-
